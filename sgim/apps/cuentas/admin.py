@@ -10,18 +10,23 @@ class UsuarioAdmin(UserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ('username','email', 'is_staff')
-    list_filter = ('username',)
+    list_display = ('username','email', 'is_staff','is_active')
+    list_filter = ('username','is_staff','is_active')
 
     fieldsets = (
         ('Informacion de Acceso', {'fields': ('username', 'password')}),
-        ('Informacion Personal', {'fields': ('firstname','lastname','email')}),
-        ('Permisos', {'fields': ('is_staff','is_superuser','groups','user_permissions')}),
+        ('Informacion Personal', {'fields': ('firstname','lastname','email','telefono','imagen')}),
+        ('Permisos', {'fields': (('is_staff','is_superuser','is_active'),'groups','user_permissions')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
+    add_fieldsets = (
+        ("Informacion de la cuenta", {'fields': ('username','password1', 'password2')}),
+        ("Informacion de contacto. Se enviara la informacion de acceso al correo y/o numero de telefono "
+         "mediante un SMS", {'fields': ('email', 'telefono')}),
+    )
 
     search_fields = ('email',)
-    ordering = ('email',)
+    ordering = ('username','email',)
     filter_horizontal = ('groups','user_permissions',)
 

@@ -1,3 +1,4 @@
+# coding=utf-8
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.models import Group
@@ -10,12 +11,20 @@ from .models import Usuario
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
-    password1 = forms.CharField(label='Clave', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirma tu clave', widget=forms.PasswordInput)
+    def __init__(self, *args, **kargs):
+        super(UserCreationForm, self).__init__(*args, **kargs)
+
+
+    telefono = forms.RegexField(regex='^[5-9]\d{3}-\d{4}',
+                                error_message='Introduzca un numero de telefono valido con el formato requerido ',
+                                help_text='Formato: ####-####, No se aceptan numeros convencionales.')
+    password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Confirma tu contraseña', widget=forms.PasswordInput)
+    #password3 = forms.CharField(label='Confirma tu contraseña', widget=forms.PasswordInput)
 
     class Meta:
         model = Usuario
-        fields = ('username','password1','password2','email','is_staff','is_superuser','groups','user_permissions',)
+        fields = ['email', 'password1', 'password2']
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -27,11 +36,12 @@ class UserCreationForm(forms.ModelForm):
 
     def save(self, commit=True):
         # Save the provided password in hashed format
-        user = super(UserCreationForm, self).save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
+        usuario = super(UserCreationForm, self).save(commit=False)
+        usuario.TEMP_PASSWD = self.cleaned_data["password1"]
+        usuario.set_password(self.cleaned_data["password1"])
         if commit:
-            user.save()
-        return user
+            usuario.save()
+        return usuario
 
 
 class UserChangeForm(forms.ModelForm):
@@ -43,8 +53,9 @@ class UserChangeForm(forms.ModelForm):
                     "de ver la clave del usuario, pero se puede modificard "
                     "usando <a href=\"password/\">este formulario</a>."))
 
-#    password1 = forms.CharField(label='Clave', widget=forms.PasswordInput)
- #   password2 = forms.CharField(label='Confirma tu Clave', widget=forms.PasswordInput)
+    telefono = forms.RegexField(regex='^[5-9]\d{3}-\d{4}',
+                                error_message='Introduzca un numero de telefono valido con el formato requerido ',
+                                help_text='Formato: ####-####, No se aceptan numeros convencionales.')
 
     class Meta:
         model = Usuario

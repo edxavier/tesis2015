@@ -1,6 +1,9 @@
+# coding=utf-8
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, User
 from django.dispatch import receiver
+from apps.inicio.utils import enviarSMS
+
 
 
 # Create your models here.
@@ -30,13 +33,16 @@ class Usuario(AbstractBaseUser,PermissionsMixin):
     lastname = models.CharField(max_length=50, verbose_name='Apellidos', blank=True)
     email = models.EmailField(blank=True)
     imagen = models.ImageField(upload_to='cuentas/img', blank=True)
-    is_active = models.BooleanField(default=False, verbose_name='Esta Activo')
-    is_staff = models.BooleanField(default=False, verbose_name='Es Administrador', help_text='Indica si el usuario puede acceder al panel de administracion')
+    is_active = models.BooleanField(default=True, verbose_name='Esta Activo')
+    is_staff = models.BooleanField(default=False, verbose_name='Es Administrador',
+                                   help_text='Indica si el usuario puede acceder al panel de administracion')
+    telefono = models.CharField(max_length=15,blank=True)
 
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
+    REQUIRED_FIELDS = []
+    TEMP_PASSWD = ""
 
     '''class Meta:
         permissions = (
@@ -50,12 +56,21 @@ class Usuario(AbstractBaseUser,PermissionsMixin):
     def get_full_name(self):
         return self.first_name + ' ' + self.last_name
 
+    def enviar_sms(self,mensaje):
+        if self.telefono:
+            enviarSMS(self.telefono,mensaje)
+
+
+
+
+#Receptor de señal post_save
 @receiver(models.signals.post_save,sender=Usuario)
-def notificarUsuarioDeAlta(sender, instance, **kwargs):
+def notificarUsuarioDeAlta(sender, instance, created, **kwargs):
     """
     Envia un correo al usuario una vez fue dado de alta
     """
-    if instance.pk:
-        if instance.previous_instance().flag == False and instance.flag == True:
-            usuario = Usuario.objects.get(pk=instance.pk)
-            print "Enviar correo a " + usuario.username
+    if created and not instance.is_superuser:
+    #si el objeto se acaba de crear, enviar correo
+        mensaje = "Credenciales de acceso a SGIM =" \
+                  " Usuario:" + instance.username + "-Clave:" + instance.TEMP_PASSWD +" "
+        instance.enviar_sms(mensaje)
