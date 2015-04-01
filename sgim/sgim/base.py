@@ -4,7 +4,9 @@ __author__ = 'Eder Xavier Rojas'
 import os
 from unipath import Path
 #BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-BASE_DIR = Path(__file__).ancestor(3)
+#BASE_DIR = Path(__file__).ancestor(3)
+#Obtener la ruta del proyecto y regresar un nivel
+RUTA_PROYECTO = Path(__file__).ancestor(2)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -51,6 +53,23 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    #Carpeta donde buscar los templates
+    RUTA_PROYECTO.child('templates'),
+)
+
+#indica los directorios donde buscar archivos estaticos (CSS, JS)
+STATICFILES_DIRS = (
+    RUTA_PROYECTO.child('static'),
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
+
 
 ROOT_URLCONF = 'sgim.urls'
 WSGI_APPLICATION = 'sgim.wsgi.application'

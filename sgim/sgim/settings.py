@@ -23,4 +23,9 @@ DATABASES = {
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR.child('media')
+MEDIA_ROOT = RUTA_PROYECTO.child('media')
+
+from django.core.urlresolvers import reverse_lazy
+LOGIN_URL = "/cuentas/login"
+LOGIN_REDIRECT_URL = "/cuentas/login"
+LOGOUT_URL = "/cuentas/logout"

@@ -66,3 +66,11 @@ class UserChangeForm(forms.ModelForm):
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
         return self.initial["password"]
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=30)
+    password = forms.CharField(max_length=30,
+                                    widget=forms.TextInput(attrs={
+                                        'type' : 'password'
+                                    }))

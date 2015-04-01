@@ -2,14 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99403a9c-6127-4614-ae33-971f75d650a9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sgim/apps/cuentas/migrations/0004_auto_20150330_0050.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sgim/apps/cuentas/migrations/0005_auto_20150330_0051.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sgim/apps/cuentas/migrations/0006_auto_20150330_0051.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sgim/apps/cuentas/migrations/0007_auto_20150330_0218.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sgim/apps/inicio/utils.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/apps/cuentas/admin.py" afterPath="$PROJECT_DIR$/sgim/apps/cuentas/admin.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sgim/templates/base.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sgim/templates/cuentas/login.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sgim/apps/cuentas/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/sgim/base.py" afterPath="$PROJECT_DIR$/sgim/sgim/base.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/apps/cuentas/forms.py" afterPath="$PROJECT_DIR$/sgim/apps/cuentas/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/apps/cuentas/models.py" afterPath="$PROJECT_DIR$/sgim/apps/cuentas/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/sgim/settings.py" afterPath="$PROJECT_DIR$/sgim/sgim/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/sgim/urls.py" afterPath="$PROJECT_DIR$/sgim/sgim/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/apps/cuentas/views.py" afterPath="$PROJECT_DIR$/sgim/apps/cuentas/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/apps/inicio/views.py" afterPath="$PROJECT_DIR$/sgim/apps/inicio/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="tesis2015.iws" />
@@ -34,47 +35,47 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sgim/apps/cuentas/models.py">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sgim/sgim/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="392" max-vertical-offset="1050">
-              <caret line="50" column="12" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
+              <caret line="8" column="79" selection-start-line="8" selection-start-column="79" selection-end-line="8" selection-end-column="79" />
               <folding>
-                <element signature="e#15#43#0" expanded="true" />
-                <element signature="e#2192#2212#0" expanded="true" />
-                <element signature="e#2251#2296#0" expanded="true" />
-                <element signature="e#2340#2407#0" expanded="true" />
-                <element signature="e#2556#2901#0" expanded="true" />
+                <element signature="e#0#51#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/sgim/apps/cuentas/admin.py">
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sgim/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3425775" vertical-offset="0" max-vertical-offset="613">
-              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.12458472" vertical-offset="0" max-vertical-offset="602">
+              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sgim/apps/inicio/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
+              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding>
-                <element signature="e#0#32#0" expanded="true" />
+                <element signature="e#0#36#0" expanded="true" />
+                <element signature="e#208#354#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sgim/apps/cuentas/forms.py">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sgim/sgim/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1110">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding>
-                <element signature="e#15#39#0" expanded="true" />
-                <element signature="e#408#462#0" expanded="true" />
-                <element signature="e#1141#1449#0" expanded="true" />
-                <element signature="e#1492#1795#0" expanded="true" />
-                <element signature="e#1841#1997#1" expanded="true" />
-                <element signature="e#2628#2858#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
+              <caret line="30" column="29" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -91,16 +92,23 @@
         <option value="$PROJECT_DIR$/sgim/apps/inicio/utils.py" />
         <option value="$PROJECT_DIR$/sgim/apps/cuentas/signals.py" />
         <option value="$PROJECT_DIR$/sgim/apps/cuentas/models.py" />
-        <option value="$PROJECT_DIR$/sgim/apps/cuentas/forms.py" />
         <option value="$PROJECT_DIR$/sgim/apps/cuentas/admin.py" />
+        <option value="$PROJECT_DIR$/sgim/apps/cuentas/forms.py" />
+        <option value="$PROJECT_DIR$/sgim/sgim/settings.py" />
+        <option value="$PROJECT_DIR$/sgim/apps/cuentas/views.py" />
+        <option value="$PROJECT_DIR$/sgim/apps/cuentas/urls.py" />
+        <option value="$PROJECT_DIR$/sgim/templates/cuentas/login.html" />
+        <option value="$PROJECT_DIR$/sgim/apps/inicio/views.py" />
+        <option value="$PROJECT_DIR$/sgim/sgim/urls.py" />
+        <option value="$PROJECT_DIR$/sgim/apps/inicio/urls.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="49" />
-    <option name="y" value="24" />
-    <option name="width" value="1317" />
-    <option name="height" value="744" />
+    <option name="x" value="46" />
+    <option name="y" value="-2" />
+    <option name="width" value="1323" />
+    <option name="height" value="773" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -141,6 +149,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ColorIdeProjectViewPane">
         <subPane>
           <PATH>
@@ -170,6 +179,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="sgim" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tesis2015" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tesis2015" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sgim" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -231,31 +258,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tesis2015" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tesis2015" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sgim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="apps" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cuentas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -423,17 +427,22 @@
       <option name="project" value="LOCAL" />
       <updated>1427646477013</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="MOdelo de usuario personalisado">
+      <created>1427686536360</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1427686536360</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="49" y="24" width="1317" height="744" extended-state="6" />
-    <editor active="true" />
+    <frame x="46" y="-2" width="1323" height="773" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23765433" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23765433" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -442,6 +451,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -472,7 +482,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -482,11 +492,11 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="720">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#15#43#0" expanded="true" />
-            <element signature="e#2192#2212#0" expanded="true" />
-            <element signature="e#2251#2296#0" expanded="true" />
-            <element signature="e#2340#2407#0" expanded="true" />
-            <element signature="e#2556#2901#0" expanded="true" />
+            <element signature="e#15#43#0" expanded="false" />
+            <element signature="e#2192#2212#0" expanded="false" />
+            <element signature="e#2251#2296#0" expanded="false" />
+            <element signature="e#2340#2407#0" expanded="false" />
+            <element signature="e#2556#2901#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -496,11 +506,11 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="585">
           <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
           <folding>
-            <element signature="e#15#43#0" expanded="true" />
-            <element signature="e#2192#2212#0" expanded="true" />
-            <element signature="e#2251#2296#0" expanded="true" />
-            <element signature="e#2340#2407#0" expanded="true" />
-            <element signature="e#2556#2901#0" expanded="true" />
+            <element signature="e#15#43#0" expanded="false" />
+            <element signature="e#2192#2212#0" expanded="false" />
+            <element signature="e#2251#2296#0" expanded="false" />
+            <element signature="e#2340#2407#0" expanded="false" />
+            <element signature="e#2556#2901#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -518,11 +528,11 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="585">
           <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
           <folding>
-            <element signature="e#15#43#0" expanded="true" />
-            <element signature="e#2192#2212#0" expanded="true" />
-            <element signature="e#2251#2296#0" expanded="true" />
-            <element signature="e#2340#2407#0" expanded="true" />
-            <element signature="e#2556#2901#0" expanded="true" />
+            <element signature="e#15#43#0" expanded="false" />
+            <element signature="e#2192#2212#0" expanded="false" />
+            <element signature="e#2251#2296#0" expanded="false" />
+            <element signature="e#2340#2407#0" expanded="false" />
+            <element signature="e#2556#2901#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -540,11 +550,11 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#15#43#0" expanded="true" />
-            <element signature="e#2192#2212#0" expanded="true" />
-            <element signature="e#2251#2296#0" expanded="true" />
-            <element signature="e#2340#2407#0" expanded="true" />
-            <element signature="e#2556#2901#0" expanded="true" />
+            <element signature="e#15#43#0" expanded="false" />
+            <element signature="e#2192#2212#0" expanded="false" />
+            <element signature="e#2251#2296#0" expanded="false" />
+            <element signature="e#2340#2407#0" expanded="false" />
+            <element signature="e#2556#2901#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -554,11 +564,11 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#15#43#0" expanded="true" />
-            <element signature="e#2192#2212#0" expanded="true" />
-            <element signature="e#2251#2296#0" expanded="true" />
-            <element signature="e#2340#2407#0" expanded="true" />
-            <element signature="e#2556#2901#0" expanded="true" />
+            <element signature="e#15#43#0" expanded="false" />
+            <element signature="e#2192#2212#0" expanded="false" />
+            <element signature="e#2251#2296#0" expanded="false" />
+            <element signature="e#2340#2407#0" expanded="false" />
+            <element signature="e#2556#2901#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -567,7 +577,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33546326" vertical-offset="0" max-vertical-offset="626">
           <caret line="14" column="48" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -579,42 +588,118 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="626">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sgim/apps/cuentas/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4313099" vertical-offset="0" max-vertical-offset="626">
+          <caret line="18" column="21" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#32#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/sgim/apps/cuentas/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="392" max-vertical-offset="1050">
           <caret line="50" column="12" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
           <folding>
-            <element signature="e#15#43#0" expanded="true" />
-            <element signature="e#2192#2212#0" expanded="true" />
-            <element signature="e#2251#2296#0" expanded="true" />
-            <element signature="e#2340#2407#0" expanded="true" />
-            <element signature="e#2556#2901#0" expanded="true" />
+            <element signature="e#15#43#0" expanded="false" />
+            <element signature="e#2192#2212#0" expanded="false" />
+            <element signature="e#2251#2296#0" expanded="false" />
+            <element signature="e#2340#2407#0" expanded="false" />
+            <element signature="e#2556#2901#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sgim/apps/cuentas/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1110">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.38338658" vertical-offset="0" max-vertical-offset="626">
+          <caret line="70" column="28" selection-start-line="70" selection-start-column="28" selection-end-line="70" selection-end-column="28" />
           <folding>
             <element signature="e#15#39#0" expanded="true" />
+            <element signature="e#259#1795#0" expanded="false" />
             <element signature="e#408#462#0" expanded="true" />
             <element signature="e#1141#1449#0" expanded="true" />
             <element signature="e#1492#1795#0" expanded="true" />
+            <element signature="e#1841#2858#0" expanded="false" />
             <element signature="e#1841#1997#1" expanded="true" />
             <element signature="e#2628#2858#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sgim/apps/cuentas/admin.py">
+    <entry file="file://$PROJECT_DIR$/sgim/sgim/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3425775" vertical-offset="0" max-vertical-offset="613">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
+          <caret line="30" column="29" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sgim/templates/cuentas/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.72591364" vertical-offset="73" max-vertical-offset="765">
+          <caret line="34" column="62" selection-start-line="34" selection-start-column="62" selection-end-line="34" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sgim/apps/cuentas/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="45" />
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#370#557#0" expanded="true" />
+            <element signature="e#595#707#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sgim/apps/cuentas/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.047923323" vertical-offset="0" max-vertical-offset="626">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding>
+            <element signature="e#20#62#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sgim/apps/inicio/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#208#354#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sgim/sgim/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
+          <caret line="8" column="79" selection-start-line="8" selection-start-column="79" selection-end-line="8" selection-end-column="79" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sgim/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12458472" vertical-offset="0" max-vertical-offset="602">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
