@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+	Usuario {{perfil.username}} | Cuentas de Usuario
+{% endblock titulo %}
+
+{% block contenido %}
+
+	<h4>Perfil del Usuario {{perfil.username}} </h4>
+	{% if user.username == perfil.username %}
+		Para actualizar la contraseña presione <a href="/cuentas/cambiar-clave">Aqui</a>
+	{% endif %}
+	<br><br>
+	{{perfil.telefono}} <br>
+	{{perfil.firstname}} <br>
+	{{perfil.email}} <br>
+	{{perfil.last_login}} <br>
+
+	{% if not perfil.is_active %}
+		<span style="color:red"><h5>Cuenta de usuario Inactiva</h5></span>
+	{% endif %}
+
+{% endblock contenido %}

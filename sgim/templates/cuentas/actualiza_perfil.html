@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+	Actualizar Datos de Usuario | Cuentas de Usuario
+{% endblock titulo %}
+
+{% block contenido %}
+	<h4>Actualiza los datos de tu cuenta de usuario</h4>
+	Para actualizar la contraseña presione <a href="/cuentas/cambiar-clave">Aqui</a>
+	{% if  form.errors %}
+		{{form.errors}}	
+	{% endif %}
+	
+	<form method="post">
+		{% csrf_token %}
+		{{form.as_p}}
+		<button class="button small large-12" data-hint="Seguidos" type="submit">
+			<i class="fi-key"></i> Guardar Cambios
+		</button>
+	</form>
+{% endblock contenido %}

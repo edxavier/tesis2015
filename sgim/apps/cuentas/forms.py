@@ -68,9 +68,12 @@ class UserChangeForm(forms.ModelForm):
         return self.initial["password"]
 
 
-class LoginForm(forms.Form):
-    username = forms.CharField(max_length=30)
+class ModificarPerfilForm(forms.ModelForm):
+    """username = forms.CharField(max_length=30)
     password = forms.CharField(max_length=30,
                                     widget=forms.TextInput(attrs={
                                         'type' : 'password'
-                                    }))
+                                    }))"""
+    class Meta:
+        model = Usuario
+        fields = ("imagen","firstname","lastname","telefono","email")
