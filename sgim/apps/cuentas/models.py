@@ -3,28 +3,29 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, User
 from django.dispatch import receiver
 from apps.inicio.utils import enviarSMS
+from datetime import datetime
 
 
 
 # Create your models here.
 class UserManager(BaseUserManager, models.Manager):
 
-    def _create_user(self, username, email, password, is_staff, is_superuser, **extra_fields):
+    def _create_user(self, username, password, is_staff, is_superuser, **extra_fields):
 
-        email = self.normalize_email(email)
-        if not email:
-            raise ValueError('El email es un campo requerido')
-        user = self.model(username=username, email=email, is_active=True,
+        #email = self.normalize_email(email)
+        #if not email:
+           # raise ValueError('El email es un campo requerido')
+        user = self.model(username=username, is_active=True,
                           is_staff=is_staff, is_superuser=is_superuser, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_user(self, username, email, password=None, **extra_fields):
-        return self._create_user(username, email, password, False, False, **extra_fields)
+    def create_user(self, username,  password=None, **extra_fields):
+        return self._create_user(username,  password, False, False, **extra_fields)
 
-    def create_superuser(self, username, email, password=None, **extra_fields):
-        return self._create_user(username, email, password, True, True, **extra_fields)
+    def create_superuser(self, username,  password=None, **extra_fields):
+        return self._create_user(username,  password, True, True, **extra_fields)
 
 
 class Usuario(AbstractBaseUser,PermissionsMixin):
@@ -36,6 +37,7 @@ class Usuario(AbstractBaseUser,PermissionsMixin):
     is_active = models.BooleanField(default=True, verbose_name='Esta Activo')
     is_staff = models.BooleanField(default=False, verbose_name='Es Administrador',
                                    help_text='Indica si el usuario puede acceder al panel de administracion')
+
     telefono = models.CharField(max_length=15,blank=True)
 
     objects = UserManager()

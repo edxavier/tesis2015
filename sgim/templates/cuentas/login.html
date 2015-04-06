@@ -1,25 +1,22 @@
+
 {% extends "base.html" %}
+{% load i18n %}
+
 
 {% block titulo %}
 	Inicio de Sesion
 {% endblock titulo %}
 
 {% block contenido %}
+
 		<h4>Empezemos...</h4>
 
 	<form class="custom loginfrm" method="POST">
 				 {% csrf_token %}
 				 {% if form.non_field_errors %}
-				 {{form.non_field_errors}}
-				 {% for error in  form.non_field_errors %}
-				 	<!-- {{error}} -->
-				 {% endfor %}
-                    
-				 	<div data-alert class="alert-box warning radius">
-					  Por favor ingrese un nombre de usuario y clave correctas
-					  <audio src="{{MEDIA_URL}}audio/dubstep_alert.mp3" autoplay></audio>
-					  <a href="#" class="close">&times;</a>
-					</div>
+                     {% for error in  form.non_field_errors %}
+                        <!-- {{error}} -->{% trans error %}
+                     {% endfor %}
 				 {% endif %}
 
 				<div class="panel radius">

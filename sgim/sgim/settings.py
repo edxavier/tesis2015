@@ -26,6 +26,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = RUTA_PROYECTO.child('media')
 
 from django.core.urlresolvers import reverse_lazy
-LOGIN_URL = "/cuentas/login"
-LOGIN_REDIRECT_URL = "/cuentas/login"
-LOGOUT_URL = "/cuentas/logout"
+LOGIN_URL = "/login"
+LOGIN_REDIRECT_URL = "/login"
+LOGOUT_URL = "/logout"
