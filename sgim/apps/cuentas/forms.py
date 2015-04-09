@@ -2,6 +2,7 @@
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.models import Group
+from django.contrib.auth.forms import PasswordChangeForm
 
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
@@ -78,3 +79,15 @@ class ModificarPerfilForm(forms.ModelForm):
     class Meta:
         model = Usuario
         fields = ("imagen","firstname","lastname","telefono","email")
+
+class CambiarClaveForm(PasswordChangeForm):
+    error_css_class = 'field error'
+    required_css_class = 'field error'
+    old_password = forms.CharField(label='Contraseña antigua ', widget=forms.PasswordInput)
+    new_password1 = forms.CharField(label='Nueva Contraseña', widget=forms.PasswordInput)
+    new_password2 = forms.CharField(label='Confirma tu contraseña', widget=forms.PasswordInput)
+
+   
+    
+    
+        

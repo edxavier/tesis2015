@@ -4,47 +4,139 @@
 	Actualizar Datos de Usuario | Cuentas de Usuario
 {% endblock titulo %}
 
+{% block header %}
+	Modificar Datos de Usuario
+{% endblock header %}
+
 {% block contenido %}
-	<h4>Actualiza los datos de tu cuenta de usuario</h4>
-	Para actualizar la contraseña presione <a href="/cuentas/cambiar-clave">Aqui</a>
-	{% if  form.errors %}
-		{{form.errors}}	
-	{% endif %}
 	
-	<form method="post" >
-		{% csrf_token %}
-		{{form.as_p}}
-		<button class="button small large-12" data-hint="Seguidos" type="submit">
-			<i class="fi-key"></i> Guardar Cambios
-		</button>
-	</form>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	// This works
-<core-animated-pages transitions="cross-fade">
-  <section>
-    <div cross-fade>sdfsdfsdff</div>
-  </section>
-  <section>
-    <div cross-fade>sdfsdfsfs</div>
-  </section>
-</core-animated-pages>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+	
+	
+
+<paper-toast id='toast1' text="Tus datos fueron actualizados" 
+duration='4000'></paper-toast>
+
+
+
+<div class="ui grid" >
+
+
+    <div class="column seven wide computer centered">      
+
+	    <div vertical layout >
+
+		
+		<h4 class="ui icon header">
+		  <i class="write icon"></i>
+		  <div class="content">
+		    Datos de usuario
+		  </div>
+		</h4>
+
+				<div  self-center >
+					
+					<paper-shadow class="card" z="2" animated>
+						<form class="custom loginfrm card" method="POST" enctype="multipart/form-data">
+							{% csrf_token %}				
+							
+							<div class="column ">
+								<div class="ui form segment">
+										<div class="field ">	
+										Imagen Actual:
+												<img class="ui small bordered image" src="{{MEDIA_URL}}{{user.imagen}}">
+										</div>
+										<div class="field ">				
+											<div class="ui left icon input ">
+												<input type="file" name="imagen" >
+												<i class="file image outline icon"></i>	
+											</div>
+										</div>
+
+									
+										<div class="field ">
+											<div class="ui left icon input ">
+												<input  type="text" placeholder="Nombres" name="firstname" value='{{ user.firstname }}'>		
+												<i class="user icon"></i>
+											</div>
+										</div>
+
+										<div class="field ">													
+											<div class="ui left icon input ">
+												<input type="text" name="lastname"  
+												placeholder="Apellidos" value='{{ user.lastname }}'>
+												<i class="user icon"></i>	
+											</div>
+										</div>
+										<div class="field ">													
+											<div class="ui left icon input ">
+												<input type="text" name="telefono"  placeholder="Direccion de Correo" value='{{ user.telefono }}'>
+												<i class="call icon"></i>	
+											</div>
+										</div>
+
+
+										<div class="field ">
+										{% if form.email.errors %}									 
+											{{ form.email.errors.as_text }}								
+										{% endif %}														
+											<div class="ui left icon input ">
+												<input type="email" name="email"  placeholder="Direccion de Correo" value='{{ user.email }}'>
+												<i class="mail icon"></i>	
+											</div>
+										</div>
+									
+									
+									<button class="ui blue right labeled icon button ripple" type="submit">
+											Guardar Cambios  <i class="save icon"></i>
+														<paper-ripple fit></paper-ripple>
+									</button>
+									
+								</div>
+							</div>
+						
+						</form>
+						<div class="ui bottom attached warning message">
+						  <i class="icon help"></i>
+						  Cambiar su contraseña de acceso <a href="/cuentas/cambiar-clave">Aqui</a>
+						</div>
+					</paper-shadow>
+				</div>
+		</div>
+
+      
+
+    </div>
+    
+  </div>
+
+
 {% endblock contenido %}
+
+{% block scripts %}
+	<script>/*
+        (function() {
+            var form = document.querySelectorAll('form')[0],
+                content = document.getElementById('content');
+            form.addEventListener('invalid', function() {
+                //alert('Some form fields are invalid!');
+            });
+           
+            form.addEventListener('submitted', function(event) {
+                 console.log(event.detail) 
+                jsonRes = JSON.parse(event.detail.response)
+                if (event.detail.status > 299) {
+                    alert('Submission failed!  Please try again.')
+                }
+                else {
+                   	e = jsonRes.errores                	
+                	mensajes = JSON.parse(e)
+                	console.log(mensajes.email[0].message)
+                	if(!jsonRes.ok){           
+                		document.querySelector('#contenido_dialogo').innerHTML = mensajes.email[0].message      
+                    	document.querySelector('#dialog').open()
+                    }
+                }
+            });
+        }());*/
+    </script>
+{% endblock scripts %}

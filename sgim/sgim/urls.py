@@ -6,12 +6,13 @@ from apps.inicio.views import Home
 
 urlpatterns = patterns('',
                        # Examples:
+                       #url(r'^grappelli/', include('grappelli.urls')),
                         url(r'^$', login_required(Home.as_view()), name='home'),
                         url(r'^login/$', 'django.contrib.auth.views.login',
                                         {'template_name':'cuentas/login.html'},name='login'),
                         url(r'^logout/$', 'django.contrib.auth.views.logout_then_login', name='logout'),
                        # url(r'^blog/', include('blog.urls')),
-                        url(r'^cuentas/',include('apps.cuentas.urls',namespace='cuentas_app')),
+                        url(r'^cuentas/',include('apps.cuentas.urls')),
 
     
                         url(r'^admin/', include(admin.site.urls)),
@@ -21,5 +22,5 @@ urlpatterns = patterns('',
 if DEBUG:
     urlpatterns += patterns("",
                           url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
-    			          { 'document_root' :MEDIA_ROOT  }),
+                    { 'document_root' :MEDIA_ROOT  }),
                         )

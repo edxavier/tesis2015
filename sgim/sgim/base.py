@@ -1,8 +1,8 @@
 __author__ = 'Eder Xavier Rojas'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
 from unipath import Path
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 #BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 #BASE_DIR = Path(__file__).ancestor(3)
 #Obtener la ruta del proyecto y regresar un nivel
@@ -25,12 +25,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 DJANGO_APPS = (
-        'django.contrib.admin',
-        'django.contrib.auth',
-        'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.messages',
-        'django.contrib.staticfiles',
+    'suit',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
 )
 
 LOCAL_APPS = (
@@ -53,10 +54,17 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'apps.inicio.middlewares.LoginRedirectMiddleware'
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+    'django.core.context_processors.request',
+    'apps.inicio.context_processors.static_base_urls',
 )
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Put strings here, like "/home/html/django_templates" or
+    #"C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     #Carpeta donde buscar los templates

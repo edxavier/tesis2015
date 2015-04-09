@@ -1,9 +1,12 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+
+from django.shortcuts import render_to_response
 from django.views.generic import TemplateView
+from django.template.context import RequestContext
+
 
 # Create your views here.
 class Home(TemplateView):
     def get(self, request):
-        #return render_to_response('cuentas/login.html', locals(),context_instance=RequestContext(request))
-        return HttpResponse("Este es el Home")
+        return render_to_response(
+            'home.html', locals(), context_instance=RequestContext(request)
+        )

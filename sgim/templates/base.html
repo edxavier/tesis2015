@@ -1,116 +1,152 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>{% block titulo %}	{% endblock titulo %} </title>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block titulo %}   {% endblock titulo %} </title>
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-	<link rel="stylesheet" href="">
+  
 
-    <script src="/static/bower/bower_components/webcomponentsjs/webcomponents.js"></script>
+    
+    <script src="{{BOWER_URL}}webcomponentsjs/webcomponents.js"></script>
+    <script src="{{BOWER_URL}}jquery/dist/jquery.min.js"></script>
+    <script src="{{BOWER_URL}}semantic-ui/dist/semantic.min.js"></script>
+    <script src="{{BOWER_URL}}w2ui/w2ui-1.4.2.min.js"></script>
 
-    <link rel="import" href="/static/bower/bower_components/font-roboto/roboto.html">
-    <link rel="import" href="/static/bower/bower_components/core-header-panel/core-header-panel.html">
-    <link rel="import" href="/static/bower/bower_components/core-toolbar/core-toolbar.html">
-    <link rel="import" href="/static/bower/bower_components/core-drawer-panel/core-drawer-panel.html">
-    <link rel="import" href="/static/bower/bower_components/paper-tabs/paper-tabs.html">
-    <link rel="import" href="/static/bower/bower_components/core-icons/core-icons.html">
-    <link rel="import" href="/static/bower/bower_components/paper-icon-button/paper-icon-button.html">
-    <link rel="import" href="/static/bower/bower_components/core-animated-pages/core-animated-pages.html">
-    <link rel="import" href="/static/bower/bower_components/core-item/core-item.html">
-    <link rel="import" href="/static/bower/bower_components/core-menu/core-menu.html">
-    <link rel="import" href="/static/bower/bower_components/core-menu/core-submenu.html">
-    <link rel="import" href="/static/bower/bower_components/core-tooltip/core-tooltip.html">
+    <link rel="stylesheet" href="{{BOWER_URL}}semantic-ui/dist/semantic.css">
+    <link rel="stylesheet" href="{{BOWER_URL}}w2ui/w2ui-1.4.2.min.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}css/estilos.css">
 
-    <style rel="stylesheet">
-        core-toolbar{
-            background-color : #03A9F4;
-            color: white
-        }
-        body { font-family: sans-serif;}
-        [drawer] {background-color: #F9F9F9}
-    </style>
+    <link rel="import" href="{{BOWER_URL}}ajax-form/ajax-form.html">    
+    <link rel="import" href="{{BOWER_URL}}core-animated-pages/core-animated-pages.html">
+    <link rel="import" href="{{BOWER_URL}}core-drawer-panel/core-drawer-panel.html">
+    <link rel="import" href="{{BOWER_URL}}core-header-panel/core-header-panel.html">
+    <link rel="import" href="{{BOWER_URL}}core-icons/core-icons.html">
+    <link rel="import" href="{{BOWER_URL}}core-item/core-item.html">
+    <link rel="import" href="{{BOWER_URL}}core-menu/core-menu.html">
+    <link rel="import" href="{{BOWER_URL}}core-menu/core-submenu.html">
+    <link rel="import" href="{{BOWER_URL}}core-toolbar/core-toolbar.html">
+    <link rel="import" href="{{BOWER_URL}}core-tooltip/core-tooltip.html">
+    <link rel="import" href="{{BOWER_URL}}font-roboto/roboto.html">
+    <link rel="import" href="{{BOWER_URL}}paper-button/paper-button.html">
+    <link rel="import" href="{{BOWER_URL}}paper-dialog/paper-action-dialog.html">
+    <link rel="import" href="{{BOWER_URL}}paper-dialog/paper-dialog.html">
+    <link rel="import" href="{{BOWER_URL}}paper-dropdown/paper-dropdown.html">
+    <link rel="import" href="{{BOWER_URL}}paper-icon-button/paper-icon-button.html">
+    <link rel="import" href="{{BOWER_URL}}paper-item/paper-item.html">
+    <link rel="import" href="{{BOWER_URL}}paper-menu-button/paper-menu-button.html">
+    <link rel="import" href="{{BOWER_URL}}paper-ripple/paper-ripple.html">
+    <link rel="import" href="{{BOWER_URL}}paper-tabs/paper-tabs.html">
+    <link rel="import" href="{{BOWER_URL}}paper-toast/paper-toast.html">
+    <link rel="import" href="{{BOWER_URL}}paper-shadow/paper-shadow.html">
+    <link rel="import" href="{{BOWER_URL}}paper-input/paper-input-decorator.html">
+    <link rel="import" href="{{BOWER_URL}}paper-dropdown-menu/paper-dropdown-menu.html">
 
-    <style shim-shadowdom>
-        core-tooltip.fancy::shadow .core-tooltip {
-          opacity: 0;
-          -webkit-transition: all 400ms cubic-bezier(0,1.92,.99,1.07);
-          transition: all 400ms cubic-bezier(0,1.92,.99,1.07);
-          -webkit-transform: translate3d(0, -10px, 0);
-          transform: translate3d(0, -10px, 0);
-        }
 
-        core-tooltip.fancy:hover::shadow .core-tooltip,
-        core-tooltip.fancy:focus::shadow .core-tooltip {
-          opacity: 1;
-          -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
-        }
-  </style>
+<style shim-shadowdom>
+core-tooltip.fancy::shadow .core-tooltip {
+    opacity: 0;
+    -webkit-transition: all 400ms cubic-bezier(0,1.92,.99,1.07);
+    transition: all 400ms cubic-bezier(0,1.92,.99,1.07);
+    -webkit-transform: translate3d(0, -10px, 0);
+    transform: translate3d(0, -10px, 0);
+}
 
+core-tooltip.fancy:hover::shadow .core-tooltip,
+core-tooltip.fancy:focus::shadow .core-tooltip {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+</style>
 </head>
 <body fullbleed layout vertical>
 
-   
-
-    <core-drawer-panel drawerWidth="240px">
-
-      <core-header-panel drawer mode="waterfall">
+<core-drawer-panel drawerWidth="240px" id="drawerPanel" forceNarrow=true >
+    <core-header-panel drawer mode="waterfall">
         <core-toolbar>
-           <div class="core-header">
-                <core-tooltip label="Sistema de Gestion de Incidencias y Mantenimientos" 
-                    class="fancy" position="right">
+            <div class="core-header">
+                <core-tooltip label="Sistema de Gestion de Incidencias y Mantenimientos"
+                class="fancy" position="right">
                 SGIM
                 </core-tooltip>
             </div>
         </core-toolbar>
-        <div class="content"> 
-            <img src="http://www.realtimearts.net/data/images/art/46/4640_profile_nilssonpolias.jpg"
-                 width="70px"   class="bottom"/>
-            <div class="bottom" style="font-size:16px">Administrador</div>
-
-            <core-menu selected="0">
+        <div class="content">
+            {% if user.is_authenticated  %}           
+            
+                <img src="{{MEDIA_URL}}{{user.imagen}}"
+                width="70px"   class="bottom"/>
+                <div class="bottom" style="font-size:16px">Administrador</div>
+                <core-menu selected="0">
                 <core-submenu icon="settings" label="Preferencias">
-                    <core-item label="Mi Perfil"></core-item>
-                    <core-item label="Cambiar Contrasenia"></core-item>
+                <core-item label="Mi Perfil"></core-item>
+                <core-item label="Cambiar Contrasenia"></core-item>
                 </core-submenu>
-
                 <core-submenu icon="settings" label="Incidencias">
-
-                    <core-item label="Ultimas"></core-item>
-                    <core-item label="Abiertas"></core-item>
-                    <core-item label="Cerradas"></core-item>
+                <core-item label="Ultimas"></core-item>
+                <core-item label="Abiertas"></core-item>
+                <core-item label="Cerradas"></core-item>
                 </core-submenu>
-            </core-menu> 
+                </core-menu>
+            {% endif %}
         </div>
-      </core-header-panel>
-
-      <core-header-panel flex mode="waterfall" main>
+    </core-header-panel>
+    {% comment %}
+        Contenido Principal 
+    {% endcomment %}
+    <core-header-panel flex mode="waterfall" main>
         <core-toolbar >
-            <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button>           
-            <div class="core-header">Actualiza Tus Datos</div>
-            <span flex></span>
-            <paper-icon-button icon="search"></paper-icon-button>
-            <paper-icon-button icon="add"></paper-icon-button>
+            {% if  user.is_authenticated %}
+            <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button>
+            <a href="/" class="link">
+                <paper-icon-button icon="home"></paper-icon-button>
+            </a>
+            {% endif %}
+            <div class="core-header">{% block header %}{% endblock header %}</div>
+            {% if user.is_authenticated %}
+                <span flex></span>
+                <core-tooltip label="{{user.username}}" class="fancy" position="bottom">
+                    <img class="ui avatar image" src="{{MEDIA_URL}}{{user.imagen}}">
+                </core-tooltip>
+                <paper-menu-button>          
+                 <paper-icon-button icon="arrow-drop-down"></paper-icon-button>          
+                    <paper-dropdown class="dropdown" halign="right">
+                        <core-menu class="menu">
+                            <paper-item noink>
+                                <a href="{% url 'perfil' user.username %}">Mi Perfil</a>
+                            </paper-item>
+                            <paper-item>
+                                 <a href="{% url 'actualizar_clave' %}">Contraseña</a>
+                            </paper-item>
+                            {% if user.is_staff %}
+                                <paper-item>
+                                     <a href="/admin">Administracion</a>
+                                </paper-item>
+                            {% endif %}
 
+                        </core-menu>
+                    </paper-dropdown>
+                </paper-menu-button>                
+                <a href="{% url 'logout' %}" class="link">
+                    <core-tooltip label="Salir" class="fancy" position="bottom">
+                     <paper-icon-button icon="exit-to-app"></paper-icon-button>
+                    </core-tooltip>
+                </a>
+            {% endif %}
         </core-toolbar>
 
-        <div class="content">        
+        <div class="content">
             {% block contenido %}
-
             {% endblock contenido %}
         </div>
-      </core-header-panel>
+    </core-header-panel>
 
-
-    </core-drawer-panel>
-
-  
-
-
-
-
-
+</core-drawer-panel>
 
 </body>
+<script src="{{BOWER_URL}}semantic-ui/dist/semantic.js" type="text/javascript"></script>
+{% block scripts %}
+
+{% endblock scripts %}
 </html>

@@ -16,16 +16,15 @@ DATABASES = {
     }
 }
 
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+BOWER_URL = STATIC_URL+'bower/bower_components/'
 MEDIA_ROOT = RUTA_PROYECTO.child('media')
 
-from django.core.urlresolvers import reverse_lazy
 LOGIN_URL = "/login"
-LOGIN_REDIRECT_URL = "/login"
+LOGIN_REDIRECT_URL = "/"
 LOGOUT_URL = "/logout"
+

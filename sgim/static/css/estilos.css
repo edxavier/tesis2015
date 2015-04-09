@@ -1,0 +1,59 @@
+/* application font */
+core-scaffold {
+    font-family: sans-serif;
+}
+
+.content {
+    padding: 10px;
+}
+
+
+core-toolbar{
+	background-color : #03A9F4;/*Light Blue*/
+	color: white
+}
+paper-button {
+background: #00ACC1;
+color: white;
+}
+paper-item{
+color: black;
+}
+
+body { font-family: sans-serif;}
+[drawer] {background-color: #F5F5F5}
+[drawer] > core-toolbar{background-color: #039BE5}
+
+
+
+.ripple{
+	position: relative;
+}
+.tealColor{
+	background-color: #009688;
+	color: white;
+}
+.pinkColor{
+	background-color: #E91E63;
+	color: white;
+}
+.cyanColor{
+	background-color: #00BCD4;
+	color: white;
+}
+
+
+
+.link{
+	text-decoration: none;
+	color:white;
+}
+.link:hover {
+    color: white;
+    text-decoration: none;
+}
+.error{
+	color: #C51162;
+	font-style: italic;
+	font-size: 12px;
+}

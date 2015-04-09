@@ -6,44 +6,48 @@ from django.template.context import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from .models import Usuario
+from django.http import JsonResponse
 
-from .forms import ModificarPerfilForm
+from .forms import ModificarPerfilForm, CambiarClaveForm
 from django.contrib.auth import login, logout, authenticate
+
 
 # Create your views here.
 class Perfil(TemplateView):
-    def get(self, request,user_name,*args, **kwargs):
+    def get(self, request, user_name, *args, **kwargs):
         perfil = get_object_or_404(Usuario, username=user_name)
-        return render_to_response('cuentas/perfil.html', locals(),context_instance=RequestContext(request))
+        return render_to_response('cuentas/perfil.html', locals(), context_instance=RequestContext(request))
 
 
 class ModificarPerfil(TemplateView):
     def get(self, request, *args, **kwargs):
         form = ModificarPerfilForm(instance=request.user)
-        return render_to_response('cuentas/actualiza_perfil.html', locals(),context_instance=RequestContext(request))
+        return render_to_response('cuentas/actualiza_perfil.html', locals(), context_instance=RequestContext(request))
 
     def post(self, request, *args, **kwargs):
-        form = ModificarPerfilForm(request.POST,request.FILES,
-                                   instance=Usuario.objects.get(username=request.user.username))
+        form = ModificarPerfilForm(request.POST, request.FILES,
+                                   instance=request.user)
         if form.is_valid():
             form.save()
-            return  HttpResponseRedirect("/cuentas/usuario/"+str(request.user))
+            return HttpResponseRedirect("/cuentas/usuario/"+str(request.user))
         else:
             #perfil = get_object_or_404(Perfil, usuario=request.user)
-            return render_to_response('cuentas/actualiza_perfil.html', locals(),context_instance=RequestContext(request))
+            return render_to_response('cuentas/actualiza_perfil.html', locals(), context_instance=RequestContext(request))
+            #print form.errors.as_json(escape_html=False)
+            #return JsonResponse({'ok':form.is_valid(),'errores': form.errors.as_json(escape_html=False)})
+
 
 class ChangepasswordForm (TemplateView):
     def get(self, request):
        # perfil = get_object_or_404(Perfil, usuario=request.user)
-        form = PasswordChangeForm(user=request.user)
-        return render_to_response('cuentas/cambiar_clave.html', locals(),context_instance=RequestContext(request))
+        form = CambiarClaveForm(user=request.user)
+        return render_to_response('cuentas/cambiar_clave.html', locals(), context_instance=RequestContext(request))
 
     def post(self, request):
-        form = PasswordChangeForm(user=request.user,data=request.POST)
+        form = CambiarClaveForm(user=request.user, data=request.POST)
         if form.is_valid():
             form.save()
-            return  HttpResponseRedirect("/cuentas/usuario/"+str(request.user))
+            return HttpResponseRedirect("/cuentas/usuario/"+str(request.user))
         else:
            # perfil = get_object_or_404(Perfil, usuario=request.user)
-            return render_to_response('cuentas/cambiar_clave.html', locals(),context_instance=RequestContext(request))
-
+            return render_to_response('cuentas/cambiar_clave.html', locals(), context_instance=RequestContext(request))
