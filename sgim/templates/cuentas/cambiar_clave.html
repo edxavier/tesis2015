@@ -9,7 +9,6 @@
 
 {% block contenido %}
 
-
 <div vertical layout>
 
 		<h4 class="ui icon header">
@@ -32,8 +31,8 @@
 								{% else %}
 									<div class="field ">	
 								{% endif %}	
-									{% if form.old_password.errors %}									 
-										{{ form.old_password.errors.as_text }}									
+									{% if form.old_password.errors %}	
+										{{ form.old_password.errors }}
 									{% endif %}					
 										<div class="ui left icon input ">
 											<input  type="password" placeholder="Contraseña actual" name="old_password" required>		
@@ -71,7 +70,7 @@
 										</div>
 									</div>
 								
-								<button class="ui blue right labeled icon button ripple" type="submit">
+								<button class="ui blue right labeled icon button " type="submit">
 										Guardar Cambios  <i class="save icon"></i>
 													<paper-ripple fit></paper-ripple>
 								</button>

@@ -18,10 +18,10 @@ duration='4000'></paper-toast>
 
 
 
-<div class="ui grid" >
+<div class="ui" >
 
 
-    <div class="column seven wide computer centered">      
+    <div class="column  centered">      
 
 	    <div vertical layout >
 
@@ -36,13 +36,13 @@ duration='4000'></paper-toast>
 				<div  self-center >
 					
 					<paper-shadow class="card" z="2" animated>
-						<form class="custom loginfrm card" method="POST" enctype="multipart/form-data">
+						<form method="POST" enctype="multipart/form-data">
 							{% csrf_token %}				
 							
 							<div class="column ">
 								<div class="ui form segment">
 										<div class="field ">	
-										Imagen Actual:
+										<label for="">Imagen Actual:</label>
 												<img class="ui small bordered image" src="{{MEDIA_URL}}{{user.imagen}}">
 										</div>
 										<div class="field ">				
@@ -51,7 +51,8 @@ duration='4000'></paper-toast>
 												<i class="file image outline icon"></i>	
 											</div>
 										</div>
-
+										
+										
 									
 										<div class="field ">
 											<div class="ui left icon input ">
@@ -77,7 +78,7 @@ duration='4000'></paper-toast>
 
 										<div class="field ">
 										{% if form.email.errors %}									 
-											{{ form.email.errors.as_text }}								
+											{{ form.email.errors }}								
 										{% endif %}														
 											<div class="ui left icon input ">
 												<input type="email" name="email"  placeholder="Direccion de Correo" value='{{ user.email }}'>
@@ -86,7 +87,7 @@ duration='4000'></paper-toast>
 										</div>
 									
 									
-									<button class="ui blue right labeled icon button ripple" type="submit">
+									<button class="ui blue right labeled icon button " type="submit">
 											Guardar Cambios  <i class="save icon"></i>
 														<paper-ripple fit></paper-ripple>
 									</button>

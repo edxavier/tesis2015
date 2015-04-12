@@ -1,0 +1,48 @@
+<div class="navbar shadow-z-1 navbar-fixed-top" >
+   
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">STERM</a>
+    </div>
+    {% if user.is_authenticated %}            
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+            <ul class="nav navbar-nav">
+                <li ><a href="javascript:void(0)">Active</a></li>
+
+                <li><a href="javascript:void(0)">Link</a></li>
+                <li class="dropdown">
+                    <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0)">Action</a></li>
+                        <li><a href="javascript:void(0)">Another action</a></li>
+                        <li><a href="javascript:void(0)">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Dropdown header</li>
+                        <li><a href="javascript:void(0)">Separated link</a></li>
+                        <li><a href="javascript:void(0)">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+          
+            <ul class="nav navbar-nav navbar-right">
+                <li class="hidden-sm hidden-xs"> 
+                  <img class="ui top aligned avatar image" style="margin-top:15px" src="{{MEDIA_URL}}{{user.imagen}}">                
+                </li>
+                <li class="dropdown" style="margin-right:20px">
+                    <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">{{user}} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'perfil' user %}">Mi cuenta</a></li>
+                        <li><a href="{% url 'actualizar_clave' %}">Cambiar contraseña</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/admin">Administracion</a></li>
+                        <li><a href="{% url 'logout' %}">Salir</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    {% endif %}
+</div>

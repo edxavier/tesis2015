@@ -7,12 +7,20 @@
 		Login
 	{% endblock header %}
 	{% block contenido %}
-		<div vertical layout >
-			<div class="ui horizontal divider">
-				Bienvenido
-			</div>
+		
 
-			<div style="width:350px" self-center >
+<div class="ui stackable three column centered grid">
+	<div class="four column centered row">
+      <div class="column ui segment"></div>
+      <div class="column ui segment"> </div>
+    </div>
+
+    <div class="column centered"> 
+		
+		<div class="ui horizontal divider">
+			Bienvenido
+		</div>
+		<div >
 						{% if form.non_field_errors %}
 							<div class="ui error message">
 								<div class="header"><i class="icon warning circle"></i> Tenemos un pequeño problema</div>
@@ -23,7 +31,7 @@
 								</p>
 							</div>					
 						{% endif %}
-				<paper-shadow class="card" z="2" animated>
+			<paper-shadow class="card" z="2" animated>
 					<form class="custom loginfrm card" method="POST" >
 						{% csrf_token %}					
 						
@@ -51,18 +59,22 @@
 									</div>
 								</div>
 								
-									<button class="ui blue right labeled icon button ripple" type="submit">
+									<button class="ui blue right labeled icon button " type="submit">
 										Autenticarme  <i class="unlock icon"></i>
 													<paper-ripple fit></paper-ripple>
 									</button>
+
 								
 							</div>
 						</div>
 					
 					</form>
 				</paper-shadow>
-			</div>
 		</div>
+		
+    </div>    
+  </div>
+	
 	{% endblock contenido %}
 	{% block scripts %}
 	{% endblock scripts %}

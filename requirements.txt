@@ -1,4 +1,5 @@
-Django==1.8
+Django==1.7.7
+django-suit==0.2.12
 httplib2==0.9
 Pillow==2.8.1
 psycopg2==2.6

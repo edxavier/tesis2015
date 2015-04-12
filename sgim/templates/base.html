@@ -1,150 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang='es'>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{% block titulo %}   {% endblock titulo %} </title>
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  
-
-    
-    <script src="{{BOWER_URL}}webcomponentsjs/webcomponents.js"></script>
+ 
     <script src="{{BOWER_URL}}jquery/dist/jquery.min.js"></script>
     <script src="{{BOWER_URL}}semantic-ui/dist/semantic.min.js"></script>
-    <script src="{{BOWER_URL}}w2ui/w2ui-1.4.2.min.js"></script>
-
     <link rel="stylesheet" href="{{BOWER_URL}}semantic-ui/dist/semantic.css">
-    <link rel="stylesheet" href="{{BOWER_URL}}w2ui/w2ui-1.4.2.min.css">
-    <link rel="stylesheet" href="{{STATIC_URL}}css/estilos.css">
 
-    <link rel="import" href="{{BOWER_URL}}ajax-form/ajax-form.html">    
-    <link rel="import" href="{{BOWER_URL}}core-animated-pages/core-animated-pages.html">
-    <link rel="import" href="{{BOWER_URL}}core-drawer-panel/core-drawer-panel.html">
-    <link rel="import" href="{{BOWER_URL}}core-header-panel/core-header-panel.html">
-    <link rel="import" href="{{BOWER_URL}}core-icons/core-icons.html">
-    <link rel="import" href="{{BOWER_URL}}core-item/core-item.html">
-    <link rel="import" href="{{BOWER_URL}}core-menu/core-menu.html">
-    <link rel="import" href="{{BOWER_URL}}core-menu/core-submenu.html">
-    <link rel="import" href="{{BOWER_URL}}core-toolbar/core-toolbar.html">
-    <link rel="import" href="{{BOWER_URL}}core-tooltip/core-tooltip.html">
-    <link rel="import" href="{{BOWER_URL}}font-roboto/roboto.html">
-    <link rel="import" href="{{BOWER_URL}}paper-button/paper-button.html">
-    <link rel="import" href="{{BOWER_URL}}paper-dialog/paper-action-dialog.html">
-    <link rel="import" href="{{BOWER_URL}}paper-dialog/paper-dialog.html">
-    <link rel="import" href="{{BOWER_URL}}paper-dropdown/paper-dropdown.html">
-    <link rel="import" href="{{BOWER_URL}}paper-icon-button/paper-icon-button.html">
-    <link rel="import" href="{{BOWER_URL}}paper-item/paper-item.html">
-    <link rel="import" href="{{BOWER_URL}}paper-menu-button/paper-menu-button.html">
-    <link rel="import" href="{{BOWER_URL}}paper-ripple/paper-ripple.html">
-    <link rel="import" href="{{BOWER_URL}}paper-tabs/paper-tabs.html">
-    <link rel="import" href="{{BOWER_URL}}paper-toast/paper-toast.html">
-    <link rel="import" href="{{BOWER_URL}}paper-shadow/paper-shadow.html">
-    <link rel="import" href="{{BOWER_URL}}paper-input/paper-input-decorator.html">
-    <link rel="import" href="{{BOWER_URL}}paper-dropdown-menu/paper-dropdown-menu.html">
+    <link rel="stylesheet" href="{{STATIC_URL}}css/todo.min.css">
 
+ <!--Import materialize.css-->
+    <link href="{{BOWER_URL}}bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{BOWER_URL}}bootstrap-material-design/dist/css/roboto.min.css"  media="screen,projection"/>
+    <link rel="stylesheet" href="{{BOWER_URL}}bootstrap-material-design/dist/css/material.min.css"  media="screen,projection"/>
+    <link rel="stylesheet" href="{{BOWER_URL}}bootstrap-material-design/dist/css/ripples.min.css"  media="screen,projection"/>
+    <link rel="import" href="{{BOWER_URL}}polymer/layout.html" />
+    {% block include_statics %}
+        
+    {% endblock include_statics %}
 
-<style shim-shadowdom>
-core-tooltip.fancy::shadow .core-tooltip {
-    opacity: 0;
-    -webkit-transition: all 400ms cubic-bezier(0,1.92,.99,1.07);
-    transition: all 400ms cubic-bezier(0,1.92,.99,1.07);
-    -webkit-transform: translate3d(0, -10px, 0);
-    transform: translate3d(0, -10px, 0);
-}
-
-core-tooltip.fancy:hover::shadow .core-tooltip,
-core-tooltip.fancy:focus::shadow .core-tooltip {
-    opacity: 1;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-}
-</style>
 </head>
-<body fullbleed layout vertical>
+<body >
 
-<core-drawer-panel drawerWidth="240px" id="drawerPanel" forceNarrow=true >
-    <core-header-panel drawer mode="waterfall">
-        <core-toolbar>
-            <div class="core-header">
-                <core-tooltip label="Sistema de Gestion de Incidencias y Mantenimientos"
-                class="fancy" position="right">
-                SGIM
-                </core-tooltip>
-            </div>
-        </core-toolbar>
-        <div class="content">
-            {% if user.is_authenticated  %}           
-            
-                <img src="{{MEDIA_URL}}{{user.imagen}}"
-                width="70px"   class="bottom"/>
-                <div class="bottom" style="font-size:16px">Administrador</div>
-                <core-menu selected="0">
-                <core-submenu icon="settings" label="Preferencias">
-                <core-item label="Mi Perfil"></core-item>
-                <core-item label="Cambiar Contrasenia"></core-item>
-                </core-submenu>
-                <core-submenu icon="settings" label="Incidencias">
-                <core-item label="Ultimas"></core-item>
-                <core-item label="Abiertas"></core-item>
-                <core-item label="Cerradas"></core-item>
-                </core-submenu>
-                </core-menu>
-            {% endif %}
-        </div>
-    </core-header-panel>
-    {% comment %}
-        Contenido Principal 
-    {% endcomment %}
-    <core-header-panel flex mode="waterfall" main>
-        <core-toolbar >
-            {% if  user.is_authenticated %}
-            <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button>
-            <a href="/" class="link">
-                <paper-icon-button icon="home"></paper-icon-button>
-            </a>
-            {% endif %}
-            <div class="core-header">{% block header %}{% endblock header %}</div>
-            {% if user.is_authenticated %}
-                <span flex></span>
-                <core-tooltip label="{{user.username}}" class="fancy" position="bottom">
-                    <img class="ui avatar image" src="{{MEDIA_URL}}{{user.imagen}}">
-                </core-tooltip>
-                <paper-menu-button>          
-                 <paper-icon-button icon="arrow-drop-down"></paper-icon-button>          
-                    <paper-dropdown class="dropdown" halign="right">
-                        <core-menu class="menu">
-                            <paper-item noink>
-                                <a href="{% url 'perfil' user.username %}">Mi Perfil</a>
-                            </paper-item>
-                            <paper-item>
-                                 <a href="{% url 'actualizar_clave' %}">Contraseña</a>
-                            </paper-item>
-                            {% if user.is_staff %}
-                                <paper-item>
-                                     <a href="/admin">Administracion</a>
-                                </paper-item>
-                            {% endif %}
+<div class="contain-to-grid sticky">
+    {% include "includes/nav_bar.html" %}
+</div>
+{% block contenido %}
 
-                        </core-menu>
-                    </paper-dropdown>
-                </paper-menu-button>                
-                <a href="{% url 'logout' %}" class="link">
-                    <core-tooltip label="Salir" class="fancy" position="bottom">
-                     <paper-icon-button icon="exit-to-app"></paper-icon-button>
-                    </core-tooltip>
-                </a>
-            {% endif %}
-        </core-toolbar>
+{% endblock contenido %}
 
-        <div class="content">
-            {% block contenido %}
-            {% endblock contenido %}
-        </div>
-    </core-header-panel>
-
-</core-drawer-panel>
-
+    <script src="{{BOWER_URL}}bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="{{BOWER_URL}}bootstrap-material-design/dist/js/ripples.min.js"></script>
+    <script src="{{BOWER_URL}}bootstrap-material-design/dist/js/material.min.js"></script>
+    <script>
+        $(document).ready(function() {
+                // This command is used to initialize some elements and make them work properly
+                $.material.init();
+            });
+    </script>
 </body>
+
 <script src="{{BOWER_URL}}semantic-ui/dist/semantic.js" type="text/javascript"></script>
 {% block scripts %}
 

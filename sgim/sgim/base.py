@@ -36,6 +36,9 @@ DJANGO_APPS = (
 
 LOCAL_APPS = (
     'apps.cuentas',
+    'apps.catalogo',
+    'apps.inventario',
+    'apps.mantenimiento',
 
 )
 
@@ -88,7 +91,7 @@ WSGI_APPLICATION = 'sgim.wsgi.application'
 
 LANGUAGE_CODE = 'es-mx'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Managua'
 
 USE_I18N = True
 

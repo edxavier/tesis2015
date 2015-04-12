@@ -190,6 +190,7 @@ crashlytics-build.properties
 ### Yeoman template
 node_modules/
 bower_components/
+media/
 *.log
 
 build/

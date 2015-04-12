@@ -1,34 +1,7 @@
-/* application font */
-core-scaffold {
-    font-family: sans-serif;
-}
-
-.content {
-    padding: 10px;
-}
 
 
-core-toolbar{
-	background-color : #03A9F4;/*Light Blue*/
-	color: white
-}
-paper-button {
-background: #00ACC1;
-color: white;
-}
-paper-item{
-color: black;
-}
+body { padding-top: 70px;}
 
-body { font-family: sans-serif;}
-[drawer] {background-color: #F5F5F5}
-[drawer] > core-toolbar{background-color: #039BE5}
-
-
-
-.ripple{
-	position: relative;
-}
 .tealColor{
 	background-color: #009688;
 	color: white;
@@ -52,7 +25,7 @@ body { font-family: sans-serif;}
     color: white;
     text-decoration: none;
 }
-.error{
+.errorlist{
 	color: #C51162;
 	font-style: italic;
 	font-size: 12px;
