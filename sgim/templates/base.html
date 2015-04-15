@@ -28,9 +28,13 @@
 <div class="contain-to-grid sticky">
     {% include "includes/nav_bar.html" %}
 </div>
-{% block contenido %}
 
-{% endblock contenido %}
+  
+    {% block contenido %}
+
+    {% endblock contenido %}
+ 
+
 
     <script src="{{BOWER_URL}}bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="{{BOWER_URL}}bootstrap-material-design/dist/js/ripples.min.js"></script>
@@ -39,7 +43,7 @@
         $(document).ready(function() {
                 // This command is used to initialize some elements and make them work properly
                 $.material.init();
-            });
+                
     </script>
 </body>
 

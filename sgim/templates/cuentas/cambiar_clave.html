@@ -8,78 +8,76 @@
 {% endblock header %}
 
 {% block contenido %}
+<ul class="breadcrumb" style="margin-bottom: 5px;">
+    <li><a href="/">Inicio</a></li>
+    <li><a href="{% url 'perfil' user %}">Mi Cuenta</a></li>
+    <li class="active">Informacion de Acceso</li>
+</ul>
 
-<div vertical layout>
+<div class="container-fluid">
+	
+<div class="row">
+  <div class="col-md-4 col-md-offset-4" >
+  	  	<div class="panel panel-primary  shadow-z-2">
+                <div class="panel-heading" >
+                    <h3 style="color:white" class="center ui aligned header">
+                      <i class="privacy icon"></i>
+					  <div class="content">
+					    Cambiar Contraseña
+					  </div>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" method="post">
+                                {% csrf_token %}
 
-		<h4 class="ui icon header">
-		  <i class="lock icon"></i>
-		  <div class="content">
-		    Cambio de Contraseña
-		     <div class="sub header">Debera volver a iniciar sesion luego de realizar el cambio</div>
-		  </div>
-		</h4>
+                        <div class="form-group ">
+                        	{% if form.old_password.errors %}	
+								{{ form.old_password.errors }}
+							{% endif %}	
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
+                                        <br/>
 
-	<div style="width:350px;" self-center >
-				<paper-shadow class="card" z="2" animated>
-					<form class="custom loginfrm card" method="POST" >
-						{% csrf_token %}					
-						
-						<div class="column ">
-							<div class="ui form segment">
-								{% if form.old_password.errors %}
-									<div class="field error">	
-								{% else %}
-									<div class="field ">	
-								{% endif %}	
-									{% if form.old_password.errors %}	
-										{{ form.old_password.errors }}
-									{% endif %}					
-										<div class="ui left icon input ">
-											<input  type="password" placeholder="Contraseña actual" name="old_password" required>		
-											<i class="lock icon"></i>
-											<div class="ui corner yellow label">
-										    	<i class="asterisk icon"></i>
-										  	</div>
-										</div>
-									</div>
+                                <span class="input-group-addon">
+                                	<i class="mdi-action-lock"></i>
+                                </span>
+                                <input type="password" class="form-control floating-label" name="old_password" placeholder="Contraseña actual" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-1 input-group">
+                                        <br/>
+                                        <span class="input-group-addon"><i class="mdi-action-lock"></i></span>
+                                       <input type="password" class="form-control floating-label" name="new_password1" required placeholder="Nueva contraseña">
+                                    </div>
+                        </div>
+                        {% if form.new_password2.errors %}
+							{{ form.new_password2.errors }}
+						{% endif %}
+                        <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-1 input-group">
+                                        <br/>
+                                        <span class="input-group-addon"><i class="mdi-action-lock"></i></span>
+                                       <input type="password" class="form-control floating-label" name="new_password2" required placeholder="Confirma tu nueva contraseña">
+                                    </div>
+                        </div>
+                        <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-1">
+                                        <button type="submit" class="btn  btn-sm btn-primary">
+                                            Guardar Cambios  
+                                            <span class="glyphicon glyphicon-save" ></span>
+                                        </button>
+                                    </div>
+                        </div>
 
-									<div class="field ">													
-										<div class="ui left icon input ">
-											<input type="password" name="new_password1" required placeholder="Nueva contraseña">
-											<i class="lock icon"></i>
-											<div class="ui corner yellow label">
-										    	<i class="asterisk icon"></i>
-										  	</div>
-										</div>
-									</div>
+                    </form>
 
-								{% if form.new_password2.errors %}
-									<div class="field error">	
-								{% else %}
-									<div class="field ">	
-								{% endif %}	
-									{% if form.new_password2.errors %}
-										<i class="warning icon"></i>{{ form.new_password2.errors.as_text }}
-									{% endif %}										
-										<div class="ui left icon input ">
-											<input type="password" name="new_password2" required placeholder="Confirma tu nueva contraseña">
-											<i class="lock icon"></i>
-											<div class="ui corner yellow label">
-										    	<i class="asterisk icon"></i>
-										  	</div>
-										</div>
-									</div>
-								
-								<button class="ui blue right labeled icon button " type="submit">
-										Guardar Cambios  <i class="save icon"></i>
-													<paper-ripple fit></paper-ripple>
-								</button>
-								
-							</div>
-						</div>
-					
-					</form>
-				</paper-shadow>
-				</div>
+                </div>
+                <div class="panel-footer">Sera necesario volver a iniciar sesion despues del cambio de tu contraseña</div>
+        </div>
+        
+
+  </div>
+</div>
 </div>
 {% endblock contenido %}

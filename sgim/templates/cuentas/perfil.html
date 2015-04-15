@@ -9,7 +9,10 @@
 {% endblock header %}
 
 {% block contenido %}
-
+<ul class="breadcrumb" style="margin-bottom: 5px;">
+    <li><a href="/">Inicio</a></li>
+    <li class="active"><a href="{% url 'perfil' user %}">Mi Cuenta</a></li>
+</ul>
 	<div vertical layout>
 
 		<h4 class="ui icon header">
@@ -55,4 +58,16 @@
   </div>
 
 </div>
+
+
+
+
 {% endblock contenido %}
+{% block scripts %}
+    <script>
+    	$(document).ready(function() {
+    		//$('.sidebar.menu').sidebar('attach events', '.toggle')
+    		//.sidebar('setting', 'transition', 'overlay');
+    	});
+    </script>
+{% endblock scripts %}

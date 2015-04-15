@@ -10,23 +10,11 @@
 		
 
 <div class="ui stackable three column centered grid">
-	<div class="four column centered row">
-      <div class="column ui ">
 
-      </div>
-      <div class="column ui "> </div>
-    </div>
+    <div class="column centered">
 
 
-
-    <div class="column centered"> 
-		
-		<div class="ui horizontal divider">
-			Bienvenido
-		</div>
-
-
-		<div >
+		<div style="padding-top:40px" >
             {% if form.non_field_errors %}
             <div class="alert alert-dismissable alert-warning">
                 <button type="button" class="close" data-dismiss="alert">×</button>
@@ -46,6 +34,7 @@
                 <div class="panel-body">
                     <form class="form-horizontal" method="post">
                                 {% csrf_token %}
+
                                 <div class="form-group">
                                     <div class="col-lg-10 col-lg-offset-1 input-group">
                                         <br/>
@@ -71,7 +60,7 @@
                                     </div>
                                 </div>
 
-                                </form>
+                    </form>
                 </div>
             </div>
 
@@ -79,6 +68,7 @@
 		
     </div>    
   </div>
+
 	
 	{% endblock contenido %}
 	{% block scripts %}

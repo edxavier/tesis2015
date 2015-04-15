@@ -10,106 +10,109 @@
 
 {% block contenido %}
 	
-	
-	
+<ul class="breadcrumb" style="margin-bottom: 5px;">
+    <li><a href="/">Inicio</a></li>
+    <li><a href="{% url 'perfil' user %}">Mi Cuenta</a></li>
+    <li class="active">Informacion Personal</li>
+</ul>
 
-<paper-toast id='toast1' text="Tus datos fueron actualizados" 
-duration='4000'></paper-toast>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
 
+			<div class="panel panel-primary  shadow-z-2">
+                <div class="panel-heading" >
+                    <h3 style="color:white" class="center ui aligned header">
+                      <i class="edit icon"></i>
+					  <div class="content">
+					    Editar Datos Personales	
 
+					  </div>
+					  
+                    </h3>
 
-<div class="ui" >
+                </div>
+                <div class="panel-body">
+                	<div class="col-md-3 col-sm-3 ">
+                		{% if form.imagen.errors %}									 
+							{{ form.imagen.errors }}
+						{% endif %}	
+                		<h4 class="ui center aligned header">Imagen actual</h4>
+						<img class="ui small image " 
+							src="{{MEDIA_URL}}{{user.imagen}}">
+					</div>
+					<div class="col-md-9 col-sm-9 ">
+						<form class="form-horizontal" method="post">
+                                {% csrf_token %}
+                        <div class="form-group ">
+                        	{% if form.old_password.errors %}	
+								{{ form.old_password.errors }}
+							{% endif %}	
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
 
+                                <span class="input-group-addon">
+                                	<i class="mdi-editor-insert-photo"></i>
+                                </span>
+                                 <input type="text" readonly="" class="form-control floating-label" placeholder="Seleccionar imagen...">
+                				<input type="file" name="imagen" multiple="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-1 input-group">
+                                        <br/>
+                                        <span class="input-group-addon"><i class="mdi-action-account-box"></i></span>
+                                       <input type="text" class="form-control floating-label" name="firstname" value='{{ user.firstname }}' placeholder="Nombres">
+                                    </div>
+                        </div>
+                        {% if form.new_password2.errors %}
+							{{ form.new_password2.errors }}
+						{% endif %}
+                        <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-1 input-group">
+                                        <br/>
+                                        <span class="input-group-addon"><i class="mdi-action-account-box"></i></span>
+                                       <input type="text" class="form-control floating-label" name="lastname" value='{{ user.lastname }}'placeholder="Apellidos">
+                                    </div>
+                        </div>
+                         <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-1 input-group">
+                                        <br/>
+                                        <span class="input-group-addon"><i class="mdi-hardware-phone-android"></i></span>
+                                       <input type="text" class="form-control floating-label" name="telefono" value='{{ user.telefono }}' placeholder="Telefono">
+                                    </div>
+                        </div>
+                         <div class="form-group">
+                         	{% if form.email.errors %}
+								{{ form.email.errors }}
+							{% endif %}	
+                                    <div class="col-lg-10 col-lg-offset-1 input-group">
+                                        <br/>
+                                        <span class="input-group-addon"><i class="mdi-communication-email"></i></span>
+                                       <input type="email" class="form-control floating-label" name="email" value='{{ user.email }}' placeholder="Direccion de Correo">
+                                    </div>
+                        </div>
+                        <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-1">
+                                        <button type="submit" class="btn  btn-sm btn-primary">
+                                            Guardar Cambios  
+                                            <span class="glyphicon glyphicon-save" ></span>
+                                        </button>
+                                    </div>
+                        </div>
 
-    <div class="column  centered">      
-
-	    <div vertical layout >
-
-		
-		<h4 class="ui icon header">
-		  <i class="write icon"></i>
-		  <div class="content">
-		    Datos de usuario
-		  </div>
-		</h4>
-
-				<div  self-center >
-					
-					<paper-shadow class="card" z="2" animated>
-						<form method="POST" enctype="multipart/form-data">
-							{% csrf_token %}				
-							
-							<div class="column ">
-								<div class="ui form segment">
-										<div class="field ">	
-										<label for="">Imagen Actual:</label>
-												<img class="ui small bordered image" src="{{MEDIA_URL}}{{user.imagen}}">
-										</div>
-										<div class="field ">				
-											<div class="ui left icon input ">
-												<input type="file" name="imagen" >
-												<i class="file image outline icon"></i>	
-											</div>
-										</div>
-										
-										
-									
-										<div class="field ">
-											<div class="ui left icon input ">
-												<input  type="text" placeholder="Nombres" name="firstname" value='{{ user.firstname }}'>		
-												<i class="user icon"></i>
-											</div>
-										</div>
-
-										<div class="field ">													
-											<div class="ui left icon input ">
-												<input type="text" name="lastname"  
-												placeholder="Apellidos" value='{{ user.lastname }}'>
-												<i class="user icon"></i>	
-											</div>
-										</div>
-										<div class="field ">													
-											<div class="ui left icon input ">
-												<input type="text" name="telefono"  placeholder="Direccion de Correo" value='{{ user.telefono }}'>
-												<i class="call icon"></i>	
-											</div>
-										</div>
-
-
-										<div class="field ">
-										{% if form.email.errors %}									 
-											{{ form.email.errors }}								
-										{% endif %}														
-											<div class="ui left icon input ">
-												<input type="email" name="email"  placeholder="Direccion de Correo" value='{{ user.email }}'>
-												<i class="mail icon"></i>	
-											</div>
-										</div>
-									
-									
-									<button class="ui blue right labeled icon button " type="submit">
-											Guardar Cambios  <i class="save icon"></i>
-														<paper-ripple fit></paper-ripple>
-									</button>
-									
-								</div>
-							</div>
-						
-						</form>
-						<div class="ui bottom attached warning message">
-						  <i class="icon help"></i>
-						  Cambiar su contraseña de acceso <a href="/cuentas/cambiar-clave">Aqui</a>
+                    	</form>
+                    	<div class="ui bottom attached warning message">
+						  <i class="exchange icon"></i>
+						  Cambiar Contraseña <a href="{% url 'actualizar_clave' %}">Aqui</a>. 
 						</div>
-					</paper-shadow>
-				</div>
+					</div>
+
+                </div>
+            </div>
+
 		</div>
-
-      
-
-    </div>
-    
-  </div>
-
+	</div>
+</div>
 
 {% endblock contenido %}
 
