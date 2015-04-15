@@ -1,0 +1,85 @@
+	{% extends "base.html" %}
+	{% load i18n %}
+	{% block titulo %}
+		Inicio de Sesion
+	{% endblock titulo %}
+	{% block header %}
+		Login
+	{% endblock header %}
+	{% block contenido %}
+		
+
+<div class="ui stackable three column centered grid">
+	<div class="four column centered row">
+      <div class="column ui ">
+
+      </div>
+      <div class="column ui "> </div>
+    </div>
+
+
+
+    <div class="column centered"> 
+		
+		<div class="ui horizontal divider">
+			Bienvenido
+		</div>
+
+
+		<div >
+            {% if form.non_field_errors %}
+            <div class="alert alert-dismissable alert-warning">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <h4><div class="header"><i class="icon warning circle"></i> Tenemos un pequeño problema</div></h4>
+                <p>
+                    {% for error in  form.non_field_errors %}
+					<!-- {{error}} -->{% trans error %}
+					{% endfor %}
+                </p>
+            </div>
+
+            {% endif %}
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Inicia sesion</h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-1 input-group">
+                                        <br/>
+                                         <span class="input-group-addon"><i class="mdi-action-account-box"></i></span>
+                                        <input type="text" class="form-control floating-label" name="username"
+                                                 placeholder="Usuario" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-1 input-group">
+                                        <br/>
+                                        <span class="input-group-addon"><i class="mdi-action-lock"></i></span>
+                                        <input type="password" class="form-control floating-label"
+                                               name="password" placeholder="Contraseña">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-1">
+                                        <button type="submit" class="btn  btn-sm btn-primary">
+                                            Iniciar
+                                            <span class="glyphicon glyphicon-log-in" ></span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                </form>
+                </div>
+            </div>
+
+		</div>
+		
+    </div>    
+  </div>
+	
+	{% endblock contenido %}
+	{% block scripts %}
+	{% endblock scripts %}
