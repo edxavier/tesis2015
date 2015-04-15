@@ -11,15 +11,21 @@
 
 <div class="ui stackable three column centered grid">
 	<div class="four column centered row">
-      <div class="column ui segment"></div>
+      <div class="column ui segment">
+
+      </div>
       <div class="column ui segment"> </div>
     </div>
+
+
 
     <div class="column centered"> 
 		
 		<div class="ui horizontal divider">
 			Bienvenido
 		</div>
+
+
 		<div >
 						{% if form.non_field_errors %}
 							<div class="ui error message">
@@ -32,16 +38,17 @@
 							</div>					
 						{% endif %}
 			<paper-shadow class="card" z="2" animated>
+
 					<form class="custom loginfrm card" method="POST" >
 						{% csrf_token %}					
-						
+
 						<div class="column ">
 							<div class="ui form segment">
-								<div class="field">									
-									<a class="ui teal right ribbon label"><i class="lock icon"></i>  Inicio de Sesion</a>	
+								<div class="field">
+									<a class="ui teal right ribbon label"><i class="lock icon"></i>  Inicio de Sesion</a>
 									<label>Nombre de Usuario</label>
 									<div class="ui left icon input ">
-										<input type="text" placeholder="Ingresa tu nombre de usuario" name="username" required>		
+										<input type="text" placeholder="Ingresa tu nombre de usuario" name="username" required>
 										<i class="user icon"></i>
 										<div class="ui corner yellow label">
 									    	<i class="asterisk icon"></i>
@@ -58,13 +65,13 @@
 									  	</div>
 									</div>
 								</div>
-								
+
 									<button class="ui blue right labeled icon button " type="submit">
 										Autenticarme  <i class="unlock icon"></i>
 													<paper-ripple fit></paper-ripple>
 									</button>
 
-								
+
 							</div>
 						</div>
 					
