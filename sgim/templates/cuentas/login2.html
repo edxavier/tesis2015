@@ -27,7 +27,18 @@
 
 
 		<div >
+            {% if form.non_field_errors %}
+            <div class="alert alert-dismissable alert-warning">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <h4><div class="header"><i class="icon warning circle"></i> Tenemos un pequeño problema</div></h4>
+                <p>
+                    {% for error in  form.non_field_errors %}
+					<!-- {{error}} -->{% trans error %}
+					{% endfor %}
+                </p>
+            </div>
 
+            {% endif %}
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">Inicia sesion</h3>
@@ -63,19 +74,6 @@
                                 </form>
                 </div>
             </div>
-						{% if form.non_field_errors %}
-							<div class="ui error message">
-								<div class="header"><i class="icon warning circle"></i> Tenemos un pequeño problema</div>
-								<p>
-									{% for error in  form.non_field_errors %}
-										<!-- {{error}} -->{% trans error %}
-									{% endfor %}
-								</p>
-							</div>					
-						{% endif %}
-
-
-
 
 		</div>
 		
