@@ -4,7 +4,8 @@ from .models import (
     Sistema, TipoDispositivo,
     Edificio, Oficina, TipoServicio,
     TipoComponente, EstadoOperacional,
-    EstadoMantenimiento, Cargo, Personal
+    EstadoMantenimiento, Cargo, Personal,
+    TipoIncidente
 )
 
 
@@ -73,6 +74,15 @@ class EstadoOperacionalAdmin(admin.ModelAdmin):
 
 @admin.register(EstadoMantenimiento)
 class EstadoMantenimientoAdmin(admin.ModelAdmin):
+    list_display = ("nombre", "creador",)
+    fields = ("nombre",)
+
+    def save_model(self, request, obj, form, change):
+        return agregarCreador(request, form)
+
+
+@admin.register(TipoIncidente)
+class TipoIncidenteAdmin(admin.ModelAdmin):
     list_display = ("nombre", "creador",)
     fields = ("nombre",)
 

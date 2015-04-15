@@ -38,6 +38,7 @@ LOCAL_APPS = (
     'apps.cuentas',
     'apps.catalogo',
     'apps.inventario',
+    'apps.incidencias',
     'apps.mantenimiento',
 
 )

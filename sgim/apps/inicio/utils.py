@@ -24,6 +24,7 @@ def agregarCreador(request, form):
         else:
             instance.creador = request.user
             instance.save()
+
     except Exception, e:
         return
 

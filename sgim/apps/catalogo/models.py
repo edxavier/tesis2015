@@ -65,6 +65,12 @@ class Cargo(MarcaDeTiempo, models.Model):
     def __unicode__(self):
         return self.nombre
 
+class TipoIncidente(MarcaDeTiempo, models.Model):
+    nombre = models.CharField(max_length=100)
+
+    def __unicode__(self):
+        return self.nombre
+
 class Personal(MarcaDeTiempo, models.Model):
     nombre_completo = models.CharField(max_length=100)
     telefono = models.CharField(max_length=15, blank=True)

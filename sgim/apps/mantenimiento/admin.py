@@ -1,6 +1,6 @@
 from django.contrib import admin
 from apps.inicio.utils import agregarCreador
-from apps.mantenimiento.models import Tarea, Rutina, Programacion
+from apps.mantenimiento.models import Tarea, Rutina, Programacion, BoletaTrabajo
 from apps.inventario.models import Dispositivo
 from datetime import  timedelta
 
@@ -74,4 +74,11 @@ class ProgramacionAdmin(admin.ModelAdmin):
         return instance
 
 
+@admin.register(BoletaTrabajo)
+class BoletaTrabajoAdmin(admin.ModelAdmin):
+    list_display = ("id","tipo", "dispositivo", "paro_operacion", "tiempo_paro", "estado_final","encargado")
+    exclude = ('creador',)
+
+    def save_model(self, request, obj, form, change):
+        return agregarCreador(request, form)
 
