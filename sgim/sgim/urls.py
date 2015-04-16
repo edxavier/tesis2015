@@ -13,6 +13,7 @@ urlpatterns = patterns('',
                         url(r'^logout/$', 'django.contrib.auth.views.logout_then_login', name='logout'),
                        # url(r'^blog/', include('blog.urls')),
                         url(r'^cuentas/',include('apps.cuentas.urls')),
+                        url(r'^mantto/',include('apps.mantenimiento.urls')),
 
 
                         url(r'^admin/', include(admin.site.urls)),

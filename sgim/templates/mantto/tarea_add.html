@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block include_statics %}
+    <script src="{{BOWER_URL}}w2ui/w2ui-1.4.2.min.js"></script>
+    <link rel="stylesheet" href="{{BOWER_URL}}w2ui/w2ui-1.4.2.min.css">
+{% endblock include_statics %}
+
+{% block contenido %}
+
+
+
+<div id="form" >
+    <div class="w2ui-page page-0">
+        <div class="w2ui-field">
+            <label>Titulo de la tarea:</label>
+            <div>
+                <input name="first_name" type="text" maxlength="100" size="60"/>
+            </div>
+        </div>
+        <div class="w2ui-field">
+            <label>Duracion estimada:</label>
+            <div>
+                <input name="last_name" type="number" maxlength="100" placeholder="Duracion en minutos" size="60"/>
+            </div>
+        </div>
+        <div class="w2ui-field">
+            <label>Materiales necesarios:</label>
+            <div>
+                <textarea name="comments" type="text" style="width: 100%; height: 80px; resize: none"></textarea>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="w2ui-buttons">
+        <button class="btn" name="reset">Reset</button>
+        <button class="btn" name="save">Save</button>
+    </div>
+</div>
+	
+{% endblock contenido %}
+
+
+{% block scripts %}
+
+<script>
+$(function () {
+    	$('#form').w2form({ 
+        name   : 'form',
+        header : 'Agregar nueva tarea',
+        url    : 'server/post',
+        fields : [
+            { field: 'first_name', type: 'text', required: true },
+            { field: 'last_name',  type: 'text', required: true },
+            { field: 'comments',   type: 'text'},
+        ],
+
+        actions: {
+            reset: function () {
+                this.clear();
+            },
+            save: function () {
+                this.save();
+            }
+        }
+    	});
+});
+</script>
+	
+{% endblock scripts %}
