@@ -2,9 +2,7 @@
    
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+            <i class="mdi-navigation-more-vert"></i>
         </button>
 
         <a class="navbar-brand" href="#">Sala Tecnica</a>
@@ -12,7 +10,19 @@
     {% if user.is_authenticated %}            
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav">
-                <li class="toggle"><a href="javascript:void(0)"><i class="mdi-navigation-more-vert"></i></a></li>               
+                <li class="toggle"><a href="javascript:void(0)"></a></li>
+                    <li class="dropdown" style="margin-right:20px">
+                    <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Mantto<b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'tarea_add' %}">Tarea</a></li>
+                        <li><a href="{% url 'actualizar_clave' %}">Rutina</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/admin">Programacion</a></li>
+                        <li><a href="{% url 'logout' %}">Boletas</a></li>
+                    </ul>
+                </li>               
             </ul>
           
             <ul class="nav navbar-nav navbar-right">
