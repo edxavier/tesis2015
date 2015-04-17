@@ -14,6 +14,7 @@ urlpatterns = patterns('',
                        # url(r'^blog/', include('blog.urls')),
                         url(r'^cuentas/',include('apps.cuentas.urls')),
                         url(r'^mantto/',include('apps.mantenimiento.urls')),
+                        url(r'^inventario/',include('apps.inventario.urls')),
 
 
                         url(r'^admin/', include(admin.site.urls)),
