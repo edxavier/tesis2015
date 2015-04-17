@@ -17,52 +17,53 @@
                 <div class="w2ui-field">
                     <label>Marca:</label>
                     <div>
-                        <input name="marca" type="text" tabindex="1" placeholder="Marca Comercial"/>
+                        <input name="marca" type="text" tabindex="1" placeholder="Marca Comercial" style="width:90%" />
                     </div>
                 </div>
                 <div class="w2ui-field">
                     <label>Modelo:</label>
                     <div>
-                        <input name="modelo" type="text" tabindex="2" />
+                        <input name="modelo" type="text" tabindex="2" style="width:90%"  />
                     </div>
                 </div>
                 <div class="w2ui-field">
                     <label>Serie:</label>
                     <div>
-                        <input name="serie" type="text" tabindex="3" />
-                    </div>
-                </div>
-                <div class="w2ui-field">
-                    <label>Tipo:</label>
-                    <div>
-                        <input name="tipo" type="list" placeholder="Tipo de dispositivo" />
+                        <input name="serie" type="text" tabindex="3" style="width:90%" />
                     </div>
                 </div>
                 <div class="w2ui-field">
                     <label>Inventario:</label>
                     <div>
-                        <input name="inventario"  tabindex="4" type="text" maxlength="100" placeholder="" />
+                        <input name="inventario"  style="width:90%"  tabindex="5" type="text"/>
                     </div>
                 </div>
+                <div class="w2ui-field">
+                    <label>Tipo:</label>
+                    <div>
+                        <input name="tipo" type="list" placeholder="Tipo de dispositivo" tabindex="4"  />
+                    </div>
+                </div>
+
                 
             </div>
             <div class="w2ui-page page-1">
                 <div class="w2ui-field">
                     <label>Posicion:</label>
                     <div>
-                        <input name="posicion_logica" type="text" placeholder="Indica la posicion logica" maxlength="100" />
+                        <input name="posicion_logica" type="text" placeholder="Indica la posicion logica" style="width:90%" />
                     </div>
                 </div>
                 <div class="w2ui-field">
                     <label>Edificio:</label>
                     <div>
-                        <input name="edificio" type="number" maxlength="100" placeholder="Duracion en minutos" />
+                        <input name="edificio" type="list" placeholder="Tipo de dispositivo" />
                     </div>
                 </div>
                 <div class="w2ui-field">
                     <label>Oficina:</label>
                     <div>
-                        <input name="oficina"  min="0" type="number" maxlength="100" placeholder="Duracion en minutos" />
+                        <input name="oficina" type="list" placeholder="Ubicacion Fisica" />
                     </div>
                 </div>
             </div>
@@ -70,19 +71,19 @@
                 <div class="w2ui-field">
                     <label>Sistema:</label>
                     <div>
-                        <input name="sistema" type="text" maxlength="100" />
+                        <input name="sistema" type="list" placeholder="Sistema al que pertenece"/>
                     </div>
                 </div>
                 <div class="w2ui-field">
                     <label>Estado:</label>
                     <div>
-                        <input name="estado"  min="0" type="number" maxlength="100" placeholder="Duracion en minutos" />
+                        <input name="estado"  type="list"  placeholder="Estado operacional" />
                     </div>
                 </div>
                 <div class="w2ui-field">
                     <label>Fecha de instalacion:</label>
                     <div>
-                        <input name="instalacion"  min="0" type="number" maxlength="100" placeholder="Duracion en minutos" />
+                        <input name="instalacion"  placeholder="" />
                     </div>
                 </div>
             </div>
@@ -104,7 +105,22 @@
 {% block scripts %}
 
 <script>
+
+$(document).ready(function() {
+    /*Inicializar Combos obteniendo los datos del api rest de catalogos*/
+        $.ajax({
+              method: "get",
+              url: "/api/tipo_disp/",
+              success: function(data){
+                $('input[name=tipo]').w2field('list',{items: data});
+              }
+            })              
+});
+
 $(function () {
+
+    
+    w2utils.locale('{{BOWER_URL}}w2ui/locale/es-mx.json');
     	$('#form').w2form({ 
         name   : 'form',
         header : '<i class="add circle icon"></i> Registrar dispositivo',
@@ -139,10 +155,21 @@ $(function () {
         }
     	});
 
-var people = ['CPU', 'Impresora', 'Sensor'];
-$('input[type=list]').w2field('list', { items: people });
-    	$('#file').w2field('file', {});
+var people = ['CPddU', 'Impresora', 'Sensor'];
+var people2 = ['CPddU', 'Impresora', 'Sensor'];
+
+
+$('input[name=edificio]').w2field('list');
+$('input[name=oficina]').w2field('list');
+$('input[name=sistema]').w2field('list');
+$('input[name=estado]').w2field('list');
+
+$('input[name=instalacion]').w2field('date');
+
+$('#file').w2field('file', {});
 });
+
+
 </script>
 
 
