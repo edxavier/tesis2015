@@ -4,10 +4,14 @@ from django.contrib.auth.decorators import login_required
 from .settings import DEBUG, MEDIA_ROOT
 from apps.inicio.views import Home
 from rest_framework import routers
-from apps.catalogo.views import TipoDispoViewSet
+from apps.catalogo.views import TipoDispoViewSet, EdificioViewSet, OficinaViewSet, EstadoOpeViewSet, SistemaViewSet
 
 router = routers.DefaultRouter()
-router.register(r'tipo_disp', TipoDispoViewSet, base_name="TipoDispoViewSet")
+router.register(r'catalogo/tipo_disp', TipoDispoViewSet, base_name="TipoDispoViewSet")
+router.register(r'catalogo/edificio', EdificioViewSet)
+router.register(r'catalogo/oficina', OficinaViewSet)
+router.register(r'catalogo/estado_ope', EstadoOpeViewSet)
+router.register(r'catalogo/sistema', SistemaViewSet)
 
 urlpatterns = patterns('',
                        url(r'^api/', include(router.urls)),

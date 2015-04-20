@@ -28,3 +28,8 @@ LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_URL = "/logout"
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
+}
+

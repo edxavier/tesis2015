@@ -1,8 +1,28 @@
 {% extends "base.html" %}
 
 {% block include_statics %}
+{% comment %}
+    
+
     <script src="{{BOWER_URL}}w2ui/w2ui-1.4.2.min.js"></script>
     <link rel="stylesheet" href="{{BOWER_URL}}w2ui/w2ui-1.4.2.min.css">
+{% endcomment %}
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
+    <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
+    
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcombobox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxpanel.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdata.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdatetimeinput.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcalendar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtooltip.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/globalization/globalize.js"></script>
+      <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxexpander.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxvalidator.js"></script> 
 {% endblock include_statics %}
 
 {% block contenido %}
@@ -12,93 +32,134 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-3" >
         
-        <div id="form" class="shadow-z-1">
-            <div class="w2ui-page page-0">
-                <div class="w2ui-field">
-                    <label>Marca:</label>
-                    <div>
-                        <input name="marca" type="text" tabindex="1" placeholder="Marca Comercial" style="width:90%" />
-                    </div>
-                </div>
-                <div class="w2ui-field">
-                    <label>Modelo:</label>
-                    <div>
-                        <input name="modelo" type="text" tabindex="2" style="width:90%"  />
-                    </div>
-                </div>
-                <div class="w2ui-field">
-                    <label>Serie:</label>
-                    <div>
-                        <input name="serie" type="text" tabindex="3" style="width:90%" />
-                    </div>
-                </div>
-                <div class="w2ui-field">
-                    <label>Inventario:</label>
-                    <div>
-                        <input name="inventario"  style="width:90%"  tabindex="5" type="text"/>
-                    </div>
-                </div>
-                <div class="w2ui-field">
-                    <label>Tipo:</label>
-                    <div>
-                        <input name="tipo" type="list" placeholder="Tipo de dispositivo" tabindex="4"  />
-                    </div>
-                </div>
+        <div class="panel panel-primary  shadow-z-1">
+                <div class="panel-heading" >
+                    <h3 style="color:white" class="center ui aligned header">
+                      <i class="edit icon"></i>
+                      <div class="content">
+                        Registrar Dispositivo
+                      </div>                      
+                    </h3>
 
-                
-            </div>
-            <div class="w2ui-page page-1">
-                <div class="w2ui-field">
-                    <label>Posicion:</label>
-                    <div>
-                        <input name="posicion_logica" type="text" placeholder="Indica la posicion logica" style="width:90%" />
-                    </div>
                 </div>
-                <div class="w2ui-field">
-                    <label>Edificio:</label>
-                    <div>
-                        <input name="edificio" type="list" placeholder="Tipo de dispositivo" />
-                    </div>
-                </div>
-                <div class="w2ui-field">
-                    <label>Oficina:</label>
-                    <div>
-                        <input name="oficina" type="list" placeholder="Ubicacion Fisica" />
-                    </div>
-                </div>
-            </div>
-            <div class="w2ui-page page-2">
-                <div class="w2ui-field">
-                    <label>Sistema:</label>
-                    <div>
-                        <input name="sistema" type="list" placeholder="Sistema al que pertenece"/>
-                    </div>
-                </div>
-                <div class="w2ui-field">
-                    <label>Estado:</label>
-                    <div>
-                        <input name="estado"  type="list"  placeholder="Estado operacional" />
-                    </div>
-                </div>
-                <div class="w2ui-field">
-                    <label>Fecha de instalacion:</label>
-                    <div>
-                        <input name="instalacion"  placeholder="" />
-                    </div>
-                </div>
-            </div>
+                <div class="panel-body">                  
+                    <div class="col-md-9 col-sm-9 ">
+                        <form id="formDisp" class="form-horizontal" method="post">
+                                {% csrf_token %}
+                     
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
+                                <span class="input-group-addon">
+                                    <i class="tag icon"></i>
+                                </span>
+                                <input type="text" class="form-control floating-label" id="marca" placeholder="Marca">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
+                                <span class="input-group-addon">
+                                    <i class="tag icon"></i>
+                                </span>
+                                <input type="text" class="form-control floating-label" id="modelo" placeholder="Modelo">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
+                                <span class="input-group-addon">
+                                    <i class="barcode icon"></i>
+                                </span>
+                                <input type="text" class="form-control floating-label" id="serie" placeholder="No Serie" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
+                                <span class="input-group-addon">
+                                   <i class="cubes icon"></i>
+                                </span>
+                                <input type="text" class="form-control floating-label" id="inventario" placeholder="No Inventario">
+                            </div>
+                        </div>
+                       <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
+                                <span class="input-group-addon">
+                                    <i class="terminal icon"></i>
+                                </span>
+                                <input type="text" class="form-control floating-label" id="posicion" placeholder="Posicion logica" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
+                                <span class="input-group-addon">
+                                    <i class="fork icon"></i>
+                                </span>
+                                <div id='tipo' class="form-control"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
+                                <span class="input-group-addon">
+                                    <i class="settings icon"></i>
+                                </span>
+                                <div id='sistema' class="form-control"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
+                                <span class="input-group-addon">
+                                    <i class="marker icon"></i>
+                                </span>
+                                <div id='edificio' class="form-control"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
+                                <span class="input-group-addon">
+                                    <i class="building outline icon"></i>
+                                </span>
+                                <div id='oficina' class="form-control"></div>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
+                                <span class="input-group-addon">
+                                    <i class="flag icon"></i>
+                                </span>
+                                <div id='estado' class="form-control"></div>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
+                                <span class="input-group-addon">
+                                    <i class="calendar icon"></i>
+                                </span>
+                                <div id='instalacion' class="form-control"></div>
+                            </div>
+                        </div>
+                       
+                       
+                       
 
-            <div class="w2ui-buttons">
-                <button class="ui teal button" name="save"><i class="save icon"></i>Guardar</button>
-                <button class="ui black button" name="reset"><i class="erase icon"></i> Limpiar</button>
-            </div>
+                        <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-1">
+                                        <button id="enviar" type="button" class="ui teal button">
+                                            Guardar Cambios  
+                                            <span class="glyphicon glyphicon-save" ></span>
+                                        </button>
+                                    </div>
+                        </div>
+
+                        </form>
+                       
+                    </div>
+
+                </div>
         </div>
+
     </div>
 </div>
 </div>
 
 
-	
 {% endblock contenido %}
 
 
@@ -108,67 +169,106 @@
 
 $(document).ready(function() {
     /*Inicializar Combos obteniendo los datos del api rest de catalogos*/
-        $.ajax({
-              method: "get",
-              url: "/api/tipo_disp/",
-              success: function(data){
-                $('input[name=tipo]').w2field('list',{items: data});
-              }
-            })              
-});
+    // prepare the data
+        var EdificiosSource =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id'},
+                { name: 'text'}
+            ],
+            url: '/api/catalogo/edificio/'
+        };
+        var EdificiosAdapter = new $.jqx.dataAdapter(EdificiosSource);
 
-$(function () {
+     
+     $("#edificio").jqxComboBox({ source:EdificiosAdapter, theme:'metro'
+        ,promptText: "Seleccione el edificio...", displayMember: 'text',
+            valueMember: 'id'});
 
-    
-    w2utils.locale('{{BOWER_URL}}w2ui/locale/es-mx.json');
-    	$('#form').w2form({ 
-        name   : 'form',
-        header : '<i class="add circle icon"></i> Registrar dispositivo',
-        url    : 'server/post',
-        fields : [
-            { field: 'marca', type: 'text', required: true },
-            { field: 'modelo',  type: 'text', required: true },
-            { field: 'serie',   type: 'text', required: true},
-            { field: 'inventario',   type: 'text'},
-            { field: 'tipo',   type: 'text', required:true},
-            { field: 'posicion_logica',   type: 'text', required:true},
-            { field: 'estado',   type: 'text', required:true},
-            { field: 'edificio',   type: 'text', required:true},
-            { field: 'oficina',   type: 'text', required:true},
-            { field: 'sistema',   type: 'text', required:true},
-            { field: 'instalacion',   type: 'text', required:true},
-            
-        ],
-        tabs: [
-            { id: 'tab1', caption: 'General' },
-            { id: 'tab2', caption: 'Ubicacion'},
-            { id: 'tab3', caption: 'Instalacion'},
-        ],
+     $('#edificio').on('select', function (event) 
+        {
+            var args = event.args;
+            if (args) {
+                var item = args.item;
+                // get item's label and value.
+                var value = item.value;
+                var oficinaSource =
+                    {
+                        dataType: "json",
+                        dataFields: [
+                            { name: 'id'},
+                            { name: 'text'}
+                        ],
+                        url: '/api/catalogo/oficina/?edificio='+value
+                    };
+                var oficinaAdapter = new $.jqx.dataAdapter(oficinaSource);
+                $("#oficina").jqxComboBox({source: oficinaAdapter});
 
-        actions: {
-            reset: function () {
-                this.clear();
-            },
-            save: function () {
-                this.save();
             }
-        }
-    	});
+        }); 
 
-var people = ['CPddU', 'Impresora', 'Sensor'];
-var people2 = ['CPddU', 'Impresora', 'Sensor'];
+     $("#oficina").jqxComboBox({ theme:'metro', promptText: "Seleccione la oficina...", displayMember: 'text', valueMember: 'id'});
 
+var sistemaSource =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id'},
+                { name: 'text'}
+            ],
+            url: '/api/catalogo/sistema/'
+        };
+        var sistemaAdapter = new $.jqx.dataAdapter(sistemaSource);
 
-$('input[name=edificio]').w2field('list');
-$('input[name=oficina]').w2field('list');
-$('input[name=sistema]').w2field('list');
-$('input[name=estado]').w2field('list');
+     $("#sistema").jqxComboBox({ theme:'metro', promptText: "Sistema al que pertenece...", source:sistemaAdapter, displayMember: 'text', valueMember: 'id'});
+var estadoSource =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id'},
+                { name: 'text'}
+            ],
+            url: '/api/catalogo/estado_ope/'
+        };
+        var estadoAdapter = new $.jqx.dataAdapter(estadoSource);
 
-$('input[name=instalacion]').w2field('date');
+     $("#estado").jqxComboBox({ theme:'metro', promptText: "Estado Operacional...", 
+        source: estadoAdapter,displayMember: 'text', valueMember: 'id'});
 
-$('#file').w2field('file', {});
+var tipoSource =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id'},
+                { name: 'text'}
+            ],
+            url: '/api/catalogo/tipo_disp/'
+        };
+        var tipoAdapter = new $.jqx.dataAdapter(tipoSource);
+
+     $("#tipo").jqxComboBox({ theme:'metro', promptText: "Tipo de Dispositivo...",  source: tipoAdapter, displayMember: 'text', valueMember: 'id'});
+
+    $("#instalacion").jqxDateTimeInput({theme:'metro'});
+
+    $('#formDisp').jqxValidator({
+                rules: [
+                    { input: '#marca', message: 'Campo requerido', action: 'blur', rule: 'required' },
+                    { input: '#serie', message: 'Campo requerido', action: 'blur', rule: 'required' },
+                    { input: '#posicion', message: 'Campo requerido', action: 'blur', rule: 'required' }
+                ]
+            });
+    $("#enviar").on('click',  function(event) {
+        event.preventDefault();
+        $('#formDisp').jqxValidator('validate');
+        /* Act on the event */
+    });
+
+    $('#formDisp').on('validationSuccess', function (event) { 
+        console.log("Validos");
+    }); 
+
 });
-
 
 </script>
 

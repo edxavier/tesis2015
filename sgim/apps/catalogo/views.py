@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.http import JsonResponse
 from rest_framework import viewsets
-from .serializers import TipoDispSerializer, EdificioSerializer, OficinaSerializer, EstadoOpeSerializer
-from .models import TipoDispositivo, Edificio, Oficina, EstadoOperacional
+from .serializers import TipoDispSerializer, EdificioSerializer, OficinaSerializer, EstadoOpeSerializer, SistemaSerializer
+from .models import TipoDispositivo, Edificio, Oficina, EstadoOperacional, Sistema
 from django.core import serializers
 # Create your views here.
 
@@ -20,10 +20,24 @@ class EdificioViewSet(viewsets.ModelViewSet):
     serializer_class = EdificioSerializer
 
 
-class EdificioViewSet(viewsets.ModelViewSet):
+class OficinaViewSet(viewsets.ModelViewSet):
 
-    queryset = Edificio.objects.all()
-    serializer_class = EdificioSerializer
+    queryset = Oficina.objects.all()
+    serializer_class = OficinaSerializer
+    filter_fields = ('edificio',)
+
+
+
+
+class EstadoOpeViewSet(viewsets.ModelViewSet):
+
+    queryset = EstadoOperacional.objects.all()
+    serializer_class = EstadoOpeSerializer
+
+class SistemaViewSet(viewsets.ModelViewSet):
+
+    queryset = Sistema.objects.all()
+    serializer_class = SistemaSerializer
 
 
 class Listar(View):

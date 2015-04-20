@@ -1,6 +1,6 @@
 __author__ = 'edx'
 
-from .models import TipoDispositivo, Edificio, Oficina, EstadoOperacional
+from .models import TipoDispositivo, Edificio, Oficina, EstadoOperacional, Sistema
 from rest_framework import serializers
 
 
@@ -27,6 +27,12 @@ class OficinaSerializer(serializers.ModelSerializer):
         model = Oficina
         fields = ('id',  'text')
 
+class SistemaSerializer(serializers.ModelSerializer):
+    text = serializers.ReadOnlyField(source='nombre')
+
+    class Meta:
+        model = Sistema
+        fields = ('id',  'text')
 
 class EstadoOpeSerializer(serializers.ModelSerializer):
     text = serializers.ReadOnlyField(source='nombre')
