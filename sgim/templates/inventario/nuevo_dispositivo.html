@@ -9,6 +9,9 @@
 {% endcomment %}
 <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
     <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
+    <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="{{STATIC_URL}}css/teal.min.css">
+   
     
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
@@ -23,6 +26,10 @@
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/globalization/globalize.js"></script>
       <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxexpander.js"></script> 
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxvalidator.js"></script> 
+     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxnotification.js"></script>
+
+   
+
 {% endblock include_statics %}
 
 {% block contenido %}
@@ -30,8 +37,10 @@
 
 <div class="container-fluid">    
 <div class="row">
+
     <div class="col-md-6 col-md-offset-3" >
-        
+        <div id="messageNotification">
+        </div>  
         <div class="panel panel-primary  shadow-z-1">
                 <div class="panel-heading" >
                     <h3 style="color:white" class="center ui aligned header">
@@ -40,7 +49,6 @@
                         Registrar Dispositivo
                       </div>                      
                     </h3>
-
                 </div>
                 <div class="panel-body">                  
                     <div class="col-md-9 col-sm-9 ">
@@ -119,7 +127,7 @@
                                 <div id='oficina' class="form-control"></div>
                             </div>
                         </div>
-                         <div class="form-group">
+                        <div class="form-group">
                             <div class="col-lg-10 col-lg-offset-1 input-group">
                                 <span class="input-group-addon">
                                     <i class="flag icon"></i>
@@ -127,7 +135,7 @@
                                 <div id='estado' class="form-control"></div>
                             </div>
                         </div>
-                         <div class="form-group">
+                        <div class="form-group">
                             <div class="col-lg-10 col-lg-offset-1 input-group">
                                 <span class="input-group-addon">
                                     <i class="calendar icon"></i>
@@ -149,12 +157,18 @@
                         </div>
 
                         </form>
-                       
+                    
                     </div>
 
                 </div>
         </div>
 
+    <div id="jqxNotification">
+        <div id="notificationContent">
+        </div>
+    </div>
+
+   
     </div>
 </div>
 </div>
@@ -169,7 +183,15 @@
 
 $(document).ready(function() {
     /*Inicializar Combos obteniendo los datos del api rest de catalogos*/
-    // prepare the data
+
+
+            $("#jqxNotification").jqxNotification({ 
+                width: "100%", appendContainer: "#messageNotification", 
+                opacity: 0.9, autoClose: true, template: "success",position:'top-right'
+             });
+
+
+
         var EdificiosSource =
         {
             dataType: "json",
@@ -182,7 +204,7 @@ $(document).ready(function() {
         var EdificiosAdapter = new $.jqx.dataAdapter(EdificiosSource);
 
      
-     $("#edificio").jqxComboBox({ source:EdificiosAdapter, theme:'metro'
+     $("#edificio").jqxComboBox({ source:EdificiosAdapter, theme:'teal'
         ,promptText: "Seleccione el edificio...", displayMember: 'text',
             valueMember: 'id'});
 
@@ -221,7 +243,7 @@ var sistemaSource =
         };
         var sistemaAdapter = new $.jqx.dataAdapter(sistemaSource);
 
-     $("#sistema").jqxComboBox({ theme:'metro', promptText: "Sistema al que pertenece...", source:sistemaAdapter, displayMember: 'text', valueMember: 'id'});
+     $("#sistema").jqxComboBox({ theme:'bootstrap', promptText: "Sistema al que pertenece...", source:sistemaAdapter, displayMember: 'text', valueMember: 'id'});
 var estadoSource =
         {
             dataType: "json",
@@ -247,9 +269,9 @@ var tipoSource =
         };
         var tipoAdapter = new $.jqx.dataAdapter(tipoSource);
 
-     $("#tipo").jqxComboBox({ theme:'metro', promptText: "Tipo de Dispositivo...",  source: tipoAdapter, displayMember: 'text', valueMember: 'id'});
+     $("#tipo").jqxComboBox({ theme:'teal', promptText: "Tipo de Dispositivo...",  source: tipoAdapter, displayMember: 'text', valueMember: 'id'});
 
-    $("#instalacion").jqxDateTimeInput({theme:'metro'});
+    $("#instalacion").jqxDateTimeInput({theme:'bootstrap'});
 
     $('#formDisp').jqxValidator({
                 rules: [
@@ -265,7 +287,31 @@ var tipoSource =
     });
 
     $('#formDisp').on('validationSuccess', function (event) { 
-        console.log("Validos");
+    
+        $.ajax({
+            url: '/inventario/dispositivo/',
+            type: 'POST',
+            data: {
+                marca: 'value1',
+                modelo:'dfgfd',
+                serie:'dfg',
+                csrfmiddlewaretoken:''
+            },
+        })
+        .done(function() {
+            $.snackbar({content: "Dispositivo Registrado!"});
+        })
+        .fail(function(e) {
+            $.snackbar({content: "Error: "+ e.status + ": "+e.statusText});
+            console.log(e);
+        })
+        
+        
+        
+        //$("#notificationContent").html("Dispositivo Registrado!");
+        //$('#jqxNotification').jqxNotification({ autoClose: false }); 
+        //$("#jqxNotification").jqxNotification("open");
+
     }); 
 
 });

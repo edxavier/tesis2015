@@ -28,7 +28,6 @@ class OficinaViewSet(viewsets.ModelViewSet):
 
 
 
-
 class EstadoOpeViewSet(viewsets.ModelViewSet):
 
     queryset = EstadoOperacional.objects.all()

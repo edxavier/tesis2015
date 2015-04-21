@@ -25,6 +25,8 @@
     "bootstrap": "~3.3.4",
     "bootstrap-material-design": "~0.3.0",
     "w2ui": "~1.4.2",
-    "jqwidgets": "*"
+    "jqwidgets": "*",
+    "jquery-cookie": "~1.4.1",
+    "snackbarjs": "~1.0.0"
   }
 }
