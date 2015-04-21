@@ -13,10 +13,10 @@ var gulp = require('gulp'),
  */
 gulp.task('js', function() {
 	gulp.src('../sgim/static/js/*.js')
-		.pipe(concat('todo.min.js'))
+		//.pipe(concat('todo.min.js'))
 		.pipe(uglify())
-		.pipe(gulp.dest('../sgim/static/js/'))
-		.pipe(livereload());
+		.pipe(gulp.dest('../sgim/static/js/dist/'))
+		//.pipe(livereload());
 
 });
 
@@ -30,31 +30,21 @@ gulp.task('css', function() {
 		.pipe(livereload());
 });
 
-gulp.task('vulcanize', function () {
-    var DEST_DIR = '../sgim/templates/vulc';
-
-    return gulp.src('../sgim/templates/base.html')
-        .pipe(vulcanize({
-            dest: DEST_DIR,
-            strip: true
-        }))
-        .pipe(gulp.dest(DEST_DIR));
-});
 
 gulp.task('watch', function() {
 
   // Watch .js files for change an run task js
-  gulp.watch('../sgim/static/js/*.js', ['js']);
+  //gulp.watch('../sgim/static/js/*.js', ['js']);
 
   // Watch .css files
-  gulp.watch('../sgim/static/css/*.css', ['css']);
+  //gulp.watch('../sgim/static/css/*.css', ['css']);
   // Create LiveReload server
   livereload.listen();
  
   // Watch any files in dist/, reload on change
-  gulp.watch(['../sgim/static/js/*.js']).on('change', livereload.changed);
-  gulp.watch(['../sgim/static/js/*.css']).on('change', livereload.changed);
-  gulp.watch(['../sgim/templates/**/*.hmtl']).on('change', livereload.changed);
+  //gulp.watch(['../sgim/static/js/*.js']).on('change', livereload.changed);
+  //gulp.watch(['../sgim/static/js/*.css']).on('change', livereload.changed);
+  //gulp.watch(['../sgim/templates/**/*.hmtl']).on('change', livereload.changed);
 
 });
 
