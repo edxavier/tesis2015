@@ -8,11 +8,31 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('catalogo', '0002_cargo_estadomantenimiento_personal'),
+        ('inventario', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('catalogo', '0001_initial'),
     ]
 
     operations = [
+        migrations.CreateModel(
+            name='BoletaTrabajo',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('creado', models.DateTimeField(auto_now_add=True)),
+                ('modificado', models.DateTimeField(auto_now=True)),
+                ('tipo', models.CharField(max_length=30, verbose_name=b'Tipo Trabajo', choices=[(b'1', b'Preventivo_Programado'), (b'2', b'Correctivo_Programado'), (b'3', b'Preventivo_No_Programado'), (b'4', b'Correctivo_No_Programado')])),
+                ('descripcion', models.TextField(help_text=b'Describa brevemente el trabajo realizado')),
+                ('paro_operacion', models.BooleanField(default=False, help_text=b'Marca para indicar que si se realizo un paro')),
+                ('tiempo_paro', models.IntegerField(default=0, help_text=b'Minutos que dura el paro si fuese necesario')),
+                ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('dispositivo', models.ForeignKey(to='inventario.Dispositivo')),
+                ('estado_final', models.ForeignKey(to='catalogo.EstadoOperacional')),
+            ],
+            options={
+                'verbose_name_plural': 'Boletas de Trabajo',
+            },
+            bases=(models.Model,),
+        ),
         migrations.CreateModel(
             name='Programacion',
             fields=[
@@ -20,15 +40,16 @@ class Migration(migrations.Migration):
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('fecha_inicio_prevista', models.DateTimeField()),
-                ('fecha_fin_prevista', models.DateTimeField(default=None, blank=True)),
-                ('inicio', models.DateTimeField(auto_now=True)),
+                ('fecha_fin_prevista', models.DateTimeField(null=True, blank=True)),
+                ('inicio', models.DateTimeField(null=True, blank=True)),
+                ('fin', models.DateTimeField(null=True, blank=True)),
                 ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
                 ('estado', models.ForeignKey(to='catalogo.EstadoMantenimiento')),
                 ('personal', models.ManyToManyField(to='catalogo.Personal')),
                 ('responsable', models.ForeignKey(related_name='personal_set2', to='catalogo.Personal')),
             ],
             options={
-                'abstract': False,
+                'verbose_name_plural': 'Programaciones Mantto',
             },
             bases=(models.Model,),
         ),
@@ -78,6 +99,12 @@ class Migration(migrations.Migration):
             model_name='programacion',
             name='rutina',
             field=models.ForeignKey(to='mantenimiento.Rutina'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='boletatrabajo',
+            name='orden',
+            field=models.ForeignKey(blank=True, to='mantenimiento.Programacion', help_text=b'Este campo es opcional', null=True),
             preserve_default=True,
         ),
     ]

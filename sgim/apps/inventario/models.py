@@ -14,8 +14,8 @@ class EspecificacionGeneral(models.Model):
     '''
     marca = models.CharField(max_length=30)
     modelo = models.CharField(max_length=30, blank=True)
-    serie = models.CharField(max_length=30, unique=True, blank=True)
-    inventario = models.CharField(max_length=30, unique=True, blank=True)
+    serie = models.CharField(max_length=30, unique=True, verbose_name="Num. de Serie")
+    inventario = models.CharField(max_length=30, unique=True, blank=True, null=True, verbose_name="Num. de Inventario")
 
     class Meta:
         #Esto es para que no se cree una tabla en la base de datos
@@ -41,7 +41,7 @@ class Dispositivo(EspecificacionGeneral, MarcaDeTiempo, models.Model):
     oficina = models.ForeignKey(Oficina)
     sistema = models.ForeignKey(Sistema)
     tipo = models.ForeignKey(TipoDispositivo)
-    subsistemas = models.ManyToManyField(SubSistema)
+    subsistemas = models.ManyToManyField(SubSistema, blank=True, null=True)
 
     def __unicode__(self):
         return self.posicion_logica

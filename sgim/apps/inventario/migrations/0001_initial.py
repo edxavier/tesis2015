@@ -89,7 +89,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='dispositivo',
             name='subsistemas',
-            field=models.ManyToManyField(to='inventario.SubSistema'),
+            field=models.ManyToManyField(to='inventario.SubSistema', null=True, blank=True),
             preserve_default=True,
         ),
         migrations.AddField(

@@ -7,7 +7,7 @@ from .models import Dispositivo, SubSistema, Componente, Servicio
 
 @admin.register(Dispositivo)
 class DispositivoAdmin(admin.ModelAdmin):
-    list_display = ("posicion_logica", "creador",)
+    list_display = ("posicion_logica", "serie", "inventario", "creador",)
     exclude = ('creador',)
 
     def save_model(self, request, obj, form, change):

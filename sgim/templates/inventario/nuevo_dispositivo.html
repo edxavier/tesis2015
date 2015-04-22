@@ -26,21 +26,43 @@
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/globalization/globalize.js"></script>
       <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxexpander.js"></script> 
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxvalidator.js"></script> 
-     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxnotification.js"></script>
 
-   
+   <style shim-shadowdom>
+  
+  
+    paper-progress {
+      display: block;
+      width: 100%;
+      margin-bottom: 5px;
+    }
+
+  </style>
+  
 
 {% endblock include_statics %}
 
 {% block contenido %}
 
+<ul class="breadcrumb" style="margin-bottom: 5px;">
+    <li><a href="/">Inicio</a></li>
+    <li><a href="">Inventario</a></li>
+    <li><a href="">Dispositivos</a></li>
+    <li class="active">Registrar</li>
+</ul>
 
-<div class="container-fluid">    
+<div class="container-fluid"> 
+<paper-progress indeterminate></paper-progress>  
+
 <div class="row">
 
-    <div class="col-md-6 col-md-offset-3" >
-        <div id="messageNotification">
+<div class="col-md-8 col-md-offset-2" >
+        <div id="err_msg" class="alert alert-dismissable alert-warning" hidden>
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <h5><div class="header"><i class="icon warning circle"></i> Se detectaron los siguientes inconvenientes</div></h5>
+                <p id="mensaje">                  
+                </p>
         </div>  
+
         <div class="panel panel-primary  shadow-z-1">
                 <div class="panel-heading" >
                     <h3 style="color:white" class="center ui aligned header">
@@ -95,23 +117,33 @@
                                 <input type="text" class="form-control floating-label" id="posicion" placeholder="Posicion logica" >
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-lg-10 col-lg-offset-1 input-group">
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-1 input-group">
                                 <span class="input-group-addon">
                                     <i class="fork icon"></i>
                                 </span>
                                 <div id='tipo' class="form-control"></div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-10 col-lg-offset-1 input-group">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5 col-md-offset-1 ">
+        <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-1 input-group">
                                 <span class="input-group-addon">
                                     <i class="settings icon"></i>
                                 </span>
                                 <div id='sistema' class="form-control"></div>
-                            </div>
-                        </div>
-                        <div class="form-group">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+         <div class="form-group">
                             <div class="col-lg-10 col-lg-offset-1 input-group">
                                 <span class="input-group-addon">
                                     <i class="marker icon"></i>
@@ -119,6 +151,9 @@
                                 <div id='edificio' class="form-control"></div>
                             </div>
                         </div>
+    </div>
+    <div class="col-md-5 col-md-offset-1 ">
+        
                         <div class="form-group">
                             <div class="col-lg-10 col-lg-offset-1 input-group">
                                 <span class="input-group-addon">
@@ -127,7 +162,12 @@
                                 <div id='oficina' class="form-control"></div>
                             </div>
                         </div>
-                        <div class="form-group">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+         <div class="form-group">
                             <div class="col-lg-10 col-lg-offset-1 input-group">
                                 <span class="input-group-addon">
                                     <i class="flag icon"></i>
@@ -135,7 +175,9 @@
                                 <div id='estado' class="form-control"></div>
                             </div>
                         </div>
-                        <div class="form-group">
+    </div>
+    <div class="col-md-5 col-md-offset-1 ">
+          <div class="form-group">
                             <div class="col-lg-10 col-lg-offset-1 input-group">
                                 <span class="input-group-addon">
                                     <i class="calendar icon"></i>
@@ -143,17 +185,21 @@
                                 <div id='instalacion' class="form-control"></div>
                             </div>
                         </div>
-                       
-                       
-                       
+    </div>
+</div>
+
 
                         <div class="form-group">
-                                    <div class="col-lg-10 col-lg-offset-1">
-                                        <button id="enviar" type="button" class="ui teal button">
-                                            Guardar Cambios  
-                                            <span class="glyphicon glyphicon-save" ></span>
-                                        </button>
-                                    </div>
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <button id="enviar" type="button" class="ui teal button">
+                                    Guardar  &nbsp;
+                                    <span class="glyphicon glyphicon-save" ></span>
+                                </button>
+                                <button id="limpiar" type="button" class="ui black button">
+                                    Limpiar Campos  &nbsp;
+                                    <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                                </button>
+                            </div>
                         </div>
 
                         </form>
@@ -163,12 +209,6 @@
                 </div>
         </div>
 
-    <div id="jqxNotification">
-        <div id="notificationContent">
-        </div>
-    </div>
-
-   
     </div>
 </div>
 </div>
@@ -183,14 +223,7 @@
 
 $(document).ready(function() {
     /*Inicializar Combos obteniendo los datos del api rest de catalogos*/
-
-
-            $("#jqxNotification").jqxNotification({ 
-                width: "100%", appendContainer: "#messageNotification", 
-                opacity: 0.9, autoClose: true, template: "success",position:'top-right'
-             });
-
-
+    
 
         var EdificiosSource =
         {
@@ -204,7 +237,7 @@ $(document).ready(function() {
         var EdificiosAdapter = new $.jqx.dataAdapter(EdificiosSource);
 
      
-     $("#edificio").jqxComboBox({ source:EdificiosAdapter, theme:'teal'
+     $("#edificio").jqxComboBox({ source:EdificiosAdapter, theme:'metro'
         ,promptText: "Seleccione el edificio...", displayMember: 'text',
             valueMember: 'id'});
 
@@ -243,7 +276,7 @@ var sistemaSource =
         };
         var sistemaAdapter = new $.jqx.dataAdapter(sistemaSource);
 
-     $("#sistema").jqxComboBox({ theme:'bootstrap', promptText: "Sistema al que pertenece...", source:sistemaAdapter, displayMember: 'text', valueMember: 'id'});
+     $("#sistema").jqxComboBox({ theme:'metro', promptText: "Sistema al que pertenece...", source:sistemaAdapter, displayMember: 'text', valueMember: 'id'});
 var estadoSource =
         {
             dataType: "json",
@@ -269,9 +302,12 @@ var tipoSource =
         };
         var tipoAdapter = new $.jqx.dataAdapter(tipoSource);
 
-     $("#tipo").jqxComboBox({ theme:'teal', promptText: "Tipo de Dispositivo...",  source: tipoAdapter, displayMember: 'text', valueMember: 'id'});
+     $("#tipo").jqxComboBox({ theme:'metro', promptText: "Tipo de Dispositivo...",  source: tipoAdapter, displayMember: 'text', valueMember: 'id'});
 
-    $("#instalacion").jqxDateTimeInput({theme:'bootstrap'});
+    $("#instalacion").jqxDateTimeInput({theme:'metro', culture: 'es-MX'});
+    $.getScript('{{BOWER_URL}}jqwidgets/jqwidgets/globalization/globalize.culture.es-MX.js', function () {
+        $("#instalacion").jqxDateTimeInput({ culture: 'es-MX' });
+    });
 
     $('#formDisp').jqxValidator({
                 rules: [
@@ -286,24 +322,57 @@ var tipoSource =
         /* Act on the event */
     });
 
+    $("#limpiar").on('click',  function(event) {
+        event.preventDefault();
+        document.getElementById("formDisp").reset();
+        $(".form-control").jqxComboBox('clearSelection'); 
+        /* Act on the event */
+    });
+
+$("paper-progress").css("visibility", "hidden")
     $('#formDisp').on('validationSuccess', function (event) { 
-    
+        $("paper-progress").css("visibility", "")
+
         $.ajax({
             url: '/inventario/dispositivo/',
             type: 'POST',
             data: {
-                marca: 'value1',
-                modelo:'dfgfd',
-                serie:'dfg',
-                csrfmiddlewaretoken:''
+                marca: $("#marca").val().trim(),
+                modelo: $("#modelo").val().trim(),
+                serie: $("#serie").val().trim(),
+                inventario: $("#inventario").val().trim(),
+                posicion_logica: $("#posicion").val().trim(),
+                tipo: $("#tipo").val(),
+                sistema: $("#sistema").val(),
+                edificio: $("#edificio").val(),
+                oficina: $("#oficina").val(),
+                estado: $("#estado").val(),
+                instalacion: $("#instalacion").val(),
             },
         })
-        .done(function() {
-            $.snackbar({content: "Dispositivo Registrado!"});
+        .done(function(data) {
+            
+            if(data.success){
+                $.snackbar({content: "<i class='checkmark green sign icon'></i> Dispositivo Registrado!"});
+                $("#serie").val(null); 
+                $("#inventario").val(null);
+                $("#posicion").val(null);
+                $("paper-progress").css("visibility", "hidden")
+            }
+            else{
+                $("paper-progress").css("visibility", "hidden")
+                var mensaje = "<ul>";
+                for(var i=0;i<data.errores.length;i++){
+                    e = data.errores[i]
+                    mensaje +="<li>"+ e[0]+": "+ e[1] +"</li>"
+                }
+                mensaje += "</ul>"
+                $.snackbar({content: "<h5 style='color:yellow'><i class='warning yellow sign icon'></i> Se encontraron los siguientes inconvenientes: </h5>"+mensaje, timeout: 0 });
+
+            }
         })
         .fail(function(e) {
-            $.snackbar({content: "Error: "+ e.status + ": "+e.statusText});
-            console.log(e);
+            $.snackbar({content: "<i class='warning red sign icon'></i> Error: "+ e.status + ": "+e.statusText});
         })
         
         
@@ -311,9 +380,9 @@ var tipoSource =
         //$("#notificationContent").html("Dispositivo Registrado!");
         //$('#jqxNotification').jqxNotification({ autoClose: false }); 
         //$("#jqxNotification").jqxNotification("open");
-
     }); 
 
+    
 });
 
 </script>

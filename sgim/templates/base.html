@@ -22,7 +22,15 @@
     <link rel="stylesheet" href="{{BOWER_URL}}bootstrap-material-design/dist/css/roboto.min.css"  media="screen,projection"/>
     <link rel="stylesheet" href="{{BOWER_URL}}bootstrap-material-design/dist/css/material.min.css"  media="screen,projection"/>
     <link rel="stylesheet" href="{{BOWER_URL}}bootstrap-material-design/dist/css/ripples.min.css"  media="screen,projection"/>
-    <link rel="import" href="{{BOWER_URL}}polymer/layout.html" />
+
+ <script src="{{BOWER_URL}}webcomponentsjs/webcomponents.js">
+  </script>
+
+  <link rel="import"
+    href="{{BOWER_URL}}font-roboto/roboto.html">
+
+<link rel="import" href="{{BOWER_URL}}paper-progress/paper-progress.html">
+
     {% block include_statics %}
         
     {% endblock include_statics %}
@@ -39,7 +47,6 @@
 
     {% endblock contenido %}
  
-
 
     <script src="{{BOWER_URL}}bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="{{BOWER_URL}}bootstrap-material-design/dist/js/ripples.min.js"></script>

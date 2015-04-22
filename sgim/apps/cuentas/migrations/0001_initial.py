@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('firstname', models.CharField(max_length=50, verbose_name=b'Nombres', blank=True)),
                 ('lastname', models.CharField(max_length=50, verbose_name=b'Apellidos', blank=True)),
                 ('email', models.EmailField(max_length=75, blank=True)),
-                ('imagen', models.ImageField(upload_to=b'cuentas/img', blank=True)),
+                ('imagen', models.ImageField(default=b'cuentas/img/default.png', upload_to=b'cuentas/img', blank=True)),
                 ('is_active', models.BooleanField(default=True, verbose_name=b'Esta Activo')),
                 ('is_staff', models.BooleanField(default=False, help_text=b'Indica si el usuario puede acceder al panel de administracion', verbose_name=b'Es Administrador')),
                 ('telefono', models.CharField(max_length=15, blank=True)),
