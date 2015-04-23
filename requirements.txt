@@ -1,10 +1,11 @@
 Django==1.7.7
+Pillow==2.8.1
+Unipath==1.1
+django-filter==0.9.2
 django-suit==0.2.12
 djangorestframework==3.1.1
 httplib2==0.9
-Pillow==2.8.1
 psycopg2==2.6
 pytz==2015.2
 six==1.9.0
 twilio==3.8.0
-Unipath==1.1
