@@ -10,7 +10,7 @@ from .forms import DispositivoForm
 # Create your views here.
 class NuevoDispositivo(View):
     def get(self, request, *args, **kwargs):
-        return render_to_response('inventario/nuevo_dispositivo.html',
+        return render_to_response('inventario/nuevo_dispositivo2.html',
             locals(), context_instance=RequestContext(request))
 
     def post(self, request, *args, **kwargs):

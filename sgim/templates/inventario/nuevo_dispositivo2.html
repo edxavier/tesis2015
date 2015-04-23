@@ -1,0 +1,391 @@
+{% extends "material.html" %}
+
+{% block include_statics %}
+{% comment %}
+    
+
+    <script src="{{BOWER_URL}}w2ui/w2ui-1.4.2.min.js"></script>
+    <link rel="stylesheet" href="{{BOWER_URL}}w2ui/w2ui-1.4.2.min.css">
+{% endcomment %}
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
+
+<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcombobox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxpanel.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdata.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdatetimeinput.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcalendar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtooltip.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/globalization/globalize.js"></script>
+      <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxexpander.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxvalidator.js"></script>
+    
+    
+
+
+   <style shim-shadowdom>
+  
+  
+    progress {
+      display: block;
+      width: 100%;
+      margin-bottom: 5px;
+    }
+       core-drawer-panel{
+       padding-top:90px;
+       }
+
+
+  </style>
+  
+
+{% endblock include_statics %}
+
+{% block contenido %}
+
+
+<div class="row">
+
+<div class="col-md-6 col-md-offset-3" >
+
+
+<div class="card-wrap">
+    <div class="card">
+        <div class="card-main">
+            <div class="card-header">
+                                        <div class="card-inner">
+                                            <h1 class="card-heading"><span class="icon icon-create"></span> Registrar Dispositivo</h1>
+                                        </div>
+            </div>
+            <div class="card-inner">
+                 <form id="formDisp" class="form-horizontal" method="post">
+                                {% csrf_token %}
+              <br>
+                        <div class="form-form-group form-group-label">
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <label class="floating-label" for="marca">
+                                    <i class="tag icon"></i> Marca *
+                                </label>
+                                <input type="text" class="form-control" id="marca" placeholder="Marca">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-label">
+                            <div class="col-lg-10 col-lg-offset-1">                              
+                                <label class="floating-label" for="modelo">
+                                    <i class="tag icon"></i> Modelo
+                                </label>
+                                <input type="text" class="form-control" id="modelo" placeholder="Modelo">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-label">
+                            <div class="col-lg-10 col-lg-offset-1">
+
+                                <label class="floating-label" for="serie">
+                                    <i class="barcode icon"></i> Num. de Serie *
+                                </label>
+                                <input type="text" class="form-control" id="serie">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-label">
+                            <div class="col-lg-10 col-lg-offset-1">
+
+                                <label class="floating-label" for="inventario">
+                                    <i class="cubes icon"></i> Num. de Inventario
+                                </label>
+                                <input type="text" class="form-control" id="inventario">
+                            </div>
+                        </div>
+                       <div class="form-group form-group-label">
+                            <div class="col-lg-10 col-lg-offset-1"> 
+                                <label class="floating-label" for="posicion">
+                                    <i class="terminal icon"></i> Posicion logica
+                                </label>
+                                <input type="text" class="form-control" id="posicion" >
+                            </div>
+                        </div>
+          
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group form-group-icon">
+                                    <div class="col-lg-10 col-lg-offset-1">
+                                                                  
+                                        <div id='tipo' ></div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-md-offset-1 ">
+                                <div class="form-group form-group-label">
+                                    <div class="col-lg-10 col-lg-offset-1">
+                                      
+                                        <div id='sistema'></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                 <div class="form-group form-group-label">
+                                                    <div class="col-lg-10 col-lg-offset-1 ">
+                         
+                                                       
+                                                        <div id='edificio'></div>
+                                                    </div>
+                                                </div>
+                            </div>
+                            <div class="col-md-5 col-md-offset-1 ">
+                                
+                                                <div class="form-group form-group-label">
+                                                    <div class="col-lg-10 col-lg-offset-1">
+                                                       
+                                                     
+                                                        <div id='oficina' ></div>
+                                                    </div>
+                                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                 <div class="form-group form-group-label">
+                                                    <div class="col-lg-10 col-lg-offset-1 ">
+                                                              
+                                                        <div id='estado' ></div>
+                                                    </div>
+                                                </div>
+                            </div>
+                            <div class="col-md-5 col-md-offset-1 ">
+                                  <div class="form-group form-group-label">
+                                                    <div class="col-lg-10 col-lg-offset-1">
+                                                        
+                                                                                                           
+                                                        <div id='instalacion' ></div>
+                                                    </div>
+                                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group form-group-label">
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <button id="enviar" type="button"class="btn btn-blue waves-button waves-effect waves-light">
+                                    Guardar  &nbsp;
+                                     <span class="icon icon-save"></span>
+                                </button>
+                                &nbsp;
+                                <button id="limpiar" type="button" class="btn waves-button waves-effect">
+                                    Limpiar Campos  &nbsp;
+                                     <span class="icon icon-clear-all"></span>
+                                </button>
+                            </div>
+
+                        </div>
+                        <div class="progress">
+                    <div class="progress-bar-indeterminate"></div>
+                </div>
+        </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="err_msg" class="alert alert-dismissable alert-warning" hidden>
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <h5><div class="header"><i class="icon warning circle"></i> Se detectaron los siguientes inconvenientes</div></h5>
+                <p id="mensaje">                  
+                </p>
+        </div>  
+
+   
+
+    </div>
+</div>
+
+{% endblock contenido %}
+
+
+{% block scripts %}
+
+<script>
+
+$(document).ready(function() {
+    /*Inicializar Combos obteniendo los datos del api rest de catalogos*/
+    
+
+        var EdificiosSource =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id'},
+                { name: 'text'}
+            ],
+            url: '/api/catalogo/edificio/'
+        };
+        var EdificiosAdapter = new $.jqx.dataAdapter(EdificiosSource);
+
+     
+     $("#edificio").jqxComboBox({ source:EdificiosAdapter, theme:'metro'
+        ,promptText: "Seleccione el edificio...", displayMember: 'text',
+            valueMember: 'id'});
+
+     $('#edificio').on('select', function (event) 
+        {
+            var args = event.args;
+            if (args) {
+                var item = args.item;
+                // get item's label and value.
+                var value = item.value;
+                var oficinaSource =
+                    {
+                        dataType: "json",
+                        dataFields: [
+                            { name: 'id'},
+                            { name: 'text'}
+                        ],
+                        url: '/api/catalogo/oficina/?edificio='+value
+                    };
+                var oficinaAdapter = new $.jqx.dataAdapter(oficinaSource);
+                $("#oficina").jqxComboBox({source: oficinaAdapter});
+
+            }
+        }); 
+
+     $("#oficina").jqxComboBox({ theme:'metro', promptText: "Seleccione la oficina...", displayMember: 'text', valueMember: 'id'});
+
+var sistemaSource =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id'},
+                { name: 'text'}
+            ],
+            url: '/api/catalogo/sistema/'
+        };
+        var sistemaAdapter = new $.jqx.dataAdapter(sistemaSource);
+
+     $("#sistema").jqxComboBox({ theme:'metro', promptText: "Sistema al que pertenece...", source:sistemaAdapter, displayMember: 'text', valueMember: 'id'});
+var estadoSource =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id'},
+                { name: 'text'}
+            ],
+            url: '/api/catalogo/estado_ope/'
+        };
+        var estadoAdapter = new $.jqx.dataAdapter(estadoSource);
+
+     $("#estado").jqxComboBox({ theme:'metro', promptText: "Estado Operacional...", 
+        source: estadoAdapter,displayMember: 'text', valueMember: 'id'});
+
+var tipoSource =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id'},
+                { name: 'text'}
+            ],
+            url: '/api/catalogo/tipo_disp/'
+        };
+        var tipoAdapter = new $.jqx.dataAdapter(tipoSource);
+
+     $("#tipo").jqxComboBox({ theme:'metro', promptText: "Tipo de Dispositivo...",  source: tipoAdapter, displayMember: 'text', valueMember: 'id'});
+
+    $("#instalacion").jqxDateTimeInput({theme:'metro', culture: 'es-MX'});
+    $.getScript('{{BOWER_URL}}jqwidgets/jqwidgets/globalization/globalize.culture.es-MX.js', function () {
+        $("#instalacion").jqxDateTimeInput({ culture: 'es-MX' });
+    });
+
+    $('#formDisp').jqxValidator({
+                rules: [
+                    { input: '#marca', message: 'Campo requerido', action: 'blur', rule: 'required' },
+                    { input: '#serie', message: 'Campo requerido', action: 'blur', rule: 'required' },
+                    { input: '#posicion', message: 'Campo requerido', action: 'blur', rule: 'required' }
+                ]
+            });
+    $("#enviar").on('click',  function(event) {
+        event.preventDefault();
+        $('#formDisp').jqxValidator('validate');
+        /* Act on the event */
+    });
+
+    $("#limpiar").on('click',  function(event) {
+        event.preventDefault();
+        document.getElementById("formDisp").reset();
+        $(".form-control").jqxComboBox('clearSelection'); 
+        /* Act on the event */
+    });
+
+    $(".progress").css("visibility", "hidden")
+    $('#formDisp').on('validationSuccess', function (event) { 
+        $(".progress").css("visibility", "")
+
+     setTimeout(function(){
+        $.ajax({
+            url: '/inventario/dispositivo/',
+            type: 'POST',
+            data: {
+                marca: $("#marca").val().trim(),
+                modelo: $("#modelo").val().trim(),
+                serie: $("#serie").val().trim(),
+                inventario: $("#inventario").val().trim(),
+                posicion_logica: $("#posicion").val().trim(),
+                tipo: $("#tipo").val(),
+                sistema: $("#sistema").val(),
+                edificio: $("#edificio").val(),
+                oficina: $("#oficina").val(),
+                estado: $("#estado").val(),
+                instalacion: $("#instalacion").val(),
+            },
+        })
+        .done(function(data) {
+            
+            if(data.success){
+                $.snackbar({content: "<i class='checkmark green sign icon'></i> Dispositivo Registrado!"});
+                $("#serie").val(null); 
+                $("#inventario").val(null);
+                $("#posicion").val(null);
+                $(".progress").css("visibility", "hidden")
+            }
+            else{
+                $(".progress").css("visibility", "hidden")
+                var mensaje = "<ul>";
+                for(var i=0;i<data.errores.length;i++){
+                    e = data.errores[i]
+                    mensaje +="<li>"+ e[0]+": "+ e[1] +"</li>"
+                }
+                mensaje += "</ul>"
+                $.snackbar({content: "<h5 style='color:yellow'><i class='warning yellow sign icon'></i> Se encontraron los siguientes inconvenientes: </h5>"+mensaje, timeout: 0 });
+
+            }
+        })
+        .fail(function(e) {
+            $.snackbar({content: "<i class='warning red sign icon'></i> Error: "+ e.status + ": "+e.statusText});
+        })
+        
+        },600)   
+        
+        //$("#notificationContent").html("Dispositivo Registrado!");
+        //$('#jqxNotification').jqxNotification({ autoClose: false }); 
+        //$("#jqxNotification").jqxNotification("open");
+    }); 
+
+    
+});
+
+</script>
+
+
+
+
+
+	
+{% endblock scripts %}

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta content="initial-scale=1.0, width=device-width" name="viewport">
+	<title>Material</title>
+
+	<!-- css -->
+	<link href="{{STATIC_URL}}css/base.css" rel="stylesheet">
+
+	  <script src="{{BOWER_URL}}jquery/dist/jquery.min.js"></script>
+    <script src="{{BOWER_URL}}jquery-cookie/jquery.cookie.js"></script>
+    <script src="{{STATIC_URL}}js/dist/1.js"></script>
+    <link rel="stylesheet" href="{{BOWER_URL}}semantic-ui-icon/icon.min.css">
+   
+
+    <link rel="stylesheet" href="{{BOWER_URL}}snackbarjs/src/snackbar.css">
+    <script src="{{BOWER_URL}}snackbarjs/dist/snackbar.min.js"></script>
+
+
+    {% block include_statics %}
+        
+    {% endblock include_statics %}
+
+
+	<!-- favicon -->
+	<!-- ... -->
+
+	<!-- ie -->
+		<!--[if lt IE 9]>
+			<script src="js/html5shiv.js" type="text/javascript"></script>
+			<script src="js/respond.js" type="text/javascript"></script>
+		<![endif]-->
+</head>
+<body >
+	<header class="header">
+		<ul class="nav nav-list pull-left">
+			<li>
+				<a class="menu-toggle" href="#menu">
+					<span class="access-hide">Menu</span>
+					<span class="icon icon-menu"></span>
+					<span class="header-close icon icon-close"></span>
+				</a>
+			</li>
+		</ul>
+		<a class="header-logo" href="index.html"> Inventario</a>
+		<ul class="nav nav-list pull-right">
+			<li>
+				<a class="menu-toggle" href="#search">
+					<span class="access-hide">Buscar</span>
+					<span class="icon icon-search"></span>
+					<span class="header-close icon icon-close"></span>
+				</a>
+			</li>
+			<li>
+				<a class="menu-toggle" href="#profile">
+					<span class="access-hide">John Smith</span>
+					<span class="avatar avatar-sm"><img alt="alt text for John Smith avatar" src="{{STATIC_URL}}images/users/avatar-001.jpg"></span>
+					<span class="header-close icon icon-close"></span>
+				</a>
+			</li>
+		</ul>
+	</header>
+	<nav class="menu" id="menu">
+		<div class="menu-scroll">
+			<div class="menu-wrap">
+				<div class="menu-content">
+					<ul class="nav">
+						<li>
+							<a href="">Inicio</a>
+						</li>						
+					</ul>
+					<hr>
+					<ul class="nav">
+						<li>
+							<a>Inventario</a>
+							<span class="menu-collapse-toggle collapsed" data-target="#form-elements" data-toggle="collapse">
+								<span class="icon icon-clear menu-collapse-toggle-close"></span>
+								<span class="icon icon-add menu-collapse-toggle-default"></span>
+							</span>
+							<ul class="menu-collapse collapse" id="form-elements">
+								<li>
+									<a href="/inventario/dispositivo">Dispositivos</a>
+								</li>
+							</ul>
+						</li>
+
+					</ul>
+				
+				</div>
+			</div>
+		</div>
+	</nav>
+	<nav class="menu menu-right" id="profile">
+		<div class="menu-scroll">
+			<div class="menu-wrap">
+				<div class="menu-top">
+					<div class="menu-top-img">
+						<img alt="John Smith" src="{{STATIC_URL}}images/samples/landscape.jpg">
+					</div>
+					<div class="menu-top-info">
+						<a class="menu-top-user" href="javascript:void(0)"><span class="avatar pull-left"><img alt="alt text for John Smith avatar" src="{{STATIC_URL}}images/users/avatar-001.jpg"></span>{{user}}</a>
+					</div>
+				</div>
+				<div class="menu-content">
+					<ul class="nav">
+						<li>
+							<a href="javascript:void(0)"><span class="icon icon-account-box"></span>Perfil</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)"><span class="icon icon-lock"></span>Administracion</a>
+						</li>
+						<li>
+							<a href="/logout"><span class="icon icon-exit-to-app"></span>Salir</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<div class="menu menu-right menu-search" id="search">
+		<div class="menu-scroll">
+			<div class="menu-wrap">
+				<div class="menu-top">
+					<div class="menu-top-info">
+						<form class="menu-top-form">
+							<label class="access-hide" for="menu-search">Search</label>
+							<input class="form-control form-control-inverse menu-search-focus" id="menu-search" placeholder="Search" type="search">
+							<button class="access-hide" type="submit">Search</button>
+						</form>
+					</div>
+				</div>
+				<div class="menu-content">
+					<div class="menu-content-inner">
+						<p><strong>Saved Search Queries:</strong></p>
+						<ul>
+							<li><a href="javascript:void(0)">lorem ipsum dolor sit amet</a></li>
+							<li><a href="javascript:void(0)">consectetur adipiscing elit</a></li>
+							<li><a href="javascript:void(0)">sed ornare orci lorem</a></li>
+							<li><a href="javascript:void(0)">vel eleifend elit tempor eleifend</a></li>
+							<li><a href="javascript:void(0)">morbi feugiat aliquet justo</a></li>
+						</ul>
+						<hr>
+						<p><strong>Popular Search Queries:</strong></p>
+						<ul>
+							<li><a href="javascript:void(0)">id ullamcorper tortor lobortis eu</a></li>
+							<li><a href="javascript:void(0)">aliquam ut tellus arcu</a></li>
+							<li><a href="javascript:void(0)">cestibulum tortor purus</a></li>
+							<li><a href="javascript:void(0)">pretium ac dolor id</a></li>
+							<li><a href="javascript:void(0)">gravida molestie libero</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="content">
+		<div class="content-heading">
+			<div class="container">
+				<h2 class="heading"><span class="icon icon-devices"></span> Dispositivos</h2>
+			</div>
+
+		</div>
+
+		<div class="content-inner">
+			<div class="container container-full">
+
+				    {% block contenido %}
+
+    				{% endblock contenido %}
+
+			</div>
+		</div>
+	</div>
+
+	
+<div class="fbtn-container">
+        <div class="fbtn-inner">
+            <a class="fbtn fbtn-red fbtn-lg waves-circle waves-effect waves-light" data-toggle="dropdown" title="Crear"><span class="access-hide">Action</span><span class="fbtn-ori icon icon-add"></span><span class="fbtn-sub icon icon-edit"></span></a>
+            <div class="fbtn-dropdown">
+                <a class="fbtn fbtn-blue waves-circle waves-effect waves-light" href="javascript:void(0)" title="Audio"><span class="fbtn-text">Action 1</span><span class="icon icon-mic"></span></a>
+                <a class="fbtn fbtn-green waves-circle waves-effect waves-light" href="javascript:void(0)"><span class="fbtn-text">Action 2</span><span class="icon icon-image"></span></a>
+                <a class="fbtn fbtn-yellow waves-circle waves-effect waves-light" href="javascript:void(0)"><span class="fbtn-text">Action 3</span><span class="icon icon-videocam"></span></a>
+            </div>
+        </div>
+</div>
+
+
+	<script src="{{STATIC_URL}}js/src/header.js" type="text/javascript"></script>
+	<script src="{{STATIC_URL}}js/src/menu.js" type="text/javascript"></script>
+	<script src="{{STATIC_URL}}js/src/form-adv.js" type="text/javascript"></script>
+	
+    <script src="{{BOWER_URL}}bootstrap/dist/js/bootstrap.min.js"></script>
+   
+</body>
+{% block scripts %}
+
+{% endblock scripts %}
+</html>
