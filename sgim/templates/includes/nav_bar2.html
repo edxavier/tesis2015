@@ -1,0 +1,37 @@
+<div class="" >
+    {% if user.is_authenticated %}            
+        <div class="">
+            <ul class="nav navbar-nav">
+                <li class="toggle"><a href="javascript:void(0)">Dispositivos</a></li>
+                    <li class="dropdown" style="margin-right:20px">
+                    <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Mantto<b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'tarea_add' %}">Tarea</a></li>
+                        <li><a href="{% url 'actualizar_clave' %}">Rutina</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/admin">Programacion</a></li>
+                        <li><a href="{% url 'logout' %}">Boletas</a></li>
+                    </ul>
+                </li>               
+            </ul>
+          
+            <ul class="nav navbar-nav navbar-right">
+                <li class="hidden-sm hidden-xs"> 
+                  <img class="ui top aligned avatar image" style="margin-top:15px" src="{{MEDIA_URL}}{{user.imagen}}">                
+                </li>
+                <li class="dropdown" style="margin-right:20px">
+                    <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">{{user}} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'perfil' user %}">Mi cuenta</a></li>
+                        <li><a href="{% url 'actualizar_clave' %}">Cambiar contraseña</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/admin">Administracion</a></li>
+                        <li><a href="{% url 'logout' %}">Salir</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    {% endif %}
+</div>
