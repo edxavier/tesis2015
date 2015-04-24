@@ -13,8 +13,8 @@ from apps.catalogo.models import EstadoOperacional
 
 class Tarea(MarcaDeTiempo, models.Model):
     nombre = models.CharField(max_length=100)
-    meteriales = models.CharField(max_length=100, default="N/A")
-    tipo_dispositivos = models.ManyToManyField(TipoDispositivo)
+    meteriales = models.CharField(max_length=100, default="N/A", verbose_name="Herramientas")
+    tipo_dispositivos = models.ManyToManyField(TipoDispositivo, verbose_name="Tipos de Dispositivo")
     minutos = models.FloatField(help_text="Duracion en minutos", default=1, verbose_name="Duracion")
 
     def __unicode__(self):

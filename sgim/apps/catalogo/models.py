@@ -3,28 +3,28 @@ from apps.inicio.models import MarcaDeTiempo
 
 
 # Create your models here.
-class TipoDispositivo(MarcaDeTiempo, models.Model):
+class TipoDispositivo(MarcaDeTiempo):
     nombre = models.CharField(max_length=30)
 
     def __unicode__(self):
         return self.nombre
 
 
-class Sistema(MarcaDeTiempo, models.Model):
+class Sistema(MarcaDeTiempo):
     nombre = models.CharField(max_length=30)
 
     def __unicode__(self):
         return self.nombre
 
 
-class Edificio(MarcaDeTiempo, models.Model):
+class Edificio(MarcaDeTiempo):
     nombre = models.CharField(max_length=30)
 
     def __unicode__(self):
         return self.nombre
 
 
-class Oficina(MarcaDeTiempo, models.Model):
+class Oficina(MarcaDeTiempo):
     nombre = models.CharField(max_length=30)
     edificio = models.ForeignKey(Edificio)
 
@@ -32,46 +32,46 @@ class Oficina(MarcaDeTiempo, models.Model):
         return self.nombre
 
 
-class TipoServicio(MarcaDeTiempo, models.Model):
+class TipoServicio(MarcaDeTiempo):
     nombre = models.CharField(max_length=30)
 
     def __unicode__(self):
         return self.nombre
 
 
-class TipoComponente(MarcaDeTiempo, models.Model):
+class TipoComponente(MarcaDeTiempo):
     nombre = models.CharField(max_length=30)
 
     def __unicode__(self):
         return self.nombre
 
 
-class EstadoOperacional(MarcaDeTiempo, models.Model):
+class EstadoOperacional(MarcaDeTiempo):
     nombre = models.CharField(max_length=30)
 
     def __unicode__(self):
         return self.nombre
 
-class EstadoMantenimiento(MarcaDeTiempo, models.Model):
+class EstadoMantenimiento(MarcaDeTiempo):
     nombre = models.CharField(max_length=30)
 
     def __unicode__(self):
         return self.nombre
 
-class Cargo(MarcaDeTiempo, models.Model):
+class Cargo(MarcaDeTiempo):
     nombre = models.CharField(max_length=100)
     empresa = models.CharField(max_length=15)
 
     def __unicode__(self):
         return self.nombre
 
-class TipoIncidente(MarcaDeTiempo, models.Model):
+class TipoIncidente(MarcaDeTiempo):
     nombre = models.CharField(max_length=100)
 
     def __unicode__(self):
         return self.nombre
 
-class Personal(MarcaDeTiempo, models.Model):
+class Personal(MarcaDeTiempo):
     nombre_completo = models.CharField(max_length=100)
     telefono = models.CharField(max_length=15, blank=True)
     correo = models.CharField(max_length=15, blank=True)

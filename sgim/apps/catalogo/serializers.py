@@ -1,7 +1,8 @@
 __author__ = 'edx'
 
 from .models import (TipoDispositivo, Edificio, Oficina,
-                     EstadoOperacional, Sistema, TipoComponente)
+                     EstadoOperacional, Sistema, TipoComponente,
+                     Personal, TipoIncidente, Cargo, EstadoMantenimiento)
 from rest_framework import serializers
 
 
@@ -48,4 +49,28 @@ class TipoComponenteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = EstadoOperacional
-        fields = ('id',  'nombre')
+        fields = ('id', 'nombre')
+
+
+class PersonalSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Personal
+
+
+class TipoIncidenteSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TipoIncidente
+
+
+class CargoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Cargo
+
+
+class EstadoManttoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = EstadoMantenimiento
