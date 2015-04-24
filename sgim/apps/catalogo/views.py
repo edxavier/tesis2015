@@ -2,8 +2,10 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.http import JsonResponse
 from rest_framework import viewsets
-from .serializers import TipoDispSerializer, EdificioSerializer, OficinaSerializer, EstadoOpeSerializer, SistemaSerializer
-from .models import TipoDispositivo, Edificio, Oficina, EstadoOperacional, Sistema
+from .serializers import (TipoDispSerializer, EdificioSerializer, OficinaSerializer,
+                          EstadoOpeSerializer, SistemaSerializer, TipoComponenteSerializer)
+from .models import (TipoDispositivo, Edificio, Oficina,
+                     EstadoOperacional, Sistema, TipoComponente)
 from django.core import serializers
 # Create your views here.
 
@@ -37,6 +39,11 @@ class SistemaViewSet(viewsets.ModelViewSet):
 
     queryset = Sistema.objects.all()
     serializer_class = SistemaSerializer
+
+class TipoComponenteViewSet(viewsets.ModelViewSet):
+
+    queryset = TipoComponente.objects.all()
+    serializer_class = TipoComponenteSerializer
 
 
 class Listar(View):

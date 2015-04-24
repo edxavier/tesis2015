@@ -15,7 +15,7 @@ class EspecificacionGeneral(models.Model):
     marca = models.CharField(max_length=30)
     modelo = models.CharField(max_length=30, blank=True)
     serie = models.CharField(max_length=30, unique=True, verbose_name="Num. de Serie")
-    inventario = models.CharField(max_length=30, unique=True, blank=True, null=True, verbose_name="Num. de Inventario")
+    inventario = models.CharField(max_length=30, unique=True, blank=True, null=True, verbose_name="Num.  de Inventario")
 
     class Meta:
         #Esto es para que no se cree una tabla en la base de datos
@@ -62,7 +62,7 @@ class Servicio(MarcaDeTiempo, models.Model):
     tipo = models.ForeignKey(TipoServicio)
     # 119.4, 121.9, Planes de vuelo
     #tipo  Radiofrecuencia, LineaTelefonica, AFTN, Meteorologico
-    descripcion = models.CharField(unique=True, max_length=150)
+    descripcion = models.CharField(max_length=150, blank=True, null=True    )
 
     def __unicode__(self):
         return self.nombre

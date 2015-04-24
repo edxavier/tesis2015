@@ -28,22 +28,21 @@
 
 
    <style shim-shadowdom>
-  
-  
+
     progress {
       display: block;
       width: 100%;
       margin-bottom: 5px;
     }
-       core-drawer-panel{
-       padding-top:90px;
-       }
-
 
   </style>
   
 
 {% endblock include_statics %}
+
+{% block titulo %}
+    Inventario | Nuevo Dispositivo
+{% endblock titulo %}
 
 {% block contenido %}
 
@@ -63,7 +62,7 @@
 
 
 
-<div class="progress ">
+<div class="progress hidden">
       <div class="indeterminate"></div>
 </div>
          
@@ -346,13 +345,17 @@ var tipoSource =
         /* Act on the event */
     });
 
-    $(".progress").css("visibility", "hidden")
+    //$(".progress").css("visibility", "hidden")
+  
+
+
     $('#formDisp').on('validationSuccess', function (event) { 
-        $(".progress").css("visibility", "")
+        //$(".progress").css("visibility", "")
+          $(".progress").toggleClass( "hidden" );
 
      setTimeout(function(){
         $.ajax({
-            url: '/inventario/dispositivo/',
+            url: '/inventario/dispositivos/agregar/',
             type: 'POST',
             data: {
                 marca: $("#marca").val().trim(),
@@ -375,10 +378,12 @@ var tipoSource =
                 $("#serie").val(null); 
                 $("#inventario").val(null);
                 $("#posicion").val(null);
-                $(".progress").css("visibility", "hidden")
+                //$(".progress").css("visibility", "hidden")
+                  $(".progress").toggleClass( "hidden" );
             }
             else{
-                $(".progress").css("visibility", "hidden")
+                //$(".progress").css("visibility", "hidden")
+                  $(".progress").toggleClass( "hidden" );
                 var mensaje = "<ul>";
                 for(var i=0;i<data.errores.length;i++){
                     e = data.errores[i]
@@ -391,6 +396,8 @@ var tipoSource =
         })
         .fail(function(e) {
             $.snackbar({content: "<i class='warning red sign icon'></i> Error: "+ e.status + ": "+e.statusText});
+            // $(".progress").css("visibility", "hidden")
+              $(".progress").toggleClass( "hidden" );
         })
         
         },600)   

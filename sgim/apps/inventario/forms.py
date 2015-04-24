@@ -6,7 +6,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-from .models import Dispositivo
+from .models import Dispositivo, Servicio, Componente
 
 
 class DispositivoForm(forms.ModelForm):
@@ -15,4 +15,17 @@ class DispositivoForm(forms.ModelForm):
         model = Dispositivo
         exclude = ('creador',)
 
+
+class ServicioForm(forms.ModelForm):
+
+    class Meta:
+        model = Servicio
+        exclude = ('creador',)
+
+
+class ComponenteForm(forms.ModelForm):
+
+    class Meta:
+        model = Componente
+        exclude = ('creador',)
 

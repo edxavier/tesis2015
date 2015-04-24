@@ -1,13 +1,34 @@
 # Create your views here.
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views.generic import View
 from django.template.context import RequestContext
-from .forms import DispositivoForm
-# Create your views here.
+from .forms import DispositivoForm, ServicioForm, ComponenteForm
+
+
 
 # Create your views here.
+class Dispositivos(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('inventario/dispositivos.html',
+            locals(), context_instance=RequestContext(request))
+
+
+# Create your views here.
+class Servicios(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('inventario/servicios.html',
+            locals(), context_instance=RequestContext(request))
+
+
+# Create your views here.
+class Componentes(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('inventario/dispositivos.html',
+            locals(), context_instance=RequestContext(request))
+
+
 class NuevoDispositivo(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('inventario/nuevo_dispositivo.html',
@@ -25,20 +46,33 @@ class NuevoDispositivo(View):
         else:
             return JsonResponse({'success': form.is_valid(),'errores': [(k, v[0]) for k, v in form.errors.items()]})
 
-# Create your views here.
-class Dispositivos(View):
+
+class NuevoServicio(View):
     def get(self, request, *args, **kwargs):
-        return render_to_response('inventario/dispositivos.html',
+        form = ServicioForm()
+        return render_to_response('inventario/nuevo_servicio.html',
             locals(), context_instance=RequestContext(request))
 
-# Create your views here.
-class Servicios(View):
-    def get(self, request, *args, **kwargs):
-        return render_to_response('inventario/servicios.html',
+    def post(self, request, *args, **kwargs):
+        form = ServicioForm(request.POST)
+        if form.is_valid():
+            servicio = form.save(commit=False)
+            servicio.creador = request.user
+            servicio.save()
+            success = True
+            form = ServicioForm()
+            return render_to_response('inventario/nuevo_servicio.html',
+            locals(), context_instance=RequestContext(request))
+        else:
+            return render_to_response('inventario/nuevo_servicio.html',
             locals(), context_instance=RequestContext(request))
 
-# Create your views here.
-class Componentes(View):
+
+class NuevoComponente(View):
     def get(self, request, *args, **kwargs):
-        return render_to_response('inventario/dispositivos.html',
+        form = ComponenteForm()
+        return render_to_response('inventario/nuevo_componente.html',
             locals(), context_instance=RequestContext(request))
+
+    def post(self, request, *args, **kwargs):
+            return JsonResponse({'success': "", 'errores': []})
