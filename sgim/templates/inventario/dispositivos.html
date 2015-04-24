@@ -48,13 +48,13 @@
 {% block contenido %}
 
    <div class="ui purple menu">
-          <a class="item">
+          <a class="item" href="/">
             <i class="home icon"></i> Inicio
           </a>
-          <a class="red item" href="{% url 'dispositivos_list' %}">
+          <a class="active item" href="{% url 'dispositivos_list' %}">
             <i class=" cubes icon"></i> Dispositivos
           </a>
-          <a class="active blue item" href="{% url 'dispositivo_add' %}">
+          <a class="item" href="{% url 'dispositivo_add' %}">
             <i class=" add icon"></i> Agregar Dispositivo
           </a>
     </div>
@@ -62,174 +62,13 @@
 
 
 
-
-<div class="progress ">
-      <div class="indeterminate"></div>
-</div>
-         
-
-
 <div class="container-fluid"> 
 
-<div class="row">
-
-
-<div class="col-md-8 col-md-offset-2" >
-        <div id="err_msg" class="alert alert-dismissable alert-warning" hidden>
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                <h5><div class="header"><i class="icon warning circle"></i> Se detectaron los siguientes inconvenientes</div></h5>
-                <p id="mensaje">                  
-                </p>
-        </div>  
-
-        <div class="panel panel-primary  shadow-z-1">
-                <div class="panel-heading" >
-                    <h3 style="color:white" class="center ui aligned header">
-                      <i class="edit icon"></i>
-                      <div class="content">
-                        Registrar Dispositivo
-                      </div>                      
-                    </h3>
-                </div>
-                <div class="panel-body">                  
-                    <div class="col-md-9 col-sm-9 ">
-                        <form id="formDisp" class="form-horizontal" method="post">
-                                {% csrf_token %}
-                     
-                        <div class="form-group">
-                            <div class="col-lg-10 col-lg-offset-1 input-group">
-                                <span class="input-group-addon">
-                                    <i class="tag icon"></i>
-                                </span>
-                                <input type="text" class="form-control floating-label" id="marca" placeholder="Marca">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-10 col-lg-offset-1 input-group">
-                                <span class="input-group-addon">
-                                    <i class="tag icon"></i>
-                                </span>
-                                <input type="text" class="form-control floating-label" id="modelo" placeholder="Modelo">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-10 col-lg-offset-1 input-group">
-                                <span class="input-group-addon">
-                                    <i class="barcode icon"></i>
-                                </span>
-                                <input type="text" class="form-control floating-label" id="serie" placeholder="No Serie" >
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-10 col-lg-offset-1 input-group">
-                                <span class="input-group-addon">
-                                   <i class="cubes icon"></i>
-                                </span>
-                                <input type="text" class="form-control floating-label" id="inventario" placeholder="No Inventario">
-                            </div>
-                        </div>
-                       <div class="form-group">
-                            <div class="col-lg-10 col-lg-offset-1 input-group">
-                                <span class="input-group-addon">
-                                    <i class="terminal icon"></i>
-                                </span>
-                                <input type="text" class="form-control floating-label" id="posicion" placeholder="Posicion logica" >
-                            </div>
-                        </div>
-
-<div class="row">
-    <div class="col-md-5">
-        <div class="form-group">
-            <div class="col-lg-10 col-lg-offset-1 input-group">
-                                <span class="input-group-addon">
-                                    <i class="fork icon"></i>
-                                </span>
-                                <div id='tipo' class="form-control"></div>
-            </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2" >  
+        dsfds          
         </div>
     </div>
-    <div class="col-md-5 col-md-offset-1 ">
-        <div class="form-group">
-            <div class="col-lg-10 col-lg-offset-1 input-group">
-                                <span class="input-group-addon">
-                                    <i class="settings icon"></i>
-                                </span>
-                                <div id='sistema' class="form-control"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-5">
-         <div class="form-group">
-                            <div class="col-lg-10 col-lg-offset-1 input-group">
-                                <span class="input-group-addon">
-                                    <i class="marker icon"></i>
-                                </span>
-                                <div id='edificio' class="form-control"></div>
-                            </div>
-                        </div>
-    </div>
-    <div class="col-md-5 col-md-offset-1 ">
-        
-                        <div class="form-group">
-                            <div class="col-lg-10 col-lg-offset-1 input-group">
-                                <span class="input-group-addon">
-                                    <i class="building outline icon"></i>
-                                </span>
-                                <div id='oficina' class="form-control"></div>
-                            </div>
-                        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-5">
-         <div class="form-group">
-                            <div class="col-lg-10 col-lg-offset-1 input-group">
-                                <span class="input-group-addon">
-                                    <i class="flag icon"></i>
-                                </span>
-                                <div id='estado' class="form-control"></div>
-                            </div>
-                        </div>
-    </div>
-    <div class="col-md-5 col-md-offset-1 ">
-          <div class="form-group">
-                            <div class="col-lg-10 col-lg-offset-1 input-group">
-                                <span class="input-group-addon">
-                                    <i class="calendar icon"></i>
-                                </span>
-                                <div id='instalacion' class="form-control"></div>
-                            </div>
-                        </div>
-    </div>
-</div>
-
-
-                        <div class="form-group">
-                            <div class="col-lg-10 col-lg-offset-1">
-                                <button id="enviar" type="button" class="ui teal button">
-                                    Guardar  &nbsp;
-                                    <span class="glyphicon glyphicon-save" ></span>
-                                </button>
-                                <button id="limpiar" type="button" class="ui black button">
-                                    Limpiar Campos  &nbsp;
-                                    <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
-                                </button>
-                            </div>
-                        </div>
-
-                        </form>
-                    
-                    </div>
-
-                </div>
-        </div>
-
-    </div>
-</div>
 </div>
 {% endblock contenido %}
 

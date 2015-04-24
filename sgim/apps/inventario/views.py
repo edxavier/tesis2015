@@ -10,7 +10,7 @@ from .forms import DispositivoForm
 # Create your views here.
 class NuevoDispositivo(View):
     def get(self, request, *args, **kwargs):
-        return render_to_response('inventario/nuevo_dispositivo2.html',
+        return render_to_response('inventario/nuevo_dispositivo.html',
             locals(), context_instance=RequestContext(request))
 
     def post(self, request, *args, **kwargs):
@@ -24,3 +24,21 @@ class NuevoDispositivo(View):
             return JsonResponse({'success': form.is_valid(), 'errores': []})
         else:
             return JsonResponse({'success': form.is_valid(),'errores': [(k, v[0]) for k, v in form.errors.items()]})
+
+# Create your views here.
+class Dispositivos(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('inventario/dispositivos.html',
+            locals(), context_instance=RequestContext(request))
+
+# Create your views here.
+class Servicios(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('inventario/servicios.html',
+            locals(), context_instance=RequestContext(request))
+
+# Create your views here.
+class Componentes(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('inventario/dispositivos.html',
+            locals(), context_instance=RequestContext(request))
