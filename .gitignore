@@ -207,3 +207,5 @@ dist/
 .Trash-*
 
 
+
+migrations/0*.py

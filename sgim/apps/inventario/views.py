@@ -25,7 +25,7 @@ class Servicios(View):
 # Create your views here.
 class Componentes(View):
     def get(self, request, *args, **kwargs):
-        return render_to_response('inventario/dispositivos.html',
+        return render_to_response('inventario/componentes.html',
             locals(), context_instance=RequestContext(request))
 
 

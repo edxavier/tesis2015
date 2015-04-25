@@ -12,6 +12,6 @@ class TareaForm(forms.ModelForm):
                                                               'class': 'form-control floating-label'}))
     class Meta:
         model = Tarea
-        exclude = ('creador',)
+        exclude = ('creador', 'tipo_dispositivos',)
 
 

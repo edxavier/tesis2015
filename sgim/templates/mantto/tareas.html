@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+     <div class="ui purple menu">
+          <a class="item">
+            <i class="home icon"></i> Inicio
+          </a>
+          <a class="active item" href="{% url 'tareas_list' %}">
+            <i class=" cubes icon"></i> Tareas
+          </a>
+          <a class=" blue item" href="{% url 'tarea_add' %}">
+            <i class=" add icon"></i> Agregar Tarea
+          </a>
+    </div>
+{% endblock contenido %}

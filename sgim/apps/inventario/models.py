@@ -62,7 +62,7 @@ class Servicio(MarcaDeTiempo, models.Model):
     tipo = models.ForeignKey(TipoServicio)
     # 119.4, 121.9, Planes de vuelo
     #tipo  Radiofrecuencia, LineaTelefonica, AFTN, Meteorologico
-    descripcion = models.CharField(max_length=150, blank=True, null=True    )
+    descripcion = models.CharField(max_length=150, blank=True, null=True)
 
     def __unicode__(self):
         return self.nombre

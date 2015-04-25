@@ -17,6 +17,10 @@ class DispositivoForm(forms.ModelForm):
 
 
 class ServicioForm(forms.ModelForm):
+    nombre = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Nombre',
+                                                           'class': 'form-control floating-label', 'required': 'True'}))
+    descripcion = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Descripcion',
+                                                           'class': 'form-control floating-label'}))
 
     class Meta:
         model = Servicio

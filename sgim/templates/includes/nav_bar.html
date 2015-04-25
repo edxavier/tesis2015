@@ -15,8 +15,8 @@
                         Inventario<b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{% url 'dispositivo_add' %}">Dispositivos</a></li>
-                        <li><a href="{% url 'servicio_add' %}">Servicios</a></li>
+                        <li><a href="{% url 'dispositivos_list' %}">Dispositivos</a></li>
+                        <li><a href="{% url 'servicios_list' %}">Servicios</a></li>
                         <li><a href="{% url 'componentes_list' %}">Componentes</a></li>                        
                     </ul>
                 </li> 
@@ -25,7 +25,7 @@
                         Mantenimientos<b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{% url 'tarea_add' %}">Tareas</a></li>
+                        <li><a href="{% url 'tareas_list' %}">Tareas</a></li>
                         <li><a href="{% url 'actualizar_clave' %}">Rutinas</a></li>
                         <li class="divider"></li>
                         <li><a href="/admin">Programacion</a></li>

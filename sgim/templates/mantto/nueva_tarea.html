@@ -27,7 +27,7 @@
           <a class="item">
             <i class="home icon"></i> Inicio
           </a>
-          <a class="red item" href="{% url 'dispositivos_list' %}">
+          <a class="red item" href="{% url 'tareas_list' %}">
             <i class=" cubes icon"></i> Tareas
           </a>
           <a class="active blue item" href="{% url 'tarea_add' %}">
@@ -79,6 +79,7 @@
                                     <div id='tipo' class="form-control"></div>
                                 </div>
                             </div>
+                            <br>
                             <div class="form-group">
                                 <div class="col-lg-11 col-lg-offset-1 input-group">
                                     <span class="input-group-addon">
@@ -175,10 +176,9 @@ function get_selected_items(){
         .done(function(data) {
             
             if(data.success){
-                $.snackbar({content: "<i class='checkmark green sign icon'></i> Dispositivo Registrado!"});
-                $("#serie").val(null); 
-                $("#inventario").val(null);
-                $("#posicion").val(null);
+                $.snackbar({content: "<i class='checkmark green sign icon'></i> La tarea fue alamcenada con exito!"});
+                document.getElementById("form").reset();
+                $(".form-control").jqxComboBox('clearSelection');
                 //$(".progress").css("visibility", "hidden")
                   $(".progress").toggleClass( "hidden" );
             }

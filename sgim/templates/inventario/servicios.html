@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 
 {% block contenido %}
-	Servicios
-
-
+     <div class="ui purple menu">
+          <a class="item">
+            <i class="home icon"></i> Inicio
+          </a>
+          <a class="active item" href="{% url 'servicios_list' %}">
+            <i class=" cubes icon"></i> Servicios
+          </a>
+          <a class=" blue item" href="{% url 'servicio_add' %}">
+            <i class=" add icon"></i> Agregar Servicio
+          </a>
+    </div>
 {% endblock contenido %}

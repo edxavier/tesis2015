@@ -79,10 +79,10 @@ class Migration(migrations.Migration):
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=100)),
-                ('meteriales', models.CharField(default=b'N/A', max_length=100)),
+                ('meteriales', models.CharField(default=b'N/A', max_length=100, verbose_name=b'Herramientas')),
                 ('minutos', models.FloatField(default=1, help_text=b'Duracion en minutos', verbose_name=b'Duracion')),
                 ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
-                ('tipo_dispositivos', models.ManyToManyField(to='catalogo.TipoDispositivo')),
+                ('tipo_dispositivos', models.ManyToManyField(to='catalogo.TipoDispositivo', verbose_name=b'Tipos de Dispositivo')),
             ],
             options={
                 'abstract': False,
