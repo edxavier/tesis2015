@@ -75,4 +75,14 @@ class NuevoComponente(View):
             locals(), context_instance=RequestContext(request))
 
     def post(self, request, *args, **kwargs):
-            return JsonResponse({'success': "", 'errores': []})
+        form = ComponenteForm(request.POST)
+        if form.is_valid():
+            comp = form.save(commit=False)
+            comp.creador = request.user
+            if(not comp.inventario):
+                comp.inventario = None
+            comp.save()
+            return JsonResponse({'success': form.is_valid(), 'errores': []})
+        else:
+            return JsonResponse({'success': form.is_valid(), 'errores': [(k, v[0]) for k, v in form.errors.items()]})
+

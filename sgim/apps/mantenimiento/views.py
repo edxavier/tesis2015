@@ -16,6 +16,19 @@ class Tareas(View):
         return render_to_response('mantto/tareas.html',
             locals(), context_instance=RequestContext(request))
 
+
+class Rutinas(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('mantto/tareas.html',
+            locals(), context_instance=RequestContext(request))
+
+
+class Planes(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('mantto/tareas.html',
+            locals(), context_instance=RequestContext(request))
+
+
 class NuevaTarea(View):
     def get(self, request, *args, **kwargs):
         form = TareaForm()
@@ -34,7 +47,7 @@ class NuevaTarea(View):
                     td = get_object_or_404(TipoDispositivo, pk=it)
                     tarea.tipo_dispositivos.add(td)
                 tarea.save()
-                return JsonResponse({'success': True, 'errores': []})
+                return JsonResponse({'success': form.is_valid(),'errores': [(k, v[0]) for k, v in form.errors.items()]})
             else:
                 return JsonResponse({'success': False, 'errores': [("Tipos de Dispositivo", "Este campo es requerido")]})
 

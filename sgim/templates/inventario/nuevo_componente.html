@@ -1,5 +1,35 @@
 {% extends "base.html" %}
 
+{% block include_statics %}
+{% comment %}
+    
+
+    <script src="{{BOWER_URL}}w2ui/w2ui-1.4.2.min.js"></script>
+    <link rel="stylesheet" href="{{BOWER_URL}}w2ui/w2ui-1.4.2.min.css">
+{% endcomment %}
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
+
+    
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcombobox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxpanel.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdata.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtooltip.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/globalization/globalize.js"></script>
+      <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxexpander.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxvalidator.js"></script>
+
+
+{% endblock include_statics %}
+
+{% block titulo %}
+    Inventario | Nuevo Dispositivo
+{% endblock titulo %}
+
 {% block contenido %}
      <div class="ui purple menu">
           <a class="item">
@@ -12,4 +42,234 @@
             <i class=" add icon"></i> Agregar Componente
           </a>
     </div>
+
+
+    <div class="progress hidden">
+      <div class="indeterminate"></div>
+</div>
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-6 col-md-offset-3" >
+            <div class="panel panel-primary  shadow-z-1">
+                <div class="panel-heading" >
+                    <h3 style="color:white" class=" ui aligned header">
+                      <i class="mdi-hardware-memory"></i>
+                      <div class="content">
+                        Ingresar Componente
+                      </div>                      
+                    </h3>
+                </div>
+                <div class="panel-body">                  
+                    <div class="col-md-10 col-sm-10 ">
+
+                         <form id="form" class="form-horizontal" method="post">
+                            {% csrf_token %}                     
+                              <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
+                                <span class="input-group-addon">
+                                    <i class="tag icon"></i>
+                                </span>
+                                <input type="text" class="form-control floating-label" id="marca" placeholder="Marca">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
+                                <span class="input-group-addon">
+                                    <i class="tag icon"></i>
+                                </span>
+                                <input type="text" class="form-control floating-label" id="modelo" placeholder="Modelo">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
+                                <span class="input-group-addon">
+                                    <i class="barcode icon"></i>
+                                </span>
+                                <input type="text" class="form-control floating-label" id="serie" placeholder="No Serie" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
+                                <span class="input-group-addon">
+                                   <i class="cubes icon"></i>
+                                </span>
+                                <input type="text" class="form-control floating-label" id="inventario" placeholder="No Inventario">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-lg-10 col-lg-offset-1 input-group">
+                                              <span class="input-group-addon">
+                                                  <i class="fork icon"></i>
+                                              </span>
+                                <div id='tipo' class="form-control"></div>
+                          </div>
+                      </div>
+
+                         <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
+                                <span class="input-group-addon">
+                                    <i class="flag icon"></i>
+                                </span>
+                                <div id='estado' class="form-control"></div>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-1 input-group">
+                                <span class="input-group-addon">
+                                    <i class="mdi-device-devices"></i>
+                                </span>
+                                <div id='instalado_en' class="form-control"></div>
+                            </div>
+                        </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-10 col-lg-offset-1">
+                                    <button id="enviar" type="button" class="ui teal button">
+                                        Guardar &nbsp;
+                                        <span class="glyphicon glyphicon-save" ></span>
+                                    </button>
+                                    <button id="limpiar" type="button" class="ui black button">
+                                        Limpiar Campos  &nbsp;
+                                        <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+                
+            </div>
+    </div>
+</div>
+</div>
 {% endblock contenido %}
+
+{% block scripts %}
+  <script>
+  $(document).ready(function() {
+
+
+    var estadoSource =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id'},
+                { name: 'text'}
+            ],
+            url: '/api/catalogo/estado_ope/'
+        };
+        var estadoAdapter = new $.jqx.dataAdapter(estadoSource);
+
+     $("#estado").jqxComboBox({ theme:'metro', promptText: "Estado Operacional...", 
+        source: estadoAdapter,displayMember: 'text', valueMember: 'id'});
+
+var tipoSource =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id'},
+                { name: 'nombre'}
+            ],
+            url: '/api/catalogo/tipo_componente/'
+        };
+        var tipoAdapter = new $.jqx.dataAdapter(tipoSource);
+
+     $("#tipo").jqxComboBox({ theme:'metro', promptText: "Tipo de componente...",  source: tipoAdapter, displayMember: 'nombre', valueMember: 'id'});
+
+     var isntalado =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id'},
+                { name:'posicion_logica'},
+                { name:'serie'}
+            ],
+            url: '/api/inventario/dispositivos/'
+        };
+        var isntaladoAdap = new $.jqx.dataAdapter(isntalado);
+
+     $("#instalado_en").jqxComboBox({ theme:'metro', promptText: "Instalado en...",  source: isntaladoAdap, displayMember: 'posicion_logica', valueMember: 'id'});
+      
+      $('#instalado_en').jqxComboBox({renderer: function (index, label, value) {
+        var datarecord = isntaladoAdap.records[index];
+        var table = ' <div class="item"><div class="header">Pos: '+datarecord.posicion_logica+'</div> <strong> N&ordm; Serie:</strong> '+  datarecord.serie+'</div>'
+        table2 = '<table class="ui compact table">'
+        table2 +=  '<tbody><tr><td>'+datarecord.posicion_logica+'</td><td>'+datarecord.serie+'</td></tr><tbody></table>'
+        return table2
+        }
+      });
+        
+
+
+ $('#form').jqxValidator({
+                rules: [
+                    { input: '#marca', message: 'Campo requerido', action: 'blur', rule: 'required' },
+                    { input: '#serie', message: 'Campo requerido', action: 'blur', rule: 'required' },
+                ]
+            });
+
+    $('#form').on('validationSuccess', function (event) { 
+        $(".progress").toggleClass( "hidden" );
+
+     setTimeout(function(){
+        $.ajax({
+            url: '/inventario/componentes/agregar/',
+            type: 'POST',
+            data: {
+                marca: $("#marca").val().trim(),
+                modelo: $("#modelo").val().trim(),
+                serie: $("#serie").val().trim(),
+                inventario: $("#inventario").val().trim(),
+                tipo: $("#tipo").val(),
+                estado: $("#estado").val(),
+                instalado_en: $("#instalado_en").val(),
+            },
+        })
+        .done(function(data) {
+            
+            if(data.success){
+                $.snackbar({content: "<i class='checkmark green sign icon'></i>Componente registrado con exito!"});
+                document.getElementById("form").reset();
+                $(".form-control").jqxComboBox('clearSelection');
+                //$(".progress").css("visibility", "hidden")
+                  $(".progress").toggleClass( "hidden" );
+            }
+            else{
+                //$(".progress").css("visibility", "hidden")
+                  $(".progress").toggleClass( "hidden" );
+                var mensaje = "<ul>";
+                for(var i=0;i<data.errores.length;i++){
+                    e = data.errores[i]
+                    mensaje +="<li>"+ e[0]+": "+ e[1] +"</li>"
+                }
+                mensaje += "</ul>"
+                $.snackbar({content: "<h5 style='color:yellow'><i class='warning yellow sign icon'></i> Se encontraron los siguientes inconvenientes: </h5>"+mensaje, timeout: 0 });
+
+            }
+        })
+        .fail(function(e) {
+            $.snackbar({content: "<i class='warning red sign icon'></i> Error "+ e.status + ": "+e.statusText});
+            // $(".progress").css("visibility", "hidden")
+              $(".progress").toggleClass( "hidden" );
+        })
+        
+        },600)   
+        /* Act on the event */
+    });
+
+    $("#limpiar").on('click',  function(event) {
+        event.preventDefault();
+        document.getElementById("form").reset();
+        $(".form-control").jqxComboBox('clearSelection'); 
+        /* Act on the event */
+    });
+   $("#enviar").on('click',  function(event) {
+        event.preventDefault();
+         $('#form').jqxValidator('validate');
+    });
+
+  });
+  </script>
+{% endblock scripts %}
