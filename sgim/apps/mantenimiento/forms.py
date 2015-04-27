@@ -1,6 +1,6 @@
 # coding=utf-8
 from django import forms
-from .models import Tarea
+from .models import Tarea, Rutina
 
 
 class TareaForm(forms.ModelForm):
@@ -13,5 +13,17 @@ class TareaForm(forms.ModelForm):
     class Meta:
         model = Tarea
         exclude = ('creador', 'tipo_dispositivos',)
+
+
+class RutinaForm(forms.ModelForm):
+    titulo = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Titulo de la rutina',
+                                                           'class': 'form-control ', 'required': True}))
+
+    recomendacion = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Recomendacion a tener en cuenta',
+                                                           'class': 'form-control ', 'required': True}))
+
+    class Meta:
+        model = Rutina
+        exclude = ('creador', 'tareas')
 
 

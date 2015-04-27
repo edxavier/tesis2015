@@ -25,9 +25,21 @@ class Tarea(MarcaDeTiempo, models.Model):
 
 
 class Rutina(MarcaDeTiempo, models.Model):
+    SEMANAL = 7
+    QUICENAL = 15
+    MENSUAL = 30
+    BIMENSUAL = 60
+    TRIMESTRAL = 90
+    SEMESTRAL = 180
+    ANUAL = 360
+    FRECUANCIAS = (
+        (SEMANAL, 'Semanal'),
+        (QUICENAL, 'Quincenal'),
+        (MENSUAL, 'Mensual'),
+    )
     titulo = models.CharField(max_length=100)
     sistema = models.ForeignKey(Sistema)
-    frecuencia = models.IntegerField(help_text='Frecuencia en dias')
+    frecuencia = models.IntegerField(help_text='Frecuencia en dias', choices=FRECUANCIAS, default= SEMANAL)
     paro_de_equipo = models.BooleanField(default=False, help_text="Indica si es necesario detener la operacion")
     recomendacion = models.CharField(max_length=300, default="Ninguna")
     duracion_estimada = models.FloatField(help_text="Duracion en horas", blank=True,

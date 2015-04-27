@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block titulo %}
+Mannto. | Nuevo Tarea de Mannto.
+{% endblock titulo %}
 
 {% block include_statics %}
     <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
@@ -148,14 +151,8 @@ function get_selected_items(){
     var selectedItems = "Selected Items: ";
     selection = new Array()
                     $.each(items, function (index) {
-                        selectedItems += this.label;
                         selection.push(this.value)
-                        if (items.length - 1 != index) {
-                            selectedItems += ", ";
-                        }
                     });
-    console.log(selectedItems);
-    console.log(selection);
     return selection  
 }
 
