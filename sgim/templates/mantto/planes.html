@@ -2,3 +2,19 @@
 {% block titulo %}
     Planes de Mannto.
 {% endblock titulo %}
+
+
+{% block contenido %}
+<div class="ui purple menu">
+	<a class="item" href="/">
+		<i class="home icon"></i> Inicio
+	</a>
+	<a class="active item" href="{% url 'planes_list' %}">
+		<i class="icon ion-settings"></i>  Planes de Mantto.
+	</a>
+	<a class="item" href="{% url 'plan_add' %}">
+		<i class=" add icon"></i> Nueva Planificacion
+	</a>
+</div>
+
+{% endblock contenido %}

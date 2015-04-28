@@ -260,6 +260,7 @@ $(document).ready(function() {
         })
         .fail(function(e) {
             $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ e.status + ": "+e.statusText});
+            console.log(e)
             // $(".progress").css("visibility", "hidden")
               $(".progress").toggleClass( "hidden" );
         })

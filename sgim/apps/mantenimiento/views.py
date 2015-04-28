@@ -3,10 +3,10 @@ from django.shortcuts import render
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views.generic import View
 from django.template.context import RequestContext
-from .forms import TareaForm, RutinaForm
+from .forms import TareaForm, RutinaForm, ProgramacionForm
 from apps.catalogo.models import TipoDispositivo
 from .models import Tarea
-
+from apps.inventario.models import Dispositivo
 
 # Create your views here.
 
@@ -71,15 +71,55 @@ class NuevaRutina(View):
             rutina.duracion_estimada = 0
             rutina.save()
             items = request.POST.getlist('tareas[]')
-            if items:
-                for it in items:
-                    td = get_object_or_404(Tarea, pk=it)
-                    rutina.tareas.add(td)
-                rutina.save()
-                return JsonResponse({'success': form.is_valid(),'errores': [(k, v[0]) for k, v in form.errors.items()]})
-            else:
-                return JsonResponse({'success': False, 'errores': [("Tipos de Dispositivo", "Este campo es requerido")]})
+            print("ANTES DE ITEMS")
+            for it in items:
+                td = get_object_or_404(Tarea, pk=it)
+                rutina.tareas.add(td)
+            rutina.save()
+            print("ANTES DE calcular MIN")
+            tareas = Tarea.objects.filter(rutina__pk=rutina.pk)
+            Ndisp = Dispositivo.objects.filter(sistema__pk=rutina.sistema.pk).count()
+            minutos = 0
+            for t in tareas:
+                minutos += t.minutos
+            rutina.duracion_estimada = (minutos / 60) * Ndisp
+            rutina.save()
+            print("ANTES DE ITEMS")
+            return JsonResponse({'success': form.is_valid(),'errores': [(k, v[0]) for k, v in form.errors.items()]})
+            #tarea.save()
+        else:
+            return JsonResponse({'success': form.is_valid(),'errores': [(k, v[0]) for k, v in form.errors.items()]})
 
+
+class NuevoPlan(View):
+    def get(self, request, *args, **kwargs):
+        form = ProgramacionForm()
+        return render_to_response('mantto/nuevo_plan.html',
+            locals(), context_instance=RequestContext(request))
+
+    def post(self, request, *args, **kwargs):
+        form = form = RutinaForm(request.POST)
+        if form.is_valid():
+            rutina = form.save(commit=False)
+            rutina.creador = request.user
+            rutina.duracion_estimada = 0
+            rutina.save()
+            items = request.POST.getlist('tareas[]')
+            print("ANTES DE ITEMS")
+            for it in items:
+                td = get_object_or_404(Tarea, pk=it)
+                rutina.tareas.add(td)
+            rutina.save()
+            print("ANTES DE calcular MIN")
+            tareas = Tarea.objects.filter(rutina__pk=rutina.pk)
+            Ndisp = Dispositivo.objects.filter(sistema__pk=rutina.sistema.pk).count()
+            minutos = 0
+            for t in tareas:
+                minutos += t.minutos
+            rutina.duracion_estimada = (minutos / 60) * Ndisp
+            rutina.save()
+            print("ANTES DE ITEMS")
+            return JsonResponse({'success': form.is_valid(),'errores': [(k, v[0]) for k, v in form.errors.items()]})
             #tarea.save()
         else:
             return JsonResponse({'success': form.is_valid(),'errores': [(k, v[0]) for k, v in form.errors.items()]})

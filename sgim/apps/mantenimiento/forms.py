@@ -1,6 +1,6 @@
 # coding=utf-8
 from django import forms
-from .models import Tarea, Rutina
+from .models import Tarea, Rutina, Programacion
 
 
 class TareaForm(forms.ModelForm):
@@ -25,5 +25,12 @@ class RutinaForm(forms.ModelForm):
     class Meta:
         model = Rutina
         exclude = ('creador', 'tareas')
+
+
+class ProgramacionForm(forms.ModelForm):
+
+    class Meta:
+        model = Programacion
+        exclude = ('creador', )
 
 
