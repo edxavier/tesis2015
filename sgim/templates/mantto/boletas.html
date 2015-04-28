@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block titulo %}
+    Boletas/Ticket de Mantto.
+{% endblock titulo %}
+
+
+{% block contenido %}
+<div class="ui purple menu">
+	<a class="item" href="/">
+		<i class="home icon"></i> Inicio
+	</a>
+	<a class="active item" href="{% url 'boletas_list' %}">
+		<i class="icon ion-settings"></i>  Boletas.
+	</a>
+	<a class="item" href="{% url 'boleta_add' %}">
+		<i class=" add icon"></i> Nueva Boleta.
+	</a>
+</div>
+
+{% for boleta in boletas  %}
+	{{boleta.dispositivo}} <br>
+	{{boleta.tipo}} <br>
+	{{boleta.estado_final}} <br>
+	{% autoescape off %}
+	{{boleta.descripcion}} <br>		
+	{% endautoescape %}
+	--------------------------- <br>
+{% endfor %}
+
+{% endblock contenido %}

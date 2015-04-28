@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Incidencias
+{% endblock titulo %}
+
+{% block contenido %}
+<div class="ui purple menu">
+    <a class="item" href="/">
+        <i class="home icon"></i> Inicio
+    </a>
+    <a class="active item" href="{% url 'incidentes_list' %}">
+        <i class="icon ion-settings"></i> incidencias.
+    </a>
+    <a class=" item" href="{% url 'incidente_add' %}">
+        <i class=" add icon"></i> Nueva incidencia
+    </a>
+</div>
+{% endblock contenido %}

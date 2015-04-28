@@ -1,7 +1,6 @@
 {% extends "base.html" %}
-
 {% block titulo %}
-Nuevo Plan de Mannto.
+    Nueva Boleta/Ticket de Mantto.
 {% endblock titulo %}
 {% block include_statics %}
 <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
@@ -22,34 +21,45 @@ Nuevo Plan de Mannto.
 
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdatetimeinput.js"></script>
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcalendar.js"></script>
-  
+	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdropdownlist.js"></script>
+	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdropdownbutton.js"></script>
+	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxwindow.js"></script>
+	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxnumberinput.js"></script>
+	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcheckbox.js"></script>
+
+
+
+	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxeditor.js"></script>
 
 {% endblock include_statics %}
+
 {% block contenido %}
 <div class="ui purple menu">
 	<a class="item" href="/">
 		<i class="home icon"></i> Inicio
 	</a>
-	<a class=" item" href="{% url 'planes_list' %}">
-		<i class="icon ion-settings"></i>  Planes de Mantto.
+	<a class=" item" href="{% url 'boletas_list' %}">
+		<i class="icon ion-settings"></i>  Boletas.
 	</a>
-	<a class="active item" href="{% url 'plan_add' %}">
-		<i class=" add icon"></i> Nueva Planificacion
+	<a class="active item" href="{% url 'boleta_add' %}">
+		<i class=" add icon"></i> Nueva Boleta.
 	</a>
 </div>
 
 	<div class="progress hidden">
       <div class="indeterminate"></div>
 </div>
+
+
 <div class="container-fluid">
 <div class="row">
     <div class="col-md-8 col-md-offset-2" >
             <div class="panel panel-primary  shadow-z-2">
                 <div class="panel-heading" >
                     <h3 style="color:white" class="center ui aligned header">
-                      <i class="ion-android-calendar icon"></i>
+                      <i class="ion-android-archive icon"></i>
                       <div class="content">
-                        Planificar Mantenimiento
+                        Ingresar boleta de trabajo
                       </div>                      
                     </h3>
                 </div>
@@ -59,46 +69,81 @@ Nuevo Plan de Mannto.
                          <form id="form" class="form-horizontal" method="post">
                             {% csrf_token %}   
                             <div class="form-group">
-                            	<label class="col-lg-3 control-label">Rutina</label>
+                            	<label class="col-lg-3 control-label" >Dispositivo</label>
                                 <div class="col-lg-9 input-group">
                                     <span class="input-group-addon">
                                        <i class="icon ion-clipboard"></i>
                                     </span>
-                                    <div id='rutina' class="form-control"></div>
+                                    <div id='dispositivo' class="form-control"></div>
                                 </div>
                             </div>
-                              <div class="form-group">
-                              	<label class="col-lg-3 control-label">Fecha Inicio</label>
+                             <div class="form-group">
+                              	<label class="col-lg-3 control-label">Plan</label>
                                 <div class="col-lg-9 input-group">
                                     <span class="input-group-addon">
                                         <i class="ion-android-calendar icon"></i>
                                     </span>
-                                    <div id='fecha_inicio' class="form-control"></div>
+                                    <div id='plan' class="form-control"></div>
                                 </div>
                             </div>
                              <div class="form-group">
-                                <label class="col-lg-3 control-label">Personal</label>
+                              	<label class="col-lg-3 control-label">Tipo mantto.</label>
+                                <div class="col-lg-9 input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fork icon"></i>
+                                    </span>
+                                    {{form.tipo}}
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-lg-3 control-label">
+                                	{{form.paro_operacion.label}}
+                                </label>
                                 <div class="col-lg-9 input-group">
                                    <span class="input-group-addon">
-                                        <i class="icon ion-ios-people"></i>
+                                        <i class="ion-android-hand icon"></i>
                                     </span>
-                                    <div id='personal' class="form-control"></div>
+                                    <div class="togglebutton">
+					                    <label>
+					                        {{form.paro_operacion}} Indica si fue necesario detener el equipo
+					                    </label>
+					                </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                              	<label class="col-lg-3 control-label">Tiempo de paro (min)</label>
+                                <div class="col-lg-9 input-group">
+                                    <span class="input-group-addon">
+                                        <i class="ion-ios-stopwatch icon"></i>
+                                    </span>
+                                    <div id='tiempo' class="form-control"></div>
                                 </div>
                             </div>
                               <div class="form-group">
-                                <label class="col-lg-3 control-label">Responsable</label>
+                                <label class="col-lg-3 control-label">{{form.descripcion.label}}</label>
                                 <div class="col-lg-9 input-group">
                                    <span class="input-group-addon">
-                                        <i class="icon ion-person"></i>
+                                        <i class="icon ion-document-text"></i>
                                     </span>
-                                    <div id='responsable' class="form-control"></div>
+                                   {{form.descripcion}}
+                                   <div class="ui bottom right attached label">{{form.descripcion.help_text}}</div>
+                                   
+                                </div>
+                            </div>
+                             <div class="form-group">
+                              	<label class="col-lg-3 control-label">Estado</label>
+                                <div class="col-lg-9 input-group">
+                                    <span class="input-group-addon">
+                                        <i class="ion-ios-flag icon"></i>
+                                    </span>
+                                    <div id='estado' class="form-control"></div>
                                 </div>
                             </div>
                             
 
                             <div class="form-group">
                                 <div class="col-lg-10 col-lg-offset-1">
-                                    <button id="enviar" type="button" class="ui teal button">
+                                    <button id="enviar" type="button" class="ui teal button" >
                                         Guardar  &nbsp;
                                         <span class="glyphicon glyphicon-save" ></span>
                                     </button>
@@ -112,6 +157,7 @@ Nuevo Plan de Mannto.
                         </form>
 
                     </div>
+
                 </div>
                 
             </div>
@@ -119,13 +165,21 @@ Nuevo Plan de Mannto.
 </div>
 </div>
 
+<!---->
+<div class="ui dimmer">
+    <div class="ui text loader"> <i class="ion-ios-stopwatch icon"></i> Espere un momento por favor...
+    		<div class="progress">
+			      <div class="indeterminate"></div>
+			</div>
+    </div>
+</div>
 {% endblock contenido %}
 
 
 {% block scripts %}
 <script>
 $(document).ready(function() {
-
+	$("#id_tipo").addClass('form-control')
 	function get_selected_items(){
     items = $("#personal").jqxComboBox('getSelectedItems'); 
     selection = new Array()
@@ -135,38 +189,55 @@ $(document).ready(function() {
     return selection  
 }
 
-  var rutinaSource =
+  var dispositivoSource =
         {
             dataType: "json",
             dataFields: [
                 { name: 'id'},
-                { name: 'titulo'}
+                { name:'posicion_logica'},
+                { name:'serie'}
             ],
-            url: '/api/mantto/rutinas/'
+            url: '/api/inventario/dispositivos/'
         };
-        var rutinaAdapter = new $.jqx.dataAdapter(rutinaSource);
+        var dispositivoAdap = new $.jqx.dataAdapter(dispositivoSource);
 
-    $("#rutina").jqxComboBox({ theme:'metro', promptText: "Rutina a planificar...", source:rutinaAdapter, displayMember: 'titulo', valueMember: 'id', width:'90%'});
-
-    var personalSource =
+     $("#dispositivo").jqxComboBox({ theme:'metro', promptText: "Selecciona el dispositivo...",  source: dispositivoAdap, displayMember: 'posicion_logica', valueMember: 'id'});
+	
+	var planSource =
         {
             dataType: "json",
             dataFields: [
                 { name: 'id'},
-                { name: 'nombre_completo'}
+                { name:'posicion_logica'},
+                { name:'serie'}
             ],
-            url: '/api/catalogo/personal/'
+            url: '/api/mantto/planes/?estado=2'
         };
-        var personalAdapter = new $.jqx.dataAdapter(personalSource);
+        var PlanAdap = new $.jqx.dataAdapter(planSource);
 
-    $("#personal").jqxComboBox({ theme:'metro', promptText: "Personal involucrado...", source:personalAdapter, displayMember: 'nombre_completo', valueMember: 'id', multiSelect:true, width:'90%'});
+     $("#plan").jqxComboBox({ theme:'metro', promptText: "Selecciona plan de mantto correspondiente...",  source: PlanAdap, displayMember: 'id', 
+     	valueMember: 'id', width:"100%"});
+	
+	var estadoSource =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id'},
+                { name: 'nombre'}
+            ],
+            url: '/api/catalogo/estado_mantto/'
+        };
+        var estadoAdapter = new $.jqx.dataAdapter(estadoSource);
 
-    $("#responsable").jqxComboBox({ theme:'metro', promptText: "Responsable...", source:personalAdapter, displayMember: 'nombre_completo', valueMember: 'id', width:'90%'});
+     $("#estado").jqxComboBox({ theme:'metro', promptText: "Estado operacional al finalizar...", 
+        source: estadoAdapter,displayMember: 'nombre', valueMember: 'id', width:'100%'});
+
+
 
      $('#form').jqxValidator({
                 rules: [
                     {
-                      input: '#rutina', message: 'Indique la rutina a programar', action: 'keyup, blur', rule: function (input, commit) {
+                      input: '#dispositivo', message: 'Es requerido que indiques un dispositivo', action: 'keyup, blur', rule: function (input, commit) {
                                if (input.val() === "") {
                                    return false;
                                }
@@ -174,39 +245,47 @@ $(document).ready(function() {
                            }
                     },
                     {
-                      input: '#responsable', message: 'Indique al responsable de la rutina', action: 'keyup, blur', rule: function (input, commit) {
+                      input: '#estado', message: 'Campo requerido', action: 'keyup, blur', rule: function (input, commit) {
                                if (input.val() === "") {
                                    return false;
                                }
                                return true;
                            }
                     },
-                    {
-                      input: '#personal', message: 'Seleccione al menos una persona', action: 'keyup, blur', rule: function (input, commit) {
-                      			valores = get_selected_items()
-                               if (valores.length < 1 ) {
+                    { input: '#id_descripcion', message: 'Campo requerido', action: 'blur, keyup', 
+                    	 rule: function (input, commit) {
+                               if (input.val().trim().length <= 6) {
                                    return false;
                                }
                                return true;
                            }
-                    },
+                     },
                 ],
                  arrow: false
 
             });
 
+  	$("#tiempo").jqxNumberInput({ 
+  		spinButtons: true, min: 0,
+  		theme:'metro',inputMode: 'simple',
+  		 decimalDigits: 0, disabled: true 
+  		 });
 
+  	$("#id_paro_operacion").change(function(event) {
+  		/* Act on the event */
+  		if($(this).is(":checked")) {
+  			$("#tiempo").jqxNumberInput({disabled: false,min: 1 });
+  			$('#tiempo').jqxNumberInput('val', 1);
+  		}else{
+  			$("#tiempo").jqxNumberInput({disabled: true, min: 0});
+  			$('#tiempo').jqxNumberInput('clear');
+  		}
+  	});
 
-    $("#fecha_inicio").jqxDateTimeInput({
-        theme:'metro', formatString: "dd/MM/yyyy hh:mm",
-        min: new Date(), firstDayOfWeek: 1
-    });
-    
-    
-
-    $.getScript('{{STATIC_URL}}js/asset/globalize.culture.es-NI.js', function () {
-        $("#fecha_inicio").jqxDateTimeInput({ culture: 'es-NI' });
-    });
+    $('#id_descripcion').jqxEditor({
+                width: '100%', theme:'metro',lineBreak:"br",
+                tools:"bold italic underline  color background | left center right | outdent indent | ul ol | image | link | clean | html"
+            });
 
     $("#enviar").on('click',  function(event) {
         event.preventDefault();
@@ -215,21 +294,26 @@ $(document).ready(function() {
 
   $("#limpiar").on('click',  function(event) {
         event.preventDefault();
+        console.log($("#id_paro_operacion").is(':checked'))
+
         document.getElementById("form").reset();
     });
 
   $('#form').on('validationSuccess', function (event) { 
-        $(".progress").toggleClass( "hidden" );
-
+       
+     $(".progress").toggleClass( "hidden" );
      setTimeout(function(){
         $.ajax({
-            url: '/mantto/planes/agregar/',
+            url: '/mantto/boletas/agregar/',
             type: 'POST',
             data: {                
-                rutina: $("#rutina").val(),
-                responsable: $("#responsable").val(),
-                fecha_inicio_prevista: $("#fecha_inicio").val(),
-                'personal[]': get_selected_items()
+                dispositivo: $("#dispositivo").val(),
+                orden: $("#plan").val(),
+                tipo: $("#id_tipo").val(),
+                paro_operacion: $("#id_paro_operacion").is(':checked'),
+                descripcion: $("#id_descripcion").val(),
+                tiempo_paro:$("#tiempo").val(),
+                estado_final:$("#estado").val(),
             },
         })
         .done(function(data) {

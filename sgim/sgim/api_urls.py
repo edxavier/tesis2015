@@ -6,7 +6,7 @@ from apps.catalogo.views import (TipoDispoViewSet, EdificioViewSet, OficinaViewS
                                  TipoComponenteViewSet, PersonalViewSet, CargoViewSet,
                                  TipoIncidenteViewSet, EstadoManttoViewSet)
 from apps.inventario.view_sets import DispositivoViewSet, ComponenteViewSet, ServicioViewSet
-from apps.mantenimiento.view_sets import TareaViewSet, RutinaViewSet
+from apps.mantenimiento.view_sets import TareaViewSet, RutinaViewSet, PlanViewSet
 
 router = routers.DefaultRouter()
 router.register(r'catalogo/tipo_disp', TipoDispoViewSet, base_name="TipoDispoViewSet")
@@ -26,4 +26,5 @@ router.register(r'inventario/servicios', ServicioViewSet)
 
 router.register(r'mantto/tareas', TareaViewSet)
 router.register(r'mantto/rutinas', RutinaViewSet)
+router.register(r'mantto/planes', PlanViewSet)
 

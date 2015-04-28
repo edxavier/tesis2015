@@ -18,6 +18,7 @@ urlpatterns = patterns('',
                        url(r'^catalogo/', include('apps.catalogo.urls')),
                        url(r'^mantto/', include('apps.mantenimiento.urls')),
                        url(r'^inventario/', include('apps.inventario.urls')),
+                       url(r'^incidencias/', include('apps.incidencias.urls')),
 
 
                        url(r'^admin/', include(admin.site.urls)),

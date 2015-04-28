@@ -194,9 +194,8 @@ var tipoSource =
       
       $('#instalado_en').jqxComboBox({renderer: function (index, label, value) {
         var datarecord = isntaladoAdap.records[index];
-        var table = ' <div class="item"><div class="header">Pos: '+datarecord.posicion_logica+'</div> <strong> N&ordm; Serie:</strong> '+  datarecord.serie+'</div>'
-        table2 = '<table class="ui compact table">'
-        table2 +=  '<tbody><tr><td>'+datarecord.posicion_logica+'</td><td>'+datarecord.serie+'</td></tr><tbody></table>'
+        table2 = '<table>'
+        table2 +=  '<tbody><tr><td style="width:55px;text-align: left;">'+datarecord.posicion_logica+'</td><td  style="padding:5px">'+datarecord.serie+'</td></tr><tbody></table>'
         return table2
         }
       });

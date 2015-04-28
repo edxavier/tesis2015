@@ -91,14 +91,12 @@ class Programacion(MarcaDeTiempo, models.Model):
 
 class BoletaTrabajo(MarcaDeTiempo, models.Model):
     TIPO_MANTTO = (
-        ('1', 'Preventivo_Programado'),
-        ('2', 'Correctivo_Programado'),
-        ('3', 'Preventivo_No_Programado'),
-        ('4', 'Correctivo_No_Programado'),
+        ('1', 'Preventivo'),
+        ('2', 'Correctivo'),
     )
 
     orden = models.ForeignKey(Programacion, blank=True, null=True, help_text="Este campo es opcional")
-    tipo = models.CharField('Tipo Trabajo',choices=TIPO_MANTTO, max_length=30,)
+    tipo = models.CharField('Tipo Trabajo',choices=TIPO_MANTTO, max_length=30, default=1)
     dispositivo = models.ForeignKey(Dispositivo)
     descripcion = models.TextField(help_text="Describa brevemente el trabajo realizado")
     paro_operacion = models.BooleanField(default=False, help_text="Marca para indicar que si se realizo un paro")
