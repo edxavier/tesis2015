@@ -2,7 +2,7 @@ __author__ = 'edx'
 
 from .models import (TipoDispositivo, Edificio, Oficina,
                      EstadoOperacional, Sistema, TipoComponente,
-                     Personal, TipoIncidente, Cargo, EstadoMantenimiento)
+                     Personal, TipoIncidente, Cargo, EstadoMantenimiento, )
 from rest_framework import serializers
 
 

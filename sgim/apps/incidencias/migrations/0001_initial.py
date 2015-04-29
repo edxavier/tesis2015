@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('inventario', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('catalogo', '0002_auto_20150424_2218'),
+        ('catalogo', '0002_auto_20150429_1336'),
     ]
 
     operations = [
@@ -77,13 +77,15 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
-                ('medio_notificacion', models.CharField(max_length=30, choices=[(b'1', b'Telefono'), (b'2', b'Correo'), (b'3', b'En Persona')])),
+                ('medio_notificacion', models.CharField(default=1, max_length=30, choices=[(b'1', b'Telefono'), (b'2', b'Correo'), (b'3', b'En Persona')])),
                 ('problema', models.TextField(help_text=b'Describa brevemente el problema que se presenta')),
                 ('causa', models.TextField(default=b'', help_text=b'Indique la posible causa del incidente')),
                 ('solucion', models.TextField(default=b'', help_text=b'Indique la posible solucion del incidente')),
-                ('urgencia', models.CharField(max_length=30, choices=[(b'1', b'Baja'), (b'2', b'Media'), (b'3', b'Alta')])),
-                ('severidad', models.CharField(max_length=30, choices=[(b'1', b'Baja'), (b'2', b'Media'), (b'3', b'Alta')])),
-                ('estado', models.CharField(max_length=30, choices=[(b'1', b'Cerrado'), (b'2', b'Pendiente'), (b'3', b'Observacion'), (b'4', b'Cancelado')])),
+                ('urgencia', models.CharField(default=1, max_length=30, choices=[(b'1', b'Baja'), (b'2', b'Media'), (b'3', b'Alta')])),
+                ('severidad', models.CharField(default=1, max_length=30, choices=[(b'1', b'Baja'), (b'2', b'Media'), (b'3', b'Alta')])),
+                ('estado', models.CharField(default=1, max_length=30, choices=[(b'1', b'Cerrado'), (b'2', b'Pendiente'), (b'3', b'Observacion'), (b'4', b'Cancelado')])),
+                ('paro_equipo', models.BooleanField(default=False)),
+                ('duracion_paro', models.IntegerField(default=0, help_text=b'Indique cuanto duro el paro en minutos')),
                 ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
                 ('dispositivo', models.ForeignKey(to='inventario.Dispositivo')),
                 ('relacion', models.ForeignKey(blank=True, to='incidencias.Incidencia', help_text=b'Indica la relacion con la incidencia mas reciente que exista', null=True)),

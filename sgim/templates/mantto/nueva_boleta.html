@@ -104,10 +104,10 @@
                                         <i class="ion-android-hand icon"></i>
                                     </span>
                                     <div class="togglebutton">
-					                    <label>
-					                        {{form.paro_operacion}} Indica si fue necesario detener el equipo
-					                    </label>
-					                </div>
+        					                    <label>
+        					                        {{form.paro_operacion}} Indica si fue necesario detener el equipo
+        					                    </label>
+        					                </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -294,8 +294,6 @@ $(document).ready(function() {
 
   $("#limpiar").on('click',  function(event) {
         event.preventDefault();
-        console.log($("#id_paro_operacion").is(':checked'))
-
         document.getElementById("form").reset();
     });
 

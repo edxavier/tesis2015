@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% block include_statics %}
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
+
+    
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcombobox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxpanel.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdata.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtooltip.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/globalization/globalize.js"></script>
+      <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxexpander.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxvalidator.js"></script>
+
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdatetimeinput.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcalendar.js"></script>
+	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdropdownlist.js"></script>
+	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdropdownbutton.js"></script>
+	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxwindow.js"></script>
+	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxnumberinput.js"></script>
+	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcheckbox.js"></script>
+
+
+
+	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxeditor.js"></script>
+
+{% endblock include_statics %}
+{% block titulo %}
+Nueva incidencia
+{% endblock titulo %}
+
+{% block contenido %}
+<div class="ui purple menu">
+	<a class="item" href="/">
+		<i class="home icon"></i> Inicio
+	</a>
+	<a class=" item" href="{% url 'cambios_list' %}">
+		<i class="icon ion-settings"></i> Cambios.
+	</a>
+	<a class="active item" href="{% url 'cambio_add' %}">
+		<i class=" add icon"></i> Nueva Cambio
+	</a>
+</div>
+
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-6 col-md-offset-3" >
+            <div class="panel panel-primary  shadow-z-2">
+                <div class="panel-heading" >
+                    <h3 style="color:white" class="center ui aligned header">
+                      <i class="ion-ios-loop-strong icon"></i>
+                      <div class="content">
+                        Registrar Nuevo Cambio
+                      </div>                      
+                    </h3>
+                </div>
+                <div class="panel-body">                  
+                    <div class="col-md-10 col-sm-10 ">
+
+                         <form id="form" class="form-horizontal" method="post">
+                            {% csrf_token %}   
+                            <div class="form-group">
+                            	<label class="col-lg-3 control-label">Titulo</label>
+                                <div class="col-lg-9 input-group">
+                                    <span class="input-group-addon">
+                                       <i class="icon ion-code-working"></i>
+                                    </span>
+                                    {{form.titulo}}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            	<label class="col-lg-3 control-label">Solicitante</label>
+                                <div class="col-lg-9 input-group">
+                                    <span class="input-group-addon">
+                                       <i class="icon ion-person"></i>
+                                    </span>
+                                    {{form.solicitante}}
+                                </div>
+                            </div>
+                             <div class="form-group">
+                            	<label class="col-lg-3 control-label">Responsable</label>
+                                <div class="col-lg-9 input-group">
+                                    <span class="input-group-addon">
+                                       <i class="icon ion-person"></i>
+                                    </span>
+                                    {{form.responsable}}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            	<label class="col-lg-3 control-label">Proposito</label>
+                                <div class="col-lg-9 input-group">
+                                    <span class="input-group-addon">
+                                       <i class="icon ion-clipboard"></i>
+                                    </span>
+                                    {{form.proposito}}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            	<label class="col-lg-3 control-label"> {{form.inicio_previsto.label}}</label>
+                                <div class="col-lg-9 input-group">
+                                    <span class="input-group-addon">
+                                       <i class="icon ion-calendar"></i>
+                                    </span>
+                                    {{form.inicio_previsto}}
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-lg-3 control-label">Servicios</label>
+                                <div class="col-lg-9 input-group">
+                                   <span class="input-group-addon">
+                                        <i class="settings icon"></i>
+                                    </span>
+                                    <div id='servicios' class="form-control"></div>
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-lg-3 control-label">Dispositivos</label>
+                                <div class="col-lg-9 input-group">
+                                   <span class="input-group-addon">
+                                        <i class="computer icon"></i>
+                                    </span>
+                                    <div id='dispositivos' class="form-control"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            	<label class="col-lg-3 control-label"> {{form.estado.label}}</label>
+                                <div class="col-lg-9 input-group">
+                                    <span class="input-group-addon">
+                                       <i class="icon ion-person"></i>
+                                    </span>
+                                    {{form.estado}}
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <div class="col-lg-10 col-lg-offset-1">
+                                    <button id="enviar" type="button" class="ui teal button">
+                                        Guardar  &nbsp;
+                                        <span class="glyphicon glyphicon-save" ></span>
+                                    </button>
+                                    <button id="limpiar" type="button" class="ui black button">
+                                        Limpiar Campos  &nbsp;
+                                        <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+                
+            </div>
+    </div>
+</div>
+</div>
+{{form.as_p}}
+{% endblock contenido %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+	$("#id_titulo, #id_proposito, #id_solicitante, #id_estado, #id_inicio_previsto, #id_responsable").addClass('form-control')
+});
+</script>
+{% endblock scripts %}

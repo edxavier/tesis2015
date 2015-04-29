@@ -1,5 +1,34 @@
 {% extends "base.html" %}
+{% block include_statics %}
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
 
+    
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcombobox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxpanel.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdata.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtooltip.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/globalization/globalize.js"></script>
+      <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxexpander.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxvalidator.js"></script>
+
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdatetimeinput.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcalendar.js"></script>
+	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdropdownlist.js"></script>
+	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdropdownbutton.js"></script>
+	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxwindow.js"></script>
+	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxnumberinput.js"></script>
+	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcheckbox.js"></script>
+
+
+
+	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxeditor.js"></script>
+
+{% endblock include_statics %}
 {% block titulo %}
 Nueva incidencia
 {% endblock titulo %}
@@ -17,5 +46,490 @@ Nueva incidencia
 	</a>
 </div>
 
-{{form.as_p}}
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-10 col-md-offset-1" >
+            <div class="panel panel-primary  shadow-z-2">
+                <div class="panel-heading" >
+                    <h3 style="color:white" class="center ui aligned header">
+                      <i class="ion-flash icon"></i>
+                      <div class="content">
+                        Ingresar Incidencia
+                        <span flex></span>
+                      </div>                      
+                    </h3>
+                </div>
+                <div class="panel-body">                  
+                    <div class="col-md-12 col-sm-10 ">
+
+                         <form id="form" class="form-horizontal" method="post">
+                            {% csrf_token %}  
+                            
+
+                            <div class="row">
+                            	<div class="col-lg-6">
+										<div class="form-group">
+			                                <label class="col-lg-4 control-label">Notifica</label>
+			                                <div class="col-lg-6 input-group">
+			                                   <span class="input-group-addon">
+			                                        <i class="icon ion-person"></i>
+			                                    </span>
+			                                    <div id='notifica' class="form-control"></div>
+			                                </div>
+			                            </div> 
+                            	</div>
+                            	<div class="col-lg-6">
+										 <div class="form-group">
+			                              	<label class="col-lg-4 control-label">Medio de Notif.</label>
+			                                <div class="col-md-6 input-group">
+			                                    <span class="input-group-addon">
+			                                        <i class="ion-paper-airplane icon"></i>
+			                                    </span>
+			                                    {{form.medio_notificacion}}
+			                                </div>
+			                            </div>
+                            	</div>
+                            </div>
+<div class="row">
+	<div class="col-md-6">
+		 <div class="form-group">
+                            	<label class="col-lg-4 control-label" >Dispositivo</label>
+                                <div class="col-lg-6 input-group">
+                                    <span class="input-group-addon">
+                                       <i class="icon ion-ios-monitor"></i>
+                                    </span>
+                                    <div id='dispositivo' class="form-control"></div>
+                                </div>
+                            </div>
+
+	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+                              	<label class="col-lg-4 control-label">Tipo Incidencia</label>
+                                <div class="col-lg-6 input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fork icon"></i>
+                                    </span>
+                                    <div id='tipo' class="form-control"></div>
+                                </div>
+        </div>
+		                           
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<div class="form-group">
+                              	<label class="col-lg-4 control-label">Servicios</label>
+                                <div class="col-lg-6 input-group">
+                                    <span class="input-group-addon">
+                                        <i class="settings icon"></i>
+                                    </span>
+                                    <div id='servicios' class="form-control"></div>
+                                </div>
+                            </div>
+
+	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+                              	<label class="col-lg-4 control-label"> {{form.urgencia.label}}</label>
+                                <div class="col-md-6  input-group">
+                                    <span class="input-group-addon">
+                                        <i class="ion-nuclear icon"></i>
+                                    </span>
+                                    {{form.urgencia}}
+                                </div>
+                            </div>
+
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<div class="form-group">
+                              	<label class="col-lg-4 control-label">{{form.severidad.label}}</label>
+                                <div class="col-md-6 input-group">
+                                    <span class="input-group-addon">
+                                        <i class="ion-knife icon"></i>
+                                    </span>
+                                    {{form.severidad}}
+                                </div>
+                            </div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+                              	<label class="col-lg-4 control-label">Estado del incidente</label>
+                                <div class="col-md-6 input-group">
+                                    <span class="input-group-addon">
+                                        <i class="ion-flash-off icon"></i>
+                                    </span>
+                                    {{form.estado}}
+                                </div>
+                            </div>
+	</div>
+</div>
+                            
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="form-group">
+                                <label class="col-lg-4 control-label">
+                                	{{form.paro_operacion.label}}
+                                </label>
+                                <div class="col-lg-6 input-group">
+                                   <span class="input-group-addon">
+                                        <i class="ion-android-hand icon"></i>
+                                    </span>
+                                    <div class="togglebutton">
+        					                    <label>
+        					                        {{form.paro_equipo}} Indica si se detuvo o fue necesario detener el equipo
+        					                    </label>
+        					                </div>
+                                </div>
+         </div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+                              	<label class="col-lg-4 control-label">Tiempo de paro (min)</label>
+                                <div class="col-lg-6 input-group">
+                                    <span class="input-group-addon">
+                                        <i class="ion-ios-stopwatch icon"></i>
+                                    </span>
+                                    <div id='tiempo' class="form-control"></div>
+                                </div>
+                            </div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<div class="form-group">
+                              	<label class="col-lg-4 control-label">
+                              		Estado Dispositivo
+                              	</label>
+                                <div class="col-lg-6 input-group">
+                                    <span class="input-group-addon">
+                                        <i class="ion-ios-pulse-strong icon"></i>
+                                    </span>
+                                    <div id='estado_disp' class="form-control"></div>
+                                </div>
+                            </div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+                              	<label class="col-lg-4 control-label">
+                              		Relacion
+                              	</label>
+                                <div class="col-lg-6 input-group">
+                                    <span class="input-group-addon">
+                                        <i class="ion-ios-paw icon"></i>
+                                    </span>
+                                    <div id='relacion' class="form-control"></div>
+                                </div>
+                            </div>
+	</div>
+</div>
+                            
+
+                        
+                             
+                            
+                            
+                            
+                            <div class="form-group">
+                              	<label class="col-lg-2 control-label">{{form.problema.label}}</label>
+                                <div class="col-lg-7 input-group">
+                                    <span class="input-group-addon">
+                                        <i class="ion-heart-broken icon"></i>
+                                    </span>
+                                    {{form.problema}}
+                                    <div class="ui bottom right attached label">
+                                    	{{form.problema.help_text}}
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group">
+                              	<label class="col-lg-2 control-label">{{form.causa.label}}</label>
+                                <div class="col-lg-7 input-group">
+                                    <span class="input-group-addon">
+                                        <i class="ion-ios-flask icon"></i>
+                                    </span>
+                                    {{form.causa}}
+                                    <div class="ui bottom right attached label">
+                                     {{form.causa.help_text}}
+                                     </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                              	<label class="col-lg-2 control-label">{{form.solucion.label}}</label>
+                                <div class="col-lg-7 input-group">
+                                    <span class="input-group-addon">
+                                        <i class="ion-ios-medkit icon"></i>
+                                    </span>
+                                    {{form.solucion}}
+                                     <div class="ui bottom right attached label">
+                                    {{form.solucion.help_text}}
+                                    </div>
+                                </div>
+                            </div>
+							
+                            <div class="form-group">
+                                <div class="col-lg-10 col-lg-offset-1">
+                                    <button id="enviar" type="button" class="ui teal button" >
+                                        Guardar  &nbsp;
+                                        <span class="glyphicon glyphicon-save" ></span>
+                                    </button>
+                                    <button id="limpiar" type="button" class="ui black button">
+                                        Limpiar Campos  &nbsp;
+                                        <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+					
+					<div class="progress hidden">
+							      <div class="indeterminate"></div>
+							</div>
+                </div>
+                
+            </div>
+    </div>
+</div>
+</div>
+
+
 {% endblock contenido %}
+
+{% block scripts %}
+<script>	
+$(document).ready(function() {
+$("#id_medio_notificacion").addClass('form-control')
+$("#id_severidad").addClass('form-control')
+$("#id_urgencia").addClass('form-control')
+$("#id_estado").addClass('form-control')
+
+var estadoSource =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id'},
+                { name: 'text'}
+            ],
+            url: '/api/catalogo/estado_ope/'
+        };
+        var estadoAdapter = new $.jqx.dataAdapter(estadoSource);
+
+     $("#estado_disp").jqxComboBox({ theme:'metro', promptText: "Estado operacional al finalizar...", source: estadoAdapter,displayMember: 'text', valueMember: 'id', width:'90%'});
+var relacionSource =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id'},
+                { name: 'id'}
+            ],
+            url: '/api/incidencias/incidentes/'
+        };
+        var relacionAdapter = new $.jqx.dataAdapter(relacionSource);
+
+     $("#relacion").jqxComboBox({ theme:'metro', promptText: "Relacion con otro incidente reciente...", source: relacionAdapter,displayMember: 'id', valueMember: 'id', width:'90%'});
+
+	var personalSource =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id'},
+                { name: 'nombre_completo'}
+            ],
+            url: '/api/catalogo/personal/'
+        };
+        var personalAdapter = new $.jqx.dataAdapter(personalSource);
+    $("#notifica").jqxComboBox({ theme:'metro', promptText: "Quien notifica...",source:personalAdapter, displayMember: 'nombre_completo',
+    	 valueMember: 'id'});
+    var dispositivoSource =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id'},
+                { name:'posicion_logica'},
+                { name:'serie'}
+            ],
+            url: '/api/inventario/dispositivos/'
+        };
+        var dispositivoAdap = new $.jqx.dataAdapter(dispositivoSource);
+
+     $("#dispositivo").jqxComboBox({ theme:'metro', promptText: "Selecciona el dispositivo...",  source: dispositivoAdap, displayMember: 'posicion_logica', valueMember: 'id'});
+     var tipoIncSource =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id'},
+                { name:'nombre'},
+            ],
+            url: '/api/catalogo/tipo_inc/'
+        };
+        var tipoIncAdap = new $.jqx.dataAdapter(tipoIncSource);
+
+     $("#tipo").jqxComboBox({ theme:'metro', promptText: "Que tipo de incidente es...",  source: tipoIncAdap, displayMember: 'nombre', valueMember: 'id' });
+      
+      var servicioSource =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id'},
+                { name:'nombre'},
+            ],
+            url: '/api/inventario/servicios/'
+        };
+        var servicioAdap = new $.jqx.dataAdapter(servicioSource);
+
+     $("#servicios").jqxComboBox({ theme:'metro', promptText: "Que servicios fueron afectados...",  source: servicioAdap, displayMember: 'nombre', valueMember: 'id', multiSelect:true});
+     
+ $('#id_problema, #id_causa, #id_solucion').jqxEditor({
+                width: '100%', theme:'metro',lineBreak:"br",
+                tools:"bold italic underline  color background | left center right | outdent indent | ul ol | image | link | clean | html"
+            });
+   	$("#tiempo").jqxNumberInput({ 
+  		spinButtons: true, min: 0,
+  		theme:'metro',inputMode: 'simple',
+  		 decimalDigits: 0, disabled: true 
+  		 });
+
+  	$("#id_paro_equipo").change(function(event) {
+  		/* Act on the event */
+  		if($(this).is(":checked")) {
+  			$("#tiempo").jqxNumberInput({disabled: false,min: 1 });
+  			$('#tiempo').jqxNumberInput('val', 1);
+  		}else{
+  			$("#tiempo").jqxNumberInput({disabled: true, min: 0});
+  			$('#tiempo').jqxNumberInput('clear');
+  		}
+  	});
+
+$("#enviar").on('click',  function(event) {
+        event.preventDefault();
+         $('#form').jqxValidator('validate');
+    });
+
+  $("#limpiar").on('click',  function(event) {
+        event.preventDefault();
+        document.getElementById("form").reset();
+    });
+
+  $('#form').jqxValidator({
+                rules: [
+                    {
+                      input: '#dispositivo', message: 'Es requerido que indiques un dispositivo', action: 'keyup, blur', rule: function (input, commit) {
+                               if (input.val() === "") {
+                                   return false;
+                               }
+                               return true;
+                           }
+                    },
+                    {
+                      input: '#notifica', message: 'Campo requerido', action: 'keyup, blur', rule: function (input, commit) {
+                               if (input.val() === "") {
+                                   return false;
+                               }
+                               return true;
+                           }
+                    },
+                     {
+                      input: '#estado_disp', message: 'Campo requerido', action: 'keyup, blur', rule: function (input, commit) {
+                               if (input.val() === "") {
+                                   return false;
+                               }
+                               return true;
+                           }
+                    },
+                     {
+                      input: '#tipo', message: 'Campo requerido', action: 'keyup, blur', rule: function (input, commit) {
+                               if (input.val() === "") {
+                                   return false;
+                               }
+                               return true;
+                           }
+                    },
+                    { input: '#id_problema', message: 'Campo requerido', action: 'blur, keyup', 
+                    	 rule: function (input, commit) {
+                               if (input.val().trim().length <= 6) {
+                                   return false;
+                               }
+                               return true;
+                           }
+                     },
+                ],
+                 arrow: false
+
+            });
+
+	function get_selected_items(){
+    items = $("#servicios").jqxComboBox('getSelectedItems'); 
+    selection = new Array()
+                    $.each(items, function (index) {
+                        selection.push(this.value)
+                    });
+    return selection  
+}
+
+  $('#form').on('validationSuccess', function (event) { 
+       
+     $(".progress").toggleClass( "hidden" );
+     setTimeout(function(){
+        $.ajax({
+            url: '/incidencias/incidentes/agregar/',
+            type: 'POST',
+            data: {                
+                reporta: $("#notifica").val(),
+                dispositivo: $("#dispositivo").val(),
+                'servicios[]':get_selected_items(),
+                medio_notificacion: $("#id_medio_notificacion").val(),
+                tipo: $("#id_tipo").val(),
+                paro_operacion: $("#id_paro_operacion").is(':checked'),
+                problema: $("#id_problema").val(),
+                urgencia: $("#id_urgencia").val(),
+                severidad: $("#id_severidad").val(),
+                tipo: $("#tipo").val(),
+                causa: $("#id_causa").val(),
+                solucion: $("#id_solucion").val(),
+                duracion_paro:$("#tiempo").val(),
+                estado:$("#id_estado").val(),
+                estado_disp:$("#estado_disp").val(),
+            },
+        })
+        .done(function(data) {
+            
+            if(data.success){
+                $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> La rutina fue alamcenada con exito!"});
+                document.getElementById("form").reset();
+                $(".form-control").jqxComboBox('clearSelection');
+                //$(".progress").css("visibility", "hidden")
+                  $(".progress").toggleClass( "hidden" );
+            }
+            else{
+                //$(".progress").css("visibility", "hidden")
+                  $(".progress").toggleClass( "hidden" );
+                var mensaje = "<ul>";
+                for(var i=0;i<data.errores.length;i++){
+                    e = data.errores[i]
+                    mensaje +="<li>"+ e[0]+": "+ e[1] +"</li>"
+                }
+                mensaje += "</ul>"
+                $.snackbar({content: "<h5 style='color:yellow'><i class='ion-android-warning yellow icon'></i> Se encontraron los siguientes inconvenientes: </h5>"+mensaje, timeout: 0 });
+
+            }
+        })
+        .fail(function(e) {
+            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ e.status + ": "+e.statusText});
+            console.log(e)
+            // $(".progress").css("visibility", "hidden")
+              $(".progress").toggleClass( "hidden" );
+        })
+        
+        },600)   
+        /* Act on the event */
+    });
+
+});
+</script>
+{% endblock scripts %}
