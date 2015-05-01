@@ -1,15 +1,11 @@
 {% extends "base.html" %}
 
 {% block include_statics %}
-{% comment %}
-    
 
-    <script src="{{BOWER_URL}}w2ui/w2ui-1.4.2.min.js"></script>
-    <link rel="stylesheet" href="{{BOWER_URL}}w2ui/w2ui-1.4.2.min.css">
-{% endcomment %}
+
 <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
 <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
-
+ <script type="text/javascript" src="{{STATIC_URL}}js/asset/gridLocalization.js"></script>
     
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
@@ -26,22 +22,16 @@
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxvalidator.js"></script>
 
 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxmenu.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.pager.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.selection.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.filter.js"></script> 
 
-   <style shim-shadowdom>
-  
-  
-    progress {
-      display: block;
-      width: 100%;
-      margin-bottom: 5px;
-    }
-       core-drawer-panel{
-       padding-top:90px;
-       }
-
-
-  </style>
-  
+ 
 
 {% endblock include_statics %}
 
@@ -61,15 +51,23 @@
         
 
 
-
-<div class="container-fluid"> 
-
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2" >  
-        dsfds          
+        <div class="col-md-10 col-md-offset-1" >
+
+            <h2 class="ui top attached header">
+              <i class="cubes icon"></i>
+              <div class="content">
+                 Dispositivos
+                <div class="sub header">Listado de todos los dispositivos registrados</div>
+              </div>
+            </h2>
+            <div id="jqxgrid"></div>
         </div>
     </div>
 </div>
+
+
 {% endblock contenido %}
 
 
@@ -79,166 +77,73 @@
 
 $(document).ready(function() {
     /*Inicializar Combos obteniendo los datos del api rest de catalogos*/
-    
+ var source =
+            {
+                datatype: "json",
+                datafields: [
+                    { name: 'id', type: 'int' },
+                    { name: 'posicion_logica', type: 'string' },
+                    { name: 'marca', type: 'int' },
+                    { name: 'modelo', type: 'string' },
+                    { name: 'serie', type: 'string' },
+                    { name: 'tipo', type: 'string' },
+                    { name: 'oficina', type: 'string' },
+                    { name: 'estado', type: 'string' },
+                    { name: 'sistema', type: 'string' }
+                ],
+                id: 'id',
+                url: '/api/inventario/dispositivos/'
+            };
+            var dataAdapter = new $.jqx.dataAdapter(source);
+    $("#jqxgrid").jqxGrid({
 
-        var EdificiosSource =
-        {
-            dataType: "json",
-            dataFields: [
-                { name: 'id'},
-                { name: 'text'}
-            ],
-            url: '/api/catalogo/edificio/'
-        };
-        var EdificiosAdapter = new $.jqx.dataAdapter(EdificiosSource);
+                width: '100%',
+                theme:'metro', 
+                source: dataAdapter,
+                showfilterrow: true,
+                filterable: true,
+                pageable: true,
+                selectedrowindex: 0,
+                localization: getLocalization(),
+                columns: [
+                  { text: '<i class="cubes icon"></i> Posicion', datafield: 'posicion_logica' },
+                  { text: 'Marca', datafield: 'marca' },
+                  { text: 'Modelo', datafield: 'modelo', },
+                  { text: 'Serie', datafield: 'serie',  },
+                  { text: '<i class="ion-flag icon"></i> Tipo', datafield: 'tipo', filtertype:'list' },
+                  { text: 'Ubicacion', datafield: 'oficina', filtertype:'list' },
+                  { text: 'Estado', datafield: 'estado', filtertype:'list' },
+                  { text: 'Sistema', datafield: 'sistema', filtertype:'list' }
+              ],
+              showtoolbar: true,
+                rendertoolbar: function (statusbar) {
+                    // appends buttons to the status bar.
+                    var container = $("<div style='margin:5px;'></div>");
+                    var addButton = $("<div class='ui green button'> <i class='ion-document-text icon'></i>Ver detalles</div>");
+                    var deleteButton = $("<div class='ui orange button'>Ver PDF</div>");
+                   
+                    container.append(addButton);
+                    container.append(deleteButton);
+                    statusbar.append(container);
+                   
+                    // add new row.
+                    addButton.click(function (event) {
+                        console.log("message");
+                        //$("#jqxgrid").jqxGrid('addrow', null, datarow[0]);
+                    });
+                    // delete selected row.
+                    deleteButton.click(function (event) {
+                        var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+                        var rowscount = $("#jqxgrid").jqxGrid('getdatainformation').rowscount;
+                        var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
+                        //$("#jqxgrid").jqxGrid('deleterow', id);
+                    });
 
-     
-     $("#edificio").jqxComboBox({ source:EdificiosAdapter, theme:'metro'
-        ,promptText: "Seleccione el edificio...", displayMember: 'text',
-            valueMember: 'id'});
-
-     $('#edificio').on('select', function (event) 
-        {
-            var args = event.args;
-            if (args) {
-                var item = args.item;
-                // get item's label and value.
-                var value = item.value;
-                var oficinaSource =
-                    {
-                        dataType: "json",
-                        dataFields: [
-                            { name: 'id'},
-                            { name: 'text'}
-                        ],
-                        url: '/api/catalogo/oficina/?edificio='+value
-                    };
-                var oficinaAdapter = new $.jqx.dataAdapter(oficinaSource);
-                $("#oficina").jqxComboBox({source: oficinaAdapter});
-
-            }
-        }); 
-
-     $("#oficina").jqxComboBox({ theme:'metro', promptText: "Seleccione la oficina...", displayMember: 'text', valueMember: 'id'});
-
-var sistemaSource =
-        {
-            dataType: "json",
-            dataFields: [
-                { name: 'id'},
-                { name: 'text'}
-            ],
-            url: '/api/catalogo/sistema/'
-        };
-        var sistemaAdapter = new $.jqx.dataAdapter(sistemaSource);
-
-     $("#sistema").jqxComboBox({ theme:'metro', promptText: "Sistema al que pertenece...", source:sistemaAdapter, displayMember: 'text', valueMember: 'id'});
-var estadoSource =
-        {
-            dataType: "json",
-            dataFields: [
-                { name: 'id'},
-                { name: 'text'}
-            ],
-            url: '/api/catalogo/estado_ope/'
-        };
-        var estadoAdapter = new $.jqx.dataAdapter(estadoSource);
-
-     $("#estado").jqxComboBox({ theme:'metro', promptText: "Estado Operacional...", 
-        source: estadoAdapter,displayMember: 'text', valueMember: 'id'});
-
-var tipoSource =
-        {
-            dataType: "json",
-            dataFields: [
-                { name: 'id'},
-                { name: 'text'}
-            ],
-            url: '/api/catalogo/tipo_disp/'
-        };
-        var tipoAdapter = new $.jqx.dataAdapter(tipoSource);
-
-     $("#tipo").jqxComboBox({ theme:'metro', promptText: "Tipo de Dispositivo...",  source: tipoAdapter, displayMember: 'text', valueMember: 'id'});
-
-    $("#instalacion").jqxDateTimeInput({theme:'metro', culture: 'es-MX'});
-    $.getScript('{{BOWER_URL}}jqwidgets/jqwidgets/globalization/globalize.culture.es-MX.js', function () {
-        $("#instalacion").jqxDateTimeInput({ culture: 'es-MX' });
-    });
-
-    $('#formDisp').jqxValidator({
-                rules: [
-                    { input: '#marca', message: 'Campo requerido', action: 'blur', rule: 'required' },
-                    { input: '#serie', message: 'Campo requerido', action: 'blur', rule: 'required' },
-                    { input: '#posicion', message: 'Campo requerido', action: 'blur', rule: 'required' }
-                ]
+                },
             });
-    $("#enviar").on('click',  function(event) {
-        event.preventDefault();
-        $('#formDisp').jqxValidator('validate');
-        /* Act on the event */
-    });
+ 
 
-    $("#limpiar").on('click',  function(event) {
-        event.preventDefault();
-        document.getElementById("formDisp").reset();
-        $(".form-control").jqxComboBox('clearSelection'); 
-        /* Act on the event */
-    });
-
-    $(".progress").css("visibility", "hidden")
-    $('#formDisp').on('validationSuccess', function (event) { 
-        $(".progress").css("visibility", "")
-
-     setTimeout(function(){
-        $.ajax({
-            url: '/inventario/dispositivo/',
-            type: 'POST',
-            data: {
-                marca: $("#marca").val().trim(),
-                modelo: $("#modelo").val().trim(),
-                serie: $("#serie").val().trim(),
-                inventario: $("#inventario").val().trim(),
-                posicion_logica: $("#posicion").val().trim(),
-                tipo: $("#tipo").val(),
-                sistema: $("#sistema").val(),
-                edificio: $("#edificio").val(),
-                oficina: $("#oficina").val(),
-                estado: $("#estado").val(),
-                instalacion: $("#instalacion").val(),
-            },
-        })
-        .done(function(data) {
-            
-            if(data.success){
-                $.snackbar({content: "<i class='checkmark green sign icon'></i> Dispositivo Registrado!"});
-                $("#serie").val(null); 
-                $("#inventario").val(null);
-                $("#posicion").val(null);
-                $(".progress").css("visibility", "hidden")
-            }
-            else{
-                $(".progress").css("visibility", "hidden")
-                var mensaje = "<ul>";
-                for(var i=0;i<data.errores.length;i++){
-                    e = data.errores[i]
-                    mensaje +="<li>"+ e[0]+": "+ e[1] +"</li>"
-                }
-                mensaje += "</ul>"
-                $.snackbar({content: "<h5 style='color:yellow'><i class='warning yellow sign icon'></i> Se encontraron los siguientes inconvenientes: </h5>"+mensaje, timeout: 0 });
-
-            }
-        })
-        .fail(function(e) {
-            $.snackbar({content: "<i class='warning red sign icon'></i> Error: "+ e.status + ": "+e.statusText});
-        })
-        
-        },600)   
-        
-        //$("#notificationContent").html("Dispositivo Registrado!");
-        //$('#jqxNotification').jqxNotification({ autoClose: false }); 
-        //$("#jqxNotification").jqxNotification("open");
-    }); 
-
+  
     
 });
 

@@ -22,9 +22,14 @@ ESTADO = (("1","Cerrado"),
              ("3","Observacion"),
              ("4","Cancelado"),
              )
+ESTADO_CAMBIO = (("1","Pendiente"),
+             ("2","En proceso"),
+             ("3","Terminado"),
+             ("4","Cancelado"),
+             )
 
 class Actividad(models.Model):
-    descripcion = models.TextField(help_text="Describa los trabajos realizados")
+    descripcion = models.TextField(help_text="Describa los trabajos realizados", blank=False)
     paro_equipo = models.BooleanField(default=False)
     duracion_paro = models.IntegerField(help_text="Indique cuanto duro el paro en minutos", default=0)
     inicio_actividad = models.DateTimeField()
@@ -67,13 +72,12 @@ class ActividadIncidencia(MarcaDeTiempo, Actividad):
 class Cambio(MarcaDeTiempo):
     titulo = models.CharField(max_length=100)
     solicitante = models.ForeignKey(Personal)
-    proposito = models.TextField(default="")
+    proposito = models.TextField()
     responsable = models.ForeignKey(Personal, related_name="responsable")
-    urgencia = models.CharField(choices=URGENCIA, max_length=30,)
     inicio_previsto = models.DateField(help_text="Cuando preeve implementarse")
     servicios = models.ManyToManyField(Servicio, help_text="Servicios afectados por el cambio", blank=True)
     dispositivos = models.ManyToManyField(Dispositivo, help_text="Dispositivos afectados por el cambioa", blank=True)
-    estado = models.CharField(choices=ESTADO, max_length=30,)
+    estado = models.CharField(choices=ESTADO_CAMBIO, max_length=30, default=1)
 
     def __unicode__(self):
         return self.titulo

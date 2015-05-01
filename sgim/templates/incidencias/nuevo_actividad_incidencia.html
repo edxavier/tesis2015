@@ -29,35 +29,35 @@
 	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxeditor.js"></script>
 
 {% endblock include_statics %}
-{% block titulo %}
-Nueva incidencia
-{% endblock titulo %}
-
 {% block contenido %}
 <div class="ui purple menu">
-	<a class="item" href="/">
-		<i class="home icon"></i> Inicio
-	</a>
-	<a class=" item" href="{% url 'cambios_list' %}">
-		<i class="icon ion-settings"></i> Cambios.
-	</a>
-	<a class="active item" href="{% url 'cambio_add' %}">
-		<i class=" add icon"></i> Nueva Cambio
-	</a>
-        <a class="item" href="{% url 'cambios_follow' %}">
+  <a class="item" href="/">
+    <i class="home icon"></i> Inicio
+  </a>
+  <a class="  item" href="{% url 'incidentes_list' %}">
+    <i class="icon ion-settings"></i> incidencias.
+  </a>
+  <a class=" item" href="{% url 'incidente_add' %}">
+    <i class=" add icon"></i> Nueva incidencia
+  </a>
+    <a class=" active item" href="{% url 'incidentes_follow' %}">
         <i class=" add icon"></i> Seguimiento
     </a>
 </div>
 
+
+	<div class="progress hidden">
+						      <div class="indeterminate"></div>
+						</div>
 <div class="container-fluid">
 <div class="row">
     <div class="col-md-8 col-md-offset-2" >
             <div class="panel panel-primary  shadow-z-2">
                 <div class="panel-heading" >
                     <h3 style="color:white" class="center ui aligned header">
-                      <i class="ion-ios-loop-strong icon"></i>
+                      <i class="ion-ios-redo  icon"></i>
                       <div class="content">
-                        Registrar Nuevo Cambio
+                        Registrar seguimiento de un incidente
                       </div>                      
                     </h3>
                 </div>
@@ -67,45 +67,53 @@ Nueva incidencia
                          <form id="form" class="form-horizontal" method="post">
                             {% csrf_token %}   
                             <div class="form-group">
-                            	<label class="col-lg-3 control-label">Titulo</label>
+                            	<label class="col-lg-3 control-label">Incidencia</label>
                                 <div class="col-lg-9 input-group">
                                     <span class="input-group-addon">
                                        <i class="icon ion-code-working"></i>
                                     </span>
-                                    {{form.titulo}}
+                                     <div id='incidencia' class="form-control"></div>
                                 </div>
-                            </div>
+                            </div>                           
 
                             <div class="form-group">
-                            	<label class="col-lg-3 control-label">Solicitante</label>
-                                <div class="col-lg-9 input-group">
-                                    <span class="input-group-addon">
-                                       <i class="icon ion-person"></i>
-                                    </span>
-                                     <div id='id_solicitante' class="form-control"></div>
-                                </div>
-                            </div>
-                             <div class="form-group">
-                            	<label class="col-lg-3 control-label">Responsable</label>
-                                <div class="col-lg-9 input-group">
-                                    <span class="input-group-addon">
-                                       <i class="icon ion-person"></i>
-                                    </span>
-                                     <div id='id_responsable' class="form-control"></div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                            	<label class="col-lg-3 control-label">Proposito</label>
+                            	<label class="col-lg-3 control-label">Descripcion</label>
                                 <div class="col-lg-9 input-group">
                                     <span class="input-group-addon">
                                        <i class="icon ion-clipboard"></i>
                                     </span>
-                                    {{form.proposito}}
+                                    {{form.descripcion}}
+                                    <div class="ui bottom right attached label">{{form.descripcion.help_text}}</div>
+                                </div>
+                            </div>
+
+                             <div class="form-group">
+                                <label class="col-lg-3 control-label">
+                                	{{form.paro_operacion.label}}
+                                </label>
+                                <div class="col-lg-9 input-group">
+                                   <span class="input-group-addon">
+                                        <i class="ion-android-hand icon"></i>
+                                    </span>
+                                    <div class="togglebutton">
+        					                    <label>
+        					                        {{form.paro_equipo}} Indica si fue necesario detener el equipo
+        					                    </label>
+        					                </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                            	<label class="col-lg-3 control-label"> {{form.inicio_previsto.label}}</label>
+                              	<label class="col-lg-3 control-label">Tiempo de paro (min)</label>
+                                <div class="col-lg-9 input-group">
+                                    <span class="input-group-addon">
+                                        <i class="ion-ios-stopwatch icon"></i>
+                                    </span>
+                                    <div id='tiempo' class="form-control"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                            	<label class="col-lg-3 control-label"> {{form.inicio_actividad.label}}</label>
                                 <div class="col-lg-9 input-group">
                                     <span class="input-group-addon">
                                        <i class="icon ion-calendar"></i>
@@ -114,33 +122,16 @@ Nueva incidencia
                                 </div>
                             </div>
                              <div class="form-group">
-                                <label class="col-lg-3 control-label">Servicios</label>
-                                <div class="col-lg-9 input-group">
-                                   <span class="input-group-addon">
-                                        <i class="settings icon"></i>
-                                    </span>
-                                    <div id='servicios' class="form-control"></div>
-                                </div>
-                            </div>
-                             <div class="form-group">
-                                <label class="col-lg-3 control-label">Dispositivos</label>
-                                <div class="col-lg-9 input-group">
-                                   <span class="input-group-addon">
-                                        <i class="computer icon"></i>
-                                    </span>
-                                    <div id='dispositivos' class="form-control"></div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                            	<label class="col-lg-3 control-label"> {{form.estado.label}}</label>
+                            	<label class="col-lg-3 control-label"> {{form.fin_actividad.label}}</label>
                                 <div class="col-lg-9 input-group">
                                     <span class="input-group-addon">
-                                       <i class="icon ion-flag"></i>
+                                       <i class="icon ion-calendar"></i>
                                     </span>
-                                    {{form.estado}}
+                                    <div id='fin' class="form-control"></div>
                                 </div>
                             </div>
-
+                           
+                           
 
 
                             <div class="form-group">
@@ -158,9 +149,7 @@ Nueva incidencia
                             </div>
 
                         </form>
-							<div class="progress hidden">
-						      <div class="indeterminate"></div>
-						</div>
+						
                     </div>
                 </div>
                 
@@ -168,117 +157,74 @@ Nueva incidencia
     </div>
 </div>
 </div>
-
-
-<div class="ui modal">
-    <i class="close icon"></i>
-    <div class="header">
-      <i class="ion-ios-redo icon"></i>  Seguimiento 
-    </div>
-    <div class="content">
-        <div class="description">
-            <h5>El cambio fue alamcenado con exito</h5>
-            Le gustaria agregar entrada al cambio registrado?
-        </div>
-    </div>
-    <div class="actions">
-        <div class="ui positive left icon button">
-            Si, Por favor 
-            <i class="checkmark icon"></i>
-        </div>
-        <div class="ui black button">
-            No, Gracias            
-            <i class="ion-close-round icon"></i>
-        </div>
-    </div>
-</div>
 {% endblock contenido %}
 
 {% block scripts %}
 <script>
 $(document).ready(function() {
-	$("#id_titulo, #id_solicitante, #id_estado, #id_inicio_previsto, #id_responsable").addClass('form-control')
+		var today = new Date();
+		var yesterday = new Date(today);
+		yesterday.setDate(today.getDate()-1);
+    var yesterday2 = new Date(yesterday);
+    yesterday2.setTime(yesterday2.getTime() + 60000);
 
-	$('#id_proposito').jqxEditor({
+	    $("#inicio").jqxDateTimeInput({
+	        theme:'metro',min: yesterday, firstDayOfWeek: 1,formatString: "dd/MM/yyyy HH:mm ",
+	    });
+ 
+	    $("#fin").jqxDateTimeInput({
+	        theme:'metro',min: yesterday2, firstDayOfWeek: 1,formatString: "dd/MM/yyyy HH:mm ",
+	    });
+
+      $('#inicio ').jqxDateTimeInput('setDate', yesterday);
+      $('#fin ').jqxDateTimeInput('setDate', yesterday2);
+
+      $('#inicio').on('valueChanged', function (event){  
+          var val = event.args.date; 
+          min = new Date(val)
+          min.setDate(val.getDate())
+          min.setTime(min.getTime() + 60000);
+          $('#fin ').jqxDateTimeInput('setMinDate',min);
+      });
+
+		$('#id_descripcion').jqxEditor({
                 width: '100%', theme:'metro',lineBreak:"br",
                 tools:"bold italic underline  color background | left center right | outdent indent | ul ol | image | link | clean | html"
             });
-var today = new Date();
-var yesterday = new Date(today);
-yesterday.setDate(today.getDate()-1);
 
-    $("#inicio").jqxDateTimeInput({
-        theme:'metro',min: yesterday, firstDayOfWeek: 1
-    });
-    
-    
-	var personalSource =
+  	$("#tiempo").jqxNumberInput({ 
+  		spinButtons: true, min: 0,
+  		theme:'metro',inputMode: 'simple',
+  		 decimalDigits: 0, disabled: true 
+  		 });
+
+  	$("#id_paro_equipo").change(function(event) {
+  		/* Act on the event */
+  		if($(this).is(":checked")) {
+  			$("#tiempo").jqxNumberInput({disabled: false,min: 1 });
+  			$('#tiempo').jqxNumberInput('val', 1);
+  		}else{
+  			$("#tiempo").jqxNumberInput({disabled: true, min: 0});
+  			$('#tiempo').jqxNumberInput('clear');
+  		}
+  	});
+  	var incidenteSource =
         {
             dataType: "json",
             dataFields: [
                 { name: 'id'},
-                { name: 'nombre_completo'}
             ],
-            url: '/api/catalogo/personal/'
+            url: '/api/incidencias/incidentes/'
         };
-        var personalAdapter = new $.jqx.dataAdapter(personalSource);
-    $("#id_responsable").jqxComboBox({ theme:'metro', promptText: "Quien efectuara el cambio...",source:personalAdapter, displayMember: 'nombre_completo',
-    	 valueMember: 'id'});
+        var incidenteAdapter = new $.jqx.dataAdapter(incidenteSource);
 
-    $("#id_solicitante").jqxComboBox({ theme:'metro', promptText: "Quien solicita el cambio...",source:personalAdapter, displayMember: 'nombre_completo',
-    	 valueMember: 'id'});
-
-    var dispositivoSource =
-        {
-            dataType: "json",
-            dataFields: [
-                { name: 'id'},
-                { name:'posicion_logica'},
-                { name:'serie'}
-            ],
-            url: '/api/inventario/dispositivos/'
-        };
-        var dispositivoAdap = new $.jqx.dataAdapter(dispositivoSource);
-
-     $("#dispositivos").jqxComboBox({ theme:'metro', promptText: "Dispositivos que podrian ser afectados...",  source: dispositivoAdap, displayMember: 'posicion_logica', valueMember: 'id', multiSelect:true, width:'100%'});
-     var servicioSource =
-        {
-            dataType: "json",
-            dataFields: [
-                { name: 'id'},
-                { name:'nombre'},
-            ],
-            url: '/api/inventario/servicios/'
-        };
-        var servicioAdap = new $.jqx.dataAdapter(servicioSource);
-
-     $("#servicios").jqxComboBox({ theme:'metro', width:'100%',
-     	promptText: "Que servicios podrian ser afectados...",  source: servicioAdap, displayMember: 'nombre', valueMember: 'id', multiSelect:true});
-
-    $("#enviar").on('click',  function(event) {
-        event.preventDefault();
-         $('#form').jqxValidator('validate');
-    });
-
-  	$("#limpiar").on('click',  function(event) {
-        event.preventDefault();
-        //$('#dialog').click();
-
-        document.getElementById("form").reset();
-    });
-
- $('.ui.modal').modal({
-    closable:false,
-    onApprove : function() {
-      location.href='/incidencias/cambios/seguimiento/'
-    }
- })
+    $("#incidencia").jqxComboBox({ theme:'metro', promptText: "A que incidente se relaciona la actividad...", source:incidenteAdapter, displayMember: 'id', valueMember: 'id', width:'90%'});
 
 
 $('#form').jqxValidator({
                 rules: [
                     {
-                      input: '#id_solicitante', message: 'Campo requerido', action: 'keyup, blur', rule: function (input, commit) {
+                      input: '#incidencia', message: 'Campo requerido', action: 'keyup, blur', rule: function (input, commit) {
                                if (input.val() === "") {
                                    return false;
                                }
@@ -286,17 +232,13 @@ $('#form').jqxValidator({
                            }
                     },
                     {
-                      input: '#id_responsable', message: 'Campo requerido', action: 'keyup, blur', rule: function (input, commit) {
-                               if (input.val() === "") {
+                      input: '#id_descripcion', message: 'Campo requerido', action: 'keyup, blur', rule: function (input, commit) {
+                               if (input.val().trim().length <= 6) {
                                    return false;
                                }
                                return true;
                            }
-                    },
-                     { input: '#id_titulo', message: 'Campo requerido', action: 'blur, keyup', 
-                    	 rule: 'required'
-                     },
-
+                    }
                 ],
                  arrow: false
 
@@ -316,29 +258,26 @@ function get_selected_items(id){
      $(".progress").toggleClass( "hidden" );
      setTimeout(function(){
         $.ajax({
-            url: '/incidencias/cambios/agregar/',
+            url: '/incidencias/incidentes/seguimiento/',
             type: 'POST',
             data: {                
-                titulo: $("#id_titulo").val(),
-                'dispositivos[]': get_selected_items("#dispositivos"),
-                'servicios[]':get_selected_items("#servicios"),
-                solicitante: $("#id_solicitante").val(),
-                responsable: $("#id_responsable").val(),
-                proposito: $("#id_proposito").val(),
-                estado:$("#id_estado").val(),
-                inicio_previsto: $("#inicio").val(),
+                incidencia: $("#incidencia").val(),
+                descripcion: $("#id_descripcion").val(),
+                paro_equipo: $("#id_paro_equipo").is(':checked'),
+                duracion_paro: $("#tiempo").val(),
+                inicio_actividad:$("#inicio").val(),
+                fin_actividad: $("#fin").val(),
 
             },
         })
         .done(function(data) {
             
             if(data.success){
-                //$.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> El cambio fue alamcenado con exito!"});
+                $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> La actividad fue alamcenado con exito!"});
                 document.getElementById("form").reset();
                 $(".form-control").jqxComboBox('clearSelection');
-                //$(".progress").css("visibility", "hidden")
                 $(".progress").toggleClass( "hidden" );
-                $('.ui.modal').modal('show')
+               // $('.ui.modal').modal('show')
 
             }
             else{
@@ -365,6 +304,17 @@ function get_selected_items(id){
         /* Act on the event */
     });
 
+$("#enviar").on('click',  function(event) {
+        event.preventDefault();
+         $('#form').jqxValidator('validate');
+    });
+
+  	$("#limpiar").on('click',  function(event) {
+        event.preventDefault();
+        //$('#dialog').click();
+
+        document.getElementById("form").reset();
+    });
 
 
 });

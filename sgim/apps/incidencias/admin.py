@@ -31,7 +31,7 @@ class ActividadCambioAdmin(admin.ModelAdmin):
 
 @admin.register(Cambio)
 class CambioAdmin(admin.ModelAdmin):
-    list_display = ("titulo", "solicitante", "responsable", "urgencia","inicio_previsto")
+    list_display = ("titulo", "solicitante", "responsable","inicio_previsto")
     exclude = ("creador",)
 
     def save_model(self, request, obj, form, change):

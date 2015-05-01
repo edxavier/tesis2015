@@ -22,7 +22,7 @@ class CambioForm(forms.ModelForm):
         exclude = ('creador', )
 
 
-class ActivCambioForm(forms.ModelForm):
+class ActividadCambioForm(forms.ModelForm):
 
     class Meta:
         model = ActividadCambio
