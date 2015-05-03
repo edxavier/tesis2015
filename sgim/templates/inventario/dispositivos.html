@@ -115,6 +115,7 @@ $(document).ready(function() {
                 filterable: true,
                 pageable: true,
                 selectedrowindex: 0,
+                autoshowfiltericon: true,
                 localization: getLocalization(),
                 columns: [
                   { text: '<i class="cubes icon"></i> Posicion', datafield: 'posicion_logica', width:"20%" },
@@ -128,20 +129,19 @@ $(document).ready(function() {
               rendertoolbar: function (statusbar) {
                     // appends buttons to the status bar.
                     var container = $("<div style='margin:5px;'></div>");
-                    var addButton = $("<div class='ui  tiny blue button'> Ver detalles</div>");
+                    var viewButton = $("<div class='ui  tiny blue button'> Ver detalles</div>");
                     var deleteButton = $("<div class='ui tiny green button'>Ver PDF</div>");
                    
-                    container.append(addButton);
-                    container.append(deleteButton);
+                    container.append(viewButton);
+                   //  container.append(deleteButton);
                     statusbar.append(container);
                    
                     // add new row.
-                    addButton.click(function (event) {
+                    viewButton.click(function (event) {
                       var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
                       var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
-                      console.log(id);  
                       var win = window.open('/inventario/dispositivos/detalle/'+id, '_blank');
-                      win.focus();                      
+                      win.focus(); 
                         //$("#jqxgrid").jqxGrid('addrow', null, datarow[0]);
                     });
                     // delete selected row.
@@ -153,9 +153,11 @@ $(document).ready(function() {
                     });
                 },
             });
- 
-
-  
+$("#jqxGrid").on("filter", function (event) 
+{
+    var filterinfo = $("#jqxgrid").jqxGrid('getfilterinformation');
+    console.log("message");
+}); 
     
 });
 
