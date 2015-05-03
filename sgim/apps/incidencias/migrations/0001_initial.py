@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('inventario', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('catalogo', '0002_auto_20150429_1336'),
+        ('catalogo', '0002_auto_20150502_1533'),
     ]
 
     operations = [
@@ -56,10 +56,9 @@ class Migration(migrations.Migration):
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('titulo', models.CharField(max_length=100)),
-                ('proposito', models.TextField(default=b'')),
-                ('urgencia', models.CharField(max_length=30, choices=[(b'1', b'Baja'), (b'2', b'Media'), (b'3', b'Alta')])),
+                ('proposito', models.TextField()),
                 ('inicio_previsto', models.DateField(help_text=b'Cuando preeve implementarse')),
-                ('estado', models.CharField(max_length=30, choices=[(b'1', b'Cerrado'), (b'2', b'Pendiente'), (b'3', b'Observacion'), (b'4', b'Cancelado')])),
+                ('estado', models.CharField(default=1, max_length=30, choices=[(b'1', b'Pendiente'), (b'2', b'En proceso'), (b'3', b'Terminado'), (b'4', b'Cancelado')])),
                 ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
                 ('dispositivos', models.ManyToManyField(help_text=b'Dispositivos afectados por el cambioa', to='inventario.Dispositivo', blank=True)),
                 ('responsable', models.ForeignKey(related_name='responsable', to='catalogo.Personal')),

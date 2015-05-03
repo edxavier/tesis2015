@@ -55,13 +55,26 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1" >
 
-            <h2 class="ui top attached header">
-              <i class="cubes icon"></i>
-              <div class="content">
-                 Dispositivos
-                <div class="sub header">Listado de todos los dispositivos registrados</div>
-              </div>
-            </h2>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                  <div class="ui items">
+                    <div class="item">
+                      <a class="ui small image">
+                        <img src="{{STATIC_URL}}images/devices.png">
+                      </a>
+                      <div class="content">
+                        <a class="header">Dispositivos</a>
+                        <div class="description">
+                          <p> Un dispositivo es un aparato o mecanismo que desarrolla determinadas acciones. <br>
+                             Su nombre está vinculado a que dicho artificio está dispuesto para cumplir con su objetivo. 
+                           </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
             <div id="jqxgrid"></div>
         </div>
     </div>
@@ -83,13 +96,11 @@ $(document).ready(function() {
                 datafields: [
                     { name: 'id', type: 'int' },
                     { name: 'posicion_logica', type: 'string' },
-                    { name: 'marca', type: 'int' },
-                    { name: 'modelo', type: 'string' },
                     { name: 'serie', type: 'string' },
                     { name: 'tipo', type: 'string' },
+                    { name: 'sistema', type: 'string' },
                     { name: 'oficina', type: 'string' },
                     { name: 'estado', type: 'string' },
-                    { name: 'sistema', type: 'string' }
                 ],
                 id: 'id',
                 url: '/api/inventario/dispositivos/'
@@ -106,21 +117,19 @@ $(document).ready(function() {
                 selectedrowindex: 0,
                 localization: getLocalization(),
                 columns: [
-                  { text: '<i class="cubes icon"></i> Posicion', datafield: 'posicion_logica' },
-                  { text: 'Marca', datafield: 'marca' },
-                  { text: 'Modelo', datafield: 'modelo', },
-                  { text: 'Serie', datafield: 'serie',  },
-                  { text: '<i class="ion-flag icon"></i> Tipo', datafield: 'tipo', filtertype:'list' },
-                  { text: 'Ubicacion', datafield: 'oficina', filtertype:'list' },
-                  { text: 'Estado', datafield: 'estado', filtertype:'list' },
-                  { text: 'Sistema', datafield: 'sistema', filtertype:'list' }
+                  { text: '<i class="cubes icon"></i> Posicion', datafield: 'posicion_logica', width:"20%" },
+                  { text: 'Serie', datafield: 'serie',  width:"16%"},
+                  { text: '<i class="ion-flag icon"></i> Tipo', datafield: 'tipo', filtertype:'list' ,width:"16%"},
+                  { text: 'Sistema', datafield: 'sistema', filtertype:'list', width:"16%" },
+                  { text: 'Ubicacion', datafield: 'oficina', filtertype:'list', width:"16%" },
+                  { text: 'Estado', datafield: 'estado', filtertype:'list', width:"16%" },
               ],
               showtoolbar: true,
-                rendertoolbar: function (statusbar) {
+              rendertoolbar: function (statusbar) {
                     // appends buttons to the status bar.
                     var container = $("<div style='margin:5px;'></div>");
-                    var addButton = $("<div class='ui green button'> <i class='ion-document-text icon'></i>Ver detalles</div>");
-                    var deleteButton = $("<div class='ui orange button'>Ver PDF</div>");
+                    var addButton = $("<div class='ui  tiny blue button'> Ver detalles</div>");
+                    var deleteButton = $("<div class='ui tiny green button'>Ver PDF</div>");
                    
                     container.append(addButton);
                     container.append(deleteButton);
@@ -128,7 +137,11 @@ $(document).ready(function() {
                    
                     // add new row.
                     addButton.click(function (event) {
-                        console.log("message");
+                      var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+                      var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
+                      console.log(id);  
+                      var win = window.open('/inventario/dispositivos/detalle/'+id, '_blank');
+                      win.focus();                      
                         //$("#jqxgrid").jqxGrid('addrow', null, datarow[0]);
                     });
                     // delete selected row.
@@ -138,7 +151,6 @@ $(document).ready(function() {
                         var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
                         //$("#jqxgrid").jqxGrid('deleterow', id);
                     });
-
                 },
             });
  

@@ -5,6 +5,7 @@ from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views.generic import View
 from django.template.context import RequestContext
 from .forms import DispositivoForm, ServicioForm, ComponenteForm
+from .models import Dispositivo
 
 
 
@@ -12,6 +13,13 @@ from .forms import DispositivoForm, ServicioForm, ComponenteForm
 class Dispositivos(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('inventario/dispositivos.html',
+            locals(), context_instance=RequestContext(request))
+
+
+class DispositivoDetalle(View):
+    def get(self, request, id_disp, *args, **kwargs):
+        dispositivo = get_object_or_404(Dispositivo, pk=id_disp)
+        return render_to_response('inventario/dispositivo_detalle.html',
             locals(), context_instance=RequestContext(request))
 
 

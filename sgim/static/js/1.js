@@ -14,3 +14,5 @@ $.ajaxSetup({
         }
     }
 });
+
+$.ajax
