@@ -1,0 +1,102 @@
+<div class="row" style="padding:10px">
+	<div class="col-md-12">
+		<h3 class="ui dividing header">Incidencias &nbsp; <small>( Las 50 mas recientes )</small>	</h3>
+		<div class="ui comments" style="width:100%">
+			{% for inc in  incidencias %}
+				<div class="ui accordion">
+					<div class="title">
+						<i class="dropdown icon"></i>
+						{{inc.tipo}}
+						<i class="clock icon"></i>{{inc.creado | timesince}}
+					</div>
+					<div class="content">
+						<div class="comment">
+							<a class="avatar">
+								<img src="{{MEDIA_URL}}{{inc.creador.imagen}}">
+							</a>
+							<div class="content">
+								<a class="author">{{inc.creador}}</a>
+								<div class="metadata">
+									<span class="date">{{inc.creado}}</span>
+								</div>
+								<div class="text">
+									<div class="container-fluid">
+										<div class="row">
+											<div class="col-md-6">
+												<p>
+													{% autoescape off %}
+													<h6 class="ui header">Problema</h6>
+													{{inc.problema}}
+												{% endautoescape %}
+											</p>
+										</div>
+										<div class="col-md-6">
+											<p>
+												<h6 class="ui header">Causa</h6>
+											{% autoescape off %}{{inc.causa}}	{% endautoescape %}
+										</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<p>
+											<h6 class="ui header">Solucion</h6>
+										{% autoescape off %}{{inc.solucion}}	{% endautoescape %}
+									</p>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+					<div class="actions">
+						<a class="ui small label">{{inc.tipo}}</a>
+						<a>Urgencia: baja</a>
+						<a>Severidad: media</a>
+					</div>
+				</div>
+				<div class="comments">											    	<h6>
+					<i class="ion-ios-paw icon"></i>
+					Seguimiento
+					</h6>
+					{% for seg in inc.actividadincidencia_set.all %}
+						<div class="comment" >
+							<a class="avatar">
+								<img src="{{MEDIA_URL}}{{seg.creador.imagen}}">
+							</a>
+							<div class="content">
+								<a class="author">{{seg.creador}}</a>
+								<div class="metadata">
+									<span class="date">{{seg.creado}}</span>
+								</div>
+								<div class="text">
+									{% autoescape off %}
+									<p>{{seg.descripcion}}</p>
+								{% endautoescape %}
+							</div>
+							<div class="actions">
+								<a class="reply">Reply</a>
+							</div>
+						</div>
+					</div>
+					{%empty %}
+					No se registro reguimiento para este incidente
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% empty %}
+<div class="ui icon message">
+	<i class="ion-flash-off icon"></i>
+	<div class="content">
+		<div class="header">
+			No se han registrado incidencias para este dispositivo
+		</div>
+	</div>
+</div>
+{% endfor %}
+</div>
+</div>
+</div>

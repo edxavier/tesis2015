@@ -13,10 +13,8 @@ URGENCIA = (("1","Baja"),
              ("2","Media"),
              ("3","Alta"),
              )
-SEVERIDAD = (("1","Baja"),
-             ("2","Media"),
-             ("3","Alta"),
-             )
+SEVERIDAD = URGENCIA
+
 ESTADO = (("1","Cerrado"),
              ("2","Pendiente"),
              ("3","Observacion"),
@@ -54,7 +52,7 @@ class Incidencia(MarcaDeTiempo, models.Model):
                                  help_text="Indica la relacion con la incidencia mas reciente que exista")
     estado = models.CharField(choices=ESTADO, max_length=30, default=1)
     paro_equipo = models.BooleanField(default=False)
-    duracion_paro = models.IntegerField(help_text="Indique cuanto duro el paro en minutos", default=0)
+    duracion_paro = models.IntegerField(help_text="Indique cuanto duro el paro en minutos", default=    0)
 
     def __unicode__(self):
         return "Inc-%s" % self.pk

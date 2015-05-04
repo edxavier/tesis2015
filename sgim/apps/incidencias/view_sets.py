@@ -9,6 +9,7 @@ class IncidenciaViewSet(viewsets.ModelViewSet):
 
     queryset = Incidencia.objects.all()
     serializer_class = IncidenciaSerializer
+    filter_fields = ('dispositivo',)
 
 
 class CambioViewSet(viewsets.ModelViewSet):

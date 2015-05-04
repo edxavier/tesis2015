@@ -35,8 +35,6 @@
 			                <li style="margin-left: 5px;">Datos generales</li>
 			                <li>Incidencias</li>
 			                <li>Mantenimientos</li>
-			                <li>Python</li>
-			                <li>Perl</li>
 			            </ul>
 			            <div class="container-fluid">
 			            	<div class="ui items" style="padding:10px">
@@ -139,46 +137,12 @@
 							</div>
 			            </div>
 			            <div class="container-fluid">
-			                <div class="row" style="padding:10px">
-			                	<div class="col-md-12">
-			                		Incidencias <br>
-			                		{% for incidente in  incidencias %}
-			                			{{incidente}} <br>
-			                		{% endfor %}
-			                	</div>
-			                </div>
+			                {% include "inventario/disp/incidencias50.html" %}
 			            </div>
 			            <div class="container-fluid">
-			                <div class="row" style="padding:10px">
-			                	<div class="col-md-12">
-			                		{% for mantto in  manttos %}
-			                			{{mantto}} <br>
-			                		{% endfor %}
-			                	</div>
-			                </div>
+							{% include "inventario/disp/manttos50.html" %}
 			            </div>
-			            <div class="container-fluid">
-			                Python is a general-purpose, high-level programming language[5] whose design philosophy
-			                emphasizes code readability. Python claims to "[combine] remarkable power with very
-			                clear syntax",[7] and its standard library is large and comprehensive. Its use of
-			                indentation for block delimiters is unique among popular programming languages.
-			                Python supports multiple programming paradigms, primarily but not limited to object-oriented,
-			                imperative and, to a lesser extent, functional programming styles. It features a
-			                fully dynamic type system and automatic memory management, similar to that of Scheme,
-			                Ruby, Perl, and Tcl. Like other dynamic languages, Python is often used as a scripting
-			                language, but is also used in a wide range of non-scripting contexts.
-			            </div>
-			            <div>
-			                Perl is a high-level, general-purpose, interpreted, dynamic programming language.
-			                Perl was originally developed by Larry Wall in 1987 as a general-purpose Unix scripting
-			                language to make report processing easier. Since then, it has undergone many changes
-			                and revisions and become widely popular amongst programmers. Larry Wall continues
-			                to oversee development of the core language, and its upcoming version, Perl 6. Perl
-			                borrows features from other programming languages including C, shell scripting (sh),
-			                AWK, and sed.[5] The language provides powerful text processing facilities without
-			                the arbitrary data length limits of many contemporary Unix tools, facilitating easy
-			                manipulation of text files. 
-			            </div>       
+      
 			        </div>   
     		</div>
     		
@@ -197,7 +161,9 @@
 	$(document).ready(function() {
 		 $('#jqxTabs').jqxTabs({ width: '90%', position: 'top', animationType: 'fade', theme:"energyblue" });
 		   
-
+$('.ui.accordion')
+  .accordion()
+;
 	});
 
 

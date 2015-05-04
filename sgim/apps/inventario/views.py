@@ -20,8 +20,8 @@ class Dispositivos(View):
 class DispositivoDetalle(View):
     def get(self, request, id_disp, *args, **kwargs):
         dispositivo = get_object_or_404(Dispositivo, pk=id_disp)
-        incidencias = Incidencia.objects.filter(dispositivo=dispositivo)[:100]
-        manttos = BoletaTrabajo.objects.filter(dispositivo=dispositivo)[:100]
+        incidencias = Incidencia.objects.filter(dispositivo=dispositivo)[:50]
+        manttos = BoletaTrabajo.objects.filter(dispositivo=dispositivo)[:50]
         return render_to_response('inventario/dispositivo_detalle.html',
             locals(), context_instance=RequestContext(request))
 

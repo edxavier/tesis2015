@@ -1,0 +1,17 @@
+<div class="row" style="padding:10px">
+	<div class="col-md-12">
+		<h3 class="ui dividing header">Mantenimientos &nbsp; <small>( Los 50 mas recientes )</small>	</h3>
+		{% for mantto in  manttos %}
+			{{mantto}}
+		{% empty %}
+			<div class="ui icon message">
+				<i class="ion-wrench icon"></i>
+				<div class="content">
+					<div class="header">
+						No se ha registrado ningun mantenimiento
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>
