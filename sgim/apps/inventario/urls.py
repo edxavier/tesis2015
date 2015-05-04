@@ -3,7 +3,7 @@ __author__ = 'edx'
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 from .views import NuevoDispositivo, Dispositivos, Servicios, Componentes, NuevoComponente, NuevoServicio, DispositivoDetalle
-
+from .reports import Todo_Info
 urlpatterns = patterns('',
 
                     url(r'^dispositivos/agregar/$', login_required(NuevoDispositivo.as_view()), name='dispositivo_add'),
@@ -15,5 +15,7 @@ urlpatterns = patterns('',
                     url(r'^componentes/listar/$', login_required(Componentes.as_view()), name='componentes_list'),
 
                     url(r'^dispositivos/detalle/(\d+)/$', login_required(DispositivoDetalle.as_view()), name='dispositivos_detail'),
+
+                    url(r'^dispositivos/reporte/$', login_required(Todo_Info.as_view()),),
 
                        )
