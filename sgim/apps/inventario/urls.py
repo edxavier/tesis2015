@@ -16,6 +16,8 @@ urlpatterns = patterns('',
 
                     url(r'^dispositivos/detalle/(\d+)/$', login_required(DispositivoDetalle.as_view()), name='dispositivos_detail'),
 
-                    url(r'^dispositivos/reporte/$', login_required(Todo_Info.as_view()),),
+                    url(r'^dispositivos/reporte/detalle_disp/(\d+)/$', login_required(Todo_Info.as_view()),),
+                    url(r'^dispositivos/reporte/mantto_disp/(\d+)/$', login_required(Todo_Info.as_view()),),
+                    url(r'^dispositivos/reporte/inc_disp/(\d+)/$', login_required(Todo_Info.as_view()),),
 
                        )

@@ -1,0 +1,41 @@
+{% extends "report_base.html" %}
+
+
+
+
+{% block contenido %}
+
+
+<table style="font-family: roboto; border-bottom: 1px solid #004D40; color:#004D40">
+			<tr>
+				<th style="width:65% ; text-align:left">
+					<h1>Ficha Tecnica de Dispositivos de Estacion Radar Managua</h1>
+				</th>
+				<th style="width:35%; text-align:right">
+					<h1>{{dispositivo}}</h1>
+				</th>
+			</tr>
+</table>	
+
+
+    <h3 style="color:#827717">Datos generales</h3>
+    <div>
+
+		<table style="width:100%;">
+			<tr>
+			    <th style="text-align:left">Marca:</th>
+			    <td style="text-align:left">{{dispositivo.marca}}</td>
+			    <th style="text-align:left">Modelo:</th>
+			    <td style="text-align:left">{{dispositivo.modelo}}</td>		
+			</tr>
+			<tr>
+			    <th style="text-align:left">Num. de Serie:</th>
+			    <td style="text-align:left">{{dispositivo.serie}}</td>
+			    <th style="text-align:left">Num. de Inventario:</th>
+			    <td style="text-align:left">{{dispositivo.inventario}}</td>		
+			</tr>
+		</table>
+    </div>
+
+
+{% endblock contenido %}
