@@ -38,7 +38,7 @@
 <table style="font-family: roboto; border-bottom: 1px solid #004D40; color:#004D40">
 			<tr>
 				<th style="width:65% ; text-align:left">
-					<h1>FICHA TECNICA DE DISPOSITIVOS DE ESTACION RADAR MANAGUA</h1>
+					<h1>HISTORIAL DE MANTENIMIENTOS MAS RECIENTES</h1>
 				</th>
 				<th style="width:35%; text-align:right">
 					<h1>{{dispositivo}}</h1>
@@ -84,87 +84,7 @@
 		</table>
     </div>
 
-    <h2 style="color:#33691E;">Componentes</h2>
-    <div>
-		<table style="width:100%; border: double 1px #BDBDBD;">
-		{% for comp in dispositivo.componente_set.all  %}
-			<tr>
-				<td colspan="6" style="background-color:#00BCD4; color:white">{{comp.tipo}}</td>
-			</tr>	
-			<tr>
-			    <th style="text-align:right; width:30%">Marca:&nbsp; </th>
-			    <td style="text-align:left">{{comp.marca}} </td>
-			    <th style="text-align:right; width:15%">Modelo:&nbsp; </th>
-			    <td style="text-align:left">{{comp.modelo}}</td>	
-			    <th style="text-align:right; width:25%">Num. de Serie:&nbsp; </th>
-			    <td style="text-align:left">{{comp.serie}}</td>	
-			</tr>
-			<tr>			    
-			    <th colspan="1" style="text-align:right;">Num. de Inventario:&nbsp; </th>
-			    <td colspan="2"  style="text-align:left">{{comp.inventario}}</td>		
-			    <th colspan="1"  style="text-align:right;%">Estado:&nbsp; </th>
-			    <td colspan="2"  style="text-align:left">{{comp.estado}}</td>		
-			</tr>
-
-		{% empty %}	
-			<strong><i>Este dispositivos no posee componentes asociados</i></strong>
-		{% endfor %}
-		</table>
-
-    </div>
-
-
-    <h2 style="color:#33691E;">Incidencias recientes (Ultimas 10)</h2>
-    <div>
-		<table style="width:100%;">
-		{% for inc in incidencias  %}
-			<tr>
-				<td colspan="3" class="titulo_inc">{{inc.tipo}}</td>
-				<td colspan="3" class="titulo_inc">{{inc.creado}}</td>
-				<td colspan="1" class="titulo_inc">{{inc.estado}}</td>
-			</tr>		
-			<tr>
-			    <td class="sub_titulo_inc"> Reporto</td>
-			    <td class="sub_titulo_inc">Medio</td>
-			    <td class="sub_titulo_inc">Urgencia</td>
-			    <td class="sub_titulo_inc">Severidad</td>	
-			    <td class="sub_titulo_inc">Relacion</td>
-			    <td class="sub_titulo_inc">Paro de Equipo</td>	
-			    <td class="sub_titulo_inc">Duracion de Paro</td>	
-			</tr>
-			<tr>
-			    <td> {{inc.reporta}} </td>
-			    <td>{{inc.medio_notificacion}}</td>
-			    <td>{{inc.urgencia}}</td>
-			    <td>{{inc.severidad}}</td>	
-			    <td>{{inc.relacion|default:"Ninguna"}}</td>
-			    <td>{{inc.paro_equipo|yesno:"Si,No"}}</td>	
-			    <td>{{inc.duracion_paro}} min</td>	
-			</tr>
-			<tr>
-			    <td class="sub_titulo_inc2" colspan="2" style="text-align:left">Problema</td>
-			    <td class="sub_titulo_inc2" colspan="2" style="text-align:left">Causa</td>
-			    <td class="sub_titulo_inc2" colspan="3" style="text-align:left">Solucion</td>			    	
-			</tr>
-			<tr>
-				{% autoescape off %}
-			    <td colspan="2" style="text-align:left">{{inc.problema|cut:"â€‹"}}</td>
-			    <td colspan="2" style="text-align:left">{{inc.causa |safe}}</td>
-			    <td colspan="3" style="text-align:left">{{inc.solucion}}</td>			    	
-				{% endautoescape %}
-			</tr>
-
-			<tr style="border-top:1px solid #BDBDBD">
-				<td  colspan="7"></td>
-			</tr>
-
-		{% empty %}	
-			<strong><i>Este dispositivos no posee incidencias asociadas</i></strong>
-		{% endfor %}
-		</table>
-    </div>
-
-<h2 style="color:#33691E;">Mantenimientos recientes (Ultimos 10)</h2>
+<h2 style="color:#33691E;">Mantenimientos (Ultimos 15)</h2>
     <div>
 		<table style="width:100%;">
 		{% for mantto in manttos  %}

@@ -38,7 +38,7 @@
 <table style="font-family: roboto; border-bottom: 1px solid #004D40; color:#004D40">
 			<tr>
 				<th style="width:65% ; text-align:left">
-					<h1>FICHA TECNICA DE DISPOSITIVOS DE ESTACION RADAR MANAGUA</h1>
+					<h1>HISTORIAL DE INCIDENCIAS MAS RECIENTES</h1>
 				</th>
 				<th style="width:35%; text-align:right">
 					<h1>{{dispositivo}}</h1>
@@ -84,37 +84,8 @@
 		</table>
     </div>
 
-    <h2 style="color:#33691E;">Componentes</h2>
-    <div>
-		<table style="width:100%; border: double 1px #BDBDBD;">
-		{% for comp in dispositivo.componente_set.all  %}
-			<tr>
-				<td colspan="6" style="background-color:#00BCD4; color:white">{{comp.tipo}}</td>
-			</tr>	
-			<tr>
-			    <th style="text-align:right; width:30%">Marca:&nbsp; </th>
-			    <td style="text-align:left">{{comp.marca}} </td>
-			    <th style="text-align:right; width:15%">Modelo:&nbsp; </th>
-			    <td style="text-align:left">{{comp.modelo}}</td>	
-			    <th style="text-align:right; width:25%">Num. de Serie:&nbsp; </th>
-			    <td style="text-align:left">{{comp.serie}}</td>	
-			</tr>
-			<tr>			    
-			    <th colspan="1" style="text-align:right;">Num. de Inventario:&nbsp; </th>
-			    <td colspan="2"  style="text-align:left">{{comp.inventario}}</td>		
-			    <th colspan="1"  style="text-align:right;%">Estado:&nbsp; </th>
-			    <td colspan="2"  style="text-align:left">{{comp.estado}}</td>		
-			</tr>
 
-		{% empty %}	
-			<strong><i>Este dispositivos no posee componentes asociados</i></strong>
-		{% endfor %}
-		</table>
-
-    </div>
-
-
-    <h2 style="color:#33691E;">Incidencias recientes (Ultimas 10)</h2>
+    <h2 style="color:#33691E;">Incidencias (Ultimas 15)</h2>
     <div>
 		<table style="width:100%;">
 		{% for inc in incidencias  %}
@@ -164,48 +135,6 @@
 		</table>
     </div>
 
-<h2 style="color:#33691E;">Mantenimientos recientes (Ultimos 10)</h2>
-    <div>
-		<table style="width:100%;">
-		{% for mantto in manttos  %}
-			<tr>
-				<td colspan="3" class="titulo_mtto">
-					{{mantto.orden| default:"Mantto No programado"}} {{mantto.orden.rutina}}
-				</td>
-				<td colspan="3" class="titulo_mtto">{{mantto.creado}}</td>
-				<td colspan="1" class="titulo_mtto">{{mantto.tipo}}</td>
-			</tr>		
-			<tr>
-			    <td class="sub_titulo_mtto" colspan="2">Paro de Equipo</td>	
-			    <td class="sub_titulo_mtto" colspan="2">Duracion de Paro</td>
-				<td class="sub_titulo_mtto" colspan="3">Estado Final</td>	
-			</tr>
-			<tr>
-				<td colspan="2">{{mantto.paro_operacion|yesno:"Si,No"}}</td>	
-			    <td colspan="2">{{mantto.tiempo_paro}} min</td>	
-			    <td colspan="3"> {{mantto.estado_final}} </td>
-			</tr>
-			<tr>
-			    <td class="sub_titulo_mtto2" colspan="7" style="text-align:left">
-			    	Trabajo Realizado
-			    </td>			    	
-			</tr>
-			<tr>
-				{% autoescape off %}
-			    <td colspan="7" style="text-align:left">{{mantto.descripcion}}</td>
-			       	
-				{% endautoescape %}
-			</tr>
-
-			<tr style="border-top:1px solid #BDBDBD">
-				<td  colspan="7"></td>
-			</tr>
-
-		{% empty %}	
-			<strong><i>Este dispositivos no posee mantenimientos asociadas</i></strong>
-		{% endfor %}
-		</table>
-    </div>
 
 {% endblock contenido %}
 

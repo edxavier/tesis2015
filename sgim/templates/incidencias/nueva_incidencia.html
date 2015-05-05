@@ -18,15 +18,19 @@
 
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdatetimeinput.js"></script>
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcalendar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxnumberinput.js"></script>
+<!--
 	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdropdownlist.js"></script>
 	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdropdownbutton.js"></script>
 	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxwindow.js"></script>
-	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxnumberinput.js"></script>
+
 	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcheckbox.js"></script>
-
-
-
 	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxeditor.js"></script>
+-->
+
+<script src="{{BOWER_URL}}ckeditor/ckeditor.js"></script>
+<script src="{{BOWER_URL}}ckeditor/adapters/jquery.js"></script>
+
 
 {% endblock include_statics %}
 {% block titulo %}
@@ -312,6 +316,27 @@ $("#id_severidad").addClass('form-control')
 $("#id_urgencia").addClass('form-control')
 $("#id_estado").addClass('form-control')
 
+$( 'textarea' ).ckeditor({
+    uiColor :'#B2DFDB',
+    
+    extraPlugins: 'codesnippet',
+    codeSnippet_theme: 'monokai_sublime',
+       toolbar :[
+    { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [  'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 'CodeSnippet', ] },
+    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Scayt' ] },
+    { name: 'links', items: [ 'Link', 'Unlink'] },
+    { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule', 'SpecialChar', ] },
+    { name: 'tools', items: [ 'Maximize', ] },
+    { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source' ] },
+    '/',
+    { name: 'colors' },
+    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
+    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
+    { name: 'styles', items: [ 'Styles', 'Format' ] }
+]
+});
+
+
 var estadoSource =
         {
             dataType: "json",
@@ -387,11 +412,14 @@ var relacionSource =
         var servicioAdap = new $.jqx.dataAdapter(servicioSource);
 
      $("#servicios").jqxComboBox({ theme:'metro', promptText: "Que servicios fueron afectados...",  source: servicioAdap, displayMember: 'nombre', valueMember: 'id', multiSelect:true});
-     
+   
+   /*  
  $('#id_problema, #id_causa, #id_solucion').jqxEditor({
-                width: '100%', theme:'metro',lineBreak:"br",
+                width: '100%', theme:'metro', lineBreak:"div",
                 tools:"bold italic underline  color background | left center right | outdent indent | ul ol | image | link | clean | html"
             });
+
+*/
    	$("#tiempo").jqxNumberInput({ 
   		spinButtons: true, min: 0,
   		theme:'metro',inputMode: 'simple',
@@ -411,7 +439,7 @@ var relacionSource =
 
 $("#enviar").on('click',  function(event) {
         event.preventDefault();
-         $('#form').jqxValidator('validate');
+        $('#form').jqxValidator('validate');
     });
 
   $("#limpiar").on('click',  function(event) {
@@ -453,14 +481,6 @@ $("#enviar").on('click',  function(event) {
                                return true;
                            }
                     },
-                    { input: '#id_problema', message: 'Campo requerido', action: 'blur, keyup', 
-                    	 rule: function (input, commit) {
-                               if (input.val().trim().length <= 6) {
-                                   return false;
-                               }
-                               return true;
-                           }
-                     },
                 ],
                  arrow: false
 
@@ -493,7 +513,7 @@ $("#enviar").on('click',  function(event) {
                 urgencia: $("#id_urgencia").val(),
                 severidad: $("#id_severidad").val(),
                 tipo: $("#tipo").val(),
-                causa: $("#id_causa").val(),
+                causa:$("#id_causa").val(),
                 solucion: $("#id_solucion").val(),
                 duracion_paro:$("#tiempo").val(),
                 estado:$("#id_estado").val(),

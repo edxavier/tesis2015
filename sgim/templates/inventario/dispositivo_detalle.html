@@ -4,6 +4,8 @@
 
 <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
 <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
+<link href="{{BOWER_URL}}ckeditor/plugins/codesnippet/lib/highlight/styles/monokai_sublime.css" rel="stylesheet">
+
     
 <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
 <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtabs.js"></script>
@@ -115,17 +117,19 @@
 									  </button>
 									  <ul class="dropdown-menu" role="menu">
 										<li>
-									    	<a href="#">
+									    	<a href="{% url 'reporte_mantto' dispositivo.id %}" target="_blank">
 									    		<i class="icon wrench"></i>Mantenimientos
 									    	</a>
 									    </li>
 										<li>
-											<a href="#">
+											<a href="{% url 'reporte_inc' dispositivo.id %}" target="_blank">
 												<i class="icon ion-flash"></i>Incidencias
 											</a>
 										</li>									    
 									    <li>
-											<a href="#"><i class="icon ion-folder"></i>Todo</a>
+											<a href="{% url 'reporte_todo' dispositivo.id %}" target="_blank">
+												<i class="icon ion-folder"></i>Todo
+											</a>
 										</li>
 									  </ul>
 									</div>
