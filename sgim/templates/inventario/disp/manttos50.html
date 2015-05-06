@@ -3,6 +3,58 @@
 		<h3 class="ui dividing header">Mantenimientos &nbsp; <small>( Los 50 mas recientes )</small>	</h3>
 		{% for mantto in  manttos %}
 			{{mantto}}
+			<table class="ui celled striped black table">
+				<thead>
+					<tr>
+						<th colspan="">
+							{{mantto.tipo}}
+						</th>
+						<th colspan="2">
+							{{mantto.creado| date:"d /M /Y H:m"}}
+						</th>
+						<th >
+							{{mantto.orden| default:"Mantto No programado"}} 
+							{{mantto.orden.rutina}}
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="collapsing">
+							<strong> Paro de equipo</strong>
+						</td>
+						<td class="collapsing"><strong>Duracion</strong></td>
+						<td class="collapsing"><strong>Estado Final</strong></td>
+						<td><strong> Trabajo Realizado </strong></td>
+					</tr>
+					<tr>
+						<td>
+							{{mantto.paro_operacion|yesno:"Si,No"}}
+						</td>
+						<td>{{mantto.tiempo_paro}} min</td>
+						<td>{{mantto.estado_final}}</td>
+						<td>{{mantto.descripcion}}</td>
+					</tr>
+					  <tfoot class="full-width">
+					    <tr>
+					      <th colspan="4">
+					     	<a class="ui image label">
+							  <img src="{{MEDIA_URL}}{{mantto.creador.imagen}}">
+							  {{mantto.creador}}
+							</a>
+					 
+					        <div class="ui green label">
+					          <a class="detail" style='text-decoration:none' href="{% url 'report_mantto_detalle' mantto.id %}" target="_blank">
+					          	<i class="ion-forward icon"></i> PDF
+					          </a>
+					        </div>
+
+					      </th>
+					    </tr>
+					  </tfoot>
+										
+				</tbody>
+			</table>
 		{% empty %}
 			<div class="ui icon message">
 				<i class="ion-wrench icon"></i>

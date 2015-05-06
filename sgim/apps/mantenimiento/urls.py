@@ -3,6 +3,7 @@ __author__ = 'edx'
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 from .views import Tareas, NuevaTarea, Rutinas, Planes, NuevaRutina, NuevoPlan, Boletas, NuevaBoleta
+from reports import *
 
 urlpatterns = patterns('',
                         #url(r'^login/$',Login.as_view(),name='login'),
@@ -16,5 +17,6 @@ urlpatterns = patterns('',
                         url(r'^rutinas/listar/$', login_required(Rutinas.as_view()), name='rutinas_list'),
                         url(r'^planes/listar/$', login_required(Planes.as_view()), name='planes_list'),
                         url(r'^boletas/listar/$', login_required(Boletas.as_view()), name='boletas_list'),
-                      
+                        url(r'^boletas/reportes/detalle/(\d+)/$', login_required(Mantto_Detalle.as_view()),name='report_mantto_detalle'),
+
                        )

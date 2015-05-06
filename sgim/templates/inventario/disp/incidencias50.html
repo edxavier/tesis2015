@@ -50,9 +50,11 @@
 						
 					</div>
 					<div class="actions">
-						<a class="ui small label">{{inc.tipo}}</a>
-						<a>Urgencia: baja</a>
-						<a>Severidad: media</a>
+						<a class="ui  label">{{inc}}</a>
+						<a style="text-decoration:none" href="{% url 'report_inc_detalle' inc.id %}" target="_blank">
+				          <i class="ion-forward icon"></i>
+				          PDF
+				        </a>
 					</div>
 				</div>
 				<div class="comments">											    	<h6>
@@ -75,7 +77,7 @@
 								{% endautoescape %}
 							</div>
 							<div class="actions">
-								<a class="reply">Reply</a>
+								<a class="reply"></a>
 							</div>
 						</div>
 					</div>

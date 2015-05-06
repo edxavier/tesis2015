@@ -1,0 +1,100 @@
+{% extends "report_base.html" %}
+
+{% block contenido %}
+<style>
+	.titulo_inc{
+		background-color:#FFEB3B;
+		border: none;
+	}
+	.titulo_mtto{
+		background-color:#607D8B;
+		border: none;
+		color: white
+	}
+	.sub_titulo_mtto{
+		background-color:#90A4AE;
+		border: none;
+		color: white
+	}
+	
+	.sub_titulo_inc{
+		background-color:#FFF176;
+		border: none;
+	}
+	.sub_titulo_inc2{
+		background-color:#FFF9C4;
+		border: none;
+	}
+	.sub_titulo_mtto2{
+		background-color:#CFD8DC;
+		border: none;
+		color: #424242
+	}
+</style>
+    
+<table style="font-family: roboto; border-bottom: 1px solid #004D40; color:#004D40">
+	<tr style='font-size:18px'>
+		<th style="width:65% ; text-align:left">
+			<h1>TRABAJO  N&deg;{{mantto.id}}</h1>
+		</th>
+		<th style="width:35%; text-align:right">
+			<h1>{{mantto.dispositivo}}</h1>
+		</th>
+	</tr>
+</table>
+
+    <h1 style="color:#00796B;">{{mantto.dispositivo.tipo}}</h1>
+    <h3 style="color:#B71C1C;">{{mantto.tipo}}</h3>
+
+		<table style="width:100%;">
+		
+			<tr>
+				<td colspan="3" class="titulo_mtto">
+				<strong>
+					{{mantto.orden| default:"Mantto No programado"}} {{mantto.orden.rutina}}
+				</strong>
+				</td>
+				<td colspan="3" class="titulo_mtto">{{mantto.creado}}</td>
+				<td colspan="1" class="titulo_mtto">{{mantto.tipo}}</td>
+			</tr>		
+			<tr>
+			    <th class="sub_titulo_mtto" colspan="2">Paro de Equipo</th>	
+			    <th class="sub_titulo_mtto" colspan="2">Duracion de Paro</th>
+				<th class="sub_titulo_mtto" colspan="3">Estado Final</th>	
+			</tr>
+			<tr>
+				<td colspan="2">{{mantto.paro_operacion|yesno:"Si,No"}}</td>	
+			    <td colspan="2">{{mantto.tiempo_paro}} min</td>	
+			    <td colspan="3"> {{mantto.estado_final}} </td>
+			</tr>
+			<tr>
+			    <th class="sub_titulo_mtto2" colspan="7" style="text-align:left">
+			    	Trabajo Realizado
+			    </th>			    	
+			</tr>
+			<tr>
+				{% autoescape off %}
+			    <td colspan="7" style="text-align:left">{{mantto.descripcion}}</td>
+			       	
+				{% endautoescape %}
+			</tr>
+
+			<tr style="border-top:1px solid #BDBDBD">
+				<td  colspan="7"></td>
+			</tr>
+
+		
+		</table>
+
+		<p style="text-align:right;color:#2196F3">
+			El {{mantto.creado}} por: 
+				{% if  mantto.creador.firstname %}
+					<strong>
+						<i>	<< {{mantto.creador.firstname}} {{mantto.creador.lastname}} >> </i>  
+					</strong>
+				{% else %}
+					<strong>{{mantto.creador}}</strong>
+				{% endif %}
+		</p>
+
+{% endblock contenido %}

@@ -1,3 +1,6 @@
+from apps.incidencias.reports import Incidentes_Info
+from apps.mantenimiento.reports import Manttos_Info
+
 __author__ = 'edx'
 
 from django.conf.urls import patterns, url
@@ -19,5 +22,6 @@ urlpatterns = patterns('',
                     url(r'^dispositivos/reporte/detalle_disp/(\d+)/$', login_required(Todo_Info.as_view()),name='reporte_todo'),
                     url(r'^dispositivos/reporte/mantto_disp/(\d+)/$', login_required(Manttos_Info.as_view()),name='reporte_mantto'),
                     url(r'^dispositivos/reporte/inc_disp/(\d+)/$', login_required(Incidentes_Info.as_view()),name='reporte_inc'),
+                    url(r'^dispositivos/reporte/listado/$', login_required(Listado_disp.as_view()),name='reporte_listado_disp'),
 
                        )

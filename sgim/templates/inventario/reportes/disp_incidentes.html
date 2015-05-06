@@ -1,8 +1,6 @@
 {% extends "report_base.html" %}
 
 
-
-
 {% block contenido %}
 <style>
 	.titulo_inc{
@@ -52,9 +50,9 @@
 
 		<table style="width:100%; border: double 1px #BDBDBD;">
 			<tr>
-				<td colspan="6" style="background-color:#2196F3; color:white">
+				<th colspan="6" style="background-color:#2196F3; color:white">
 					{{dispositivo.tipo}}
-				</td>
+				</th>
 			</tr>
 			<tr>
 			    <th style="text-align:right; width:30%">Marca:&nbsp; </th>
@@ -95,13 +93,13 @@
 				<td colspan="1" class="titulo_inc">{{inc.estado}}</td>
 			</tr>		
 			<tr>
-			    <td class="sub_titulo_inc"> Reporto</td>
-			    <td class="sub_titulo_inc">Medio</td>
-			    <td class="sub_titulo_inc">Urgencia</td>
-			    <td class="sub_titulo_inc">Severidad</td>	
-			    <td class="sub_titulo_inc">Relacion</td>
-			    <td class="sub_titulo_inc">Paro de Equipo</td>	
-			    <td class="sub_titulo_inc">Duracion de Paro</td>	
+			    <th class="sub_titulo_inc"> Reporto</th>
+			    <th class="sub_titulo_inc">Medio</th>
+			    <th class="sub_titulo_inc">Urgencia</th>
+			    <th class="sub_titulo_inc">Severidad</th>	
+			    <th class="sub_titulo_inc">Relacion</th>
+			    <th class="sub_titulo_inc">Paro de Equipo</th>	
+			    <th class="sub_titulo_inc">Duracion de Paro</th>	
 			</tr>
 			<tr>
 			    <td> {{inc.reporta}} </td>
@@ -113,9 +111,9 @@
 			    <td>{{inc.duracion_paro}} min</td>	
 			</tr>
 			<tr>
-			    <td class="sub_titulo_inc2" colspan="2" style="text-align:left">Problema</td>
-			    <td class="sub_titulo_inc2" colspan="2" style="text-align:left">Causa</td>
-			    <td class="sub_titulo_inc2" colspan="3" style="text-align:left">Solucion</td>			    	
+			    <th class="sub_titulo_inc2" colspan="2" style="text-align:left">Problema</th>
+			    <th class="sub_titulo_inc2" colspan="2" style="text-align:left">Causa</th>
+			    <th class="sub_titulo_inc2" colspan="3" style="text-align:left">Solucion</th>			    	
 			</tr>
 			<tr>
 				{% autoescape off %}

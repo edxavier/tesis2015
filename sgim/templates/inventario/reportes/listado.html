@@ -1,0 +1,53 @@
+{% extends "report_base.html" %}
+
+{% block contenido %}
+<style>
+	.head {
+		background: #009688;
+		color: white;
+	}
+
+</style>
+
+<table style="font-family: roboto; border-bottom: 1px solid #004D40; color:#004D40">
+	<tr>
+		<th style="width:65% ; text-align:left">
+			<h1>LISTADO DE DISPOSITIVOS</h1>
+		</th>
+		<th style="width:35%; text-align:right">
+			<h1>{{dispositivo}}</h1>
+		</th>
+	</tr>
+</table>
+<br><br>
+<table style='padding-top: 20px'>
+	<thead>
+		<tr>
+			<th class='head' style='width:35px'>ID</th>
+			<th class='head'>POSICION</th>
+			<th class='head'>TIPO</th>
+			<th class='head'>N&deg; SERIE</th>
+			<th class='head'>MARCA</th>
+			<th class='head'>MODELO</th>
+			<th class='head'>SISTEMA</th>
+			<th class='head'>UBICACION</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for disp in dispositivos %}
+			<tr>
+				<td>{{disp.id}}</td>
+				<td>{{disp.posicion_logica}}</td>
+				<td>{{disp.tipo}}</td>
+				<td>{{disp.serie}}</td>
+				<td>{{disp.marca}}</td>
+				<td>{{disp.modelo}}</td>
+				<td>{{disp.sistema}}</td>
+				<td>{{disp.oficina}}</td>
+			</tr>
+		{% endfor %}
+		
+	</tbody>
+</table>
+
+{% endblock contenido %}

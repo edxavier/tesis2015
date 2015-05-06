@@ -53,7 +53,7 @@
 		<table style="width:100%; border: double 1px #BDBDBD;">
 			<tr>
 				<td colspan="6" style="background-color:#2196F3; color:white">
-					{{dispositivo.tipo}}
+				 <strong>	{{dispositivo.tipo}}</strong>
 				</td>
 			</tr>
 			<tr>
@@ -90,15 +90,17 @@
 		{% for mantto in manttos  %}
 			<tr>
 				<td colspan="3" class="titulo_mtto">
+				<strong>
 					{{mantto.orden| default:"Mantto No programado"}} {{mantto.orden.rutina}}
+				</strong>
 				</td>
 				<td colspan="3" class="titulo_mtto">{{mantto.creado}}</td>
 				<td colspan="1" class="titulo_mtto">{{mantto.tipo}}</td>
 			</tr>		
 			<tr>
-			    <td class="sub_titulo_mtto" colspan="2">Paro de Equipo</td>	
-			    <td class="sub_titulo_mtto" colspan="2">Duracion de Paro</td>
-				<td class="sub_titulo_mtto" colspan="3">Estado Final</td>	
+			    <th class="sub_titulo_mtto" colspan="2">Paro de Equipo</th>	
+			    <th class="sub_titulo_mtto" colspan="2">Duracion de Paro</th>
+				<th class="sub_titulo_mtto" colspan="3">Estado Final</th>	
 			</tr>
 			<tr>
 				<td colspan="2">{{mantto.paro_operacion|yesno:"Si,No"}}</td>	
@@ -106,9 +108,9 @@
 			    <td colspan="3"> {{mantto.estado_final}} </td>
 			</tr>
 			<tr>
-			    <td class="sub_titulo_mtto2" colspan="7" style="text-align:left">
+			    <th class="sub_titulo_mtto2" colspan="7" style="text-align:left">
 			    	Trabajo Realizado
-			    </td>			    	
+			    </th>			    	
 			</tr>
 			<tr>
 				{% autoescape off %}
