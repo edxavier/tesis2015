@@ -208,14 +208,13 @@ $(document).ready(function() {
             dataType: "json",
             dataFields: [
                 { name: 'id'},
-                { name:'posicion_logica'},
-                { name:'serie'}
+                { name:'plan_programado'},
             ],
             url: '/api/mantto/planes/?estado=2'
         };
         var PlanAdap = new $.jqx.dataAdapter(planSource);
 
-     $("#plan").jqxComboBox({ theme:'metro', promptText: "Selecciona plan de mantto correspondiente...",  source: PlanAdap, displayMember: 'id', 
+     $("#plan").jqxComboBox({ theme:'metro', promptText: "Selecciona plan de mantto correspondiente...",  source: PlanAdap, displayMember: 'plan_programado', 
      	valueMember: 'id', width:"100%"});
 	
 	var estadoSource =
@@ -223,14 +222,14 @@ $(document).ready(function() {
             dataType: "json",
             dataFields: [
                 { name: 'id'},
-                { name: 'nombre'}
+                { name: 'text'}
             ],
-            url: '/api/catalogo/estado_mantto/'
+            url: '/api/catalogo/estado_ope/'
         };
         var estadoAdapter = new $.jqx.dataAdapter(estadoSource);
 
      $("#estado").jqxComboBox({ theme:'metro', promptText: "Estado operacional al finalizar...", 
-        source: estadoAdapter,displayMember: 'nombre', valueMember: 'id', width:'100%'});
+        source: estadoAdapter,displayMember: 'text', valueMember: 'id', width:'100%'});
 
 
 

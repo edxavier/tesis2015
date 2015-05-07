@@ -13,8 +13,10 @@
 							{{mantto.creado| date:"d /M /Y H:m"}}
 						</th>
 						<th >
-							{{mantto.orden| default:"Mantto No programado"}} 
-							{{mantto.orden.rutina}}
+							{{mantto.orden| default:"Mantto No Programado"}}
+							{% if mantto.orden %}
+								- {{mantto.orden.rutina}}								
+							{% endif %}
 						</th>
 					</tr>
 				</thead>
@@ -33,7 +35,11 @@
 						</td>
 						<td>{{mantto.tiempo_paro}} min</td>
 						<td>{{mantto.estado_final}}</td>
-						<td>{{mantto.descripcion}}</td>
+						<td>
+						 	{% autoescape off %}
+					    		{{mantto.descripcion}}
+							{% endautoescape %}
+						</td>
 					</tr>
 					  <tfoot class="full-width">
 					    <tr>

@@ -7,6 +7,7 @@ class MarcaDeTiempo(models.Model):
     '''
     Modelo utilizado para heredarlo en otros modelos
     '''
+    activo = models.BooleanField(default=True, help_text="Denota si el registro esta activo")
     creado = models.DateTimeField(auto_now_add=True)
     modificado = models.DateTimeField(auto_now=True)
     creador = models.ForeignKey(AUTH_USER_MODEL)

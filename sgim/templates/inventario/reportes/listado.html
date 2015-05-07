@@ -22,28 +22,28 @@
 <br><br>
 <table style='padding-top: 20px'>
 	<thead>
-		<tr>
-			<th class='head' style='width:35px'>ID</th>
+		<tr style='border: 1px solid #009688'>
+			<th class='head' style='width:50px'>ID</th>
 			<th class='head'>POSICION</th>
 			<th class='head'>TIPO</th>
 			<th class='head'>N&deg; SERIE</th>
-			<th class='head'>MARCA</th>
-			<th class='head'>MODELO</th>
+			<th class='head' style='width:120px'>MARCA</th>
+			<th class='head' style='width:85px'>MODELO</th>
 			<th class='head'>SISTEMA</th>
-			<th class='head'>UBICACION</th>
+			<th class='head' style='width:150px'>UBICACION</th>
 		</tr>
 	</thead>
 	<tbody>
 		{% for disp in dispositivos %}
-			<tr>
-				<td>{{disp.id}}</td>
-				<td>{{disp.posicion_logica}}</td>
-				<td>{{disp.tipo}}</td>
-				<td>{{disp.serie}}</td>
-				<td>{{disp.marca}}</td>
-				<td>{{disp.modelo}}</td>
-				<td>{{disp.sistema}}</td>
-				<td>{{disp.oficina}}</td>
+			<tr >
+				<td style='border-bottom: 1px solid #BDBDBD'>{{disp.id}}</td>
+				<td style='border-bottom: 1px solid #BDBDBD'>{{disp.posicion_logica}}</td>
+				<td style='border-bottom: 1px solid #BDBDBD'>{{disp.tipo}}</td>
+				<td style='border-bottom: 1px solid #BDBDBD'>{{disp.serie}}</td>
+				<td style='border-bottom: 1px solid #BDBDBD'>{{disp.marca}}</td>
+				<td style='border-bottom: 1px solid #BDBDBD'>{{disp.modelo}}</td>
+				<td style='border-bottom: 1px solid #BDBDBD'>{{disp.sistema}}</td>
+				<td style='border-bottom: 1px solid #BDBDBD'>{{disp.edificio}}-{{disp.oficina}}</td>
 			</tr>
 		{% endfor %}
 		

@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('inventario', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('catalogo', '0002_auto_20150502_1533'),
+        ('catalogo', '0002_auto_20150507_0824'),
     ]
 
     operations = [
@@ -18,6 +18,7 @@ class Migration(migrations.Migration):
             name='ActividadCambio',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('descripcion', models.TextField(help_text=b'Describa los trabajos realizados')),
@@ -35,6 +36,7 @@ class Migration(migrations.Migration):
             name='ActividadIncidencia',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('descripcion', models.TextField(help_text=b'Describa los trabajos realizados')),
@@ -53,6 +55,7 @@ class Migration(migrations.Migration):
             name='Cambio',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('titulo', models.CharField(max_length=100)),
@@ -74,6 +77,7 @@ class Migration(migrations.Migration):
             name='Incidencia',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('medio_notificacion', models.CharField(default=1, max_length=30, choices=[(b'1', b'Telefono'), (b'2', b'Correo'), (b'3', b'En Persona')])),

@@ -14,9 +14,9 @@
                      // full day names
                      names: ["Lunes", "Martes", "Miercoles", "Jueves", "Donnerstag", "Freitag", "Samstag"],
                      // abbreviated day names
-                     namesAbbr: ["Sonn", "Mon", "Dien", "Mitt", "Donn", "Fre", "Sams"],
+                     namesAbbr: ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
                      // shortest day names
-                     namesShort: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"]
+                     namesShort: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"]
                  },
 
                  months: {
@@ -91,7 +91,6 @@
                  todaystring: "Hoy"
              }
             break;
-        case "en":
         default:
             localization =
             {
@@ -105,15 +104,15 @@
                     // full day names
                     names: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
                     // abbreviated day names
-                    namesAbbr: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+                    namesAbbr: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
                     // shortest day names
-                    namesShort: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
+                    namesShort: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"]
                 },
                 months: {
                     // full month names (13 months for lunar calendards -- 13th month should be "" if not lunar)
-                    names: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ""],
+                    names: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre", ""],
                     // abbreviated month names
-                    namesAbbr: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""]
+                    namesAbbr: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic", ""]
                 },
                 // AM and PM designators in one of these forms:
                 // The usual view, and the upper and lower case versions
@@ -169,8 +168,8 @@
                 currencysymbolposition: "anterior",
                 decimalseparator: '.',
                 thousandsseparator: ',',
-                pagergotopagestring: "Ir a pagina:",
-                pagershowrowsstring: "Mostrar filas:",
+                pagergotopagestring: "ir a pagina:",
+                pagershowrowsstring: "mostrar filas:",
                 pagerrangestring: " de ",
                 pagerpreviousbuttonstring: "anterior",
                 pagernextbuttonstring: "siguiente",
@@ -200,7 +199,8 @@
                 filterselectstring: "Seleccione Filtro",
                 loadtext: "Cargando...",
                 clearstring: "Limpiar",
-                todaystring: "Hoy"
+                todaystring: "Hoy",
+        
             }
             break;
     }

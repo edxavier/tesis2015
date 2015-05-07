@@ -18,6 +18,7 @@ class Migration(migrations.Migration):
             name='BoletaTrabajo',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('tipo', models.CharField(default=1, max_length=30, verbose_name=b'Tipo Trabajo', choices=[(b'1', b'Preventivo'), (b'2', b'Correctivo')])),
@@ -37,6 +38,7 @@ class Migration(migrations.Migration):
             name='Programacion',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('fecha_inicio_prevista', models.DateTimeField()),
@@ -57,6 +59,7 @@ class Migration(migrations.Migration):
             name='Rutina',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('titulo', models.CharField(max_length=100)),
@@ -76,6 +79,7 @@ class Migration(migrations.Migration):
             name='Tarea',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=100)),

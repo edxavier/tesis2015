@@ -82,12 +82,12 @@
 
 <h3 style="color:#B71C1C;">Causa Posible</h3>
 {% autoescape off %}
- 	{{incidencia.problema}}
+ 	{{incidencia.causa}}
 {% endautoescape %} 
 
 <h3 style="color:#33691E;">Acciones Empleadas</h3>
 {% autoescape off %}
- 	{{incidencia.problema}}
+ 	{{incidencia.solucion}}
 {% endautoescape %} 
 <p style="text-align:right;color:#2196F3">
 	{% if  incidencia.creador.firstname %}
@@ -98,6 +98,9 @@
 		<strong>{{incidencia.creador}}</strong>
 	{% endif %}
 </p>
+
+{% if incidencia.actividadincidencia_set.all %}
+	
 
 <h2 style="border-top: 1px solid #E0E0E0;color:#2196F3;padding:17px 0px 0px 7px">Seguimiento dado al incidente</h2>
 
@@ -127,6 +130,6 @@
 	{% endfor %}
 </div>
 
-
+{% endif %}
 
 {% endblock contenido %}

@@ -1,4 +1,38 @@
 {% extends "base.html" %}
+{% block include_statics %}
+
+
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
+ <script type="text/javascript" src="{{STATIC_URL}}js/asset/gridLocalization.js"></script>
+    
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcombobox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxpanel.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdata.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdatetimeinput.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcalendar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtooltip.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/globalization/globalize.js"></script>
+      <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxexpander.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxvalidator.js"></script>
+
+
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxmenu.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.pager.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.selection.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.filter.js"></script> 
+  <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.edit.js"></script> 
+ 
+
+{% endblock include_statics %}
 {% block titulo %}
     Planes de Mannto.
 {% endblock titulo %}
@@ -17,4 +51,133 @@
 	</a>
 </div>
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1" >
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                  <div class="ui items">
+                    <div class="item">
+                      <a class="ui small image">
+                        <img src="{{STATIC_URL}}images/mantenimiento2.png">
+                      </a>
+                      <div class="content">
+                        <a class="header" style='text-decoration:none'>Mantenimiento</a>
+                        <div class="description">
+                          <p> Todas las acciones que tienen como objetivo mantener un artículo o restaurarlo a un estado en el cual pueda llevar a cabo alguna función requerida. Estas acciones incluyen la combinación de las acciones técnicas y administrativas correspondientes.
+                           </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div id="jqxgrid"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
 {% endblock contenido %}
+
+
+{% block scripts %}
+
+<script>
+
+$(document).ready(function() {
+    /*Inicializar Combos obteniendo los datos del api rest de catalogos*/
+     var estadoSource =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'id',type: 'int'},
+                { name: 'nombre'}
+            ],
+            url: '/api/catalogo/estado_mantto/'
+        };
+        var estadoAdapter = new $.jqx.dataAdapter(estadoSource);
+
+ var source =
+            {
+                datatype: "json",
+                datafields: [
+                    { name: 'id', type: 'int' },
+                    { name: 'rutina', type: 'string' },
+                    { name: 'inicio_estimado', type: 'date' },
+                    { name: 'fin_estimado', type: 'date' },
+                    { name: 'inicio', type: 'date' },
+                    { name: 'fin', type: 'date' },
+                    { name: 'estadoCode', value: 'estado', values: { source: estadoAdapter.records, value: 'id', name: 'nombre' } },
+                    { name: 'estado' },
+                ],
+                id: 'id',
+                url: '/api/mantto/planes/'
+            };
+            var dataAdapter = new $.jqx.dataAdapter(source);
+    $("#jqxgrid").jqxGrid({
+
+                width: '100%',
+                theme:'metro', 
+                source: dataAdapter,
+                showfilterrow: true,
+                //editable:true,
+                filterable: true,
+                pageable: true,               
+                selectedrowindex: 0,
+                autoshowfiltericon: true,
+                localization: getLocalization(),
+                columns: [
+                  { text: 'Plan', datafield: 'rutina', width:"20%",editable: false },
+                  { text: 'Inicio Previsto', datafield: 'inicio_estimado',filtertype:'date',   width:"16%", cellsformat:'dd-MM-yy H:mm',},
+                  { text: 'Fin Previsto', datafield: 'fin_estimado', filtertype:'date' ,width:"16%", cellsformat:'dd-MM-yy H:mm',},
+                  { text: 'Inicio Real', datafield: 'inicio', filtertype:'date', width:"16%", cellsformat:'dd-MM-yy H:mm' },
+                  { text: 'Fin Real', datafield: 'fin', filtertype:'date', width:"16%", cellsformat:'dd-MM-yy H:mm' },
+                  { text: 'Estado', datafield: 'estado',   filtertype:'list', width:"16%"},
+              ],
+              showtoolbar: true,
+              rendertoolbar: function (statusbar) {
+                    // appends buttons to the status bar.
+                    var container = $("<div style='margin:5px;'></div>");
+                    var viewButton = $("<div class='ui  tiny blue button'> Ver detalles</div>");
+                    var listButton = $("<div class='ui tiny blue button'>Listado PDF</div>");
+                    var initButton = $("<div class='ui tiny green button'>Iniciar Mantto</div>");
+                    var finishButton = $("<div class='ui tiny orange button'>Finalizar mantto</div>");
+                   
+                    container.append(viewButton);
+                    container.append(listButton);
+                    container.append(initButton);
+                    container.append(finishButton);
+                    statusbar.append(container);
+                   
+                    // add new row.
+                    viewButton.click(function (event) {
+                      var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+                      var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
+                      var win = window.open('/inventario/dispositivos/detalle/'+id, '_blank');
+                      win.focus(); 
+                        //$("#jqxgrid").jqxGrid('addrow', null, datarow[0]);
+                    });
+                    // list selected row.
+                    listButton.click(function (event) {
+                        //$("#jqxgrid").jqxGrid('deleterow', id);
+                      var win = window.open('/inventario/dispositivos/reporte/listado/',
+                       '_blank');
+                      win.focus(); 
+                    });
+                    initButton.click(function (event) {
+                        console.log("message");                  
+                    });
+                },
+            });
+
+    
+});
+
+</script>
+
+{% endblock scripts %}

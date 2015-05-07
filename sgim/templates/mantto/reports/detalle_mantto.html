@@ -44,14 +44,17 @@
 </table>
 
     <h1 style="color:#00796B;">{{mantto.dispositivo.tipo}}</h1>
-    <h3 style="color:#B71C1C;">{{mantto.tipo}}</h3>
+    <h3 style="color:#00796B;">{{mantto.tipo}}</h3>
 
 		<table style="width:100%;">
 		
 			<tr>
 				<td colspan="3" class="titulo_mtto">
 				<strong>
-					{{mantto.orden| default:"Mantto No programado"}} {{mantto.orden.rutina}}
+					{{mantto.orden| default:"Mantto No Programado"}}
+							{% if mantto.orden %}
+								- {{mantto.orden.rutina}}								
+							{% endif %}
 				</strong>
 				</td>
 				<td colspan="3" class="titulo_mtto">{{mantto.creado}}</td>
@@ -73,10 +76,13 @@
 			    </th>			    	
 			</tr>
 			<tr>
-				{% autoescape off %}
-			    <td colspan="7" style="text-align:left">{{mantto.descripcion}}</td>
-			       	
+				
+			    <td colspan="7" style="text-align:left">
+			    {% autoescape off %}
+			    	{{mantto.descripcion}}
 				{% endautoescape %}
+			    </td>
+			       	
 			</tr>
 
 			<tr style="border-top:1px solid #BDBDBD">

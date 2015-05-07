@@ -14,6 +14,7 @@ class Migration(migrations.Migration):
             name='Cargo',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=100)),
@@ -28,6 +29,7 @@ class Migration(migrations.Migration):
             name='Edificio',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=30)),
@@ -41,6 +43,7 @@ class Migration(migrations.Migration):
             name='EstadoMantenimiento',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=30)),
@@ -54,6 +57,7 @@ class Migration(migrations.Migration):
             name='EstadoOperacional',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=30)),
@@ -67,6 +71,7 @@ class Migration(migrations.Migration):
             name='Oficina',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=30)),
@@ -80,6 +85,7 @@ class Migration(migrations.Migration):
             name='Personal',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre_completo', models.CharField(max_length=100)),
@@ -95,6 +101,7 @@ class Migration(migrations.Migration):
             name='Sistema',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=30)),
@@ -108,6 +115,7 @@ class Migration(migrations.Migration):
             name='TipoComponente',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=30)),
@@ -121,6 +129,7 @@ class Migration(migrations.Migration):
             name='TipoDispositivo',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=30)),
@@ -134,6 +143,7 @@ class Migration(migrations.Migration):
             name='TipoIncidente',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=100)),
@@ -147,6 +157,7 @@ class Migration(migrations.Migration):
             name='TipoServicio',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=30)),

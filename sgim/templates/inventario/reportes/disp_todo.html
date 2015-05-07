@@ -58,25 +58,25 @@
 			</tr>
 			<tr>
 			    <th style="text-align:right; width:30%">Marca:&nbsp; </th>
-			    <td style="text-align:left">{{dispositivo.marca}} </td>
+			    <td style="text-align:left; padding-left:5px">{{dispositivo.marca}} </td>
 			    <th style="text-align:right; width:15%">Modelo:&nbsp; </th>
-			    <td style="text-align:left">{{dispositivo.modelo}}</td>	
+			    <td style="text-align:left;padding-left:5px">{{dispositivo.modelo}}</td>	
 			    <th style="text-align:right; width:25%">Num. de Serie:&nbsp; </th>
-			    <td style="text-align:left">{{dispositivo.serie}}</td>	
+			    <td style="text-align:left;padding-left:5px">{{dispositivo.serie}}</td>	
 			</tr>
 			<tr>			    
 			    <th style="text-align:right;">Num. de Inventario:&nbsp; </th>
-			    <td style="text-align:left">{{dispositivo.inventario}}</td>		
+			    <td style="text-align:left;padding-left:5px">{{dispositivo.inventario}}</td>		
 			    <th style="text-align:right;%">Estado:&nbsp; </th>
-			    <td style="text-align:left">{{dispositivo.estado}}</td>	
+			    <td style="text-align:left;padding-left:5px">{{dispositivo.estado}}</td>	
 			    <th style="text-align:right;%">Sistema:&nbsp; </th>
-			    <td style="text-align:left">{{dispositivo.sistema}}</td>	
+			    <td style="text-align:left;padding-left:5px">{{dispositivo.sistema}}</td>	
 			</tr>
 			<tr>			    
 			    <th style="text-align:right;" >Ubicacion:&nbsp; </th>
-			    <td style="text-align:left" colspan="2">{{dispositivo.edificio}} / {{dispositivo.oficina}}</td>
+			    <td style="text-align:left;padding-left:5px" colspan="2">{{dispositivo.edificio}} / {{dispositivo.oficina}}</td>
 			    <th style="text-align:right;" >Instalado:&nbsp; </th>
-			    <td style="text-align:left" colspan="2">
+			    <td style="text-align:left;padding-left:5px" colspan="2">
 			    	{{dispositivo.instalacion | date:"d \d\e N \d\e Y" }} <br>
 			    	( hace {{dispositivo.instalacion | timesince}} )
 			    </td>		
@@ -173,7 +173,10 @@
 			<tr>
 				<td colspan="3" class="titulo_mtto">
 				<strong>
-					{{mantto.orden| default:"Mantto No programado"}} {{mantto.orden.rutina}}
+					{{mantto.orden| default:"Mantto No Programado"}}
+							{% if mantto.orden %}
+								- {{mantto.orden.rutina}}								
+							{% endif %}
 				</strong>	
 				</td>
 				<td colspan="3" class="titulo_mtto">{{mantto.creado}}</td>

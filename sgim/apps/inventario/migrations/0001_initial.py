@@ -17,6 +17,7 @@ class Migration(migrations.Migration):
             name='Componente',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('marca', models.CharField(max_length=30)),
@@ -35,6 +36,7 @@ class Migration(migrations.Migration):
             name='Dispositivo',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('marca', models.CharField(max_length=30)),
@@ -58,6 +60,7 @@ class Migration(migrations.Migration):
             name='Servicio',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(unique=True, max_length=50)),
@@ -74,6 +77,7 @@ class Migration(migrations.Migration):
             name='SubSistema',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(unique=True, max_length=50)),
