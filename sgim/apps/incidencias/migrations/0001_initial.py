@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('inventario', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('catalogo', '0002_auto_20150507_0824'),
+        ('catalogo', '0002_auto_20150507_2104'),
     ]
 
     operations = [

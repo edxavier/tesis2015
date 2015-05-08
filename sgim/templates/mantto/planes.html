@@ -170,7 +170,22 @@ $(document).ready(function() {
                       win.focus(); 
                     });
                     initButton.click(function (event) {
-                        console.log("message");                  
+
+                        $.ajax({
+                          url: '/api/mantto/planes/',
+                          type: 'PUT',
+                          dataType: 'json',
+                          data: {id: 1, activo:false},
+                        })
+                        .done(function() {
+                          console.log("success");
+                        })
+                        .fail(function(err) {
+                          console.log("error");
+                          console.log(err)
+                        })
+
+
                     });
                 },
             });
