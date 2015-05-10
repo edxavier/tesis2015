@@ -2,11 +2,13 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
@@ -19,6 +21,7 @@ class Migration(migrations.Migration):
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=100)),
                 ('empresa', models.CharField(max_length=15)),
+                ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'abstract': False,
@@ -33,6 +36,7 @@ class Migration(migrations.Migration):
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=30)),
+                ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'abstract': False,
@@ -47,6 +51,7 @@ class Migration(migrations.Migration):
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=30)),
+                ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'abstract': False,
@@ -61,6 +66,7 @@ class Migration(migrations.Migration):
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=30)),
+                ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'abstract': False,
@@ -75,6 +81,8 @@ class Migration(migrations.Migration):
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=30)),
+                ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('edificio', models.ForeignKey(to='catalogo.Edificio')),
             ],
             options={
                 'abstract': False,
@@ -91,6 +99,8 @@ class Migration(migrations.Migration):
                 ('nombre_completo', models.CharField(max_length=100)),
                 ('telefono', models.CharField(max_length=15, blank=True)),
                 ('correo', models.CharField(max_length=15, blank=True)),
+                ('cargo', models.ForeignKey(to='catalogo.Cargo')),
+                ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'abstract': False,
@@ -105,6 +115,7 @@ class Migration(migrations.Migration):
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=30)),
+                ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'abstract': False,
@@ -119,6 +130,7 @@ class Migration(migrations.Migration):
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=30)),
+                ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'abstract': False,
@@ -133,6 +145,7 @@ class Migration(migrations.Migration):
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=30)),
+                ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'abstract': False,
@@ -147,6 +160,7 @@ class Migration(migrations.Migration):
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=100)),
+                ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'abstract': False,
@@ -161,6 +175,7 @@ class Migration(migrations.Migration):
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=30)),
+                ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'abstract': False,

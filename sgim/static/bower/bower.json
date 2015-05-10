@@ -25,6 +25,7 @@
     "jqwidgets": "*",
     "jquery-cookie": "~1.4.1",
     "snackbarjs": "~1.0.0",
-    "ckeditor": "~4.4.7"
+    "ckeditor": "~4.4.7",
+    "moment": "~2.10.2"
   }
 }

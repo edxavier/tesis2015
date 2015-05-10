@@ -91,9 +91,14 @@ class Programacion(MarcaDeTiempo, models.Model):
     def get_FIP(self):
         return self.fecha_inicio_prevista.strftime('%d-%m-%y %H:%M')
 
+    def get_IReal(self):
+        return self.inicio.strftime('%d-%m-%y %H:%M')
+
     def get_FFP(self):
         return self.fecha_fin_prevista.strftime('%d-%m-%y %H:%M')
 
+    def get_FReal(self):
+            return self.fin.strftime('%d-%m-%y %H:%M')
 
 class BoletaTrabajo(MarcaDeTiempo, models.Model):
     TIPO_MANTTO = (

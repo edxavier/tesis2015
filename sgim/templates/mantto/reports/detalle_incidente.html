@@ -1,0 +1,132 @@
+{% extends "report_base.html" %}
+
+{% block contenido %}
+<style>
+	.titulo_inc{
+		background-color:#FFEB3B;
+		border: none;
+	}
+	.titulo_mtto{
+		background-color:#607D8B;
+		border: none;
+		color: white
+	}
+	.sub_titulo_mtto{
+		background-color:#90A4AE;
+		border: none;
+		color: white
+	}
+	
+	.sub_titulo_inc{
+		background-color:#FFF176;
+		border: none;
+	}
+	.sub_titulo_inc2{
+		background-color:#FFF9C4;
+		border: none;
+	}
+	.sub_titulo_mtto2{
+		background-color:#CFD8DC;
+		border: none;
+		color: #424242
+	}
+</style>
+    
+<table style="font-family: roboto; border-bottom: 1px solid #004D40; color:#004D40">
+	<tr style='font-size:21px'>
+		<th style="width:65% ; text-align:left">
+			<h1>INCIDENCIA  N&deg;{{incidencia.id}}</h1>
+		</th>
+		<th style="width:35%; text-align:right">
+			<h1>{{incidencia.dispositivo}}</h1>
+		</th>
+	</tr>
+</table>
+
+    <h1 style="color:#00796B;">{{incidencia.dispositivo.tipo}}</h1>
+    <h3 style="color:#B71C1C;">{{incidencia.tipo}}</h3>
+
+    <table style="width:100%;">
+			<tr>
+				<td colspan="4" class="titulo_inc">{{incidencia.creado}}</td>
+				<td colspan="3" class="titulo_inc">{{incidencia.estado}}</td>
+			</tr>		
+			<tr>
+			    <th class="sub_titulo_inc">Reporto</th>
+			    <th class="sub_titulo_inc">Medio</th>
+			    <th class="sub_titulo_inc">Urgencia</th>
+			    <th class="sub_titulo_inc">Severidad</th>	
+			    <th class="sub_titulo_inc">Relacion</th>
+			    <th class="sub_titulo_inc">Paro de Equipo</th>	
+			    <th class="sub_titulo_inc">Duracion de Paro</th>	
+			</tr>
+			<tr>
+			    <td style='background-color:#F5F5F5'> {{incidencia.reporta}} </td>
+			    <td style='background-color:#F5F5F5'>{{incidencia.medio_notificacion}}</td>
+			    <td style='background-color:#F5F5F5'>{{incidencia.urgencia}}</td>
+			    <td style='background-color:#F5F5F5'>{{incidencia.severidad}}</td>	
+			    <td style='background-color:#F5F5F5'>{{incidencia.relacion|default:"Ninguna"}}</td>
+			    <td style='background-color:#F5F5F5'>{{incidencia.paro_equipo|yesno:"Si,No"}}</td>	
+			    <td style='background-color:#F5F5F5'>{{incidencia.duracion_paro}} min</td>	
+			</tr>
+
+			<tr style="border-top:1px solid #BDBDBD">
+				<td  colspan="7"></td>
+			</tr>	
+		</table>
+
+<h3 style="color:#B71C1C;">Problema reportado</h3>
+{% autoescape off %}
+ 	{{incidencia.problema}}
+{% endautoescape %} 
+
+<h3 style="color:#B71C1C;">Causa Posible</h3>
+{% autoescape off %}
+ 	{{incidencia.problema}}
+{% endautoescape %} 
+
+<h3 style="color:#33691E;">Acciones Empleadas</h3>
+{% autoescape off %}
+ 	{{incidencia.problema}}
+{% endautoescape %} 
+<p style="text-align:right;color:#2196F3">
+	{% if  incidencia.creador.firstname %}
+		<strong>
+			<i>	<< {{incidencia.creador.firstname}} {{incidencia.creador.lastname}} >> </i>  
+		</strong>
+	{% else %}
+		<strong>{{incidencia.creador}}</strong>
+	{% endif %}
+</p>
+
+<h2 style="border-top: 1px solid #E0E0E0;color:#2196F3;padding:17px 0px 0px 7px">Seguimiento dado al incidente</h2>
+
+<div style="margin-left:30px">
+	{% for seg in incidencia.actividadincidencia_set.all %}
+		<h5>Descripcion</h5>
+		{% autoescape off %}
+			{{seg.descripcion}}
+		{% endautoescape %} 
+
+		{% if seg.paro_equipo %}
+			<p>Se detuvo el equipo por {{seg.duracion_paro}} minutos</p>
+		{% endif %}
+
+		<i>Esta actividad tuvo lugar entre {{seg.inicio_actividad}} - {{seg.fin_actividad}}</i> 
+
+		<p style="text-align:right;color:#2196F3">
+				{% if  incidencia.creador.firstname %}
+					<strong>
+						<i>	<< {{seg.creador.firstname}} {{seg.creador.lastname}} >> </i>  
+					</strong>
+				{% else %}
+					<strong>{{seg.creador}}</strong>
+				{% endif %}
+		</p>
+		<p style='border-top:1px solid #E0E0E0'>&nbsp;</p>
+	{% endfor %}
+</div>
+
+
+
+{% endblock contenido %}
