@@ -17,7 +17,10 @@ urlpatterns = patterns('',
                         url(r'^rutinas/listar/$', login_required(Rutinas.as_view()), name='rutinas_list'),
                         url(r'^planes/listar/$', login_required(Planes.as_view()), name='planes_list'),
                         url(r'^boletas/listar/$', login_required(Boletas.as_view()), name='boletas_list'),
+
                         url(r'^boletas/reportes/detalle/(\d+)/$', login_required(Mantto_Detalle.as_view()),name='report_mantto_detalle'),
+                        url(r'^planes/reportes/detalle/(\d+)/$', login_required(Plan_Detalle.as_view()),name='report_plan_detalle'),
+                        url(r'^planes/reportes/listado/$', login_required(Planes_Listado.as_view()),name='report_plan_list'),
 
 
                        )

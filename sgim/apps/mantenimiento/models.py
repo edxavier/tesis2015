@@ -67,7 +67,7 @@ class Programacion(MarcaDeTiempo, models.Model):
     fecha_fin_prevista = models.DateTimeField(blank=True, null=True, )
     inicio = models.DateTimeField(blank=True, null=True, )
     fin = models.DateTimeField(blank=True, null=True, )
-    personal = models.ManyToManyField(Personal)
+    personal = models.ManyToManyField(Personal, related_name="personal_set")
     responsable = models.ForeignKey(Personal, related_name="personal_set2")
     estado = models.ForeignKey(EstadoMantenimiento)
 
@@ -103,6 +103,8 @@ class Programacion(MarcaDeTiempo, models.Model):
 
     def get_FReal(self):
             return self.fin.strftime('%d-%m-%y %H:%M')
+
+
 
 class BoletaTrabajo(MarcaDeTiempo, models.Model):
     TIPO_MANTTO = (

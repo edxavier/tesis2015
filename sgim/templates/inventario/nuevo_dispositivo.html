@@ -274,12 +274,12 @@ $(document).ready(function() {
                         url: '/api/catalogo/oficina/?edificio='+value
                     };
                 var oficinaAdapter = new $.jqx.dataAdapter(oficinaSource);
-                $("#oficina").jqxComboBox({source: oficinaAdapter});
+                $("#oficina").jqxComboBox({source: oficinaAdapter, disabled: false});
 
             }
         }); 
 
-     $("#oficina").jqxComboBox({ theme:'metro', promptText: "Seleccione la oficina...", displayMember: 'text', valueMember: 'id'});
+     $("#oficina").jqxComboBox({ theme:'metro', promptText: "Seleccione la oficina...", displayMember: 'text', valueMember: 'id',disabled: true});
 
 var sistemaSource =
         {

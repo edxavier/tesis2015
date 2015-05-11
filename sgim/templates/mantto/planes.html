@@ -84,13 +84,42 @@
     </div>
 </div>
 
-<div class="ui dimmer">
+
+{% comment %}
+  Segmento html oculto para mensajes y menu
+{% endcomment %}
+<div class="ui dimmer cargando">
     <div class="ui large text loader">
       Espere por favor...
     </div>
 </div>
+
+
+<div class="ui modal finalizar">
+    <i class="close icon"></i>
+    <div class="header">
+      <i class="ion-ios-calendar icon"></i>  Finalizar Mantenimiento 
+    </div>
+    <div class="content">
+        <div class="description">
+          <h5>Esta seguro de dar por terminado el mantenimiento seleccionado?</h5>
+          No se podran asociar mas boletas de trabajo al mantenimiento correspondiente
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui positive left icon button">
+            Si, Teminar 
+            <i class="checkmark icon"></i>
+        </div>
+        <div class="ui black button">
+            No, Cancelar            
+            <i class="ion-close-round icon"></i>
+        </div>
+    </div>
+</div>
+
 {% if user.is_staff %}
-  <div id='Menu'>
+  <div id='Menu' class='hidden'>
         <ul>
             <li id='menu1'>Cancelar Mantenimiento</li>
         </ul>
@@ -106,7 +135,10 @@
 
 $(document).ready(function() {
     /*Inicializar Combos obteniendo los datos del api rest de catalogos*/
-     var estadoSource =
+$('#Menu').removeClass('hidden')
+
+ 
+  var estadoSource =
         {
             dataType: "json",
             dataFields: [
@@ -117,7 +149,7 @@ $(document).ready(function() {
         };
         var estadoAdapter = new $.jqx.dataAdapter(estadoSource);
 
- var source =
+  var source =
             {
                 datatype: "json",
                 datafields: [
@@ -133,17 +165,17 @@ $(document).ready(function() {
                 id: 'id',
                 url: '/api/mantto/planes/',              
             };
-      var dataAdapter = new $.jqx.dataAdapter(source);
+  var dataAdapter = new $.jqx.dataAdapter(source);
 
-      function dateRender(row, columnfield, value, defaulthtml, columnproperties){
+  function dateRender(row, columnfield, value, defaulthtml, columnproperties){
         var data = $('#jqxgrid').jqxGrid('getrowdata', row);
         if(value){
           div = "<div style='padding:5px;'>"
           return div + moment(value).format("DD-MM-YYYY HH:mm")+"</div>";
         }
-      }
+  }
 
-      $("#jqxgrid").jqxGrid({
+  $("#jqxgrid").jqxGrid({
 
                 width: '100%',
                 theme:'metro', 
@@ -162,18 +194,16 @@ $(document).ready(function() {
                   },
                   { text: 'Fin Real', datafield: 'fin', filtertype:'date', width:"16%", cellsformat:'dd-MM-yy H:mm', cellsrenderer: dateRender},
                   { text: 'Estado', datafield: 'estado_string',   filtertype:'list', width:"16%"},
-              ],
-              showtoolbar: true,
-
-              rendertoolbar: function (statusbar) {
+        ],
+        showtoolbar: true,
+        rendertoolbar: function (statusbar) {
                     // appends buttons to the status bar.
                     var container = $("<div style='margin:5px;'></div>");
-                    var viewButton = $("<div class='ui  tiny blue button'> Ver detalles</div>");
+                    var viewButton = $("<div class='ui  tiny teal button'> Detalles PDF</div>");
                     var listButton = $("<div class='ui tiny blue button'>Listado PDF</div>");
                     var initButton = $("<div class='ui tiny green disabled button iniciar'>Iniciar Mantto</div>");
                     var finishButton = $("<div class='ui tiny orange disabled button terminar'>Finalizar mantto</div>");
 
-                   
                     container.append(viewButton);
                     container.append(listButton);
                     container.append(initButton);
@@ -184,12 +214,16 @@ $(document).ready(function() {
                     viewButton.click(function (event) {
                       var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
                       var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
-                      var win = window.open('/inventario/dispositivos/detalle/'+id, '_blank');
-                      win.focus(); 
+                      if(id!=null){
+                        var win = window.open('/mantto/planes/reportes/detalle/'+id, '_blank');
+                        win.focus(); 
+                      }else{
+                        $.snackbar({content: "<i class='ion-happy yellow icon'></i> Seleccione una fila por favor! ",timeout: 4000});
+                      }
                     });
                     // list selected row.
                     listButton.click(function (event) {
-                      var win = window.open('/inventario/dispositivos/reporte/listado/',
+                      var win = window.open('/mantto/planes/reportes/listado/',
                        '_blank');
                       win.focus(); 
                     });
@@ -197,8 +231,7 @@ $(document).ready(function() {
                       var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
                       var row_id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
                       var hoy = moment().format("YYYY-MM-DD HH:mm");
-                      $('.dimmer').toggleClass('active');
-                      
+                      $('.cargando').toggleClass('active');                      
                       $.ajax({
                           url: '/api/mantto/planes/'+row_id,
                           type: 'PUT',
@@ -209,7 +242,7 @@ $(document).ready(function() {
                           },
                         })
                         .done(function(data) {
-                          $('.dimmer').toggleClass('active');
+                          $('.cargando').toggleClass('active');
                           $('.terminar').removeClass('disabled')
                           $('.iniciar').addClass('disabled');
                           $('#jqxgrid').jqxGrid('updaterow', row_id, data);
@@ -218,71 +251,78 @@ $(document).ready(function() {
                         })
                         .fail(function(err) {
                           if(err.status=== 403){
-                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error: "+ err.responseJSON.detail });
+                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error: "+ err.responseJSON.detail ,timeout: 4000});
                           }else{
                             $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ err.status + ": "+err.statusText});
                           }
                           console.log(err)
-                          $('.dimmer').toggleClass('active');
+                          $('.cargando').toggleClass('active');
                         })
                     });
                     finishButton.click(function (event) {
-                      var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
-                      var row_id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
-                      var hoy = moment().format("YYYY-MM-DD HH:mm");
-                      $('.dimmer').toggleClass('active');
-                      
-                      $.ajax({
-                          url: '/api/mantto/planes/'+row_id,
-                          type: 'PUT',
-                          dataType: 'json',
-                          data: { 
-                            estado:4,
-                            fin: hoy
-                          },
-                        })
-                        .done(function(data) {
-                          $('.dimmer').toggleClass('active');
+                      $('.ui.modal').modal('show')                    
+                    });
+            },
+        });
+
+
+$('.ui.modal.finalizar').modal({
+    closable:false,
+    onApprove : function() {
+          var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+          var row_id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
+          var hoy = moment().format("YYYY-MM-DD HH:mm");
+          $('.cargando').addClass('active');
+          $.ajax({
+              url: '/api/mantto/planes/'+row_id,
+              type: 'PUT',
+              dataType: 'json',
+              data: { 
+                estado:4,
+                fin: hoy
+              },
+          })
+          .done(function(data) {
+                          $('.cargando').removeClass('active');
                           $('.terminar').addClass('disabled')
                           $('.iniciar').addClass('disabled');
                           $('#jqxgrid').jqxGrid('updaterow', row_id, data);
-                          $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> El perdiodo para el Mantto. seleccionado fue finalizado!"});
-                        })
-                        .fail(function(err) {
+                          $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> El periodo para el Mantto. seleccionado fue finalizado!"});
+          })
+          .fail(function(err) {
                           if(err.status=== 403){
-                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error: "+ err.responseJSON.detail });
+                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error: "+ err.responseJSON.detail ,timeout: 6000});
+                          }else if(err.status=== 400){
+                              $.snackbar({content: "<i class='ion-android-warning yellow icon'></i> Error: "+ err.responseJSON.non_field_errors[0] ,timeout: 8000});
                           }else{
                             $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ err.status + ": "+err.statusText});
                           }
-                          $('.dimmer').toggleClass('active');
+                          $('.cargando').removeClass('active');
                           console.log(err)
-
-                        })
-                    });
-
-                },
-        });
-
-$('#jqxgrid').on('rowselect', function (event) 
-{
-
-    var args = event.args;
-    var rowBoundIndex = args.rowindex;
-    var rowData = args.row;
-    if(rowData.estado===2){
-      $('.iniciar').addClass('disabled')
-      $('.terminar').removeClass('disabled')
+          })
     }
-    else if(rowData.estado===4 || rowData.estado===5){
-      $('.iniciar, .terminar').addClass('disabled')
-    }
-    else{
-      $('.iniciar').removeClass('disabled')
-      $('.terminar').addClass('disabled')
-    }
-});
+ })   
 
+try{
 
+  $('#jqxgrid').on('rowselect', function (event) 
+  {
+
+      var args = event.args;
+      var rowBoundIndex = args.rowindex;
+      var rowData = args.row;
+      if(rowData.estado===2){
+        $('.iniciar').addClass('disabled')
+        $('.terminar').removeClass('disabled')
+      }
+      else if(rowData.estado===4 || rowData.estado===5){
+        $('.iniciar, .terminar').addClass('disabled')
+      }
+      else{
+        $('.iniciar').removeClass('disabled')
+        $('.terminar').addClass('disabled')
+      }
+  });
    // create context menu
       var contextMenu = $("#Menu").jqxMenu({ width: 200, autoOpenPopup: false, mode: 'popup'});
   //evitar el menu contextual del navegador
@@ -296,7 +336,7 @@ $('#jqxgrid').on('rowselect', function (event)
                  // menu_id = $(args).attr('id')
               var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
               var row_id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
-              $('.dimmer').toggleClass('active');
+              $('.cargando').toggleClass('active');
                       
               $.ajax({
                           url: '/api/mantto/planes/'+row_id,
@@ -307,19 +347,19 @@ $('#jqxgrid').on('rowselect', function (event)
                           },
               })
               .done(function(data) {
-                          $('.dimmer').toggleClass('active');
+                          $('.cargando').toggleClass('active');
                           $('.terminar').addClass('disabled')
                           $('.iniciar').addClass('disabled');
                           $('#jqxgrid').jqxGrid('updaterow', row_id, data);
-                          $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> El perdiodo para el Mantto. seleccionado fue cancelado!"});
+                          $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> El periodo para el Mantto. seleccionado fue cancelado!"});
               })
               .fail(function(err) {
                           if(err.status=== 403){
-                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error: "+ err.responseJSON.detail });
+                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error: "+ err.responseJSON.detail,timeout: 4000 });
                           }else{
                             $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ err.status + ": "+err.statusText});
                           }
-                          $('.dimmer').toggleClass('active');
+                          $('.cargando').toggleClass('active');
               })
       });
       $("#jqxgrid").on('rowclick', function (event) {
@@ -337,7 +377,12 @@ $('#jqxgrid').on('rowselect', function (event)
         }
 
       });
-    
+
+}catch(err) {
+   console.log( err.message)
+}
+ 
+
 });
 
 </script>

@@ -1,0 +1,136 @@
+{% extends "report_base.html" %}
+{% block contenido %}
+<style>
+
+	.titulo_mtto{
+		background-color:#607D8B;
+		border: none;
+		color: white
+	}
+	.sub_titulo_mtto{
+		background-color:#90A4AE;
+		border: none;
+		color: white
+	}	
+
+	.sub_titulo_mtto2{
+		background-color:#CFD8DC;
+		border: none;
+		color: #424242
+	}
+</style>
+    
+<table style="font-family: roboto; border-bottom: 1px solid #004D40; color:#004D40">
+	<tr style='font-size:18px'>
+		<th style="width:65% ; text-align:left">
+			<h1>{{plan.rutina.titulo}}</h1>
+		</th>
+		<th style="width:35%; text-align:right">
+			<h1>{{plan.inicio|date:"d \d\e F Y"}}</h1>
+		</th>
+	</tr>
+</table>
+<br>
+
+    
+    <h3 style="color:#00796B;">
+    	Inicio Previsto: {{plan.fecha_inicio_prevista|date:"d M Y"}} 
+    </h3>
+    <h3 style="color:#00796B;">
+    	Fin Previsto: {{plan.fecha_inicio_prevista|date:"d M Y"}} 
+    </h3>
+
+		<table style="width:100%;">
+		
+			<tr>
+				<td colspan="3" class="titulo_mtto">
+					Inicio Real: {{plan.inicio}}  				
+				</td>
+				<td colspan="3" class="titulo_mtto">Fin Real: {{plan.fin}}</td>
+				<td colspan="1" class="titulo_mtto">{{plan.estado}}</td>
+			</tr>		
+			<tr>
+				<th class="sub_titulo_mtto" colspan="2">Sistema</th>
+			    <th class="sub_titulo_mtto" colspan="2">Responsable</th>	
+			    <th class="sub_titulo_mtto" colspan="3" style='text-align:left' >
+			    	Personal involucrado
+			    </th>
+			</tr>
+			<tr>
+				<td colspan="2" >{{plan.rutina.sistema}}</td>	
+				<td colspan="2" >{{plan.responsable}}</td>	
+			    <td colspan="3" style='text-align:left'>
+			    	<ol>
+			    	{% for persona in  personas %}
+			    		<li>{{persona}}</li>
+			    	{% endfor %}
+			    	</ol>
+			    </td>	
+			</tr>
+			<tr>
+			    <th class="sub_titulo_mtto2" colspan="7" style="text-align:left">
+			    	Entradas de trabajo
+			    </th>			    	
+			</tr>
+			<tr >				
+			    <th style="background-color:#EEEEEE" >
+			    	Dispositivo
+			    </th>
+			    <th style="background-color:#EEEEEE">
+			    	 Estado Dispositivo
+			    </th>	
+			    <th style="background-color:#EEEEEE">
+			    	 Paro Operacion
+			    </th>
+ 				<th style="background-color:#EEEEEE">
+			    	 Tiempo de Paro
+			    </th>
+
+			    <th style="background-color:#EEEEEE">
+			    	Tipo Mantto
+			    </th>
+			    <th style="background-color:#EEEEEE">
+			    	Tecnico
+			    </th>
+			    <th style="background-color:#EEEEEE" >
+			    	Fecha
+			    </th>					   
+			</tr>
+	    {% for boleta in plan.boletatrabajo_set.all %}
+			<tr>				
+			    <td>
+			    	 {{boleta.dispositivo}}
+			    </td>
+			    <td>
+			    	 {{boleta.estado_final}}
+			    </td>	
+			    <td>
+			    	 {{boleta.paro_operacion|yesno:"Si,No"}}
+			    </td>
+ 				<td>
+			    	 {{boleta.tiempo_paro}}
+			    </td>	
+			    <td>
+			    	 {{boleta.tipo}}
+			    </td>
+			    <td >
+			    	{% if  boleta.creador.firstname %}
+						<i>{{boleta.creador.firstname}} {{boleta.creador.lastname}} </i>  
+					{% else %}
+						{{boleta.creador}}
+					{% endif %}
+			    </td>	
+			    <td >
+			    	 {{boleta.creado|date:"d-M-Y"}}
+			    </td>			   
+			</tr>
+ 		{% endfor %}
+			<tr style="border-top:1px solid #BDBDBD">
+				<td  colspan="7"></td>
+			</tr>
+
+		
+		</table>
+
+
+{% endblock contenido %}

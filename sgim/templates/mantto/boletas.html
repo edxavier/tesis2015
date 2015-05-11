@@ -1,8 +1,39 @@
 {% extends "base.html" %}
-{% block titulo %}
-    Boletas/Ticket de Mantto.
-{% endblock titulo %}
 
+{% block include_statics %}
+
+
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
+ <script type="text/javascript" src="{{STATIC_URL}}js/asset/gridLocalization.js"></script>
+    
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcombobox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxpanel.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdata.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdatetimeinput.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcalendar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtooltip.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/globalization/globalize.js"></script>
+      <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxexpander.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxvalidator.js"></script>
+
+
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxmenu.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.pager.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.selection.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.filter.js"></script> 
+
+ 
+
+{% endblock include_statics %}
 
 {% block contenido %}
 <div class="ui purple menu">
@@ -12,19 +43,108 @@
 	<a class="active item" href="{% url 'boletas_list' %}">
 		<i class="icon ion-settings"></i>  Boletas.
 	</a>
-	<a class="item" href="{% url 'boleta_add' %}">
+	<a class=" item" href="{% url 'boleta_add' %}">
 		<i class=" add icon"></i> Nueva Boleta.
 	</a>
 </div>
 
-{% for boleta in boletas  %}
-	{{boleta.dispositivo}} <br>
-	{{boleta.tipo}} <br>
-	{{boleta.estado_final}} <br>
-	{% autoescape off %}
-	{{boleta.descripcion}} <br>		
-	{% endautoescape %}
-	--------------------------- <br>
-{% endfor %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-7" >
+            <div id="jqxgrid"></div>
+        </div>
+        <div class="col-md-5" >
+            sdfdsfsd
+        </div>
+    </div>
+</div>
+
 
 {% endblock contenido %}
+
+
+{% block scripts %}
+
+<script>
+
+$(document).ready(function() {
+    /*Inicializar Combos obteniendo los datos del api rest de catalogos*/
+ var source =
+            {
+                datatype: "json",
+                datafields: [
+                    { name: 'id', type: 'int' },
+                    { name: 'descripcion', type: 'string' },
+                    { name: 'creado', type: 'date' },
+                    { name: 'orden', type: 'string' },
+                    { name: 'creador', type: 'string' },
+                    { name: 'dispositivo', type: 'string' },
+                    { name: 'serie', type: 'string' },
+                    { name: 'estado_final', type: 'string' },
+                    { name: 'paro_operacion',}
+                   
+                ],
+                id: 'id',
+                url: '/api/mantto/trabajos/'
+            };
+            var dataAdapter = new $.jqx.dataAdapter(source);
+    $("#jqxgrid").jqxGrid({
+
+                width: '100%',
+                theme:'metro', 
+                source: dataAdapter,
+                showfilterrow: true,
+                filterable: true,
+                pageable: true,
+                autoshowfiltericon: true,
+                localization: getLocalization(),
+                columns: [
+                  { text: 'Orden', datafield: 'orden', width:'60px'},
+                  { text: 'Dispositivo', datafield: 'dispositivo', width:'15%'},
+                  { text: 'Serie', datafield: 'serie' , width:'15%'},
+                  { text: 'Estado', datafield: 'estado_final', width:'15%'},
+                  { text: 'Usuario', datafield: 'creador', width:'10%'},
+                  { text: 'creado', datafield: 'creado', cellsformat:'dd-MMM-yy' , filtertype:'date' },
+
+              ],
+              showtoolbar: true,
+              rendertoolbar: function (statusbar) {
+                    // appends buttons to the status bar.
+                    var container = $("<div style='margin:5px;'></div>");
+                    var viewButton = $("<div class='ui  tiny blue button'> Ver detalles</div>");
+                   
+                    container.append(viewButton);
+                   // statusbar.append(container);
+                   
+                    // add new row.
+                    viewButton.click(function (event) {
+                      var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+                      var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
+                      var win = window.open('/inventario/dispositivos/detalle/'+id, '_blank');
+                      win.focus(); 
+                        //$("#jqxgrid").jqxGrid('addrow', null, datarow[0]);
+                    });
+
+                },
+            });
+
+  $('#jqxgrid').on('rowselect', function (event) 
+  {
+
+      var args = event.args;
+      var rowBoundIndex = args.rowindex;
+      var rowData = args.row;
+      console.log(rowData.dispositivo)
+  });
+
+    
+});
+
+</script>
+
+
+
+
+
+	
+{% endblock scripts %}

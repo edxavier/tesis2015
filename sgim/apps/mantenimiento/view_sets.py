@@ -10,7 +10,7 @@ from .serializers import *
 from .models import Tarea, Rutina, Programacion
 
 
-class PermsCancelarMantto(BasePermission):
+class PermsPlanMantto(BasePermission):
     def has_permission(self, request, view):
         if request.method == "GET":
             return True
@@ -33,21 +33,17 @@ class RutinaViewSet(viewsets.ModelViewSet):
     queryset = Rutina.objects.all()
     serializer_class = RutinaSerializer
 
-"""
-class PlanViewSet(viewsets.ModelViewSet):
 
-    queryset = Programacion.objects.all()
-    serializer_class = PlanSerializer
-    filter_fields = ('estado',)
+class BoletaViewSet(viewsets.ModelViewSet):
 
-"""
-
+    queryset = BoletaTrabajo.objects.all()
+    serializer_class = BoletaSerializer
 
 class PlanViewSet(DjangoModelPermissions, UpdateModelMixin, RetrieveModelMixin, viewsets.GenericViewSet):
     queryset = Programacion.objects.all()
     serializer_class = PlanSerializer
-    filter_fields = ('estado',)
-    permission_classes = (PermsCancelarMantto, BasePermission)
+    filter_fields = ('estado', 'rutina__sistema')
+    permission_classes = (PermsPlanMantto, )
 
 
     def list(self, request, *args, **kwargs):

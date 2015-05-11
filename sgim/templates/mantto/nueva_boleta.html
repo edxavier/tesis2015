@@ -180,6 +180,7 @@
 <script>
 $(document).ready(function() {
 	$("#id_tipo").addClass('form-control')
+
 	function get_selected_items(){
     items = $("#personal").jqxComboBox('getSelectedItems'); 
     selection = new Array()
@@ -187,7 +188,7 @@ $(document).ready(function() {
                         selection.push(this.value)
                     });
     return selection  
-}
+  }
 
   var dispositivoSource =
         {
@@ -195,7 +196,8 @@ $(document).ready(function() {
             dataFields: [
                 { name: 'id'},
                 { name:'posicion_logica'},
-                { name:'serie'}
+                { name:'serie'},
+                { name:'sistema_id'}
             ],
             url: '/api/inventario/dispositivos/'
         };
@@ -203,18 +205,34 @@ $(document).ready(function() {
 
      $("#dispositivo").jqxComboBox({ theme:'metro', promptText: "Selecciona el dispositivo...",  source: dispositivoAdap, displayMember: 'posicion_logica', valueMember: 'id'});
 	
-	var planSource =
-        {
-            dataType: "json",
-            dataFields: [
-                { name: 'id'},
-                { name:'plan_programado'},
-            ],
-            url: '/api/mantto/planes/?estado=2'
-        };
-        var PlanAdap = new $.jqx.dataAdapter(planSource);
 
-     $("#plan").jqxComboBox({ theme:'metro', promptText: "Selecciona plan de mantto correspondiente...",  source: PlanAdap, displayMember: 'plan_programado', 
+    $('#dispositivo').on('select', function (event) 
+        {
+            var args = event.args;
+            if (args) {
+                var item = args.item;
+                // get item's label and value.
+                var value = item.value;
+                var sist = item.originalItem.sistema_id
+                var planSource =
+                    {
+                          dataType: "json",
+                          dataFields: [
+                              { name: 'id'},
+                              { name:'plan_programado'},
+                          ],
+                          url: '/api/mantto/planes/?estado=2&rutina__sistema='+ sist
+                    };
+                    
+                var PlanAdap = new $.jqx.dataAdapter(planSource);
+                $("#plan").jqxComboBox({source: PlanAdap, disabled: false});
+
+
+            }
+        }); 
+
+
+     $("#plan").jqxComboBox({ theme:'metro', promptText: "Selecciona plan de mantto correspondiente...(opcional)",  displayMember: 'plan_programado', disabled: true,
      	valueMember: 'id', width:"100%"});
 	
 	var estadoSource =

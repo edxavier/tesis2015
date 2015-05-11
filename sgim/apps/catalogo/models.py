@@ -11,7 +11,7 @@ class TipoDispositivo(MarcaDeTiempo):
 
 
 class Sistema(MarcaDeTiempo):
-    nombre = models.CharField(max_length=30)
+    nombre = models.CharField(max_length=30, unique=True)
 
     def __unicode__(self):
         return self.nombre
