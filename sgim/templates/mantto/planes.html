@@ -214,9 +214,15 @@ $(document).ready(function() {
                           $('.iniciar').addClass('disabled');
                           $('#jqxgrid').jqxGrid('updaterow', row_id, data);
                           $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> El perdiodo para el Mantto. seleccionado fue iniciado!"});
+                          console.log(data)
                         })
                         .fail(function(err) {
-                          $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ err.status + ": "+err.statusText});
+                          if(err.status=== 403){
+                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error: "+ err.responseJSON.detail });
+                          }else{
+                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ err.status + ": "+err.statusText});
+                          }
+                          console.log(err)
                           $('.dimmer').toggleClass('active');
                         })
                     });
@@ -243,8 +249,14 @@ $(document).ready(function() {
                           $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> El perdiodo para el Mantto. seleccionado fue finalizado!"});
                         })
                         .fail(function(err) {
-                          $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ err.status + ": "+err.statusText});
+                          if(err.status=== 403){
+                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error: "+ err.responseJSON.detail });
+                          }else{
+                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ err.status + ": "+err.statusText});
+                          }
                           $('.dimmer').toggleClass('active');
+                          console.log(err)
+
                         })
                     });
 
@@ -302,7 +314,11 @@ $('#jqxgrid').on('rowselect', function (event)
                           $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> El perdiodo para el Mantto. seleccionado fue cancelado!"});
               })
               .fail(function(err) {
-                          $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ err.status + ": "+err.statusText});
+                          if(err.status=== 403){
+                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error: "+ err.responseJSON.detail });
+                          }else{
+                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ err.status + ": "+err.statusText});
+                          }
                           $('.dimmer').toggleClass('active');
               })
       });

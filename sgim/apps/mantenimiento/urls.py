@@ -4,7 +4,6 @@ from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 from .views import Tareas, NuevaTarea, Rutinas, Planes, NuevaRutina, NuevoPlan, Boletas, NuevaBoleta
 from reports import *
-from .view_sets import plan_detail
 
 urlpatterns = patterns('',
                         #url(r'^login/$',Login.as_view(),name='login'),

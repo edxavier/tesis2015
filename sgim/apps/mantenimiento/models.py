@@ -72,7 +72,11 @@ class Programacion(MarcaDeTiempo, models.Model):
     estado = models.ForeignKey(EstadoMantenimiento)
 
     class Meta:
-        verbose_name_plural = 'Programaciones Mantto'
+        verbose_name_plural = 'Planes de Mantto.'
+        permissions = (
+            ("iniciar_finalizar_mantto", "Puede actualizar el estado de un plan de mantto"),
+            ("cancelar_mantto", "Puede cancelar un plan de mantto"),
+        )
 
     def __unicode__(self):
         return "Orden %s" % self.pk
