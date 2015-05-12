@@ -50,11 +50,41 @@
 
 <div class="container-fluid">
     <div class="row">
+        
         <div class="col-md-7" >
             <div id="jqxgrid"></div>
         </div>
+
+
         <div class="col-md-5" >
-            sdfdsfsd
+            <div class="panel panel-info  shadow-z-1">
+                <div class="panel-heading" >
+                    <h3 style="color:white" class="center ui aligned header">
+                      <i class="ion-ios-book icon"></i>
+                      <div class="content">
+                        Detalles de Trabajo N&deg; <span id='boleta'></span>
+                      </div>                      
+                    </h3>
+                </div>
+                <div class="panel-body">   
+                	<div class="ui items">
+					  <div class="item">
+					    <div class="content">
+					      <a class="header"><span id='cabecera'></span></a>
+					       <div class="meta">
+					        <span></span>
+					      </div>
+					      <div class="description">
+					        <p id='descripcion'> Seleccione una fila para ver detalles del trabajo</p>
+					      </div>
+					      <div class="extra">
+					        
+					      </div>
+					    </div>
+					  </div>
+					</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -134,17 +164,15 @@ $(document).ready(function() {
       var args = event.args;
       var rowBoundIndex = args.rowindex;
       var rowData = args.row;
-      console.log(rowData.dispositivo)
-  });
+      $("#boleta").html(rowData.id)
+      $("#cabecera").html(rowData.dispositivo)
+      $("#descripcion").html(rowData.descripcion)
 
-    
+      //console.log(rowData)
+  });
+ 
 });
 
 </script>
-
-
-
-
-
 	
 {% endblock scripts %}

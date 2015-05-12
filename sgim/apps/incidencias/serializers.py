@@ -4,6 +4,12 @@ from .models import Incidencia, Cambio, ActividadCambio, ActividadIncidencia
 
 
 class IncidenciaSerializer(serializers.ModelSerializer):
+    dispositivo = serializers.ReadOnlyField(source='dispositivo.posicion_logica')
+    serie = serializers.ReadOnlyField(source='dispositivo.serie')
+    creador = serializers.ReadOnlyField(source='creador.username')
+    reporta = serializers.ReadOnlyField(source='reporta.nombre_completo')
+    creador = serializers.ReadOnlyField(source='creador.username')
+    tipo = serializers.ReadOnlyField(source='tipo.nombre')
 
     class Meta:
         model = Incidencia
