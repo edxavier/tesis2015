@@ -1,0 +1,86 @@
+{% extends "report_base.html" %}
+{% block contenido %}
+<style>
+
+	.titulo_mtto{
+		background-color:#607D8B;
+		border: none;
+		color: white
+	}
+	.sub_titulo_mtto{
+		background-color:#90A4AE;
+		border: none;
+		color: white
+	}	
+
+	.sub_titulo_mtto2{
+		background-color:#CFD8DC;
+		border: none;
+		color: #424242
+	}
+</style>
+    
+<table style="font-family: roboto; border-bottom: 1px solid #004D40; color:#004D40">
+	<tr style='font-size:17px'>
+		<th style="width:100% ; text-align:left">
+			<h5>RUTINAS DE MANTENIMIENTO ESTACION RADAR MANAGUA</h5>
+		</th>
+	</tr>
+</table>
+<br>
+
+		<table style="width:100%;">
+
+			<tr >				
+			    <th style="text-align:left" class='sub_titulo_mtto' colspan="2" >
+			    	Rutina
+			    </th>
+			    <th style="" class='sub_titulo_mtto'>
+			    	Sistema
+			    </th>
+			    <th style="" class='sub_titulo_mtto'>
+			    	Frecuencia
+			    </th>	
+			    <th style="" class='sub_titulo_mtto'>
+			    	Duracion Estima.
+			    </th>
+ 				<th style="" class='sub_titulo_mtto'>
+			    	N&deg; Tareas
+			    </th>
+			    <th style="" class='sub_titulo_mtto'>
+			    	Recomendacion
+			    </th>
+			   				   
+			</tr>
+	    {% for rutina in rutinas %}
+			<tr>				
+			    <td colspan="2" style="text-align:left">
+			    	 {{rutina.titulo}}
+			    </td>
+			    <td>
+			    	 {{rutina.sistema}}
+			    </td>	
+			    <td>
+			    	 {{rutina.frecuencia}}
+			    </td>
+ 				<td>
+			    	 {{rutina.duracion_estimada}} hrs
+			    </td>	
+			    <td>
+			    	 {{rutina.numero_tareas}}
+			    </td>
+			    <td >
+			    	{{rutina.recomendacion}}
+			    </td>	
+			   
+			</tr>
+ 		{% endfor %}
+			<tr style="border-top:1px solid #BDBDBD">
+				<td  colspan="7"></td>
+			</tr>
+
+		
+		</table>
+
+
+{% endblock contenido %}

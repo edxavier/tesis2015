@@ -41,7 +41,6 @@ class Dispositivo(EspecificacionGeneral, MarcaDeTiempo, models.Model):
     oficina = models.ForeignKey(Oficina)
     sistema = models.ForeignKey(Sistema)
     tipo = models.ForeignKey(TipoDispositivo)
-    subsistemas = models.ManyToManyField(SubSistema, blank=True, null=True)
 
     def __unicode__(self):
         return self.posicion_logica

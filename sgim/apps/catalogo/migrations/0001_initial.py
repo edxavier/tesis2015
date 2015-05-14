@@ -44,6 +44,36 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
+            name='EstadoCambio',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
+                ('creado', models.DateTimeField(auto_now_add=True)),
+                ('modificado', models.DateTimeField(auto_now=True)),
+                ('nombre', models.CharField(max_length=30)),
+                ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'abstract': False,
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='EstadoIncidente',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
+                ('creado', models.DateTimeField(auto_now_add=True)),
+                ('modificado', models.DateTimeField(auto_now=True)),
+                ('nombre', models.CharField(max_length=30)),
+                ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'abstract': False,
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='EstadoMantenimiento',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -60,6 +90,37 @@ class Migration(migrations.Migration):
         ),
         migrations.CreateModel(
             name='EstadoOperacional',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
+                ('creado', models.DateTimeField(auto_now_add=True)),
+                ('modificado', models.DateTimeField(auto_now=True)),
+                ('nombre', models.CharField(max_length=30)),
+                ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'abstract': False,
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='FrecuenciaMantto',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
+                ('creado', models.DateTimeField(auto_now_add=True)),
+                ('modificado', models.DateTimeField(auto_now=True)),
+                ('nombre', models.CharField(max_length=30)),
+                ('dias', models.PositiveIntegerField()),
+                ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'abstract': False,
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='MedioNotificaion',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
@@ -108,13 +169,28 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='Sistema',
+            name='SeveridadUrgencia',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('nombre', models.CharField(max_length=30)),
+                ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'abstract': False,
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Sistema',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('activo', models.BooleanField(default=True, help_text=b'Denota si el registro esta activo')),
+                ('creado', models.DateTimeField(auto_now_add=True)),
+                ('modificado', models.DateTimeField(auto_now=True)),
+                ('nombre', models.CharField(unique=True, max_length=30)),
                 ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={

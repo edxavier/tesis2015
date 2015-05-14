@@ -34,8 +34,9 @@ Incidencias
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.pager.js"></script>
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.selection.js"></script> 
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.filter.js"></script> 
+       <script type="text/javascript" src="{{BOWER_URL}}moment/min/moment.min.js"></script> 
 
- 
+  <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtooltip.js"></script>
 
 {% endblock include_statics %}
 {% block contenido %}
@@ -63,6 +64,34 @@ Incidencias
     </div>
 </div>
 
+
+
+<div class="ui small modal" >
+    <i class="close icon"></i>
+    <div class="header">
+      <i class="ion-ios-calendar icon"></i>Obtener Incidencias por rango de fechas
+    </div>
+    <div class="content">
+        <div class="description">
+          <h5>Selecciona desde cuando y hasta cuando buscar incidentes</h5>
+          	
+          	<div id='filtroFecha'>
+        	</div>
+
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui positive left icon button">
+            Buscar 
+            <i class="ion-ios-search-strong icon"></i>
+        </div>
+        <div class="ui black button">
+            Cancelar            
+            <i class="ion-close-round icon"></i>
+        </div>
+    </div>
+</div>
+
 {% endblock contenido %}
 
 {% block scripts %}
@@ -70,8 +99,30 @@ Incidencias
 <script>
 
 $(document).ready(function() {
+    /*Inicializar el modal para filtrar*/
+   
+
+    $.getScript('{{STATIC_URL}}js/asset/globalize.culture.es-NI.js', function () {
+        
+        $("#filtroFecha").jqxDateTimeInput({ width: 250, height: 25,  selectionMode: 'range',culture: 'es-NI'});
+
+    });
+
+                var date1 = new Date();
+                date1.setFullYear(2015, 5, 7);
+                var date2 = new Date();
+                date2.setFullYear(2015, 5, 15);
+                $("#filtroFecha").jqxDateTimeInput('setRange', date1, date2);
+
+
+
+
+
     /*Inicializar Combos obteniendo los datos del api rest de catalogos*/
- var source =
+    function get_datos(parametros){
+    	if(!parametros)
+    		parametros = ""
+    	 var source =
             {
                 datatype: "json",
                 datafields: [
@@ -84,19 +135,49 @@ $(document).ready(function() {
                     { name: 'serie', type: 'string' },
                     { name: 'reporta', type: 'string' },
                     { name: 'severidad',},
+                    { name: 'servicios',},
                     { name: 'estado',},
                     { name: 'relacion',}
                    
                 ],
                 id: 'id',
-                url: '/api/incidencias/incidentes/'
+                url: '/api/incidencias/incidentes/'+parametros
             };
-            var dataAdapter = new $.jqx.dataAdapter(source);
+	  var dataAdapter = new $.jqx.dataAdapter(source);
+	  return dataAdapter
+    }
+
+
+  $('.ui.modal').modal({
+    closable:false,
+    transition:'fade up',
+    onApprove : function() {
+    	console.log("se enviara le peticion")
+    	var range = $("#filtroFecha").jqxDateTimeInput('getRange');
+	    var from =  moment(range.from).format("DD/MM/YYYY");
+	    var to =  moment(range.to).format("DD/MM/YYYY");
+	    console.log(from)
+    	$("#jqxgrid").jqxGrid({source: get_datos("?min_date="+from+"&max_date="+to),})
+    }
+ })   
+
+
+  function relacionRender(row, columnfield, value, defaulthtml, columnproperties){
+        div = "<div style='padding:5px;'>"
+        
+        if(value){
+          return div + value+"</div>";
+        }else{
+          return div +"NINGUNA</div>";
+
+        }
+  }
+
     $("#jqxgrid").jqxGrid({
 
                 width: '100%',
                 theme:'metro', 
-                source: dataAdapter,
+                source: get_datos(),
                 showfilterrow: true,
                 filterable: true,
                 pageable: true,
@@ -104,15 +185,16 @@ $(document).ready(function() {
                 localization: getLocalization(),
                 columns: [
                   { text: 'Inc. N&deg;', datafield: 'id', width:'60px'},
-                  { text: 'Dispositivo', datafield: 'dispositivo', width:'120px'},
-                  { text: 'Serie', datafield: 'serie' , width:'130px'},
-                  { text: 'Tipo Incidente', datafield: 'tipo', width:'140px'},
-                  { text: 'Reporta', datafield: 'reporta', width:'110px'},
-                  { text: 'Severidad', datafield: 'severidad', width:'80px'},
-                  { text: 'Problema', datafield: 'problema', },
-                  { text: 'Relacion', datafield: 'relacion', width:'80px'},
-                  { text: 'Estado', datafield: 'estado', width:'80px'},
-                  { text: 'Usuario', datafield: 'creador', width:'80px'},
+                  { text: 'Dispositivo', datafield: 'dispositivo', width:'100px'},
+                  { text: 'Serie', datafield: 'serie' , width:'110px'},
+                  { text: 'Tipo Incidente', datafield: 'tipo', width:'130px'},
+                  { text: 'Reporta', datafield: 'reporta', width:'120px'},
+                  { text: 'Severidad', datafield: 'severidad', width:'70px'},
+                  { text: 'Problema', datafield: 'problema',  },
+                  { text: 'Relacion', datafield: 'relacion', width:'75px', cellsrenderer:relacionRender},
+                  { text: 'Estado', datafield: 'estado', width:'120px'},
+                  //{ text: 'Servicios', datafield: 'servicios', width:'80px',cellsrenderer: servRender},
+                  { text: 'Usuario', datafield: 'creador', width:'60px'},
                   { text: 'Fecha', datafield: 'creado', cellsformat:'dd-MMM-yy' , filtertype:'date' , width:'110px'},
 
               ],
@@ -121,17 +203,43 @@ $(document).ready(function() {
                     // appends buttons to the status bar.
                     var container = $("<div style='margin:5px;'></div>");
                     var viewButton = $("<div class='ui  tiny blue button'> Ver detalles</div>");
-                   
+                    var filterButton = $("<div class='ui  tiny purple button'>Filtrar Fechas</div>");
+                    var reloadbtn = $("<div class='tiny green ui icon button'><i class='icon refresh'></i></div>");
+                    var cerrarBtn = $("<div class='tiny orange ui icon button'><i class='icon ion-flash-off'></i>Cerrar Incidente</div>");
+
+                    container.append(reloadbtn);
                     container.append(viewButton);
-                   // statusbar.append(container);
+                    container.append(filterButton);
+                    container.append(cerrarBtn);
+                    statusbar.append(container);
+
+
+                     $(".ui.green.button").jqxTooltip({
+                       content: 'Recargar datos', 
+                       position: 'top-right',
+                      });
                    
                     // add new row.
                     viewButton.click(function (event) {
                       var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
                       var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
-                      var win = window.open('/inventario/dispositivos/detalle/'+id, '_blank');
-                      win.focus(); 
-                        //$("#jqxgrid").jqxGrid('addrow', null, datarow[0]);
+                      if(id!=null){
+                      	var win = window.open('/incidencias/incidentes/reporte/detalle/'+id, '_blank');
+                      		win.focus(); 
+                      }else{
+                        $.snackbar({content: "<i class='ion-happy yellow icon'></i> Seleccione una fila por favor! ",timeout: 4000});
+                      }
+                       
+                    });
+                    // filter from server.
+                    filterButton.click(function (event) {
+                       $('.ui.modal').modal('show') 
+                    });
+                    reloadbtn.click(function (event) {
+                      $("#jqxgrid").jqxGrid({source: get_datos(),})
+                    });
+                    cerrarBtn.click(function (event) {
+                      confirm("Seguro??")
                     });
 
                 },

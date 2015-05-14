@@ -6,12 +6,14 @@ from .models import Tarea, Rutina, Programacion, BoletaTrabajo
 
 
 class TareaSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Tarea
 
 
 class RutinaSerializer(serializers.ModelSerializer):
+    frec_titulo = serializers.ReadOnlyField(source='frecuencia.nombre')
+    sist_titulo = serializers.ReadOnlyField(source='sistema.nombre')
+    tareas = serializers.ReadOnlyField(source='numero_tareas')
 
     class Meta:
         model = Rutina

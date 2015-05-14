@@ -1,0 +1,81 @@
+{% extends "report_base.html" %}
+{% block contenido %}
+<style>
+
+	.titulo_mtto{
+		background-color:#607D8B;
+		border: none;
+		color: white
+	}
+	.sub_titulo_mtto{
+		background-color:#90A4AE;
+		border: none;
+		color: white
+	}	
+
+	.sub_titulo_mtto2{
+		background-color:#CFD8DC;
+		border: none;
+		color: #424242
+	}
+</style>
+    
+<table style="font-family: roboto; border-bottom: 1px solid #004D40; color:#004D40">
+	<tr style='font-size:18px'>
+		<th style="width:65% ; text-align:left">
+			<h1>{{rutina.titulo}}</h1>
+		</th>
+		<th style="width:35%; text-align:right">
+			<h1>{{rutina.sistema}}</h1>
+		</th>
+	</tr>
+</table>
+<br>
+
+		<table style="width:100%;">
+		
+			<tr>
+				<td colspan="3" class="titulo_mtto">
+					{{rutina.frecuencia}}  				
+				</td>
+				<td colspan="4" class="titulo_mtto">Duracdion Estimada: {{rutina.duracion_estimada}} hrs.</td>
+			</tr>
+			<tr>
+			    <th class="sub_titulo_mtto2" colspan="7" style="text-align:left">
+			    	Listado de tareas a realizar
+			    </th>			    	
+			</tr>
+			<tr >				
+			    <th style="background-color:#EEEEEE;text-align:left; margin-left:10px" colspan='3'>
+			    	Tarea
+			    </th>
+			    <th style="background-color:#EEEEEE" colspan='1'>
+			    </th>
+			    <th style="background-color:#EEEEEE;text-align:left; margin-left:10px" colspan='3'>
+			    	 Valor de Referencia
+			    </th>	
+			    
+ 						   
+			</tr>
+	    {% for tarea in rutina.tarea_set.all %}
+			<tr>				
+			    <td colspan='3' style="text-align:left; margin-left:10px">
+			    	 {{tarea.nombre}}
+			    </td>
+			    <td colspan='1'> 			    	 
+			    </td>	
+			    <td colspan='3' style="text-align:left; margin-left:10px">
+			    	{{tarea.valor_ref}}
+			    </td>
+ 						   
+			</tr>
+ 		{% endfor %}
+			<tr style="border-top:1px solid #BDBDBD">
+				<td  colspan="7"></td>
+			</tr>
+
+		
+		</table>
+
+
+{% endblock contenido %}

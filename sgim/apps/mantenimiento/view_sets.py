@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import DjangoModelPermissions, BasePermission
@@ -26,6 +27,17 @@ class TareaViewSet(viewsets.ModelViewSet):
 
     queryset = Tarea.objects.all()
     serializer_class = TareaSerializer
+    filter_fields = ('rutina',)
+
+    def create(self, request, *args, **kwargs):
+        data = request.DATA
+        rutina = get_object_or_404(Rutina, id=data['rutina'])
+        tarea = Tarea.objects.create(rutina=rutina, nombre=data['nombre'],
+                                    valor_ref=data['valor_ref'],creador = request.user)
+        serial = TareaSerializer(tarea)
+        print(serial.data)
+        return Response(serial.data)
+
 
 
 class RutinaViewSet(viewsets.ModelViewSet):

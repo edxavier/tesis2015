@@ -85,6 +85,17 @@
  	{{incidencia.causa}}
 {% endautoescape %} 
 
+{% if incidencia.servicios %}
+<h5>Servicios afectados</h5>
+	<ol>
+	{% for serv in incidencia.servicios.all %}
+		<li>{{serv}}</li>
+	{% empty %}
+	<i>	No se especifico</i>
+	{% endfor %}
+	</ol>
+{% endif %}
+
 <h3 style="color:#33691E;">Acciones Empleadas</h3>
 {% autoescape off %}
  	{{incidencia.solucion}}
@@ -98,6 +109,8 @@
 		<strong>{{incidencia.creador}}</strong>
 	{% endif %}
 </p>
+
+
 
 {% if incidencia.actividadincidencia_set.all %}
 	

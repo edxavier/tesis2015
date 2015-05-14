@@ -10,12 +10,18 @@ class IncidenciaSerializer(serializers.ModelSerializer):
     reporta = serializers.ReadOnlyField(source='reporta.nombre_completo')
     creador = serializers.ReadOnlyField(source='creador.username')
     tipo = serializers.ReadOnlyField(source='tipo.nombre')
+    severidad = serializers.ReadOnlyField(source='severidad.nombre')
+    estado = serializers.ReadOnlyField(source='estado.nombre')
 
     class Meta:
         model = Incidencia
 
 
 class CambioSerializer(serializers.ModelSerializer):
+    estado = serializers.ReadOnlyField(source='estado.nombre')
+    nombre_solic = serializers.ReadOnlyField(source='solicitante.nombre_completo')
+    nombre_resp = serializers.ReadOnlyField(source='responsable.nombre_completo')
+    creador = serializers.ReadOnlyField(source='creador.username')
 
     class Meta:
         model = Cambio

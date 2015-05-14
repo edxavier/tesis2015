@@ -8,43 +8,16 @@ from django.contrib.humanize.templatetags.humanize import number_format, _
 from apps.inventario.models import Dispositivo
 from django.dispatch import receiver
 from datetime import datetime, timedelta
-from apps.catalogo.models import EstadoOperacional
-
-
-class Tarea(MarcaDeTiempo, models.Model):
-    nombre = models.CharField(max_length=100)
-    meteriales = models.CharField(max_length=100, default="N/A", verbose_name="Herramientas")
-    tipo_dispositivos = models.ManyToManyField(TipoDispositivo, verbose_name="Tipos de Dispositivo")
-    minutos = models.FloatField(help_text="Duracion en minutos", default=1, verbose_name="Duracion")
-
-    def __unicode__(self):
-        return self.nombre
-
-    def duracion_estimada(self):
-        return "%s min" % (number_format(self.minutos, decimal_pos=0, use_l10n=True, force_grouping=True),)
+from apps.catalogo.models import EstadoOperacional,FrecuenciaMantto
 
 
 class Rutina(MarcaDeTiempo, models.Model):
-    SEMANAL = 7
-    QUICENAL = 15
-    MENSUAL = 30
-    BIMENSUAL = 60
-    TRIMESTRAL = 90
-    SEMESTRAL = 180
-    ANUAL = 360
-    FRECUANCIAS = (
-        (SEMANAL, 'Semanal'),
-        (QUICENAL, 'Quincenal'),
-        (MENSUAL, 'Mensual'),
-    )
     titulo = models.CharField(max_length=100)
     sistema = models.ForeignKey(Sistema)
-    frecuencia = models.IntegerField(help_text='Frecuencia en dias', choices=FRECUANCIAS, default= SEMANAL)
-    paro_de_equipo = models.BooleanField(default=False, help_text="Indica si es necesario detener la operacion")
+    frecuencia = models.ForeignKey(FrecuenciaMantto)
     recomendacion = models.CharField(max_length=300, default="Ninguna")
-    duracion_estimada = models.FloatField(help_text="Duracion en horas", blank=True,
+    duracion_estimada = models.FloatField(help_text="Duracion en horas (puede indicarse con punto decimal)",
                                           default=1, verbose_name="Duracion Estimada")
-    tareas = models.ManyToManyField(Tarea)
 
     def __unicode__(self):
         return self.titulo
@@ -60,6 +33,14 @@ class Rutina(MarcaDeTiempo, models.Model):
         Ntasks = Tarea.objects.filter(rutina__pk=self.pk).count()
         return "%s" % (Ntasks)
 
+
+class Tarea(MarcaDeTiempo, models.Model):
+    rutina = models.ForeignKey(Rutina)
+    nombre = models.CharField(max_length=100)
+    valor_ref = models.CharField(max_length=100, help_text='Valor de referencia')
+
+    def __unicode__(self):
+        return self.nombre
 
 class Programacion(MarcaDeTiempo, models.Model):
     rutina = models.ForeignKey(Rutina)

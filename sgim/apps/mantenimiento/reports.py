@@ -5,7 +5,7 @@ __author__ = 'edx'
 from apps.inicio.utils import html_to_pdf, link_callback
 from django.shortcuts import get_object_or_404
 from django.views.generic import View
-from .models import BoletaTrabajo, Programacion
+from .models import BoletaTrabajo, Programacion, Rutina
 
 class Manttos_Info(View):
     def get(self, request, disp_pk, *args, **kwargs):
@@ -31,3 +31,20 @@ class Planes_Listado(View):
     def get(self, request,  *args, **kwargs):
         planes = Programacion.objects.all().order_by('-id')[:20]
         return html_to_pdf("mantto/reports/listado_plan.html", locals())
+
+
+class Rutinas_Listado(View):
+    def get(self, request,  *args, **kwargs):
+        rutinas = Rutina.objects.all().order_by('-id')
+        return html_to_pdf("mantto/reports/listado_rutina.html", locals())
+
+
+class Rutina_Detalle(View):
+    def get(self, request, _pk, *args, **kwargs):
+        rutina = get_object_or_404(Rutina, pk=_pk)
+        return html_to_pdf("mantto/reports/detalle_rutina.html", locals())
+
+class Rutina_Formato(View):
+    def get(self, request, _pk, *args, **kwargs):
+        rutina = get_object_or_404(Rutina, pk=_pk)
+        return html_to_pdf("mantto/reports/formato_rutina.html", locals())

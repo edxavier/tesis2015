@@ -58,6 +58,37 @@ class EstadoMantenimiento(MarcaDeTiempo):
     def __unicode__(self):
         return self.nombre
 
+class EstadoIncidente(MarcaDeTiempo):
+    nombre = models.CharField(max_length=30)
+
+    def __unicode__(self):
+        return self.nombre
+
+class EstadoCambio(MarcaDeTiempo):
+    nombre = models.CharField(max_length=30)
+
+    def __unicode__(self):
+        return self.nombre
+
+class SeveridadUrgencia(MarcaDeTiempo):
+    nombre = models.CharField(max_length=30)
+
+    def __unicode__(self):
+        return self.nombre
+
+class MedioNotificaion(MarcaDeTiempo):
+    nombre = models.CharField(max_length=30)
+
+    def __unicode__(self):
+        return self.nombre
+
+class FrecuenciaMantto(MarcaDeTiempo):
+    nombre = models.CharField(max_length=30)
+    dias = models.PositiveIntegerField()
+
+    def __unicode__(self):
+        return self.nombre
+
 class Cargo(MarcaDeTiempo):
     nombre = models.CharField(max_length=100)
     empresa = models.CharField(max_length=15)

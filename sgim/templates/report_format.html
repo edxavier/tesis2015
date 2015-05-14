@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="es">
+    <meta charset="iso-8859-1">
+    <title></title>
+     
+    <link rel="stylesheet" href="/static/css/report.css">
+
+<style>
+/* Normal */
+@font-face {
+   font-family: roboto;
+   src: url("/static/fonts/Roboto-Regular.ttf");
+}
+
+ @page {
+        size: letter landscape;
+        /*top right buttom left*/
+        margin: 2.3cm 1cm 2cm 1cm ;
+
+         @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_content;
+            width: 100%; top: 10px; 
+        }
+        
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 270pt; width: 500pt; top: 762pt; height: 20pt;
+        }
+        
+
+    }
+</style>
+</head>
+<body>
+	
+        <table id="header_content" >
+            <tr>
+                <td style='width:100%; padding-left:60px; vertical-align:bottom;'>
+                    <h4>EMPRESA ADMINISTRADORA DE AEROPUERTOS INTERNACIONALES</h4>
+                </td>
+                <td style='width:20%;'>
+                    <img src="/static/images/eaai_logo.jpg" style='width:60px'>
+                </td>
+            </tr>
+        </table>
+        
+  
+{% block contenido %}
+    
+{% endblock contenido %}
+
+ <!-- Content for Static Frame 'footer_frame' -->
+    <div id="footer_content">(c) - pagina <pdf:pagenumber>
+        de <pdf:pagecount>
+    </div>
+</body>
+</html>

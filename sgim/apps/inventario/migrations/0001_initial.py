@@ -50,6 +50,7 @@ class Migration(migrations.Migration):
                 ('estado', models.ForeignKey(to='catalogo.EstadoOperacional')),
                 ('oficina', models.ForeignKey(to='catalogo.Oficina')),
                 ('sistema', models.ForeignKey(to='catalogo.Sistema')),
+                ('tipo', models.ForeignKey(to='catalogo.TipoDispositivo')),
             ],
             options={
                 'abstract': False,
@@ -89,18 +90,6 @@ class Migration(migrations.Migration):
                 'abstract': False,
             },
             bases=(models.Model,),
-        ),
-        migrations.AddField(
-            model_name='dispositivo',
-            name='subsistemas',
-            field=models.ManyToManyField(to='inventario.SubSistema', null=True, blank=True),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='dispositivo',
-            name='tipo',
-            field=models.ForeignKey(to='catalogo.TipoDispositivo'),
-            preserve_default=True,
         ),
         migrations.AddField(
             model_name='componente',

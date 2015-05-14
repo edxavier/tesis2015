@@ -1,0 +1,55 @@
+{% extends "report_format.html" %}
+{% block contenido %}
+<style>
+table {    -pdf-keep-in-frame-mode: truncate;}
+	.titulo_mtto{
+		background-color:#607D8B;
+		border: none;
+		color: white
+	}
+	.sub_titulo_mtto{
+		background-color:#90A4AE;
+		border: none;
+		color: white
+	}	
+
+	.sub_titulo_mtto2{
+		background-color:#CFD8DC;
+		border: none;
+		color: #424242
+	}
+</style>
+    
+
+
+		<table style="width:100%;">	
+		<tr>
+			<td class="sub_titulo_mtto"></td>
+			<td class="sub_titulo_mtto">Tarea</td>
+	    {% for tarea in rutina.tarea_set.all %}							
+			    <td colspan='3' class="sub_titulo_mtto">
+			    	 {{tarea.nombre}}
+			    </td> 				   
+ 		{% endfor %}
+ 		<td class="sub_titulo_mtto"></td>
+ 		<td class="sub_titulo_mtto"></td>
+ 		<td class="sub_titulo_mtto"></td>
+ 		</tr>
+ 		<tr>
+ 		<td class="sub_titulo_mtto2">Equipo</td>
+ 		<td class="sub_titulo_mtto2">ref.</td>
+	    {% for tarea in rutina.tarea_set.all %}							
+			    <td colspan='3' class="sub_titulo_mtto2">
+			    	 {{tarea.valor_ref}}
+			    </td> 				   
+ 		{% endfor %}
+ 		<td class="sub_titulo_mtto2">Fecha</td>
+ 		<td class="sub_titulo_mtto2">Tecnico</td>
+ 		<td class="sub_titulo_mtto2">Tecnico</td>
+ 		<td class="sub_titulo_mtto2">Tecnico</td>
+ 		</tr>
+		
+		</table>
+
+
+{% endblock contenido %}

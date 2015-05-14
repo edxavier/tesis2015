@@ -8,7 +8,7 @@ from datetime import  timedelta
 
 @admin.register(Tarea)
 class TareaAdmin(admin.ModelAdmin):
-    list_display = ("id","nombre", "duracion_estimada", "creado")
+    list_display = ("id","nombre", "valor_ref","rutina", "creado")
     exclude = ('creador',)
 
     def save_model(self, request, obj, form, change):
@@ -17,12 +17,14 @@ class TareaAdmin(admin.ModelAdmin):
 
 @admin.register(Rutina)
 class RutinaAdmin(admin.ModelAdmin):
-    list_display = ("titulo", "sistema","equipos","tiempo_estimado","numero_tareas", "frecuencia")
+    list_display = ("titulo", "sistema","frecuencia","tiempo_estimado",)
     exclude = ('creador',)
-    readonly_fields = ("duracion_estimada",)
+    #readonly_fields = ("duracion_estimada",)
+
 
     def save_model(self, request, obj, form, change):
-        instance = form.save(commit=False)
+        return agregarCreador(request, form)
+        """ instance = form.save(commit=False)
         try:
             if instance.pk:
                 tareas = Tarea.objects.filter(rutina__pk=instance.pk)
@@ -44,12 +46,14 @@ class RutinaAdmin(admin.ModelAdmin):
                     minutos += t.minutos
                 instance.duracion_estimada = (minutos/60) * Ndisp
                 instance.save()
+            instance.creador = request.user
+            instance.save()
 
         except Exception, e:
             print("EXEPTION")
             return
 
-        return instance
+        return instance"""
 
 @admin.register(Programacion)
 class ProgramacionAdmin(admin.ModelAdmin):

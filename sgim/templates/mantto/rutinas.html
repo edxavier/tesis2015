@@ -3,6 +3,36 @@
  Rutinas
 {% endblock titulo %}
 
+
+{% block include_statics %}
+    <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
+ <script type="text/javascript" src="{{STATIC_URL}}js/asset/gridLocalization.js"></script>
+    
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcombobox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxpanel.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdata.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtooltip.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/globalization/globalize.js"></script>
+     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxexpander.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxvalidator.js"></script>
+    
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxmenu.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.pager.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.selection.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.filter.js"></script> 
+     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.sort.js"></script>
+
+{% endblock include_statics %}
+
 {% block contenido %}
 <div class="ui purple menu">
 	<a class="item" href="/">
@@ -14,6 +44,137 @@
 	<a class="item" href="{% url 'rutina_add' %}">
 		<i class=" add icon"></i> Nueva Rutina
 	</a>
+	<a class="blue item" href="{% url 'tarea_add' %}">
+            <i class=" add icon"></i> Agregar Tarea
+    </a>
 </div>
 
+
+
+
+<div class="container-fluid">
+<div class="row">   
+	<div class="col-md-10 col-md-offset-1">                    
+    	<div id="jqxgrid"></div>
+    </div>
+</div>
+</div>
+</div>
+
+
 {% endblock contenido %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+       
+          var source =
+            {
+                datatype: "json",
+                datafields: [
+                    { name: 'id', type: 'int' },
+                    { name: 'titulo', type: 'string' },
+                    { name: 'recomendacion', type: 'string' },
+                    { name: 'frec_titulo', type: 'string' },
+                    { name: 'sist_titulo', type: 'string' },
+                    { name: 'tareas', type: 'int' },
+                    { name: 'duracion_estimada', type: 'string' },
+
+                ],
+                id: 'id',
+                url: '/api/mantto/rutinas/'
+            };
+          var dataAdapter = new $.jqx.dataAdapter(source);
+
+
+
+        $("#jqxgrid").jqxGrid(
+            {
+                width:'100%',
+                pageable: true,
+                theme:'metro',
+                showtoolbar: true,
+                source:dataAdapter,
+                height: 250 ,
+                altrows: true,
+                enabletooltips: true,
+                localization: getLocalization(),
+                columns: [
+                  { text: 'Rutina', datafield: 'titulo', width:'250px' },
+                  { text: 'Sistema', datafield: 'sist_titulo', width:'150px'},  
+                  { text: 'Frecuencia', datafield: 'frec_titulo', width:'130px'},  
+                  { text: 'Duracion Estim.', datafield: 'duracion_estimada', width:'100px'}, 
+                  { text: 'N&deg: Tareas', datafield: 'tareas', width:'90px'}, 
+                  { text: 'Recomendacion', datafield: 'recomendacion',},  
+              ],
+              rendertoolbar: function (statusbar) {
+                    // appends buttons to the status bar.
+                    var container = $("<div style='margin:5px;'></div>");
+                    var viewButton = $("<div class='ui  tiny teal button'> Detalles PDF</div>");
+                    var listButton = $("<div class='ui tiny blue button'>Listado PDF</div>");
+                    
+
+                    container.append(viewButton);
+                    container.append(listButton);
+                    
+                    statusbar.append(container);
+                   
+                    // add new row.
+                    viewButton.click(function (event) {
+                      var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+                      var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
+                      if(id!=null){
+                        var win = window.open('/mantto/rutinas/reportes/detalle/'+id, '_blank');
+                        win.focus(); 
+                      }else{
+                        $.snackbar({content: "<i class='ion-happy yellow icon'></i> Seleccione una fila por favor! ",timeout: 4000});
+                      }
+                    });
+                    // list selected row.
+                    listButton.click(function (event) {
+                      var win = window.open('/mantto/rutinas/reportes/listado/',
+                       '_blank');
+                      win.focus(); 
+                    });
+                    initButton.click(function (event) {
+                      var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+                      var row_id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
+                      var hoy = moment().format("YYYY-MM-DD HH:mm");
+                      $('.cargando').toggleClass('active');                      
+                      $.ajax({
+                          url: '/api/mantto/planes/'+row_id,
+                          type: 'PUT',
+                          dataType: 'json',
+                          data: { 
+                            estado:2,
+                            inicio: hoy
+                          },
+                        })
+                        .done(function(data) {
+                          $('.cargando').toggleClass('active');
+                          $('.terminar').removeClass('disabled')
+                          $('.iniciar').addClass('disabled');
+                          $('#jqxgrid').jqxGrid('updaterow', row_id, data);
+                          $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> El perdiodo para el Mantto. seleccionado fue iniciado!"});
+                          console.log(data)
+                        })
+                        .fail(function(err) {
+                          if(err.status=== 403){
+                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error: "+ err.responseJSON.detail ,timeout: 4000});
+                          }else{
+                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ err.status + ": "+err.statusText});
+                          }
+                          console.log(err)
+                          $('.cargando').toggleClass('active');
+                        })
+                    });
+                    finishButton.click(function (event) {
+                      $('.ui.modal').modal('show')                    
+                    });
+            },
+            });
+
+
+    });
+</script>	
+{% endblock scripts %}

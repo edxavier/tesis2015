@@ -1,6 +1,6 @@
 from django.contrib import admin
 from apps.inicio.utils import agregarCreador
-from .models import Incidencia, ActividadIncidencia, ActividadCambio, Cambio
+from .models import (Incidencia, ActividadIncidencia, ActividadCambio, Cambio, )
 
 # Register your models here.
 

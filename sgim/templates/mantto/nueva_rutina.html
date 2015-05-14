@@ -22,6 +22,7 @@ Nueva Rutina
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdata.js"></script>
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtooltip.js"></script>
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/globalization/globalize.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxnumberinput.js"></script>
       <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxexpander.js"></script> 
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxvalidator.js"></script>
 
@@ -38,6 +39,9 @@ Nueva Rutina
 	<a class="active item" href="{% url 'rutina_add' %}">
 		<i class=" add icon"></i> Nueva Rutina
 	</a>
+    <a class="blue item" href="{% url 'tarea_add' %}">
+            <i class=" add icon"></i> Agregar Tarea
+    </a>
 </div>
 
 <div class="progress hidden">
@@ -45,7 +49,7 @@ Nueva Rutina
 </div>
 <div class="container-fluid">
 <div class="row">
-    <div class="col-md-6 col-md-offset-3" >
+    <div class="col-md-10 col-md-offset-1" >
             <div class="panel panel-primary  shadow-z-2">
                 <div class="panel-heading" >
                     <h3 style="color:white" class="center ui aligned header">
@@ -60,55 +64,58 @@ Nueva Rutina
 
                          <form id="form" class="form-horizontal" method="post">
                             {% csrf_token %}   
-                            <div class="form-group">
-                            	<label class="col-lg-3 control-label">Titulo</label>
-                                <div class="col-lg-9 input-group">
-                                    <span class="input-group-addon">
-                                       <i class="icon ion-code-working"></i>
-                                    </span>
-                                    {{form.titulo}}
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                            <label class="col-lg-4 control-label">Titulo</label>
+                                            <div class="col-lg-8 input-group">
+                                                <span class="input-group-addon">
+                                                   <i class="icon ion-code-working"></i>
+                                                </span>
+                                                {{form.titulo}}
+                                            </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-lg-5 control-label">Frecuencia</label>
+                                        <div class="col-lg-7 input-group">
+                                            <span class="input-group-addon">
+                                                <i class="ion-android-refresh icon"></i>
+                                            </span>
+                                            {{form.frecuencia}}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                              <div class="form-group">
-                              	<label class="col-lg-3 control-label">Frecuencia</label>
-                                <div class="col-lg-9 input-group">
-                                    <span class="input-group-addon">
-                                        <i class="ion-android-refresh icon"></i>
-                                    </span>
-                                    {{form.frecuencia}}
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-lg-4 control-label">Sistema</label>
+                                        <div class="col-lg-8 input-group">
+                                           <span class="input-group-addon">
+                                                <i class="settings icon"></i>
+                                            </span>
+                                            <div id='sistema' class="form-control"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-lg-5 control-label">Duracion estimada (horas)</label>
+                                        <div class="col-lg-7 input-group">
+                                            <span class="input-group-addon">
+                                                <i class="ion-ios-stopwatch icon"></i>
+                                            </span>
+                                            <div id='duracion_estimada' class="form-control"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                             <div class="form-group">
-                                <label class="col-lg-3 control-label">Sistema</label>
-                                <div class="col-lg-9 input-group">
-                                   <span class="input-group-addon">
-                                        <i class="settings icon"></i>
-                                    </span>
-                                    <div id='sistema' class="form-control"></div>
-                                </div>
-                            </div>
-                              <div class="form-group">
-                                <label class="col-lg-3 control-label">Tareas</label>
-                                <div class="col-lg-9 input-group">
-                                   <span class="input-group-addon">
-                                        <i class="fork icon"></i>
-                                    </span>
-                                    <div id='tareas' class="form-control"></div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Paro</label>
-                                <div class="col-lg-9 input-group">
-                                   <span class="input-group-addon">
-                                        <i class="ion-ios-stopwatch icon"></i>
-                                    </span>
-                                    <div class="togglebutton">
-					                    <label>
-					                        {{form.paro_de_equipo}} Indica si es necesario detener el equipo
-					                    </label>
-					                </div>
-                                </div>
-                            </div>
+
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Recomendacion</label>
                                 <div class="col-lg-9 input-group">
@@ -116,6 +123,12 @@ Nueva Rutina
                                         <i class="ion-ios-chatbubble icon"></i>
                                     </span>
                                     {{form.recomendacion}}
+                                </div>
+                            </div>
+
+                             <div class="row">        
+                                <div class="col-md-12" >
+                                    <div id="jqxgrid"></div>
                                 </div>
                             </div>
 
@@ -149,7 +162,7 @@ Nueva Rutina
 <script>
 $(document).ready(function() {
 
-	function get_selected_items(){
+function get_selected_items(){
     items = $("#tareas").jqxComboBox('getSelectedItems'); 
     selection = new Array()
                     $.each(items, function (index) {
@@ -157,6 +170,14 @@ $(document).ready(function() {
                     });
     return selection  
 }
+
+    $("#duracion_estimada").jqxNumberInput({ 
+        spinButtons: true, min: 0.5,
+        theme:'metro',inputMode: 'simple',
+         decimalDigits: 1,
+         });
+
+    $("#duracion_estimada").jqxNumberInput('val', 0.5);
 
   $("#id_frecuencia").addClass('form-control')
   var sistemaSource =
@@ -182,7 +203,7 @@ $(document).ready(function() {
         };
         var adapTareas = new $.jqx.dataAdapter(tareasSource);
 
-    $("#tareas").jqxComboBox({ theme:'metro', promptText: "Selecciones las tareas que integran la rutina...", source:adapTareas, displayMember: 'nombre', valueMember: 'id', width:'100%', multiSelect: true});
+    //$("#tareas").jqxComboBox({ theme:'metro', promptText: "Selecciones las tareas que integran la rutina...", source:adapTareas, displayMember: 'nombre', valueMember: 'id', width:'100%', multiSelect: true});
 
      $('#form').jqxValidator({
                 rules: [
@@ -197,14 +218,14 @@ $(document).ready(function() {
                            }
                     },
                     {
-                      input: '#tareas', message: 'Seleccione al menos una terea', action: 'keyup, blur', rule: function (input, commit) {
-                      			valores = get_selected_items()
-                               if (valores.length < 1 ) {
+                      input: '#duracion_estimada', message: 'El valor minimo es de 0.5 horas', action: 'keyup, blur', rule: function (input, commit) {
+                               if (input.val() < 0.5) {
                                    return false;
                                }
                                return true;
                            }
                     },
+                
                 ],
                  arrow: false
             });
@@ -232,8 +253,7 @@ $(document).ready(function() {
                 frecuencia: $("#id_frecuencia").val().trim(),
                 recomendacion: $("#id_recomendacion").val().trim(),
                 sistema: $("#sistema").val(),
-                paro_de_equipo: $("#id_paro_de_equipo").val(),
-                'tareas[]': get_selected_items()
+                duracion_estimada: $("#duracion_estimada").val(),
             },
         })
         .done(function(data) {
@@ -242,12 +262,11 @@ $(document).ready(function() {
                 $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> La rutina fue alamcenada con exito!"});
                 document.getElementById("form").reset();
                 $(".form-control").jqxComboBox('clearSelection');
-                //$(".progress").css("visibility", "hidden")
-                  $(".progress").toggleClass( "hidden" );
+                $("#duracion_estimada").jqxNumberInput('val', 0.5);
+                $(".progress").toggleClass( "hidden" );
             }
             else{
-                //$(".progress").css("visibility", "hidden")
-                  $(".progress").toggleClass( "hidden" );
+                $(".progress").toggleClass( "hidden" );
                 var mensaje = "<ul>";
                 for(var i=0;i<data.errores.length;i++){
                     e = data.errores[i]
@@ -261,13 +280,14 @@ $(document).ready(function() {
         .fail(function(e) {
             $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ e.status + ": "+e.statusText});
             console.log(e)
-            // $(".progress").css("visibility", "hidden")
-              $(".progress").toggleClass( "hidden" );
+            $(".progress").toggleClass( "hidden" );
         })
         
         },600)   
         /* Act on the event */
     });
+
+
 
 
 });

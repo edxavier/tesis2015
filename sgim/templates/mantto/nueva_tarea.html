@@ -6,7 +6,7 @@ Mannto. | Nuevo Tarea de Mannto.
 {% block include_statics %}
     <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
 <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
-
+ <script type="text/javascript" src="{{STATIC_URL}}js/asset/gridLocalization.js"></script>
     
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
@@ -20,6 +20,15 @@ Mannto. | Nuevo Tarea de Mannto.
      <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxexpander.js"></script> 
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxvalidator.js"></script>
     
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxmenu.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.pager.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.selection.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.filter.js"></script> 
+     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.sort.js"></script>
 
 {% endblock include_statics %}
 
@@ -27,15 +36,18 @@ Mannto. | Nuevo Tarea de Mannto.
 
 {% block contenido %}
    <div class="ui purple menu">
-          <a class="item">
-            <i class="home icon"></i> Inicio
-          </a>
-          <a class="red item" href="{% url 'tareas_list' %}">
-            <i class=" cubes icon"></i> Tareas
-          </a>
-          <a class="active blue item" href="{% url 'tarea_add' %}">
+  <a class="item" href="/">
+    <i class="home icon"></i> Inicio
+  </a>
+  <a class=" item" href="{% url 'rutinas_list' %}">
+    <i class="icon ion-settings"></i>  Rutinas
+  </a>
+  <a class=" item" href="{% url 'rutina_add' %}">
+    <i class=" add icon"></i> Nueva Rutina
+  </a>
+    <a class=" active blue item" href="{% url 'tarea_add' %}">
             <i class=" add icon"></i> Agregar Tarea
-          </a>
+    </a>
     </div>
         
 <div class="progress hidden">
@@ -43,7 +55,7 @@ Mannto. | Nuevo Tarea de Mannto.
 </div>
 <div class="container-fluid">
 <div class="row">
-    <div class="col-md-6 col-md-offset-3" >
+    <div class="col-md-8 col-md-offset-2" >
             <div class="panel panel-primary  shadow-z-1">
                 <div class="panel-heading" >
                     <h3 style="color:white" class="center ui aligned header">
@@ -54,60 +66,48 @@ Mannto. | Nuevo Tarea de Mannto.
                     </h3>
                 </div>
                 <div class="panel-body">                  
-                    <div class="col-md-10 col-sm-10 ">
-
-                         <form id="form" class="form-horizontal" method="post">
-                            {% csrf_token %}   
-                                    <div class="form-group">
-                                <div class="col-lg-11 col-lg-offset-1 input-group">
-                                    <span class="input-group-addon">
-                                        <i class="mdi-action-input"></i>
-                                    </span>
-                                    {{form.nombre}}
-                                </div>
-                            </div>
-                              <div class="form-group">
-                                <div class="col-lg-11 col-lg-offset-1 input-group">
-                                    <span class="input-group-addon">
-                                        <i class="mdi-image-timer"></i>
-                                    </span>
-                                    {{form.minutos}}
-                                </div>
-                            </div>
-                              <div class="form-group">
+                    <div class="col-md-10 col-sm-10 ">                        
+                            <div class="form-group">
                                 <div class="col-lg-11 col-lg-offset-1 input-group">
                                    <span class="input-group-addon">
-                                        <i class="fork icon"></i>
+                                        <i class="list icon"></i>
                                     </span>
-                                    <div id='tipo' class="form-control"></div>
+                                    <div id='rutina' class="form-control"></div>
                                 </div>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <div class="col-lg-11 col-lg-offset-1 input-group">
-                                    <span class="input-group-addon">
-                                        <i class="mdi-action-work"></i>
-                                    </span>
-                                    {{form.meteriales}}
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-lg-10 col-lg-offset-1">
-                                    <button id="enviar" type="button" class="ui teal button">
-                                        Guardar  &nbsp;
-                                        <span class="glyphicon glyphicon-save" ></span>
-                                    </button>
-                                    <button id="limpiar" type="button" class="ui black button">
-                                        Limpiar Campos  &nbsp;
-                                        <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
-                                    </button>
-                                </div>
-                            </div>
-
-                        </form>
-
+                            </div>                          
                     </div>
+                      <div class="col-md-12 "> 
+                            <div class="form-group">
+                                                            
+                              <div class="row">
+                                <div class="col-md-5">
+                                  <div class="col-lg-11 col-lg-offset-1 input-group">
+                                    <span class="input-group-addon">
+                                       Nombre
+                                    </span>
+                                    <input type="text" class='form-control nombre'>
+                                  </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="col-lg-11 col-lg-offset-1 input-group">
+                                    <span class="input-group-addon">
+                                       Valor Ref.
+                                    </span>
+                                    <input type="text" class='form-control valor'>
+                                  </div>
+                                </div>
+                                <div class="col-md-2">
+                                  <div class="col-lg-11 col-lg-offset-1 input-group">
+                                    <div class="ui teal button agregar disabled">Agregar</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div id="jqxgrid"></div>
+                           
+                    </div>
+                     
                 </div>
                 
             </div>
@@ -121,94 +121,97 @@ Mannto. | Nuevo Tarea de Mannto.
 {% block scripts %}
 <script>
     $(document).ready(function() {
-        var tipoSource =
+        var rutinasSource =
         {
             dataType: "json",
             dataFields: [
                 { name: 'id'},
-                { name: 'text'}
+                { name: 'titulo'}
             ],
-            url: '/api/catalogo/tipo_disp/'
+            url: '/api/mantto/rutinas/'
         };
-        var tipoAdapter = new $.jqx.dataAdapter(tipoSource);
+        var rutinaAdap = new $.jqx.dataAdapter(rutinasSource);
 
-     $("#tipo").jqxComboBox({ theme:'metro', promptText: "Tipo de dispositivos a aplicar", 
-        source: tipoAdapter, displayMember: 'text', valueMember: 'id', multiSelect: true,  width: '100%' });
+     $("#rutina").jqxComboBox({ theme:'metro', promptText: "Seleccione un rutina", 
+        source: rutinaAdap, displayMember: 'titulo', valueMember: 'id', width: '300px' });
 
-    $('#form').jqxValidator({
-                rules: [
-                    { input: '#id_nombre', message: 'Campo requerido', action: 'blur', rule: 'required' },
-                ]
+
+    $('#rutina').on('select', function (event) 
+    {
+          var args = event.args;
+          if (args) {
+          var item = args.item;
+          var value = item.value;
+          var source =
+            {
+                datatype: "json",
+                datafields: [
+                    { name: 'id', type: 'int' },
+                    { name: 'nombre', type: 'string' },
+                    { name: 'valor_ref', type: 'string' },
+                ],
+                id: 'id',
+                url: '/api/mantto/tareas/?rutina='+value
+            };
+          var dataAdapter = new $.jqx.dataAdapter(source);
+          $("#jqxgrid").jqxGrid({source:dataAdapter});
+          $('.agregar').removeClass('disabled')
+        }
+    }); 
+
+
+        $("#jqxgrid").jqxGrid(
+            {
+                width:'100%',
+                pageable: true,
+                height: 250 ,
+                altrows: true,
+                enabletooltips: true,
+                localization: getLocalization(),
+                columns: [
+                  { text: 'Nombre de la Tarea', datafield: 'nombre', width:'50%',},
+                  { text: 'Valor de Referencia', datafield: 'valor_ref',width:'50%', },  
+              ],
             });
 
-    $("#enviar").on('click',  function(event) {
-        event.preventDefault();
-         $('#form').jqxValidator('validate');
+    $('.agregar').click(function(event) {
+    /* Act on the event */
+        nombre = $('.nombre').val()
+        valor = $('.valor').val()
+        rutina =  $('#rutina').val()
+        if(nombre.length > 2 && valor.length > 2 )
+        {
+          if(rutina>0){
+            $.ajax({
+              url: '/api/mantto/tareas/',
+              type: 'POST',
+              dataType: 'json',
+              data: {
+                nombre: nombre,
+                valor_ref: valor,
+                rutina: rutina
+              },
+            })
+            .done(function(data) {
+              $('#jqxgrid').jqxGrid('addrow', null, data);
+              $('.valor, .nombre').val("")
+            })
+            .fail(function(err) {
+              console.log(err);
+              $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ err.status + ": "+err.statusText});
+            })           
+
+              var commit = $("#jqxgrid").jqxGrid('addrow', null, null);
+          }
+          else{
+             $.snackbar({content: "<i class='ion-happy yellow icon'></i> Selecciona a que rutina asociar la tarea por favor!",timeout: 5000});
+          }
+        }
+        else{
+           $.snackbar({content: "<i class='ion-happy yellow icon'></i> Es necesario indicar valores para ambos campos (minimo 3 caracteres) ",timeout: 5000});
+        }
     });
 
-function get_selected_items(){
-    items = $("#tipo").jqxComboBox('getSelectedItems'); 
-    var selectedItems = "Selected Items: ";
-    selection = new Array()
-                    $.each(items, function (index) {
-                        selection.push(this.value)
-                    });
-    return selection  
-}
-
-
-    $('#form').on('validationSuccess', function (event) { 
-        $(".progress").toggleClass( "hidden" );
-
-     setTimeout(function(){
-        $.ajax({
-            url: '/mantto/tareas/agregar/',
-            type: 'POST',
-            data: {
-                nombre: $("#id_nombre").val().trim(),
-                minutos: $("#id_minutos").val().trim(),
-                meteriales: $("#id_meteriales").val().trim(),
-                'tipo_dispositivos[]': get_selected_items()
-            },
-        })
-        .done(function(data) {
-            
-            if(data.success){
-                $.snackbar({content: "<i class='checkmark green sign icon'></i> La tarea fue alamcenada con exito!"});
-                document.getElementById("form").reset();
-                $(".form-control").jqxComboBox('clearSelection');
-                //$(".progress").css("visibility", "hidden")
-                  $(".progress").toggleClass( "hidden" );
-            }
-            else{
-                //$(".progress").css("visibility", "hidden")
-                  $(".progress").toggleClass( "hidden" );
-                var mensaje = "<ul>";
-                for(var i=0;i<data.errores.length;i++){
-                    e = data.errores[i]
-                    mensaje +="<li>"+ e[0]+": "+ e[1] +"</li>"
-                }
-                mensaje += "</ul>"
-                $.snackbar({content: "<h5 style='color:yellow'><i class='warning yellow sign icon'></i> Se encontraron los siguientes inconvenientes: </h5>"+mensaje, timeout: 0 });
-
-            }
-        })
-        .fail(function(e) {
-            $.snackbar({content: "<i class='warning red sign icon'></i> Error "+ e.status + ": "+e.statusText});
-            // $(".progress").css("visibility", "hidden")
-              $(".progress").toggleClass( "hidden" );
-        })
-        
-        },600)   
-        /* Act on the event */
-    });
-
-    $("#limpiar").on('click',  function(event) {
-        event.preventDefault();
-        document.getElementById("form").reset();
-        $(".form-control").jqxComboBox('clearSelection'); 
-        /* Act on the event */
-    });
 
     });
 </script>	

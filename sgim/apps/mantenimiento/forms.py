@@ -6,13 +6,9 @@ from .models import Tarea, Rutina, Programacion, BoletaTrabajo
 class TareaForm(forms.ModelForm):
     nombre = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Nombre',
                                                            'class': 'form-control floating-label', 'required': True}))
-    meteriales = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Herramientas o Materiales','rows':'4',
-                                                              'class': 'form-control floating-label'}), initial='N/A')
-    minutos = forms.CharField(widget=forms.NumberInput(attrs={'placeholder': 'Duracion (min)', 'min':'0',
-                                                              'class': 'form-control floating-label'}))
     class Meta:
         model = Tarea
-        exclude = ('creador', 'tipo_dispositivos',)
+        exclude = ('creador',)
 
 
 class RutinaForm(forms.ModelForm):
@@ -24,7 +20,7 @@ class RutinaForm(forms.ModelForm):
 
     class Meta:
         model = Rutina
-        exclude = ('creador', 'tareas')
+        exclude = ('creador', )
 
 
 class ProgramacionForm(forms.ModelForm):

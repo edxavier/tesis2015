@@ -2,29 +2,9 @@ from django.db import models
 
 # Create your models here.
 from apps.inicio.models import MarcaDeTiempo
-from apps.catalogo.models import Personal, TipoIncidente
+from apps.catalogo.models import Personal, TipoIncidente, EstadoIncidente, EstadoCambio, SeveridadUrgencia, MedioNotificaion
 from apps.inventario.models import Dispositivo, Servicio
 
-MEDIO = (("1","Telefono"),
-             ("2","Correo"),
-             ("3","En Persona"),
-             )
-URGENCIA = (("1","Baja"),
-             ("2","Media"),
-             ("3","Alta"),
-             )
-SEVERIDAD = URGENCIA
-
-ESTADO = (("1","Cerrado"),
-             ("2","Pendiente"),
-             ("3","Observacion"),
-             ("4","Cancelado"),
-             )
-ESTADO_CAMBIO = (("1","Pendiente"),
-             ("2","En proceso"),
-             ("3","Terminado"),
-             ("4","Cancelado"),
-             )
 
 class Actividad(models.Model):
     descripcion = models.TextField(help_text="Describa los trabajos realizados", blank=False)
@@ -38,7 +18,7 @@ class Actividad(models.Model):
 
 class Incidencia(MarcaDeTiempo, models.Model):
 
-    medio_notificacion =  models.CharField(choices=MEDIO, max_length=30, default=1)
+    medio_notificacion = models.ForeignKey(MedioNotificaion)
     reporta = models.ForeignKey(Personal, help_text="Indica quien notifica el incidente")
     tipo  = models.ForeignKey(TipoIncidente)
     problema = models.TextField(help_text="Describa brevemente el problema que se presenta")
@@ -46,11 +26,11 @@ class Incidencia(MarcaDeTiempo, models.Model):
     solucion = models.TextField(default="",help_text="Indique la posible solucion del incidente")
     dispositivo = models.ForeignKey(Dispositivo)
     servicios = models.ManyToManyField(Servicio, help_text="Servicios afectados por la incidencia", blank=True)
-    urgencia = models.CharField(choices=URGENCIA, max_length=30,    default=1)
-    severidad = models.CharField(choices=SEVERIDAD, max_length=30, default=1)
+    urgencia = models.ForeignKey(SeveridadUrgencia)
+    severidad = models.ForeignKey(SeveridadUrgencia, related_name='severidad_set2')
     relacion = models.ForeignKey('self', blank=True, null=True,
                                  help_text="Indica la relacion con la incidencia mas reciente que exista")
-    estado = models.CharField(choices=ESTADO, max_length=30, default=1)
+    estado = models.ForeignKey(EstadoIncidente)
     paro_equipo = models.BooleanField(default=False)
     duracion_paro = models.IntegerField(help_text="Indique cuanto duro el paro en minutos", default=    0)
 
@@ -75,7 +55,7 @@ class Cambio(MarcaDeTiempo):
     inicio_previsto = models.DateField(help_text="Cuando preeve implementarse")
     servicios = models.ManyToManyField(Servicio, help_text="Servicios afectados por el cambio", blank=True)
     dispositivos = models.ManyToManyField(Dispositivo, help_text="Dispositivos afectados por el cambioa", blank=True)
-    estado = models.CharField(choices=ESTADO_CAMBIO, max_length=30, default=1)
+    estado = models.ForeignKey(EstadoCambio)
 
     def __unicode__(self):
         return self.titulo

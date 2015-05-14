@@ -19,8 +19,12 @@ urlpatterns = patterns('',
                         url(r'^boletas/listar/$', login_required(Boletas.as_view()), name='boletas_list'),
 
                         url(r'^boletas/reportes/detalle/(\d+)/$', login_required(Mantto_Detalle.as_view()),name='report_mantto_detalle'),
+
                         url(r'^planes/reportes/detalle/(\d+)/$', login_required(Plan_Detalle.as_view()),name='report_plan_detalle'),
                         url(r'^planes/reportes/listado/$', login_required(Planes_Listado.as_view()),name='report_plan_list'),
+                        url(r'^rutinas/reportes/detalle/(\d+)/$', login_required(Rutina_Detalle.as_view()),name='report_rutina_detalle'),
+                        url(r'^rutinas/reportes/listado/$', login_required(Rutinas_Listado.as_view()), name='report_rutina_list'),
+                        url(r'^rutinas/reportes/formato/(\d+)/$', login_required(Rutina_Formato.as_view()), name='report_rutina_format'),
 
 
                        )

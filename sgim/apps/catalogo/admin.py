@@ -5,7 +5,8 @@ from .models import (
     Edificio, Oficina, TipoServicio,
     TipoComponente, EstadoOperacional,
     EstadoMantenimiento, Cargo, Personal,
-    TipoIncidente
+    TipoIncidente, MedioNotificaion, EstadoIncidente,
+    EstadoCambio, SeveridadUrgencia, FrecuenciaMantto
 )
 
 
@@ -105,3 +106,48 @@ class PersonalAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         return agregarCreador(request, form)
 
+
+#***********************
+
+@admin.register(EstadoIncidente)
+class EstadoIncidenteAdmin(admin.ModelAdmin):
+    list_display = ("nombre", "creador",)
+    fields = ("nombre",)
+
+    def save_model(self, request, obj, form, change):
+        return agregarCreador(request, form)
+
+
+@admin.register(EstadoCambio)
+class EstadoCambioAdmin(admin.ModelAdmin):
+    list_display = ("nombre", "creador",)
+    fields = ("nombre",)
+
+    def save_model(self, request, obj, form, change):
+        return agregarCreador(request, form)
+
+
+@admin.register(MedioNotificaion)
+class MedioNotificaionAdmin(admin.ModelAdmin):
+    list_display = ("nombre", "creador",)
+    fields = ("nombre",)
+
+    def save_model(self, request, obj, form, change):
+        return agregarCreador(request, form)
+
+@admin.register(SeveridadUrgencia)
+class SeveridadUrgenciaAdmin(admin.ModelAdmin):
+    list_display = ("nombre", "creador",)
+    fields = ("nombre",)
+
+    def save_model(self, request, obj, form, change):
+        return agregarCreador(request, form)
+
+
+@admin.register(FrecuenciaMantto)
+class FrecuenciaManttoAdmin(admin.ModelAdmin):
+    list_display = ("nombre", "creador",)
+    exclude = ("creador",)
+
+    def save_model(self, request, obj, form, change):
+        return agregarCreador(request, form)
