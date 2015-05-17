@@ -65,8 +65,8 @@ Incidencias
 </div>
 
 
-
-<div class="ui small modal" >
+<!--MODAL PARA FILTRAR POR FECHA-->
+<div class="ui small modal filtrar" >
     <i class="close icon"></i>
     <div class="header">
       <i class="ion-ios-calendar icon"></i>Obtener Incidencias por rango de fechas
@@ -92,6 +92,42 @@ Incidencias
     </div>
 </div>
 
+<!--MODAL PARA CERRAR NOTA-->
+<div class="ui small modal cerrarInc" >
+    <i class="close icon"></i>
+    <div class="header">
+      <i class="ion-flash-off icon"></i>Dar incidente por cerrado
+    </div>
+    <div class="content">
+        <div class="description">
+          <h5>Agrega un breve descripcion de la solucion empleada para dar por cerrado el incidente</h5>
+
+          <div class="ui form">
+            <div class="field">
+              <label>Descripcion</label>
+              <textarea id='solucion'></textarea>
+            </div>
+          </div>
+            
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui  left icon ok orange button disabled">
+            Cerrar Incidencia 
+            <i class="ion-flash-off icon"></i>
+        </div>
+        <div class="ui black button">
+            Cancelar            
+            <i class="ion-android-cancel icon"></i>
+        </div>
+    </div>
+</div>
+
+<div class="ui dimmer cargando">
+    <div class="ui large text loader">
+      Espere por favor...
+    </div>
+</div>
 {% endblock contenido %}
 
 {% block scripts %}
@@ -137,6 +173,7 @@ $(document).ready(function() {
                     { name: 'severidad',},
                     { name: 'servicios',},
                     { name: 'estado',},
+                    { name: 'estado_str',},
                     { name: 'relacion',}
                    
                 ],
@@ -148,15 +185,13 @@ $(document).ready(function() {
     }
 
 
-  $('.ui.modal').modal({
+  $('.filtrar').modal({
     closable:false,
     transition:'fade up',
     onApprove : function() {
-    	console.log("se enviara le peticion")
     	var range = $("#filtroFecha").jqxDateTimeInput('getRange');
 	    var from =  moment(range.from).format("DD/MM/YYYY");
 	    var to =  moment(range.to).format("DD/MM/YYYY");
-	    console.log(from)
     	$("#jqxgrid").jqxGrid({source: get_datos("?min_date="+from+"&max_date="+to),})
     }
  })   
@@ -192,7 +227,7 @@ $(document).ready(function() {
                   { text: 'Severidad', datafield: 'severidad', width:'70px'},
                   { text: 'Problema', datafield: 'problema',  },
                   { text: 'Relacion', datafield: 'relacion', width:'75px', cellsrenderer:relacionRender},
-                  { text: 'Estado', datafield: 'estado', width:'120px'},
+                  { text: 'Estado', datafield: 'estado_str', width:'120px'},
                   //{ text: 'Servicios', datafield: 'servicios', width:'80px',cellsrenderer: servRender},
                   { text: 'Usuario', datafield: 'creador', width:'60px'},
                   { text: 'Fecha', datafield: 'creado', cellsformat:'dd-MMM-yy' , filtertype:'date' , width:'110px'},
@@ -205,7 +240,7 @@ $(document).ready(function() {
                     var viewButton = $("<div class='ui  tiny blue button'> Ver detalles</div>");
                     var filterButton = $("<div class='ui  tiny purple button'>Filtrar Fechas</div>");
                     var reloadbtn = $("<div class='tiny green ui icon button'><i class='icon refresh'></i></div>");
-                    var cerrarBtn = $("<div class='tiny orange ui icon button'><i class='icon ion-flash-off'></i>Cerrar Incidente</div>");
+                    var cerrarBtn = $("<div class='tiny orange ui icon button disabled cerrar'><i class='icon ion-flash-off'></i>Cerrar Incidente</div>");
 
                     container.append(reloadbtn);
                     container.append(viewButton);
@@ -233,13 +268,13 @@ $(document).ready(function() {
                     });
                     // filter from server.
                     filterButton.click(function (event) {
-                       $('.ui.modal').modal('show') 
+                       $('.filtrar').modal('show') 
                     });
                     reloadbtn.click(function (event) {
                       $("#jqxgrid").jqxGrid({source: get_datos(),})
                     });
                     cerrarBtn.click(function (event) {
-                      confirm("Seguro??")
+                      $('.cerrarInc').modal('show') 
                     });
 
                 },
@@ -251,12 +286,59 @@ $(document).ready(function() {
       var args = event.args;
       var rowBoundIndex = args.rowindex;
       var rowData = args.row;
-      $("#boleta").html(rowData.id)
-      $("#cabecera").html(rowData.dispositivo)
-      $("#descripcion").html(rowData.descripcion)
+      estado = rowData.estado;
+      if(estado!=1){
+        $(".cerrar").removeClass('disabled')
+      }else{
+        $(".cerrar").addClass('disabled')
+      }
 
-      //console.log(rowData)
   });
+
+  $('.cerrarInc').modal({
+    closable:false,
+    transition:'fade up',
+    onApprove : function() {  
+      var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+      var row_id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
+       $('.cargando').toggleClass('active');                      
+          $.ajax({
+                url: '/api/incidencias/incidentes/'+row_id,
+                type: 'PUT',
+                dataType: 'json',
+                data: { 
+                    estado:1,
+                    desc: $("#solucion").val()
+                },
+          })
+          .done(function(data) {
+                          $('.cargando').toggleClass('active');
+                          $('#jqxgrid').jqxGrid('updaterow', row_id, data);
+                          $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i>Incidente cerrado con exito!"});
+                          $(".cerrar").addClass('disabled')
+                          console.log(data)
+          })
+          .fail(function(err) {
+                          if(err.status=== 403){
+                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Aviso: "+ err.responseJSON.detail ,timeout: 6000});
+                          }else{
+                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ err.status + ": "+err.statusText});
+                          }
+                          console.log(err)
+                          $('.cargando').toggleClass('active');
+          })
+      
+    }
+ })   
+
+    $("#solucion").keyup(function(event) {
+      /* Act on the event */
+      if($(this).val().length > 20){
+        $('.ok.orange.button').removeClass('disabled')
+      }else{
+        $('.ok.orange.button').addClass('disabled')
+      }
+    });
  
 });
 

@@ -251,7 +251,7 @@ $('#Menu').removeClass('hidden')
                         })
                         .fail(function(err) {
                           if(err.status=== 403){
-                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error: "+ err.responseJSON.detail ,timeout: 4000});
+                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Aviso: "+ err.responseJSON.detail ,timeout: 8000});
                           }else{
                             $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ err.status + ": "+err.statusText});
                           }
@@ -291,7 +291,7 @@ $('.ui.modal.finalizar').modal({
           })
           .fail(function(err) {
                           if(err.status=== 403){
-                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error: "+ err.responseJSON.detail ,timeout: 6000});
+                            $.snackbar({content: "<i class='lock red icon'></i> Aviso: "+ err.responseJSON.detail ,timeout: 6000});
                           }else if(err.status=== 400){
                               $.snackbar({content: "<i class='ion-android-warning yellow icon'></i> Error: "+ err.responseJSON.non_field_errors[0] ,timeout: 8000});
                           }else{

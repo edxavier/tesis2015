@@ -11,7 +11,7 @@ class IncidenciaSerializer(serializers.ModelSerializer):
     creador = serializers.ReadOnlyField(source='creador.username')
     tipo = serializers.ReadOnlyField(source='tipo.nombre')
     severidad = serializers.ReadOnlyField(source='severidad.nombre')
-    estado = serializers.ReadOnlyField(source='estado.nombre')
+    estado_str = serializers.ReadOnlyField(source='estado.nombre')
 
     class Meta:
         model = Incidencia

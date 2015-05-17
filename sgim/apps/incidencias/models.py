@@ -32,7 +32,7 @@ class Incidencia(MarcaDeTiempo, models.Model):
                                  help_text="Indica la relacion con la incidencia mas reciente que exista")
     estado = models.ForeignKey(EstadoIncidente)
     paro_equipo = models.BooleanField(default=False)
-    duracion_paro = models.IntegerField(help_text="Indique cuanto duro el paro en minutos", default=    0)
+    duracion_paro = models.IntegerField(help_text="Indique cuanto duro el paro en minutos", default=0)
 
     def __unicode__(self):
         return "Inc-%s" % self.pk
