@@ -5,7 +5,7 @@ from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin, User
 )
 from django.dispatch import receiver
-from apps.inicio.utils import enviarSMS
+from apps.inicio.utils import enviarSMS, enviarEmail
 
 
 # Create your models here.
@@ -64,6 +64,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
             enviarSMS(self.telefono, mensaje)
 
 
+
 #Receptor de señal post_save
 @receiver(models.signals.post_save, sender=Usuario)
 def notificarUsuarioDeAlta(sender, instance, created, **kwargs):
@@ -75,6 +76,10 @@ def notificarUsuarioDeAlta(sender, instance, created, **kwargs):
         mensaje = "Credenciales de acceso a SGIM =" \
                   " Usuario:" + instance.username + "-Clave:" + instance.TEMP_PASSWD + " "
         instance.enviar_sms(mensaje)
+        msg2 =  "<strong>Usuario:</strong> " + instance.username + "<br><strong>Clave:</strong> " + instance.TEMP_PASSWD
+        toList = ["edxavier05@gmail.com"]
+        enviarEmail("Acceso a SGIM", toList, msg2, 'welcome')
+
 
 
 @receiver(models.signals.pre_save, sender=Usuario)

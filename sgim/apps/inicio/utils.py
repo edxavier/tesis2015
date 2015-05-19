@@ -9,6 +9,7 @@ from django.template.loader import get_template
 from django.template import Context
 from django.http import HttpResponse
 from cgi import escape
+from django.core.mail import EmailMessage
 
 
 def html_to_pdf(template_src, context_dict):
@@ -91,3 +92,14 @@ def link_callback(uri, rel):
                     'media URI must start with %s or %s' % \
                     (sUrl, mUrl))
     return path
+
+
+def enviarEmail(subject, to_list, message, template_name):
+    msg = EmailMessage(subject=subject, from_email='Sala Tecnica <stecnica@eaai.com.ni>',
+                       to=to_list)
+    msg.template_name = template_name #este templete se crea en mailchimp
+    msg.template_content = {
+        'std_content00': message
+    }
+    msg.send()
+

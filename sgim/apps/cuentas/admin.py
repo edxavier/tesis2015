@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import Usuario
 from .forms import UserCreationForm, UserChangeForm
-
+from apps.inicio.utils import enviarSMS, enviarEmail
 
 # Register your models here.
 @admin.register(Usuario)
@@ -29,4 +29,6 @@ class UsuarioAdmin(UserAdmin):
     search_fields = ('email',)
     ordering = ('username','email',)
     filter_horizontal = ('groups','user_permissions',)
+
+
 

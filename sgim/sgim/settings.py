@@ -36,3 +36,6 @@ REST_FRAMEWORK = {
     )
 }
 
+
+EMAIL_BACKEND ='djrill.mail.backends.djrill.DjrillBackend'
+MANDRILL_API_KEY = 'qk18KxRN5MpaJDB7zwAp_Q'

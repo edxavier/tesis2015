@@ -7,7 +7,7 @@ from .forms import TareaForm, RutinaForm, ProgramacionForm, BoletaForm
 from apps.catalogo.models import TipoDispositivo, EstadoMantenimiento, Personal
 from .models import Tarea, BoletaTrabajo
 from apps.inventario.models import Dispositivo
-
+from apps.inicio.utils import enviarSMS, enviarEmail
 # Create your views here.
 
 # Create your views here.
@@ -112,6 +112,8 @@ class NuevoPlan(View):
                 pers = get_object_or_404(Personal, pk=it)
                 plan.personal.add(pers)
             plan.save()
+            toList = ["edxavier05@gmail.com"]
+            enviarEmail(plan.rutina.titulo, toList, "Este correo es para notificarte que estaras a cargo del mantto", 'mantto')
             return JsonResponse({'success': form.is_valid(), 'errores': [(k, v[0]) for k, v in form.errors.items()]})
             #tarea.save()
         else:
