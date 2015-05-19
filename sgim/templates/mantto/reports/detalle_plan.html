@@ -44,9 +44,11 @@
 		
 			<tr>
 				<td colspan="3" class="titulo_mtto">
-					Inicio Real: {{plan.inicio}}  				
+					Inicio Real: {{plan.inicio|default_if_none:"-------"}}  				
 				</td>
-				<td colspan="3" class="titulo_mtto">Fin Real: {{plan.fin}}</td>
+				<td colspan="3" class="titulo_mtto">
+					Fin Real: {{plan.fin|default_if_none:"-------"}}
+				</td>
 				<td colspan="1" class="titulo_mtto">{{plan.estado}}</td>
 			</tr>		
 			<tr>
@@ -111,7 +113,11 @@
 			    	 {{boleta.tiempo_paro}}
 			    </td>	
 			    <td>
-			    	 {{boleta.tipo}}
+			    	{% if  boleta.tipo == "1" %}
+			    		Preventivo
+			    	{% else %}
+			    		Correctivo
+			    	{% endif %}
 			    </td>
 			    <td >
 			    	{% if  boleta.creador.firstname %}

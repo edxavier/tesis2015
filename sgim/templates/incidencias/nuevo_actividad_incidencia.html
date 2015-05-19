@@ -24,10 +24,9 @@
 	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxnumberinput.js"></script>
 	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcheckbox.js"></script>
 
-
-
 	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxeditor.js"></script>
-
+<script src="{{BOWER_URL}}ckeditor/ckeditor.js"></script>
+<script src="{{BOWER_URL}}ckeditor/adapters/jquery.js"></script>
 {% endblock include_statics %}
 {% block contenido %}
 <div class="ui purple menu">
@@ -51,7 +50,7 @@
 						</div>
 <div class="container-fluid">
 <div class="row">
-    <div class="col-md-8 col-md-offset-2" >
+    <div class="col-md-10 col-md-offset-1" >
             <div class="panel panel-primary  shadow-z-2">
                 <div class="panel-heading" >
                     <h3 style="color:white" class="center ui aligned header">
@@ -87,52 +86,81 @@
                                 </div>
                             </div>
 
-                             <div class="form-group">
-                                <label class="col-lg-3 control-label">
-                                	{{form.paro_operacion.label}}
-                                </label>
-                                <div class="col-lg-9 input-group">
-                                   <span class="input-group-addon">
-                                        <i class="ion-android-hand icon"></i>
-                                    </span>
-                                    <div class="togglebutton">
-        					                    <label>
-        					                        {{form.paro_equipo}} Indica si fue necesario detener el equipo
-        					                    </label>
-        					                </div>
-                                </div>
+
+                          <div class="row">
+                            <div class="col-md-6">
+                                            <div class="form-group">
+                                                          <label class="col-lg-4 control-label">
+                                                            {{form.paro_operacion.label}}
+                                                          </label>
+                                                          <div class="col-lg-8 input-group">
+                                                             <span class="input-group-addon">
+                                                                  <i class="ion-android-hand icon"></i>
+                                                              </span>
+                                                              <div class="togglebutton">
+                                                                <label>
+                                                                    {{form.paro_equipo}} Indica si fue necesario detener el equipo
+                                                                </label>
+                                                            </div>
+                                                          </div>
+                                                      </div>
                             </div>
-                            <div class="form-group">
-                              	<label class="col-lg-3 control-label">Tiempo de paro (min)</label>
-                                <div class="col-lg-9 input-group">
-                                    <span class="input-group-addon">
-                                        <i class="ion-ios-stopwatch icon"></i>
-                                    </span>
-                                    <div id='tiempo' class="form-control"></div>
-                                </div>
+                            <div class="col-md-6">
+                               <div class="form-group">
+                                                          <label class="col-lg-4 control-label">Tiempo de paro (min)</label>
+                                                          <div class="col-lg-8 input-group">
+                                                              <span class="input-group-addon">
+                                                                  <i class="ion-ios-stopwatch icon"></i>
+                                                              </span>
+                                                              <div id='tiempo' class="form-control"></div>
+                                                          </div>
+                                                      </div>
+
+                            </div>
+                          </div>
+                             
+
+                           
+                            <div class="row">
+                              <div class="col-md-6">
+                                                    <div class="form-group">
+                                                          <label class="col-lg-4 control-label"> {{form.inicio_actividad.label}}</label>
+                                                            <div class="col-lg-8 input-group">
+                                                                <span class="input-group-addon">
+                                                                   <i class="icon ion-calendar"></i>
+                                                                </span>
+                                                                <div id='inicio' class="form-control"></div>
+                                                            </div>
+                                                        </div>
+                              </div>
+                              <div class="col-md-6">
+                                
+                                                         <div class="form-group">
+                                                          <label class="col-lg-4 control-label"> {{form.fin_actividad.label}}</label>
+                                                            <div class="col-lg-8 input-group">
+                                                                <span class="input-group-addon">
+                                                                   <i class="icon ion-calendar"></i>
+                                                                </span>
+                                                                <div id='fin' class="form-control"></div>
+                                                            </div>
+                                                        </div>
+                              </div>
                             </div>
 
                             <div class="form-group">
-                            	<label class="col-lg-3 control-label"> {{form.inicio_actividad.label}}</label>
-                                <div class="col-lg-9 input-group">
-                                    <span class="input-group-addon">
-                                       <i class="icon ion-calendar"></i>
-                                    </span>
-                                    <div id='inicio' class="form-control"></div>
+                              
+                                <div class="col-lg-8 col-md-offset-2 input-group">                                  
+                                    <div class="checkbox">
+                                      <label>
+                                          <input id ="cerrar" type="checkbox"> Cerrar el Incidente
+                                      </label>
+                                  </div>
                                 </div>
                             </div>
-                             <div class="form-group">
-                            	<label class="col-lg-3 control-label"> {{form.fin_actividad.label}}</label>
-                                <div class="col-lg-9 input-group">
-                                    <span class="input-group-addon">
-                                       <i class="icon ion-calendar"></i>
-                                    </span>
-                                    <div id='fin' class="form-control"></div>
-                                </div>
-                            </div>
-                           
-                           
 
+                            <div class="progress hidden">
+                                  <div class="indeterminate"></div>
+                            </div>
 
                             <div class="form-group">
                                 <div class="col-lg-10 col-lg-offset-1">
@@ -147,6 +175,7 @@
                                   
                                 </div>
                             </div>
+
 
                         </form>
 						
@@ -167,6 +196,24 @@ $(document).ready(function() {
 		yesterday.setDate(today.getDate()-1);
     var yesterday2 = new Date(yesterday);
     yesterday2.setTime(yesterday2.getTime() + 60000);
+    $( 'textarea' ).ckeditor({
+    
+    extraPlugins: 'codesnippet',
+    codeSnippet_theme: 'monokai_sublime',
+       toolbar :[
+    { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [  'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 'CodeSnippet', ] },
+    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Scayt' ] },
+    { name: 'links', items: [ 'Link', 'Unlink'] },
+    { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule', 'SpecialChar', ] },
+    { name: 'tools', items: [ 'Maximize', ] },
+    { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source' ] },
+    '/',
+    { name: 'colors' },
+    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
+    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
+    { name: 'styles', items: [ 'Styles', 'Format' ] }
+]
+});
 
 	    $("#inicio").jqxDateTimeInput({
 	        theme:'metro',min: yesterday, firstDayOfWeek: 1,formatString: "dd/MM/yyyy HH:mm ",
@@ -187,10 +234,7 @@ $(document).ready(function() {
           $('#fin ').jqxDateTimeInput('setMinDate',min);
       });
 
-		$('#id_descripcion').jqxEditor({
-                width: '100%', theme:'metro',lineBreak:"br",
-                tools:"bold italic underline  color background | left center right | outdent indent | ul ol | image | link | clean | html"
-            });
+
 
   	$("#tiempo").jqxNumberInput({ 
   		spinButtons: true, min: 0,
@@ -214,7 +258,7 @@ $(document).ready(function() {
             dataFields: [
                 { name: 'id'},
             ],
-            url: '/api/incidencias/incidentes/'
+            url: '/api/incidencias/incidentes/?min_estado=2'
         };
         var incidenteAdapter = new $.jqx.dataAdapter(incidenteSource);
 
@@ -226,14 +270,6 @@ $('#form').jqxValidator({
                     {
                       input: '#incidencia', message: 'Campo requerido', action: 'keyup, blur', rule: function (input, commit) {
                                if (input.val() === "") {
-                                   return false;
-                               }
-                               return true;
-                           }
-                    },
-                    {
-                      input: '#id_descripcion', message: 'Campo requerido', action: 'keyup, blur', rule: function (input, commit) {
-                               if (input.val().trim().length <= 6) {
                                    return false;
                                }
                                return true;
@@ -264,6 +300,7 @@ function get_selected_items(id){
                 incidencia: $("#incidencia").val(),
                 descripcion: $("#id_descripcion").val(),
                 paro_equipo: $("#id_paro_equipo").is(':checked'),
+                cerrar: $("#cerrar").is(':checked'),
                 duracion_paro: $("#tiempo").val(),
                 inicio_actividad:$("#inicio").val(),
                 fin_actividad: $("#fin").val(),
@@ -277,7 +314,7 @@ function get_selected_items(id){
                 document.getElementById("form").reset();
                 $(".form-control").jqxComboBox('clearSelection');
                 $(".progress").toggleClass( "hidden" );
-               // $('.ui.modal').modal('show')
+                $("#id_descripcion").val("")
 
             }
             else{
@@ -311,7 +348,7 @@ $("#enviar").on('click',  function(event) {
 
   	$("#limpiar").on('click',  function(event) {
         event.preventDefault();
-        //$('#dialog').click();
+        $("#id_descripcion").val("")
 
         document.getElementById("form").reset();
     });

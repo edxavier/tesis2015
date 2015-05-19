@@ -16,19 +16,19 @@ from .models import (TipoDispositivo, Edificio, Oficina,
 
 class TipoDispoViewSet(viewsets.ModelViewSet):
 
-    queryset = TipoDispositivo.objects.all()
+    queryset = TipoDispositivo.objects.filter(activo=True)
     serializer_class = TipoDispSerializer
 
 
 class EdificioViewSet(viewsets.ModelViewSet):
 
-    queryset = Edificio.objects.all()
+    queryset = Edificio.objects.filter(activo=True)
     serializer_class = EdificioSerializer
 
 
 class OficinaViewSet(viewsets.ModelViewSet):
 
-    queryset = Oficina.objects.all()
+    queryset = Oficina.objects.filter(activo=True)
     serializer_class = OficinaSerializer
     filter_fields = ('edificio',)
 
@@ -36,41 +36,42 @@ class OficinaViewSet(viewsets.ModelViewSet):
 
 class EstadoOpeViewSet(viewsets.ModelViewSet):
 
-    queryset = EstadoOperacional.objects.all()
+    queryset = EstadoOperacional.objects.filter(activo=True)
     serializer_class = EstadoOpeSerializer
 
 class SistemaViewSet(viewsets.ModelViewSet):
 
-    queryset = Sistema.objects.all()
+    queryset = Sistema.objects.filter(activo=True)
     serializer_class = SistemaSerializer
 
 
 class TipoComponenteViewSet(viewsets.ModelViewSet):
 
-    queryset = TipoComponente.objects.all()
+    queryset = TipoComponente.objects.filter(activo=True)
     serializer_class = TipoComponenteSerializer
 
 
 class PersonalViewSet(viewsets.ModelViewSet):
 
-    queryset = Personal.objects.all()
+    queryset = Personal.objects.filter(activo=True)
     serializer_class = PersonalSerializer
+    filter_fields = ('cargo',)
 
 
 class CargoViewSet(viewsets.ModelViewSet):
 
-    queryset = Cargo.objects.all()
+    queryset = Cargo.objects.filter(activo=True)
     serializer_class = CargoSerializer
 
 
 class TipoIncidenteViewSet(viewsets.ModelViewSet):
 
-    queryset = TipoIncidente.objects.all()
+    queryset = TipoIncidente.objects.filter(activo=True)
     serializer_class = TipoIncidenteSerializer
 
 class EstadoManttoViewSet(viewsets.ModelViewSet):
 
-    queryset = EstadoMantenimiento.objects.all()
+    queryset = EstadoMantenimiento.objects.filter(activo=True)
     serializer_class = EstadoManttoSerializer
 
 class Listar(View):

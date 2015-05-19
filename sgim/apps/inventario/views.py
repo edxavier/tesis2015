@@ -47,9 +47,11 @@ class NuevoDispositivo(View):
 
     def post(self, request, *args, **kwargs):
         form = DispositivoForm(request.POST)
+        print(request.POST)
         if form.is_valid():
             disp = form.save(commit=False)
             disp.creador = request.user
+            disp.activo = True
             if(not disp.inventario):
                 disp.inventario = None
             disp.save()
@@ -69,6 +71,7 @@ class NuevoServicio(View):
         if form.is_valid():
             servicio = form.save(commit=False)
             servicio.creador = request.user
+            servicio.activo = True
             servicio.save()
             success = True
             form = ServicioForm()
@@ -90,6 +93,7 @@ class NuevoComponente(View):
         if form.is_valid():
             comp = form.save(commit=False)
             comp.creador = request.user
+            comp.activo = True
             if(not comp.inventario):
                 comp.inventario = None
             comp.save()

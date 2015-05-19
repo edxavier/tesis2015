@@ -346,7 +346,13 @@ var tipoSource =
     });
 
     //$(".progress").css("visibility", "hidden")
-  
+  function getInventario(){
+    inv = $("#inventario").val().trim()
+    if(inv.length<=0){
+        return null 
+    }else
+        return inv
+  }
 
 
     $('#formDisp').on('validationSuccess', function (event) { 
@@ -361,7 +367,7 @@ var tipoSource =
                 marca: $("#marca").val().trim(),
                 modelo: $("#modelo").val().trim(),
                 serie: $("#serie").val().trim(),
-                inventario: $("#inventario").val().trim(),
+                inventario: getInventario(),
                 posicion_logica: $("#posicion").val().trim(),
                 tipo: $("#tipo").val(),
                 sistema: $("#sistema").val(),

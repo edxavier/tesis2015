@@ -31,7 +31,6 @@ class Planes(View):
 
 class Boletas(View):
     def get(self, request, *args, **kwargs):
-        boletas = BoletaTrabajo.objects.all()
         return render_to_response('mantto/boletas.html',
             locals(), context_instance=RequestContext(request))
 
@@ -74,6 +73,7 @@ class NuevaRutina(View):
             rutina = form.save(commit=False)
             rutina.creador = request.user
             rutina.duracion_estimada = 0
+            rutina.activo = True
             rutina.save()
             items = request.POST.getlist('tareas[]')
             for it in items:
@@ -103,7 +103,8 @@ class NuevoPlan(View):
         if form.is_valid():
             plan = form.save(commit=False)
             plan.creador = request.user
-            plan.estado =  EstadoMantenimiento.objects.get(pk=1)
+            plan.activo = True
+            plan.estado = EstadoMantenimiento.objects.get(pk=1)
             plan.fecha_fin_prevista = plan.fecha_inicio_prevista + timedelta\
                     (hours=plan.rutina.duracion_estimada)
             plan.save()
@@ -114,17 +115,17 @@ class NuevoPlan(View):
                 plan.personal.add(pers)
                 pers_lis.append(pers)
             plan.save()
-            toList = ["edxavier05@gmail.com"]
-            msg = "<h2>"+plan.rutina.titulo+"</h2>"
-            msg = msg + "<p>Por este medio se le notifica que estara a cargo de la rutina: [" + plan.rutina.titulo
-            msg = msg + "], a iniciarce el "+plan.fecha_inicio_prevista.strftime('%d-%m-%Y')+"</p>"
-            msg = msg + "<h4>Contara usted con el apoyo de:</h4><ol>"
-            for per in pers_lis:
-                msg = msg + "<li>"+per.nombre_completo+"</li>"
-            msg = msg + "</ol>"
-            enviarEmail(plan.rutina.titulo, toList, msg, 'mantto')
+            if plan.responsable.correo:
+                toList = [plan.responsable.correo]
+                msg = "<h2>"+plan.rutina.titulo+"</h2>"
+                msg = msg + "<p>Por este medio se le notifica que estara a cargo de la rutina: [" + plan.rutina.titulo
+                msg = msg + "], a iniciarce el "+plan.fecha_inicio_prevista.strftime('%d-%m-%Y')+"</p><p>Sala Tecnica</p>"
+                """msg = msg + "<h4>Contara usted con el apoyo de:</h4><ol>"
+                for per in pers_lis:
+                    msg = msg + "<li>"+per.nombre_completo+"</li>"
+                msg = msg + "</ol>"""""
+                enviarEmail(plan.rutina.titulo, toList, msg, 'mantto')
             return JsonResponse({'success': form.is_valid(), 'errores': [(k, v[0]) for k, v in form.errors.items()]})
-            #tarea.save()
         else:
             return JsonResponse({'success': form.is_valid(), 'errores': [(k, v[0]) for k, v in form.errors.items()]})
 
@@ -140,7 +141,11 @@ class NuevaBoleta(View):
         if form.is_valid():
             boleta = form.save(commit=False)
             boleta.creador = request.user
-            print(boleta.paro_operacion)
+            boleta.activo = True
+            disp = get_object_or_404(Dispositivo, id=boleta.dispositivo.id)
+            if disp:
+                disp.estado = boleta.estado_final
+                disp.save()
             boleta.save()
             return JsonResponse({'success': form.is_valid(),'errores': [(k, v[0]) for k, v in form.errors.items()]})
 

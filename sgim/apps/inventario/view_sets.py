@@ -7,17 +7,17 @@ from .models import Dispositivo, Componente, Servicio
 
 class DispositivoViewSet(viewsets.ModelViewSet):
 
-    queryset = Dispositivo.objects.all()
+    queryset = Dispositivo.objects.filter(activo=True).order_by('-id')
     serializer_class = DispositivoSerializer
 
 
 class ComponenteViewSet(viewsets.ModelViewSet):
 
-    queryset = Componente.objects.all()
+    queryset = Componente.objects.filter(activo=True)
     serializer_class = ComponenteSerializer
 
 
 class ServicioViewSet(viewsets.ModelViewSet):
 
-    queryset = Servicio.objects.all()
+    queryset = Servicio.objects.filter(activo=True)
     serializer_class = ServicioSerializer

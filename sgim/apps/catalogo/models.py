@@ -105,7 +105,7 @@ class TipoIncidente(MarcaDeTiempo):
 class Personal(MarcaDeTiempo):
     nombre_completo = models.CharField(max_length=100)
     telefono = models.CharField(max_length=15, blank=True)
-    correo = models.CharField(max_length=15, blank=True)
+    correo = models.CharField(max_length=50, blank=True)
     cargo = models.ForeignKey(Cargo)
 
     def __unicode__(self):

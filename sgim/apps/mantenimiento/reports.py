@@ -5,7 +5,8 @@ __author__ = 'edx'
 from apps.inicio.utils import html_to_pdf, link_callback
 from django.shortcuts import get_object_or_404
 from django.views.generic import View
-from .models import BoletaTrabajo, Programacion, Rutina
+from .models import BoletaTrabajo, Programacion, Rutina, Tarea
+
 
 class Manttos_Info(View):
     def get(self, request, disp_pk, *args, **kwargs):
@@ -23,7 +24,7 @@ class Plan_Detalle(View):
     def get(self, request, _pk, *args, **kwargs):
         plan = get_object_or_404(Programacion, pk=_pk)
         personas = plan.personal.all()
-        tareas = plan.rutina.tareas.all()
+        #tareas = Tarea.objects.filter(rutina_id=)
         return html_to_pdf("mantto/reports/detalle_plan.html", locals())
 
 

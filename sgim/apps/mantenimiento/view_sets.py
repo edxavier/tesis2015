@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import DjangoModelPermissions, BasePermission
 from rest_framework.mixins import UpdateModelMixin, RetrieveModelMixin
+from apps.inicio.utils import enviarSMS, enviarEmail
 
 __author__ = 'edx'
 
@@ -25,7 +26,7 @@ class PermsPlanMantto(BasePermission):
 
 class TareaViewSet(viewsets.ModelViewSet):
 
-    queryset = Tarea.objects.all()
+    queryset = Tarea.objects.filter(activo=True)
     serializer_class = TareaSerializer
     filter_fields = ('rutina',)
 
@@ -42,17 +43,17 @@ class TareaViewSet(viewsets.ModelViewSet):
 
 class RutinaViewSet(viewsets.ModelViewSet):
 
-    queryset = Rutina.objects.all()
+    queryset = Rutina.objects.filter(activo=True)
     serializer_class = RutinaSerializer
 
 
 class BoletaViewSet(viewsets.ModelViewSet):
 
-    queryset = BoletaTrabajo.objects.all()
+    queryset = BoletaTrabajo.objects.filter(activo=True)
     serializer_class = BoletaSerializer
 
 class PlanViewSet(DjangoModelPermissions, UpdateModelMixin, RetrieveModelMixin, viewsets.GenericViewSet):
-    queryset = Programacion.objects.all()
+    queryset = Programacion.objects.filter(activo=True)
     serializer_class = PlanSerializer
     filter_fields = ('estado', 'rutina__sistema')
     permission_classes = (PermsPlanMantto, )
@@ -60,7 +61,7 @@ class PlanViewSet(DjangoModelPermissions, UpdateModelMixin, RetrieveModelMixin, 
 
     def list(self, request, *args, **kwargs):
         #filtrar queryset con los campos especificados en filter_fields
-        planes = self.filter_queryset(Programacion.objects.all().order_by('-creado'))
+        planes = self.filter_queryset(Programacion.objects.filter(activo=True).order_by('-creado'))
         serializer = PlanSerializer(planes, many=True)
         return Response(serializer.data)
 
@@ -71,6 +72,15 @@ class PlanViewSet(DjangoModelPermissions, UpdateModelMixin, RetrieveModelMixin, 
         serializer = PlanSerializer(obj, data=request.DATA, partial=True)
         if serializer.is_valid():
             serializer.save()
+            if request.DATA['estado'] == "4":
+                author = request.user.firstname + " " + request.user.lastname + " (" + request.user.username+ ")"
+                toList = ["edxavier05@gmail.com"]
+                msg = "<h2>"+obj.rutina.titulo+"</h2>"
+                msg = msg + "<p>Por este medio se le notifica que se da por finalizado la rutina: [" + obj.rutina.titulo
+                msg = msg + "], iniciado el "+obj.inicio.strftime('%d-%m-%Y')+\
+                " finalizando el dia de hoy </p><p>Responsable: "+obj.responsable.nombre_completo+"</p>" \
+                "<p>Att: "+author+"</p>"
+                enviarEmail(obj.rutina.titulo, toList, msg, 'mantto')
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

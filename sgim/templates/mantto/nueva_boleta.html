@@ -334,11 +334,11 @@ $(document).ready(function() {
         .done(function(data) {
             
             if(data.success){
-                $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> La rutina fue alamcenada con exito!"});
+                $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> El registro fue almacenado con exito!"});
                 document.getElementById("form").reset();
                 $(".form-control").jqxComboBox('clearSelection');
-                //$(".progress").css("visibility", "hidden")
-                  $(".progress").toggleClass( "hidden" );
+                $(".progress").toggleClass( "hidden" );
+                $("#tiempo").jqxNumberInput({disabled: true, min: 0});
             }
             else{
                 //$(".progress").css("visibility", "hidden")

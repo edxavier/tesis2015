@@ -206,8 +206,8 @@ Nueva incidencia
 	</div>
 </div>
 <div class="row">
-	<div class="col-md-6">
-		<div class="form-group">
+	<div class="col-md-6 hidden">
+		                  <div class="form-group">
                               	<label class="col-lg-4 control-label">
                               		Estado Dispositivo
                               	</label>
@@ -369,7 +369,7 @@ var relacionSource =
                 { name: 'id'},
                 { name: 'nombre_completo'}
             ],
-            url: '/api/catalogo/personal/'
+            url: '/api/catalogo/personal/?cargo=2'
         };
         var personalAdapter = new $.jqx.dataAdapter(personalSource);
     $("#notifica").jqxComboBox({ theme:'metro', promptText: "Quien notifica...",source:personalAdapter, displayMember: 'nombre_completo',
@@ -465,14 +465,14 @@ $("#enviar").on('click',  function(event) {
                                return true;
                            }
                     },
-                     {
+                     /*{
                       input: '#estado_disp', message: 'Campo requerido', action: 'keyup, blur', rule: function (input, commit) {
                                if (input.val() === "") {
                                    return false;
                                }
                                return true;
                            }
-                    },
+                    },*/
                      {
                       input: '#tipo', message: 'Campo requerido', action: 'keyup, blur', rule: function (input, commit) {
                                if (input.val() === "") {
@@ -518,16 +518,16 @@ $("#enviar").on('click',  function(event) {
                 duracion_paro:$("#tiempo").val(),
                 relacion:$("#relacion").val(),
                 estado:$("#id_estado").val(),
-                estado_disp:$("#estado_disp").val(),
+                //estado_disp:$("#estado_disp").val(),
             },
         })
         .done(function(data) {
             
             if(data.success){
-                $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> La rutina fue alamcenada con exito!"});
+                $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> La incidencia fue alamcenada con exito!"});
                 document.getElementById("form").reset();
                 $(".form-control").jqxComboBox('clearSelection');
-                //$(".progress").css("visibility", "hidden")
+                $("textarea").val("")
                   $(".progress").toggleClass( "hidden" );
             }
             else{

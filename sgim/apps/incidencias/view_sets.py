@@ -17,9 +17,11 @@ import django_filters
 class IncidenciaFilter(django_filters.FilterSet):
     min_date = django_filters.DateFilter(name="creado", lookup_type='gte')
     max_date = django_filters.DateFilter(name="creado", lookup_type='lte')
+    min_estado = django_filters.NumberFilter(name="estado", lookup_type='gte')
+
     class Meta:
         model = Incidencia
-        fields = ['dispositivo', 'min_date', 'max_date']
+        fields = ['dispositivo', 'min_date', 'max_date',  'min_estado', 'estado']
 
 class PermsIncidencia(BasePermission):
     def has_permission(self, request, view):
@@ -32,20 +34,20 @@ class PermsIncidencia(BasePermission):
 
 class IncidenciaViewSet(DjangoModelPermissions, UpdateModelMixin, RetrieveModelMixin, viewsets.GenericViewSet):
 
-    queryset = Incidencia.objects.all().order_by('-id')
+    queryset = Incidencia.objects.filter(activo=True).order_by('-id')
     serializer_class = IncidenciaSerializer
     filter_class = IncidenciaFilter
     permission_classes = (PermsIncidencia,)
 
     def list(self, *args, **kwargs):
-        inc = self.filter_queryset(Incidencia.objects.all().order_by('-creado'))
+        inc = self.filter_queryset(Incidencia.objects.filter(activo=True).order_by('-creado'))
         serializer = IncidenciaSerializer(inc, many=True)
         return Response(serializer.data)
 
     def update(self, request, *args, **kwargs):
         obj = self.get_object()
         obj.solucion = obj.solucion + "<p>"+request.DATA["desc"] +\
-                       "<br>[<i>"+request.user.username+"-"+time.strftime("%d/%m/%Y")+"<i>]</p>"
+                       "<br>[<i>"+request.user.username+"-"+time.strftime("%d/%m/%Y")+"</i>]</p>"
         serializer = IncidenciaSerializer(obj, data=request.DATA, partial=True)
         if serializer.is_valid():
             serializer.save()
@@ -57,6 +59,6 @@ class IncidenciaViewSet(DjangoModelPermissions, UpdateModelMixin, RetrieveModelM
 
 class CambioViewSet(viewsets.ModelViewSet):
 
-    queryset = Cambio.objects.all()
+    queryset = Cambio.objects.filter(activo=True)
     serializer_class = CambioSerializer
 

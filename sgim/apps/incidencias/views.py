@@ -6,9 +6,9 @@ from django.template import RequestContext
 from django.views.generic import View
 
 from .forms import IncidenciaForm, CambioForm, ActividadCambioForm, ActivIncidenciaForm
-from apps.inventario.models import Servicio
-from apps.inventario.models import Dispositivo
-
+from apps.inventario.models import Servicio, Dispositivo
+from apps.catalogo.models import EstadoIncidente
+from .models import Incidencia
 
 class Incidencias(View):
     def get(self, request, *args, **kwargs):
@@ -32,6 +32,7 @@ class NuevaIncidencia(View):
         if form.is_valid():
             incidente = form.save(commit=False)
             incidente.creador = request.user
+            incidente.activo = True
             incidente.save()
             items = request.POST.getlist('servicios[]')
             if items:
@@ -56,6 +57,7 @@ class NuevaCambioView(View):
         if form.is_valid():
             cambio = form.save(commit=False)
             cambio.creador = request.user
+            cambio.activo = True
             cambio.save()
             items = request.POST.getlist('servicios[]')
             if items:
@@ -86,6 +88,7 @@ class NuevaActividadCambioView(View):
         if form.is_valid():
             actividad = form.save(commit=False)
             actividad.creador = request.user
+            actividad.activo = True
             actividad.save()
             return JsonResponse({'success': form.is_valid(),'errores': [(k, v[0]) for k, v in form.errors.items()]})
         else:
@@ -105,7 +108,12 @@ class NuevaActividadIncidenteView(View):
         if form.is_valid():
             actividad = form.save(commit=False)
             actividad.creador = request.user
+            actividad.activo = True
             actividad.save()
+            if request.POST['cerrar'] == "true":
+                inc = get_object_or_404(Incidencia, id=actividad.incidencia.id)
+                inc.estado = get_object_or_404(EstadoIncidente, id=1)
+                inc.save()
             return JsonResponse({'success': form.is_valid(),'errores': [(k, v[0]) for k, v in form.errors.items()]})
         else:
             return JsonResponse({'success': form.is_valid(),'errores': [(k, v[0]) for k, v in form.errors.items()]})
