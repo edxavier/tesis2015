@@ -108,12 +108,21 @@ class NuevoPlan(View):
                     (hours=plan.rutina.duracion_estimada)
             plan.save()
             items = request.POST.getlist('personal[]')
+            pers_lis = []
             for it in items:
                 pers = get_object_or_404(Personal, pk=it)
                 plan.personal.add(pers)
+                pers_lis.append(pers)
             plan.save()
             toList = ["edxavier05@gmail.com"]
-            enviarEmail(plan.rutina.titulo, toList, "Este correo es para notificarte que estaras a cargo del mantto", 'mantto')
+            msg = "<h2>"+plan.rutina.titulo+"</h2>"
+            msg = msg + "<p>Por este medio se le notifica que estara a cargo de la rutina: [" + plan.rutina.titulo
+            msg = msg + "], a iniciarce el "+plan.fecha_inicio_prevista.strftime('%d-%m-%Y')+"</p>"
+            msg = msg + "<h4>Contara usted con el apoyo de:</h4><ol>"
+            for per in pers_lis:
+                msg = msg + "<li>"+per.nombre_completo+"</li>"
+            msg = msg + "</ol>"
+            enviarEmail(plan.rutina.titulo, toList, msg, 'mantto')
             return JsonResponse({'success': form.is_valid(), 'errores': [(k, v[0]) for k, v in form.errors.items()]})
             #tarea.save()
         else:

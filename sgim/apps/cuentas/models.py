@@ -78,7 +78,7 @@ def notificarUsuarioDeAlta(sender, instance, created, **kwargs):
         instance.enviar_sms(mensaje)
         msg2 =  "<strong>Usuario:</strong> " + instance.username + "<br><strong>Clave:</strong> " + instance.TEMP_PASSWD
         toList = ["edxavier05@gmail.com"]
-        enviarEmail("Acceso a SGIM", toList, msg2, 'welcome')
+        enviarEmail("Acceso a SGIM", toList, msg2, 'welcome2')
 
 
 
