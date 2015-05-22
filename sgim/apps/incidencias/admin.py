@@ -6,7 +6,7 @@ from .models import (Incidencia, ActividadIncidencia, ActividadCambio, Cambio, )
 
 @admin.register(Incidencia)
 class IncidenciaAdmin(admin.ModelAdmin):
-    list_display = ("tipo", "urgencia", "severidad", "estado")
+    list_display = ("tipo", "dispositivo", "severidad", "estado")
     exclude = ("creador",)
 
     def save_model(self, request, obj, form, change):

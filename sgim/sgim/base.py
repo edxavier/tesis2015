@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'sgim.wsgi.application'
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'es-mx'
+LANGUAGE_CODE = 'es-ni'
 
 TIME_ZONE = 'America/Managua'
 

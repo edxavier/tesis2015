@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 # Create your views here.
 from django.template import RequestContext
 from django.views.generic import View
+from braces.views import PermissionRequiredMixin
 
 from .forms import IncidenciaForm, CambioForm, ActividadCambioForm, ActivIncidenciaForm
 from apps.inventario.models import Servicio, Dispositivo
@@ -21,7 +22,10 @@ class CambiosView(View):
             locals(), context_instance=RequestContext(request))
 
 
-class NuevaIncidencia(View):
+class NuevaIncidencia(PermissionRequiredMixin, View):
+
+    permission_required = "incidencias.add_incidencia"
+
     def get(self, request, *args, **kwargs):
         form = IncidenciaForm()
         return render_to_response('incidencias/nueva_incidencia.html',
@@ -46,7 +50,10 @@ class NuevaIncidencia(View):
 
 
 
-class NuevaCambioView(View):
+class NuevaCambioView(PermissionRequiredMixin, View):
+
+    permission_required = "incidencias.add_cambio"
+
     def get(self, request, *args, **kwargs):
         form = CambioForm()
         return render_to_response('incidencias/nuevo_cambio.html',

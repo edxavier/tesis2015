@@ -41,12 +41,15 @@
 	<a class="active item" href="{% url 'rutinas_list' %}">
 		<i class="icon ion-settings"></i>  Rutinas
 	</a>
-	<a class="item" href="{% url 'rutina_add' %}">
-		<i class=" add icon"></i> Nueva Rutina
-	</a>
-	<a class="blue item" href="{% url 'tarea_add' %}">
-            <i class=" add icon"></i> Agregar Tarea
+  {% if perms.mantenimiento.add_rutina %}   
+
+  	<a class="item" href="{% url 'rutina_add' %}">
+  		<i class=" add icon"></i> Nueva Rutina
+  	</a>
+  	<a class="blue item" href="{% url 'tarea_add' %}">
+              <i class=" add icon"></i> Agregar Tarea
     </a>
+  {% endif %}
 </div>
 
 

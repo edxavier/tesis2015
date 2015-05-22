@@ -45,9 +45,11 @@ Nueva incidencia
 	<a class=" item" href="{% url 'incidentes_list' %}">
 		<i class="icon ion-settings"></i> incidencias.
 	</a>
-	<a class="active item" href="{% url 'incidente_add' %}">
-		<i class=" add icon"></i> Nueva incidencia
-	</a>
+    {% if perms.incidencias.add_incidencia %}
+    	<a class="active item" href="{% url 'incidente_add' %}">
+    		<i class=" add icon"></i> Nueva incidencia
+    	</a>
+     {% endif %}
     <a class=" item" href="{% url 'incidentes_follow' %}">
         <i class=" add icon"></i> Seguimiento
     </a>
@@ -56,6 +58,7 @@ Nueva incidencia
 <div class="container-fluid">
 <div class="row">
     <div class="col-md-10 col-md-offset-1" >
+
             <div class="panel panel-primary  shadow-z-2">
                 <div class="panel-heading" >
                     <h3 style="color:white" class="center ui aligned header">
@@ -97,149 +100,144 @@ Nueva incidencia
 			                            </div>
                             	</div>
                             </div>
-<div class="row">
-	<div class="col-md-6">
-		 <div class="form-group">
-                            	<label class="col-lg-4 control-label" >Dispositivo</label>
-                                <div class="col-lg-6 input-group">
-                                    <span class="input-group-addon">
-                                       <i class="icon ion-ios-monitor"></i>
-                                    </span>
-                                    <div id='dispositivo' class="form-control"></div>
-                                </div>
-                            </div>
+                <div class="row">
+                	<div class="col-md-6">
+                		 <div class="form-group">
+                                            	<label class="col-lg-4 control-label" >Dispositivo</label>
+                                                <div class="col-lg-6 input-group">
+                                                    <span class="input-group-addon">
+                                                       <i class="icon ion-ios-monitor"></i>
+                                                    </span>
+                                                    <div id='dispositivo' class="form-control"></div>
+                                                </div>
+                                            </div>
 
-	</div>
-	<div class="col-md-6">
-		<div class="form-group">
-                              	<label class="col-lg-4 control-label">Tipo Incidencia</label>
-                                <div class="col-lg-6 input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fork icon"></i>
-                                    </span>
-                                    <div id='tipo' class="form-control"></div>
-                                </div>
-        </div>
-		                           
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-6">
-		<div class="form-group">
-                              	<label class="col-lg-4 control-label">Servicios</label>
-                                <div class="col-lg-6 input-group">
-                                    <span class="input-group-addon">
-                                        <i class="settings icon"></i>
-                                    </span>
-                                    <div id='servicios' class="form-control"></div>
-                                </div>
-                            </div>
+                	</div>
+                	<div class="col-md-6">
+                		<div class="form-group">
+                                              	<label class="col-lg-4 control-label">Tipo Incidencia</label>
+                                                <div class="col-lg-6 input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="fork icon"></i>
+                                                    </span>
+                                                    <div id='tipo' class="form-control"></div>
+                                                </div>
+                        </div>
+                		                           
+                	</div>
+                </div>
+                <div class="row">
+                	<div class="col-md-6">
+                		<div class="form-group">
+                                              	<label class="col-lg-4 control-label">Servicios</label>
+                                                <div class="col-lg-6 input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="settings icon"></i>
+                                                    </span>
+                                                    <div id='servicios' class="form-control"></div>
+                                                </div>
+                                            </div>
 
-	</div>
-	<div class="col-md-6">
-		<div class="form-group">
-                              	<label class="col-lg-4 control-label"> {{form.urgencia.label}}</label>
-                                <div class="col-md-6  input-group">
-                                    <span class="input-group-addon">
-                                        <i class="ion-nuclear icon"></i>
-                                    </span>
-                                    {{form.urgencia}}
-                                </div>
-                            </div>
+                	</div>
+                	<div class="col-md-6">
+                		<div class="form-group">
+                                              	<label class="col-lg-4 control-label"> {{form.urgencia.label}}</label>
+                                                <div class="col-md-6  input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="ion-nuclear icon"></i>
+                                                    </span>
+                                                    {{form.urgencia}}
+                                                </div>
+                                            </div>
 
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-6">
-		<div class="form-group">
-                              	<label class="col-lg-4 control-label">{{form.severidad.label}}</label>
-                                <div class="col-md-6 input-group">
-                                    <span class="input-group-addon">
-                                        <i class="ion-knife icon"></i>
-                                    </span>
-                                    {{form.severidad}}
-                                </div>
-                            </div>
-	</div>
-	<div class="col-md-6">
-		<div class="form-group">
-                              	<label class="col-lg-4 control-label">Estado del incidente</label>
-                                <div class="col-md-6 input-group">
-                                    <span class="input-group-addon">
-                                        <i class="ion-flash-off icon"></i>
-                                    </span>
-                                    {{form.estado}}
-                                </div>
-                            </div>
-	</div>
-</div>
+                	</div>
+                </div>
+                <div class="row">
+                	<div class="col-md-6">
+                		<div class="form-group">
+                                              	<label class="col-lg-4 control-label">{{form.severidad.label}}</label>
+                                                <div class="col-md-6 input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="ion-knife icon"></i>
+                                                    </span>
+                                                    {{form.severidad}}
+                                                </div>
+                                            </div>
+                	</div>
+                	<div class="col-md-6">
+                		<div class="form-group">
+                                              	<label class="col-lg-4 control-label">Estado del incidente</label>
+                                                <div class="col-md-6 input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="ion-flash-off icon"></i>
+                                                    </span>
+                                                    {{form.estado}}
+                                                </div>
+                                            </div>
+                	</div>
+                </div>
+                                            
+
+                <div class="row">
+                	<div class="col-md-6">
+                		<div class="form-group">
+                                                <label class="col-lg-4 control-label">
+                                                	{{form.paro_operacion.label}}
+                                                </label>
+                                                <div class="col-lg-6 input-group">
+                                                   <span class="input-group-addon">
+                                                        <i class="ion-android-hand icon"></i>
+                                                    </span>
+                                                    <div class="togglebutton">
+                        					                    <label>
+                        					                        {{form.paro_equipo}} Indica si se detuvo o fue necesario detener el equipo
+                        					                    </label>
+                        					                </div>
+                                                </div>
+                         </div>
+                	</div>
+                	<div class="col-md-6">
+                		<div class="form-group">
+                                              	<label class="col-lg-4 control-label">Tiempo de paro (min)</label>
+                                                <div class="col-lg-6 input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="ion-ios-stopwatch icon"></i>
+                                                    </span>
+                                                    <div id='tiempo' class="form-control"></div>
+                                                </div>
+                                            </div>
+                	</div>
+                </div>
+                <div class="row">
+                	<div class="col-md-6 hidden">
+                		                  <div class="form-group">
+                                              	<label class="col-lg-4 control-label">
+                                              		Estado Dispositivo
+                                              	</label>
+                                                <div class="col-lg-6 input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="ion-ios-pulse-strong icon"></i>
+                                                    </span>
+                                                    <div id='estado_disp' class="form-control"></div>
+                                                </div>
+                                            </div>
+                	</div>
+                	<div class="col-md-6">
+                		<div class="form-group">
+                                              	<label class="col-lg-4 control-label">
+                                              		Relacion
+                                              	</label>
+                                                <div class="col-lg-6 input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="ion-ios-paw icon"></i>
+                                                    </span>
+                                                    <div id='relacion' class="form-control"></div>
+                                                </div>
+                                            </div>
+                	</div>
+                </div>
                             
 
-<div class="row">
-	<div class="col-md-6">
-		<div class="form-group">
-                                <label class="col-lg-4 control-label">
-                                	{{form.paro_operacion.label}}
-                                </label>
-                                <div class="col-lg-6 input-group">
-                                   <span class="input-group-addon">
-                                        <i class="ion-android-hand icon"></i>
-                                    </span>
-                                    <div class="togglebutton">
-        					                    <label>
-        					                        {{form.paro_equipo}} Indica si se detuvo o fue necesario detener el equipo
-        					                    </label>
-        					                </div>
-                                </div>
-         </div>
-	</div>
-	<div class="col-md-6">
-		<div class="form-group">
-                              	<label class="col-lg-4 control-label">Tiempo de paro (min)</label>
-                                <div class="col-lg-6 input-group">
-                                    <span class="input-group-addon">
-                                        <i class="ion-ios-stopwatch icon"></i>
-                                    </span>
-                                    <div id='tiempo' class="form-control"></div>
-                                </div>
-                            </div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-6 hidden">
-		                  <div class="form-group">
-                              	<label class="col-lg-4 control-label">
-                              		Estado Dispositivo
-                              	</label>
-                                <div class="col-lg-6 input-group">
-                                    <span class="input-group-addon">
-                                        <i class="ion-ios-pulse-strong icon"></i>
-                                    </span>
-                                    <div id='estado_disp' class="form-control"></div>
-                                </div>
-                            </div>
-	</div>
-	<div class="col-md-6">
-		<div class="form-group">
-                              	<label class="col-lg-4 control-label">
-                              		Relacion
-                              	</label>
-                                <div class="col-lg-6 input-group">
-                                    <span class="input-group-addon">
-                                        <i class="ion-ios-paw icon"></i>
-                                    </span>
-                                    <div id='relacion' class="form-control"></div>
-                                </div>
-                            </div>
-	</div>
-</div>
-                            
-
-                        
-                             
-                            
-                            
-                            
                             <div class="form-group">
                               	<label class="col-lg-2 control-label">{{form.problema.label}}</label>
                                 <div class="col-lg-7 input-group">

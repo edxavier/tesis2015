@@ -10,6 +10,8 @@
 <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
 <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtabs.js"></script>
 
+<link href="{{BOWER_URL}}circliful/css/jquery.circliful.css" rel="stylesheet" type="text/css" />
+<script src="{{BOWER_URL}}circliful/js/jquery.circliful.min.js"></script>
 
 {% endblock include_statics %}
 
@@ -49,7 +51,47 @@
 									  </div>
 									</h3>
 									<br>								
-							      
+							      <div class="row">
+										<div class="col-md-12">
+						
+											<div class="ui tiny  statistic">
+													  <div class="value">
+													    {{Disponibilidad | floatformat:"-2"}}%
+													  </div>
+													  <div class="ui label green">
+													   Disponibilidad
+													  </div>
+											</div>
+											<div class="ui tiny  statistic">
+													  <div class="value">
+													    {{Confiabilidad | floatformat:"-2"}}%
+													  </div>
+													  <div class="ui label green">
+													   Confiabilidad
+													  </div>
+											</div>
+										
+										
+											<div class="ui tiny statistic">
+													  <div class="value">
+													    {{TMEF | floatformat:"-1"}} hrs
+													  </div>
+													  <div class="ui label orange">
+													    Tiempo medio entre Fallos
+													  </div>
+											</div>	
+			
+											<div class="ui tiny statistic">
+													  <div class="value">
+													    {{TMEI | floatformat:"-1"}} hrs
+													  </div>
+													  <div class="ui label orange">
+													    Tiempo medio entre Incidentes
+													  </div>
+											</div>
+										</div>
+									
+									</div>
 							      	<div class="row">
 							      		<div class="col-md-6">
 											<table class="ui definition green table">
@@ -106,8 +148,9 @@
 												</tbody>
 											</table>
 							      		</div>
-							      	</div>
-							      
+							      	</div>						      
+									
+
 							      <div class="extra">
 									<!-- Single button -->
 									<div class="btn-group dropup">
@@ -139,6 +182,7 @@
 							    </div>
 							  </div>
 							</div>
+
 			            </div>
 			            <div class="container-fluid">
 			                {% include "inventario/disp/incidencias50.html" %}
@@ -165,9 +209,9 @@
 	$(document).ready(function() {
 		 $('#jqxTabs').jqxTabs({ width: '90%', position: 'top', animationType: 'fade', theme:"energyblue" });
 		   
-$('.ui.accordion')
-  .accordion()
-;
+		$('.ui.accordion')
+		  .accordion();
+		   $('#myStat').circliful();
 	});
 
 

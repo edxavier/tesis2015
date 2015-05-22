@@ -47,9 +47,11 @@
 	<a class="active item" href="{% url 'planes_list' %}">
 		<i class="icon ion-settings"></i>  Planes de Mantto.
 	</a>
-	<a class="item" href="{% url 'plan_add' %}">
-		<i class=" add icon"></i> Nueva Planificacion
-	</a>
+  {% if perms.mantenimiento.add_programacion %}   
+    	<a class="item" href="{% url 'plan_add' %}">
+    		<i class=" add icon"></i> Nueva Planificacion
+    	</a>
+  {% endif %}
 </div>
 
 <div class="container-fluid">

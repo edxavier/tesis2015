@@ -44,9 +44,11 @@
           <a class="active item" href="{% url 'dispositivos_list' %}">
             <i class=" cubes icon"></i> Dispositivos
           </a>
+           {% if perms.mantenimiento.add_dispositivo %}   
           <a class="item" href="{% url 'dispositivo_add' %}">
             <i class=" add icon"></i> Agregar Dispositivo
           </a>
+          {% endif %}
     </div>
         
 

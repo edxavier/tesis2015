@@ -43,9 +43,11 @@
 	<a class="active item" href="{% url 'boletas_list' %}">
 		<i class="icon ion-settings"></i>  Boletas.
 	</a>
-	<a class=" item" href="{% url 'boleta_add' %}">
-		<i class=" add icon"></i> Nueva Boleta.
-	</a>
+   {% if perms.mantenimiento.add_boletatrabajo %}   
+  	<a class=" item" href="{% url 'boleta_add' %}">
+  		<i class=" add icon"></i> Nueva Boleta.
+  	</a>
+   {% endif %}
 </div>
 
 <div class="container-fluid">

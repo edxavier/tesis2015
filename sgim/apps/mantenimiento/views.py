@@ -1,6 +1,6 @@
 from datetime import timedelta
 from django.http import JsonResponse
-from django.shortcuts import  render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404
 from django.views.generic import View
 from django.template.context import RequestContext
 from .forms import TareaForm, RutinaForm, ProgramacionForm, BoletaForm
@@ -8,7 +8,7 @@ from apps.catalogo.models import TipoDispositivo, EstadoMantenimiento, Personal
 from .models import Tarea, BoletaTrabajo
 from apps.inventario.models import Dispositivo
 from apps.inicio.utils import enviarSMS, enviarEmail
-# Create your views here.
+from braces.views import PermissionRequiredMixin
 
 # Create your views here.
 
@@ -61,7 +61,10 @@ class NuevaTarea(View):
             return JsonResponse({'success': form.is_valid(),'errores': [(k, v[0]) for k, v in form.errors.items()]})
 
 
-class NuevaRutina(View):
+class NuevaRutina(PermissionRequiredMixin, View):
+
+    permission_required = "mantenimiento.add_rutina"
+
     def get(self, request, *args, **kwargs):
         form = RutinaForm()
         return render_to_response('mantto/nueva_rutina.html',
@@ -93,7 +96,10 @@ class NuevaRutina(View):
             return JsonResponse({'success': form.is_valid(),'errores': [(k, v[0]) for k, v in form.errors.items()]})
 
 
-class NuevoPlan(View):
+class NuevoPlan(PermissionRequiredMixin, View):
+
+    permission_required = "mantenimiento.add_programacion"
+
     def get(self, request, *args, **kwargs):
         return render_to_response('mantto/nuevo_plan.html',
             locals(), context_instance=RequestContext(request))
@@ -130,7 +136,10 @@ class NuevoPlan(View):
             return JsonResponse({'success': form.is_valid(), 'errores': [(k, v[0]) for k, v in form.errors.items()]})
 
 
-class NuevaBoleta(View):
+class NuevaBoleta(PermissionRequiredMixin, View):
+
+    permission_required = 'mantenimiento.add_boletatrabajo'
+
     def get(self, request, *args, **kwargs):
         form = BoletaForm()
         return render_to_response('mantto/nueva_boleta.html',

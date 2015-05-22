@@ -47,12 +47,14 @@ Incidencias
 	<a class=" active item" href="{% url 'incidentes_list' %}">
 		<i class="icon ion-settings"></i> incidencias.
 	</a>
-	<a class=" item" href="{% url 'incidente_add' %}">
-		<i class=" add icon"></i> Nueva incidencia
-	</a>
-    <a class=" item" href="{% url 'incidentes_follow' %}">
-        <i class=" add icon"></i> Seguimiento
-    </a>
+	 {% if perms.incidencias.add_incidencia %}
+      <a class="item" href="{% url 'incidente_add' %}">
+        <i class=" add icon"></i> Nueva incidencia
+      </a>    
+      <a class=" item" href="{% url 'incidentes_follow' %}">
+          <i class=" add icon"></i> Seguimiento
+      </a>
+    {% endif %}
 </div>
 
 <div class="container-fluid">
@@ -171,7 +173,7 @@ $(document).ready(function() {
                     { name: 'serie', type: 'string' },
                     { name: 'reporta', type: 'string' },
                     { name: 'severidad',},
-                    { name: 'servicios',},
+                    { name: 'paro_equipo',},
                     { name: 'estado',},
                     { name: 'estado_str',},
                     { name: 'relacion',}
@@ -204,7 +206,14 @@ $(document).ready(function() {
           return div + value+"</div>";
         }else{
           return div +"NINGUNA</div>";
+        }
+  }
 
+  function inoperationRender(row, columnfield, value, defaulthtml, columnproperties){        
+        if(value){
+          return "<div style='padding:5px; color:#E91E63'>Si</div>";
+        }else{
+          return "<div style='padding:5px; color:#1B5E20'>No</div>";
         }
   }
 
@@ -223,12 +232,13 @@ $(document).ready(function() {
                   { text: 'Dispositivo', datafield: 'dispositivo', width:'100px'},
                   { text: 'Serie', datafield: 'serie' , width:'110px'},
                   { text: 'Tipo Incidente', datafield: 'tipo', width:'130px'},
+                  { text: 'Paro', datafield: 'paro_equipo', width:'50px',cellsrenderer: inoperationRender},
                   { text: 'Reporta', datafield: 'reporta', width:'120px'},
                   { text: 'Severidad', datafield: 'severidad', width:'70px'},
                   { text: 'Problema', datafield: 'problema',  },
                   { text: 'Relacion', datafield: 'relacion', width:'75px', cellsrenderer:relacionRender},
                   { text: 'Estado', datafield: 'estado_str', width:'120px'},
-                  //{ text: 'Servicios', datafield: 'servicios', width:'80px',cellsrenderer: servRender},
+                  
                   { text: 'Usuario', datafield: 'creador', width:'60px'},
                   { text: 'Fecha', datafield: 'creado', cellsformat:'dd-MMM-yy' , filtertype:'date' , width:'110px'},
 
