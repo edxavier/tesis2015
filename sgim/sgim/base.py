@@ -40,6 +40,7 @@ LOCAL_APPS = (
     'apps.inventario',
     'apps.incidencias',
     'apps.mantenimiento',
+    'apps.gestion_red',
 
 )
 
