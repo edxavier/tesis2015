@@ -1,22 +1,15 @@
+var server = require('express.io')()
 
-tesis2015/sgim/manage.py mockups catalogo.Personal:50
-tesis2015/sgim/manage.py mockups catalogo.Cargo:50
-tesis2015/sgim/manage.py mockups catalogo.Personal:50
-tesis2015/sgim/manage.py mockups catalogo.TipoDispositivo:20
-tesis2015/sgim/manage.py mockups catalogo.Edificio:5
-tesis2015/sgim/manage.py mockups catalogo.Oficina:5
-tesis2015/sgim/manage.py mockups catalogo.TipoServicio:5
-tesis2015/sgim/manage.py mockups catalogo.TipoComponente:5
-tesis2015/sgim/manage.py mockups catalogo.EstadoOperacional:5
-tesis2015/sgim/manage.py mockups catalogo.EstadoMantenimiento:5
-tesis2015/sgim/manage.py mockups catalogo.TipoIncidente:55
-tesis2015/sgim/manage.py mockups inventario.Dispositivo:150
-tesis2015/sgim/manage.py mockups catalogo.sistema:10
-tesis2015/sgim/manage.py mockups inventario.Dispositivo:150
-tesis2015/sgim/manage.py mockups inventario.Servicio:150
-tesis2015/sgim/manage.py mockups inventario.Componente:150
-tesis2015/sgim/manage.py mockups mantenimiento.Tarea:10
-tesis2015/sgim/manage.py mockups mantenimiento.Rutina:10
-tesis2015/sgim/manage.py mockups mantenimiento.Programacion:10
-tesis2015/sgim/manage.py mockups mantenimiento.Boleta:10
-tesis2015/sgim/manage.py mockups mantenimiento.BoletaTrabajo:10
+server.http().io()
+
+server.get('/trap/',function(req,res){
+		//res.render('templates/notasList');
+		res.send("Trap Event Received")
+		server.io.broadcast("boot", {
+        	message: 'io event from an io route on the server'
+    	})
+    	console.log("broadcast")
+	});
+
+server.listen(8500)
+console.log("el servidor esta corriendo http://localhost:8500");
