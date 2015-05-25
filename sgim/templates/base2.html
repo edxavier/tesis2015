@@ -26,7 +26,7 @@
     <script src="{{BOWER_URL}}webcomponentsjs/webcomponents.js">  </script>
 
     {% include "includes/polymer.html" %}
-
+    
 
     {% block include_statics %}
 
@@ -35,11 +35,6 @@
         <script>
             
             $.snackbar({content: "<h5 style='color:yellow'><i class='warning yellow sign icon'></i> Se encontraron los siguientes inconvenientes: </h5>", timeout: 0 });
-
-             window.addEventListener('polymer-ready', function() {
-                //document.querySelector('#spinner').classList.add('hidden');
-                console.log("mmmmmmmmmmmm")
-      });
         </script>
 </head>
 <body unresolved>

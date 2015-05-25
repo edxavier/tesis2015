@@ -19,6 +19,7 @@ urlpatterns = patterns('',
                        url(r'^mantto/', include('apps.mantenimiento.urls')),
                        url(r'^inventario/', include('apps.inventario.urls')),
                        url(r'^incidencias/', include('apps.incidencias.urls')),
+                       url(r'^gestion/', include('apps.gestion_red.urls')),
 
 
                        url(r'^admin/', include(admin.site.urls)),

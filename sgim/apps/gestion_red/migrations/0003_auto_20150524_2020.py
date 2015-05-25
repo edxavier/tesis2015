@@ -7,14 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('catalogo', '0001_initial'),
+        ('gestion_red', '0002_auto_20150524_1845'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='personal',
-            name='correo',
-            field=models.CharField(max_length=50, blank=True),
+            model_name='host',
+            name='uptime',
+            field=models.IntegerField(default=0, help_text=b'minutos', blank=True),
             preserve_default=True,
         ),
     ]
