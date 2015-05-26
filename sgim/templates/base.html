@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="{{BOWER_URL}}bootstrap-material-design/dist/css/ripples.min.css"  media="screen,projection"/>
 
 
-
+    <link rel="stylesheet" href="{{BOWER_URL}}kc_fab/dist/css/kc.fab.css"/>
      <!--Import materialize.css
       <link type="text/css" rel="stylesheet" href="{{BOWER_URL}}materialize/dist/css/materialize.css"  media="screen,projection"/>
 -->
@@ -53,13 +53,49 @@
  {% comment %}
      <script type="text/javascript" src="{{BOWER_URL}}materialize/dist/js/materialize.min.js"></script>  
  {% endcomment %}
+  <div class="kc_fab_wrapper" >
+        </div>
  
     <script src="{{BOWER_URL}}bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="{{BOWER_URL}}bootstrap-material-design/dist/js/ripples.min.js"></script>
     <script src="{{BOWER_URL}}bootstrap-material-design/dist/js/material.min.js"></script>
+     <script src="{{BOWER_URL}}kc_fab/dist/js/kc.fab.min.js"></script>
     <script>
         $(document).ready(function() {
                 $.material.init();
+                var links = [
+                    {
+                        "bgcolor":"#F44336",
+                        "icon":"<i class='icon ion-ios-plus-empty'></i>"
+                    },
+                    {
+                        "url":"http://www.example.com",
+                        "bgcolor":"#607D8B",
+                        "color":"#fffff",
+                        "icon":"<i class='icon ion-ios-briefcase' data-title='Matt' data-content='Matt has been a member since July 2014'></i>",
+                        "target":"_blank"
+                    },
+                    {
+                        "url":"http://www.example.com",
+                        "bgcolor":"orange",
+                        "color":"white",
+                        "icon":"<i class='icon ion-flash'></i>"
+                    },
+                    {
+                        "url":"http://www.example.com",
+                        "bgcolor":"#2196F3",
+                        "color":"white",
+                        "icon":"<i class='icon ion-ios-monitor'></i>"
+                    },
+                    {
+                        "url":"http://www.example.com",
+                        "bgcolor":"#00BCD4",
+                        "color":"#fffff",
+                        "icon":"<i class='icon ion-calendar'></i>",
+                        "target":"_blank"
+                    }
+                ]
+                $('.kc_fab_wrapper').kc_fab(links);
                  //$(".button-collapse").sideNav();
         });
     </script>
