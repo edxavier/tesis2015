@@ -1,0 +1,428 @@
+{% extends "base.html" %}
+
+{% block include_statics %}
+
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
+<link href="{{BOWER_URL}}ckeditor/plugins/codesnippet/lib/highlight/styles/monokai_sublime.css" rel="stylesheet">
+<script type="text/javascript" src="{{STATIC_URL}}js/asset/gridLocalization.js"></script>
+    
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcombobox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxpanel.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdata.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdatetimeinput.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcalendar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtooltip.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/globalization/globalize.js"></script>
+      <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxexpander.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxvalidator.js"></script>
+
+
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxmenu.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.pager.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.selection.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.filter.js"></script> 
+       <script type="text/javascript" src="{{BOWER_URL}}moment/min/moment.min.js"></script> 
+
+  <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtooltip.js"></script>
+  <script type="text/javascript" src="{{BOWER_URL}}moment/min/moment.min.js"></script>
+  <script type="text/javascript" src="{{BOWER_URL}}moment/locale/es.js"></script>
+
+    
+<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
+<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtabs.js"></script>
+
+<link href="{{BOWER_URL}}circliful/css/jquery.circliful.css" rel="stylesheet" type="text/css" />
+<script src="{{BOWER_URL}}circliful/js/jquery.circliful.min.js"></script>
+
+{% endblock include_statics %}
+
+{% block contenido %}
+{% load i18n %}.
+   <div class="ui purple menu">
+          <a class="item" href="/">
+            <i class="home icon"></i> Inicio
+          </a>
+          <a class=" item" href="{% url 'hosts_list' %}">
+            <i class=" cubes icon"></i> Hosts
+          </a>
+          <a class="active item" href="">
+            <i class=" cubes icon"></i> Detalles Host
+          </a>
+
+    </div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1" >
+			<div id='jqxWidget'>
+			        <div id='jqxTabs'>
+			            <ul>
+			                <li style="margin-left: 5px;">Datos generales</li>
+			                <li>Eventos Inicio</li>
+			                <li>Eventos Interface</li>
+			                <li>Eventos Generales</li>
+			                <li>Estadisticas</li>
+			            </ul>
+			            <div class="container-fluid">
+			            	<div class="ui items" style="padding:10px">
+							  <div class="item">
+							    <div class="content">
+							      	<h3 class="ui dividing purple header">
+									  <i class="terminal icon"></i>
+									  <div class="content" >
+									    {{host}} - {{host.nombre}}
+									    <div class="sub header">{{host.descripcion}}</div>
+									  </div>
+									</h3>
+									<br>								
+
+							      	<div class="row">
+							      		<div class="col-md-6">
+											<table class="ui definition green table">
+												<tbody>
+													<tr>
+														<td>Ubicacion</td>
+														<td>{{host.ubicacion}} </td>
+													</tr>
+													<tr>	
+														<td>Tiempo de Operacion</td>
+														<td id="uptimeCol"> 
+															{% if host.uptime  < dias_60 %}
+																<i class='green icon ion-checkmark-circled'></i>
+																<span style='color:green'>
+																	{{host.get_duration}}
+																</span>
+															{% elif host.uptime  > dias_60 and host.uptime < dias_90%}
+																<i class='yellow icon ion-alert-circled'></i>
+																<span style='color:yellow'>
+																	{{host.get_duration}}
+																</span>
+                                                            {% elif host.uptime  > dias_90 and host.uptime < dias_120 %}
+																<i class='yellow icon ion-alert-circled'></i>
+																<span style='color:orange'>
+																	{{host.get_duration}}
+																</span>
+															{% elif  host.uptime  > dias_120 %}
+																<i class='red icon ion-alert-circled'></i>
+																<span style='color:red'>
+																	{{host.get_duration}}
+																</span>						
+															{% endif %}
+															
+														</td>
+													</tr>
+													<tr>
+														<td>Servicios</td>
+														<td> {{host.servicios}} </td>
+													</tr>
+													<tr>
+														<td>Procesos</td>
+														<td>  {{host.procesos}}</td>
+													</tr>
+													<tr>
+														<td>Usuarios</td>
+														<td>  {{host.usuarios}}</td>
+													</tr>
+												</tbody>
+											</table>
+							      		</div>
+							      		<div class="col-md-6">
+											<table class="ui definition orange table">	
+												<tbody>
+													<tr>
+														<td>Alarma de discos</td>
+														<td>
+															{{host.alarma_discos | yesno:"SI,NO"}}  
+															{% if  host.alarma_discos %}				
+																<i class='orange icon ion-alert-circled'></i>
+															{% else %}
+																<i class='green icon ion-checkmark-circled'></i>
+															{% endif %}
+														</td>
+													</tr>
+													<tr>
+														<td>Alarma de procesos</td>
+														<td>
+															 {{host.alarma_procesos| yesno:"SI,NO"}}
+															 {% if  host.alarma_procesos %}
+																<i class='orange icon ion-alert-circled'></i>
+															{% else %}
+																<i class='green icon ion-checkmark-circled'></i>
+															{% endif %}
+														</td>
+													</tr>
+													<tr>
+														<td>Alarma de Procesador</td>
+														<td> {{host.alarma_procesador| yesno:"SI,NO"}}
+															{% if  host.alarma_procesador %}
+																<i class='orange icon ion-alert-circled'></i>
+															{% else %}
+																<i class='green icon ion-checkmark-circled'></i>
+															{% endif %}
+														</td>
+													</tr>	
+												</tbody>
+											</table>
+							      		</div>
+							      	</div>						      
+									
+
+							      <div class="extra">
+									<!-- Single button -->
+								
+									<!-- Single button -->
+
+							      </div>
+							    </div>
+							  </div>
+							</div>
+
+			            </div>
+			            <div class="container-fluid">
+			                <div class="container-fluid">
+							    <div class="row">							        
+							        <div class="col-md-12" >
+							        	<br>
+							            <div id="jqxgridBoots"></div>
+							        </div>
+							    </div>
+							</div>
+
+			            </div>
+			            <div class="container-fluid">
+							<div class="container-fluid">
+							    <div class="row">
+							        <br>
+							        <div class="col-md-12" >
+							            <div id="jqxgridInterfaces"></div>
+							        </div>
+							    </div>
+							</div>
+
+			            </div>
+			            <div class="container-fluid">
+							<div class="container-fluid">
+							    <div class="row">
+							        <br>
+							        <div class="col-md-12" >
+							            <div id="jqxgridGeneral"></div>
+							        </div>
+							    </div>
+							</div>
+
+			            </div>
+			            <div class="container-fluid">
+							gfdg
+			            </div>
+      
+			        </div>   
+    		</div>
+    		
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock contenido %}
+
+{% block scripts %}
+
+<script>
+	$(document).ready(function() {
+        
+	
+    
+    io.on('host_update', function(data){        
+        dias = ( data.uptime / 60  ) / 1440
+        if(dias < 60){
+            span = "<span style='color:green'><i class='green icon ion-checkmark-circled'></i>"
+        }else if(dias < 90 && dias > 60){
+            span = "<span style='color:yellow'><i class='yellow icon ion-alert-circled'></i>"
+        }
+        else if(dias < 120 && dias > 90){
+            span = "<span style='color:orange'><i class='orange icon ion-alert-circled'></i>"
+        }
+        else{
+            span = "<span style='color:red'><i class='red icon ion-alert-circled'></i>"
+        }
+        span += data.format_uptime +"</span>"
+        $("#uptimeCol").html(span)    
+	});
+        
+    io.on('boot_event', function(data){
+	   $('#jqxgridBoots').jqxGrid('addrow', null, data,"first");
+	});
+    io.on('interface_event', function(data){	
+         $('#jqxgridInterfaces').jqxGrid('addrow', null, data,"first");
+	});
+    io.on('general_event', function(data){
+		$('#jqxgridGeneral').jqxGrid('addrow', null, data,"first");
+	});
+
+	
+        
+		 $('#jqxTabs').jqxTabs({ width: '90%', position: 'top', animationType: 'fade', theme:"energyblue" });
+		      
+ 							BootsFields = [
+			                    { name: 'id', type: 'int' },
+			                    { name: 'tipo', type: 'string' },
+			                    { name: 'uptime', type: 'string' },
+                                { name: 'leido', type: 'string' },
+			                    { name: 'fecha',type: 'date'},
+			                    { name: 'format_uptime',type: 'string'},
+			                ]
+
+
+			                 InterfaceFields = [
+			                    { name: 'id', type: 'int' },
+			                    { name: 'nombre', type: 'string' },
+			                    { name: 'uptime', type: 'string' },
+			                    { name: 'tipo', type: 'string' },
+                                { name: 'estado_operacional', type: 'string' },
+                                { name: 'estado_administrativo', type: 'string' },
+			                    { name: 'fecha',type: 'date'},
+			                    { name: 'format_uptime',type: 'string'},	
+                                 { name: 'leido', type: 'string' },
+			                ]
+
+
+			                 GeneralFields = [
+			                    { name: 'id', type: 'int' },
+			                    { name: 'tabla', type: 'string' },
+			                    { name: 'item', type: 'string' },
+			                    { name: 'uptime', type: 'string' },
+			                    { name: 'warning', type: 'string' },
+			                    { name: 'mensaje', type: 'string' },
+			                    { name: 'fecha',type: 'date'},
+			                    { name: 'format_uptime',type: 'string'},	
+                                 { name: 'leido', type: 'string' },
+			                ]
+		    columnasBoots = [
+                  { text: 'ID', datafield: 'id', width:'60px', cellsrenderer: uptimeRender},
+                  { text: 'Tipo Evento', datafield: 'tipo', filterType:'list', cellsrenderer: uptimeRender},
+                  { text: 'Uptime', datafield: 'uptime' ,  cellsrenderer: uptimeRender},                
+                  //{ text: 'Leido', datafield: 'leido', cellsrenderer: generalRender},
+                  { text: 'Fecha', datafield: 'fecha', cellsformat:'dd-MMM-yy hh:mm ' , filtertype:'date' , cellsrenderer: uptimeRender},
+              ]
+
+             columnasInterfaces = [
+                  { text: 'ID', datafield: 'id', width:'60px', cellsrenderer: uptimeRender2},
+                  { text: 'Interface', datafield: 'nombre',  cellsrenderer: uptimeRender2},
+                  { text: 'Uptime', datafield: 'uptime' ,  cellsrenderer: uptimeRender2,width:'120px'},                
+                  { text: 'Tipo de Evento', datafield: 'tipo', cellsrenderer: uptimeRender2},
+                  { text: 'Estado Operacional', datafield: 'estado_operacional',  cellsrenderer: uptimeRender2},
+                  { text: 'Estado Administrativo', datafield: 'estado_administrativo',  cellsrenderer: uptimeRender2},
+                  { text: 'Fecha', datafield: 'fecha', cellsformat:'dd-MMM-yy hh:mm ' , filtertype:'date' , 
+                   width:'150px', cellsrenderer: uptimeRender2},
+              ]
+              
+              columnasGeneral= [
+                  { text: 'ID', datafield: 'id', width:'60px',  cellsrenderer: uptimeRender3},
+                  { text: 'Tabla', datafield: 'tabla',  width:'130px',  cellsrenderer: uptimeRender3},
+                  { text: 'Item', datafield: 'item' ,  width:'120px',  cellsrenderer: uptimeRender3},                
+                  { text: 'Uptime', datafield: 'uptime', cellsrenderer: uptimeRender3,width:'120px'},
+                  { text: 'Warning', datafield: 'warning',width:'60px', cellsrenderer: uptimeRender3},
+                  { text: 'Causa', datafield: 'mensaje', cellsrenderer: uptimeRender3},
+                  { text: 'Fecha', datafield: 'fecha', cellsformat:'dd-MMM-yy hh:mm ' , filtertype:'date' , width:'150px',
+                   cellsrenderer: uptimeRender3},
+              ]
+              
+                function get_datos(url, fields){
+			    	
+			    	 var source =
+			            {
+			                datatype: "json",
+			                datafields: fields,
+			                id: 'id',
+			                url: url+"?host={{host.id}}",
+                            addrow: function (rowid, rowdata, position, commit) {
+                                commit(true);
+                            },
+			            };
+				  var dataAdapter = new $.jqx.dataAdapter(source);
+				  return dataAdapter
+			    }
+        
+        function format_duration(data, element, field){
+            if(field==="uptime")
+                element[0].innerHTML = data.format_uptime
+            if(!data.leido){                
+                element.css('color', '#BF360C');    
+                element.css('font-weight', 'bold');
+            }
+            return element[0].outerHTML;
+        }
+        
+        function uptimeRender(row, columnfield, value, defaulthtml, columnproperties){
+            var data = $('#jqxgridBoots').jqxGrid('getrowdata', row); 
+            var element = $(defaulthtml);      
+            return format_duration(data, element, columnfield)
+        }
+
+        function uptimeRender2(row, columnfield, value, defaulthtml, columnproperties){
+            var data = $('#jqxgridInterfaces').jqxGrid('getrowdata', row); 
+            var element = $(defaulthtml);      
+            return format_duration(data, element, columnfield)        
+        }
+
+        function uptimeRender3(row, columnfield, value, defaulthtml, columnproperties){
+            var data = $('#jqxgridGeneral').jqxGrid('getrowdata', row); 
+            var element = $(defaulthtml);      
+            return format_duration(data, element, columnfield)       
+        }
+
+    $("#jqxgridBoots").jqxGrid({
+        theme:"metro",
+        width: '100%',
+        theme:'metro', 
+        showfilterrow: true,
+        filterable: true,
+        pageable: true,
+        localization: getLocalization(),
+        columns: columnasBoots,source: get_datos("/api/gestion/boot_events/", BootsFields)
+
+    });
+     $("#jqxgridInterfaces").jqxGrid({
+        theme:"metro",
+        width: '100%',
+        theme:'metro', 
+        showfilterrow: true,
+        filterable: true,
+        pageable: true,
+        localization: getLocalization(),
+        columns: columnasInterfaces ,source: get_datos("/api/gestion/interface_events/", InterfaceFields)
+
+    });
+     $("#jqxgridGeneral").jqxGrid({
+        theme:"metro",
+        width: '100%',
+        theme:'metro', 
+        showfilterrow: true,
+        filterable: true,
+        pageable: true,
+        localization: getLocalization(),
+        columns: columnasGeneral,source: get_datos("/api/gestion/general_events/", GeneralFields)
+
+    });
+		     //$("#jqxgridBoots").jqxGrid({  });
+		    
+
+	
+	});
+
+
+</script>
+{% endblock scripts %}

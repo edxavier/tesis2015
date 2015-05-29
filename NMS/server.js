@@ -29,18 +29,30 @@ server.post('/boot_event/', function (req, res) {
 server.post('/interface_event/', function (req, res) {
 
     console.info(req.body)
-    server.io.broadcast("boot_event", req.body)
-    res.send("Boot Event Received");
+    server.io.broadcast("interface_event", req.body)
+    res.send("INTERFACE Event Received");
 });
+
 
 server.post('/general_event/', function (req, res) {
+    server.io.broadcast("general_event", req.body)
+    res.send("GENERAL Event Received");
+});
 
+server.post('/host_update/', function (req, res) {
+    server.io.broadcast("host_update", req.body)
     console.info(req.body)
-    server.io.broadcast("boot_event", req.body)
-    res.send("Boot Event Received");
+    console.info("UPDATE HOST")
+    res.send("success");
 });
 
 
+server.post('/heart_beat/', function (req, res) {
+    server.io.broadcast("heart_beat", req.body)
+    console.info(req.body)
+    console.info("Heart Beat")
+    res.send("success");
+});
 
 server.listen(8500);
 console.log("el servidor esta corriendo http://localhost:8500");

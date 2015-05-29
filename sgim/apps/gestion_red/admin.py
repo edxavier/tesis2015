@@ -1,8 +1,21 @@
 from django.contrib import admin
 from .models import *
 
-admin.site.register(Host)
-admin.site.register(BootEvent)
-admin.site.register(InterfaceEvent)
-admin.site.register(GeneralEvent)
+@admin.register(Host)
+class HostAdmin(admin.ModelAdmin):
+    list_display = ("direccion", "nombre", "fecha")
+
+@admin.register(BootEvent)
+class BootEventAdmin(admin.ModelAdmin):
+    list_display = ("host", "tipo", "uptime", "fecha")
+
+@admin.register(InterfaceEvent)
+class InterfaceEventAdmin(admin.ModelAdmin):
+    list_display = ("host", "tipo", "uptime", "nombre", "estado_operacional","estado_administrativo", "fecha")
+
+@admin.register(GeneralEvent)
+class GeneralEventAdmin(admin.ModelAdmin):
+    list_display = ("host", "tabla", "item", "uptime", "warning", "mensaje", "fecha")
+
+
 # Register your models here.

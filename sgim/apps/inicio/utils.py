@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 __author__ = 'edx'
 import os
 from django.conf import settings
@@ -112,3 +114,9 @@ def broadcast_event(data_obj, url=""):
     except Exception, e:
         print(e.message)
         print("Error enviando datos al servidor")
+
+def get_formated_duration(seconds=0):
+    d = datetime.today() - timedelta(seconds=seconds, microseconds=0, milliseconds=0)
+    operation_time = datetime.today() - d
+    duration_time = str(operation_time).split('.')[0]
+    return duration_time

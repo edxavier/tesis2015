@@ -1,0 +1,349 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Gestion de Red
+{% endblock titulo %}
+
+{% block include_statics %}
+
+
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
+ <script type="text/javascript" src="{{STATIC_URL}}js/asset/gridLocalization.js"></script>
+    
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcombobox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxpanel.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdata.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdatetimeinput.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcalendar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtooltip.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/globalization/globalize.js"></script>
+      <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxexpander.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxvalidator.js"></script>
+
+
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxmenu.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.pager.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.selection.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.filter.js"></script> 
+       <script type="text/javascript" src="{{BOWER_URL}}moment/min/moment.min.js"></script> 
+
+  <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtooltip.js"></script>
+  <script type="text/javascript" src="{{BOWER_URL}}moment/min/moment.min.js"></script>
+  <script type="text/javascript" src="{{BOWER_URL}}moment/locale/es.js"></script>
+
+{% endblock include_statics %}
+{% block contenido %}
+<div class="ui purple menu">
+	<a class="item" href="/">
+		<i class="home icon"></i> Inicio
+	</a>
+	<a class=" active item" href="{% url 'incidentes_list' %}">
+		<i class="icon ion-settings"></i> Hosts.
+	</a>
+</div>
+
+<div class="container-fluid">
+    <div class="row">        
+        <div class="col-md-12" >
+            <div id="jqxgrid"></div>
+        </div>
+    </div>
+</div>
+
+
+<!--MODAL PARA FILTRAR POR FECHA-->
+<div class="ui small modal filtrar" >
+    <i class="close icon"></i>
+    <div class="header">
+      <i class="ion-ios-calendar icon"></i>Obtener Incidencias por rango de fechas
+    </div>
+    <div class="content">
+        <div class="description">
+          <h5>Selecciona desde cuando y hasta cuando buscar incidentes</h5>
+          	
+          	<div id='filtroFecha'>
+        	</div>
+
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui positive left icon button">
+            Buscar 
+            <i class="ion-ios-search-strong icon"></i>
+        </div>
+        <div class="ui black button">
+            Cancelar            
+            <i class="ion-close-round icon"></i>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="ui dimmer cargando">
+    <div class="ui large text loader">
+      Espere por favor...
+    </div>
+</div>
+{% endblock contenido %}
+
+{% block scripts %}
+
+<script>
+
+$(document).ready(function() {
+    /*Inicializar el modal para filtrar*/
+ 
+	io.on('host_update', function(data){
+        $('#jqxgrid').jqxGrid('updaterow', data.id, data);
+	});
+    io.on('heart_beat', function(data){
+        $('#jqxgrid').jqxGrid('updaterow', data.id, data);
+	});
+
+    $.getScript('{{STATIC_URL}}js/asset/globalize.culture.es-NI.js', function () {
+        
+        $("#filtroFecha").jqxDateTimeInput({ width: 250, height: 25,  selectionMode: 'range',culture: 'es-NI'});
+
+    });
+
+                var date1 = new Date();
+                date1.setFullYear(2015, 5, 7);
+                var date2 = new Date();
+                date2.setFullYear(2015, 5, 15);
+                $("#filtroFecha").jqxDateTimeInput('setRange', date1, date2);
+
+
+    /*Inicializar Combos obteniendo los datos del api rest de catalogos*/
+    function get_datos(parametros){
+    	if(!parametros)
+    		parametros = ""
+    	 var source =
+            {
+                datatype: "json",
+                datafields: [
+                    { name: 'id', type: 'int' },
+                    { name: 'direccion', type: 'string' },
+                    { name: 'nombre', type: 'string' },
+                    { name: 'uptime', type: 'string' },
+                    { name: 'servicios', type: 'string' },
+                    { name: 'procesos', type: 'string' },
+                    { name: 'usuarios', type: 'string' },
+                    { name: 'alarma_discos', type: 'string' },
+                    { name: 'alarma_procesos', type: 'string' },
+                    { name: 'alarma_procesador',},
+                    { name: 'actualizado',type: 'date'},
+                    { name: 'esta_conectado',type: 'string'},
+                    { name: 'format_uptime',type: 'string'},
+                   
+                ],
+                id: 'id',
+                url: '/api/gestion/hosts/'+parametros
+            };
+	  var dataAdapter = new $.jqx.dataAdapter(source);
+	  return dataAdapter
+    }
+
+
+  $('.filtrar').modal({
+    closable:false,
+    transition:'fade up',
+    onApprove : function() {
+    	var range = $("#filtroFecha").jqxDateTimeInput('getRange');
+	    var from =  moment(range.from).format("DD/MM/YYYY");
+	    var to =  moment(range.to).format("DD/MM/YYYY");
+    	$("#jqxgrid").jqxGrid({source: get_datos("?min_date="+from+"&max_date="+to),})
+    }
+ })   
+
+ function dateRender(row, columnfield, value, defaulthtml, columnproperties){ 
+    var element = $(defaulthtml);        
+    element[0].innerHTML =  moment(value).format("DD-MM-YYYY HH:mm")
+    return element[0].outerHTML;
+  }
+  function uptimeRender(row, columnfield, value, defaulthtml, columnproperties){
+          moment.locale('es');
+          human = moment.duration(value, "seconds").humanize()
+          days = moment.duration(value, "seconds").asDays()
+          var data = $('#jqxgrid').jqxGrid('getrowdata', row);
+
+          if(days > 120 ){
+            return "<div style='padding:5px;text-align:center'><i class='red icon ion-android-alert'></i>"+data.format_uptime+" dias</div>";}
+          else if(days < 120 && days > 90){
+            return "<div style='padding:5px;text-align:center'><i class='orange icon ion-android-alert'></i>"+data.format_uptime+" dias</div>";}
+          else if(days < 90 && days > 60){
+            return "<div style='padding:5px;text-align:center'><i class='yellow icon ion-android-alert'></i>"+data.format_uptime+" dias</div>";}
+          else{
+            return "<div style='padding:5px;text-align:center'><i class='green icon ion-checkmark-circled'></i>"+data.format_uptime+"</div>";
+          }
+        
+  }
+
+  function alarmRender(row, columnfield, value, defaulthtml, columnproperties){        
+        if(value == true || value == "True"){
+          return "<div style='padding:5px; color:#E91E63;font-weight:bold;text-align:center'><i class='red icon ion-alert-circled'></i>Warning</div>";
+        }else{
+          return "<div style='padding:5px; color:#1B5E20;font-weight:bold;text-align:center'><i class='green icon ion-checkmark-circled'></i>OK</div>";
+        }
+  }
+    
+    
+  function conectionRender(row, columnfield, value, defaulthtml, columnproperties){
+        var element = $(defaulthtml);  
+        if(value == true || value == "True"){        
+             element[0].innerHTML = "<i class='green icon ion-ios-monitor'></i> UP"
+             element.css('color', '#4CAF50');    
+             element.css('font-weight', 'bold');
+        }else{
+            element[0].innerHTML = "<i class='red icon ion-ios-monitor'></i> DOWN"
+             element.css('color', '#F44336');    
+             element.css('font-weight', 'bold');
+        }
+        return element[0].outerHTML;
+  }
+  
+
+    $("#jqxgrid").jqxGrid({
+
+                width: '100%',
+                theme:'metro', 
+                source: get_datos(),
+                showfilterrow: true,
+                filterable: true,
+                height:"400px",
+                pageSize: 20,
+                pageable: true,
+                autoshowfiltericon: true,
+                localization: getLocalization(),
+                columns: [
+                  { text: 'ID', datafield: 'id', width:'60px'},
+                  { text: 'Direccion', datafield: 'direccion', width:'100px'},
+                  { text: 'Nombre', datafield: 'nombre' , width:'100px'},
+                  { text: 'Uptime', datafield: 'uptime', width:'160px', cellsrenderer: uptimeRender},
+                  { text: 'Servicios', datafield: 'servicios', width:'60px'},
+                  { text: 'Procesos', datafield: 'procesos', width:'60px'},
+                  { text: 'Usuarios', datafield: 'usuarios', width:'60px'},
+                  { text: 'Espacio Discos', datafield: 'alarma_discos', cellsrenderer: alarmRender,  },
+                  { text: 'Monit. Procesos', datafield: 'alarma_procesos', cellsrenderer: alarmRender },
+                  { text: 'Carga Procesador', datafield: 'alarma_procesador', cellsrenderer: alarmRender },
+                  { text: 'Conexion', datafield: 'esta_conectado', cellsrenderer: conectionRender,  width:'100px' },
+                  { text: 'Ultima Act.', datafield: 'actualizado', cellsformat:'dd-MMM-yy hh:mm ' , cellsrenderer: dateRender,
+                   filtertype:'date' , width:'180px'},
+
+              ],
+              showtoolbar: true,
+              rendertoolbar: function (statusbar) {
+                    // appends buttons to the status bar.
+                    var container = $("<div style='margin:5px;'></div>");
+                    var viewButton = $("<div class='ui  tiny blue button'> Ver detalles</div>");
+                    var filterButton = $("<div class='ui  tiny purple button'>Filtrar Fechas</div>");
+                    var reloadbtn = $("<div class='tiny green ui icon button'><i class='icon refresh'></i></div>");
+                   
+                    container.append(reloadbtn);
+                    container.append(viewButton);
+                    container.append(filterButton);
+                    statusbar.append(container);
+
+
+                     $(".ui.green.button").jqxTooltip({
+                       content: 'Recargar datos', 
+                       position: 'top-right',
+                      });
+                   
+                    // add new row.
+                    viewButton.click(function (event) {
+                      var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+                      var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
+                      if(id!=null){
+                      	var win = window.open('/gestion/hosts/detalles/'+id, '_blank');
+                      		win.focus(); 
+                      }else{
+                        $.snackbar({content: "<i class='ion-happy yellow icon'></i> Seleccione una fila por favor! ",timeout: 4000});
+                      }
+                       
+                    });
+                    // filter from server.
+                    filterButton.click(function (event) {
+                       $('.filtrar').modal('show') 
+                    });
+                    reloadbtn.click(function (event) {
+                      $("#jqxgrid").jqxGrid({source: get_datos(),})
+                    });                 
+
+                },
+            });
+
+  $('#jqxgrid').on('rowselect', function (event) 
+  {
+
+      var args = event.args;
+      var rowBoundIndex = args.rowindex;
+      var rowData = args.row;
+      estado = rowData.estado;
+      if(estado!=1){
+        $(".cerrar").removeClass('disabled')
+      }else{
+        $(".cerrar").addClass('disabled')
+      }
+
+  });
+
+  $('.cerrarInc').modal({
+    closable:false,
+    transition:'fade up',
+    onApprove : function() {  
+      var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+      var row_id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
+       $('.cargando').toggleClass('active');                      
+          $.ajax({
+                url: '/api/incidencias/incidentes/'+row_id,
+                type: 'PUT',
+                dataType: 'json',
+                data: { 
+                    estado:1,
+                    desc: $("#solucion").val()
+                },
+          })
+          .done(function(data) {
+                          $('.cargando').toggleClass('active');
+                          $('#jqxgrid').jqxGrid('updaterow', row_id, data);
+                          $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i>Incidente cerrado con exito!"});
+                          $(".cerrar").addClass('disabled')
+                          console.log(data)
+          })
+          .fail(function(err) {
+                          if(err.status=== 403){
+                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Aviso: "+ err.responseJSON.detail ,timeout: 6000});
+                          }else{
+                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ err.status + ": "+err.statusText});
+                          }
+                          console.log(err)
+                          $('.cargando').toggleClass('active');
+          })
+      
+    }
+ })   
+
+    $("#solucion").keyup(function(event) {
+      /* Act on the event */
+      if($(this).val().length > 20){
+        $('.ok.orange.button').removeClass('disabled')
+      }else{
+        $('.ok.orange.button').addClass('disabled')
+      }
+    });
+ 
+});
+
+</script>
+	
+{% endblock scripts %}

@@ -43,7 +43,23 @@
                         <li><a href="{% url 'cambios_follow' %}">Seguimiento de Cambio</a></li>
                         <li><a href="{% url 'incidentes_follow' %}">Seguimiento de Incidente</a></li>
                     </ul>
-                </li> 
+                </li>
+                <li class="dropdown" >
+                    <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Gestion Red <b class="caret"></b>
+                        <span class="gestion_menu ui red circular label">0</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'hosts_list' %}">Hosts</a></li>
+                        <li>
+                            <a href="{% url 'cambios_list' %}">Eventos de Arranque  <span class="ui red circular label gestion_boot">0</span>
+                            </a>
+                        </li>
+                        <li><a href="{% url 'cambios_follow' %}">Eventos de Interfaces <span class="ui orange circular label gestion_interface">0</span></a></li>
+                        <li><a href="{% url 'incidentes_follow' %}">Eventos Generales <span class="ui purple circular label gestion_general">0</span></a></li>
+                    </ul>
+                </li>
+                 
             </ul>
           
             <ul class="nav navbar-nav navbar-right">

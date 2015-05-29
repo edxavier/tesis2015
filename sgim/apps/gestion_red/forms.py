@@ -17,4 +17,12 @@ class InterfaceEventForm(forms.ModelForm):
 
     class Meta:
         model = InterfaceEvent
+        exclude = ('host',)
+
+
+class GeneralEventForm(forms.ModelForm):
+
+    class Meta:
+        model = GeneralEvent
+        exclude = ('host',)
 

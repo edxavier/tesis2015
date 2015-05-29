@@ -28,10 +28,15 @@
 
 
     <link rel="stylesheet" href="{{BOWER_URL}}kc_fab/dist/css/kc.fab.css"/>
+
+     <link rel="stylesheet" type="text/css" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" />
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtooltip.js"></script>
      <!--Import materialize.css
       <link type="text/css" rel="stylesheet" href="{{BOWER_URL}}materialize/dist/css/materialize.css"  media="screen,projection"/>
 -->
-
+<script type="text/javascript" src="http://127.0.0.1:8500/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="http://192.168.137.85:8500/socket.io/socket.io.js"></script>
     {% block include_statics %}
         
     {% endblock include_statics %}
@@ -53,15 +58,20 @@
  {% comment %}
      <script type="text/javascript" src="{{BOWER_URL}}materialize/dist/js/materialize.min.js"></script>  
  {% endcomment %}
-  <div class="kc_fab_wrapper" >
-        </div>
- 
+ {% if user.is_authenticated %}
+    <div class="kc_fab_wrapper" >
+    </div>
+ {% endif %}
+
     <script src="{{BOWER_URL}}bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="{{BOWER_URL}}bootstrap-material-design/dist/js/ripples.min.js"></script>
     <script src="{{BOWER_URL}}bootstrap-material-design/dist/js/material.min.js"></script>
-     <script src="{{BOWER_URL}}kc_fab/dist/js/kc.fab.min.js"></script>
+     <script src="{{STATIC_URL}}js/kc.fab.js"></script>
+    <script src="{{STATIC_URL}}js/ioMain.js"></script>
     <script>
         $(document).ready(function() {
+             
+
                 $.material.init();
                 var links = [
                     {
@@ -69,6 +79,22 @@
                         "icon":"<i class='icon ion-ios-plus-empty'></i>"
                     },
                     {
+                        "id":"fb_device",
+                        "url":"http://www.example.com",
+                        "bgcolor":"#2196F3",
+                        "color":"white",
+                        "icon":"<i class='icon ion-ios-monitor'></i>"
+                    },
+                    {
+                        "id":"fb_plan",
+                        "url":"http://www.example.com",
+                        "bgcolor":"#00BCD4",
+                        "color":"#fffff",
+                        "icon":"<i class='icon ion-calendar'></i>",
+                        "target":"_blank"
+                    },
+                    {
+                        "id":"fb_mantto",
                         "url":"http://www.example.com",
                         "bgcolor":"#607D8B",
                         "color":"#fffff",
@@ -76,26 +102,19 @@
                         "target":"_blank"
                     },
                     {
+                        "id":"fb_incident",
                         "url":"http://www.example.com",
                         "bgcolor":"orange",
                         "color":"white",
                         "icon":"<i class='icon ion-flash'></i>"
-                    },
-                    {
-                        "url":"http://www.example.com",
-                        "bgcolor":"#2196F3",
-                        "color":"white",
-                        "icon":"<i class='icon ion-ios-monitor'></i>"
-                    },
-                    {
-                        "url":"http://www.example.com",
-                        "bgcolor":"#00BCD4",
-                        "color":"#fffff",
-                        "icon":"<i class='icon ion-calendar'></i>",
-                        "target":"_blank"
                     }
                 ]
                 $('.kc_fab_wrapper').kc_fab(links);
+
+                 $("#fb_device").jqxTooltip({ content: 'Nuevo Dispositivo', position: 'left',});
+                 $("#fb_plan").jqxTooltip({ content: 'Nuevo Plan de Mantto', position: 'left',});
+                 $("#fb_mantto").jqxTooltip({ content: 'Nueva Boleta de Trabajo', position: 'left',});
+                 $("#fb_incident").jqxTooltip({ content: 'Nuevo Incidente', position: 'left',});
                  //$(".button-collapse").sideNav();
         });
     </script>
