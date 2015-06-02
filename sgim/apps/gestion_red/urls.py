@@ -15,4 +15,11 @@ urlpatterns = patterns('',
                         url(r'^boot_event/agregar/$', BootEventView.as_view(),),
                         url(r'^interface_event/agregar/$', InterfaceEventView.as_view(),),
                         url(r'^general_event/agregar/$', GeneralEventView.as_view(),),
+                        url(r'^storages/$', StoragesView.as_view(),),
+
+                       url(r'^devices/$', DeviceView.as_view(),),
+                       url(r'^load_avg/$', LoadAvgView.as_view(),),
+                       url(r'^memory/$', MemoryView.as_view(),),
+                       url(r'^disk/$', DiskView.as_view(),),
+                       url(r'^process/$', ProcessView.as_view(),),
                        )

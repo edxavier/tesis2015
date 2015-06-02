@@ -2,34 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99403a9c-6127-4614-ae33-971f75d650a9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NMS/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NMS/utils/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NMS/utils/dictionary.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NMS/heartBeatClient.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NMS/heartBeatServer.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NMS/utils/helpers.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sgim/templates/gestion/host_details.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sgim/templates/gestion/hosts.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NMS/utils/snmp_requests.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NMS/utils/system.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NMS/trapReceiver.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NMS/utils/trap_snmp_utils.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NMS/update_sys_info.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NMS/utils/web_methods.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/NMS/post.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sgim/apps/gestion_red/migrations/0002_auto_20150524_1845.py" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/sgim/apps/gestion_red/migrations/0003_auto_20150524_2020.py" afterPath="$PROJECT_DIR$/sgim/apps/gestion_red/migrations/0002_storage_percent_used.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/apps/gestion_red/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/sgim/apps/gestion_red/migrations/0001_initial.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/apps/gestion_red/admin.py" afterPath="$PROJECT_DIR$/sgim/apps/gestion_red/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/templates/base.html" afterPath="$PROJECT_DIR$/sgim/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/static/bower/bower.json" afterPath="$PROJECT_DIR$/sgim/static/bower/bower.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/apps/gestion_red/forms.py" afterPath="$PROJECT_DIR$/sgim/apps/gestion_red/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/sgim/api_urls.py" afterPath="$PROJECT_DIR$/sgim/sgim/api_urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NMS/utils/dictionary.py" afterPath="$PROJECT_DIR$/NMS/utils/dictionary.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NMS/heartBeatServer.py" afterPath="$PROJECT_DIR$/NMS/heartBeatServer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NMS/utils/helpers.py" afterPath="$PROJECT_DIR$/NMS/utils/helpers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/templates/gestion/host_details.html" afterPath="$PROJECT_DIR$/sgim/templates/gestion/host_details.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/templates/gestion/hosts.html" afterPath="$PROJECT_DIR$/sgim/templates/gestion/hosts.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/static/js/ioMain.js" afterPath="$PROJECT_DIR$/sgim/static/js/ioMain.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/templates/inventario/reportes/listado.html" afterPath="$PROJECT_DIR$/sgim/templates/inventario/reportes/listado.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/apps/gestion_red/models.py" afterPath="$PROJECT_DIR$/sgim/apps/gestion_red/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/templates/includes/nav_bar.html" afterPath="$PROJECT_DIR$/sgim/templates/includes/nav_bar.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/templates/report_base.html" afterPath="$PROJECT_DIR$/sgim/templates/report_base.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/apps/gestion_red/serializers.py" afterPath="$PROJECT_DIR$/sgim/apps/gestion_red/serializers.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NMS/server.js" afterPath="$PROJECT_DIR$/NMS/server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/sgim/settings.py" afterPath="$PROJECT_DIR$/sgim/sgim/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/tesis2015.iml" afterPath="$PROJECT_DIR$/.idea/tesis2015.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgimBackup" afterPath="$PROJECT_DIR$/sgimBackup" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NMS/utils/system.py" afterPath="$PROJECT_DIR$/NMS/utils/system.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NMS/update_sys_info.py" afterPath="$PROJECT_DIR$/NMS/update_sys_info.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/apps/gestion_red/urls.py" afterPath="$PROJECT_DIR$/sgim/apps/gestion_red/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/apps/inicio/utils.py" afterPath="$PROJECT_DIR$/sgim/apps/inicio/utils.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/apps/gestion_red/view_sets.py" afterPath="$PROJECT_DIR$/sgim/apps/gestion_red/view_sets.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/apps/gestion_red/views.py" afterPath="$PROJECT_DIR$/sgim/apps/gestion_red/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -53,11 +44,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="update_sys_info.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="update_sys_info.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NMS/update_sys_info.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7902439">
-              <caret line="27" column="9" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="30" column="29" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
               <folding>
                 <element signature="e#19#50#0" expanded="true" />
               </folding>
@@ -65,36 +56,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dictionary.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/NMS/utils/dictionary.py">
+      <file leaf-file-name="trapReceiver.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NMS/trapReceiver.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="46" column="50" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
+              <caret line="99" column="65" selection-start-line="99" selection-start-column="65" selection-end-line="99" selection-end-column="65" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="system.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/NMS/utils/system.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="47" column="46" selection-start-line="47" selection-start-column="46" selection-end-line="47" selection-end-column="46" />
-              <folding>
-                <element signature="e#19#74#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="heartBeatServer.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/NMS/heartBeatServer.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="99" column="28" selection-start-line="99" selection-start-column="28" selection-end-line="99" selection-end-column="49" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -103,18 +70,32 @@
         <entry file="file://$PROJECT_DIR$/sgim/apps/gestion_red/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="18" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="18" />
+              <caret line="80" column="16" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sgim/apps/gestion_red/views.py">
           <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.49874055">
+              <caret line="56" column="50" selection-start-line="56" selection-start-column="50" selection-end-line="56" selection-end-column="50" />
+              <folding>
+                <element signature="e#0#30#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="system.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NMS/utils/system.py">
+          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-              <folding />
+              <caret line="59" column="26" selection-start-line="59" selection-start-column="26" selection-end-line="59" selection-end-column="26" />
+              <folding>
+                <element signature="e#19#74#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -134,7 +115,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/sgim/apps/mantenimiento/admin.py" />
         <option value="$PROJECT_DIR$/sgim/apps/mantenimiento/models.py" />
         <option value="$PROJECT_DIR$/sgim/apps/mantenimiento/serializers.py" />
         <option value="$PROJECT_DIR$/sgim/apps/mantenimiento/urls.py" />
@@ -155,36 +135,37 @@
         <option value="$PROJECT_DIR$/sgim/apps/mantenimiento/views.py" />
         <option value="$PROJECT_DIR$/sgim/apps/inventario/views.py" />
         <option value="$PROJECT_DIR$/sgim/sgim/base.py" />
-        <option value="$PROJECT_DIR$/sgim/sgim/api_urls.py" />
         <option value="$PROJECT_DIR$/help" />
         <option value="$PROJECT_DIR$/NMS/utils/post.py" />
         <option value="$PROJECT_DIR$/sgim/apps/gestion_red/forms.py" />
         <option value="$PROJECT_DIR$/NMS/trapReceiver.py" />
-        <option value="$PROJECT_DIR$/sgim/apps/gestion_red/admin.py" />
         <option value="$PROJECT_DIR$/NMS/server.js" />
         <option value="$PROJECT_DIR$/sgim/templates/includes/nav_bar.html" />
-        <option value="$PROJECT_DIR$/sgim/apps/gestion_red/urls.py" />
         <option value="$PROJECT_DIR$/sgim/sgim/settings.py" />
-        <option value="$PROJECT_DIR$/sgim/apps/gestion_red/view_sets.py" />
         <option value="$PROJECT_DIR$/NMS/utils/trap_snmp_utils.py" />
         <option value="$PROJECT_DIR$/sgim/apps/inicio/utils.py" />
-        <option value="$PROJECT_DIR$/sgim/apps/gestion_red/serializers.py" />
         <option value="$PROJECT_DIR$/NMS/gestor.py" />
         <option value="$PROJECT_DIR$/NMS/utils/oid_dictionary.py" />
-        <option value="$PROJECT_DIR$/NMS/utils/dictionary.py" />
-        <option value="$PROJECT_DIR$/NMS/utils/snmp_requests.py" />
-        <option value="$PROJECT_DIR$/NMS/utils/helpers.py" />
-        <option value="$PROJECT_DIR$/NMS/utils/system.py" />
         <option value="$USER_HOME$/Escritorio/ping.py" />
-        <option value="$PROJECT_DIR$/sgim/apps/gestion_red/models.py" />
         <option value="$PROJECT_DIR$/NMS/utils/web_methods.py" />
         <option value="$PROJECT_DIR$/NMS/heartBeatClient.py" />
-        <option value="$PROJECT_DIR$/NMS/heartBeatServer.py" />
         <option value="$USER_HOME$/Escritorio/hear_beatClient.sh" />
         <option value="$USER_HOME$/Escritorio/daemon-example.py" />
         <option value="$USER_HOME$/Escritorio/daemon.py" />
-        <option value="$PROJECT_DIR$/sgim/apps/gestion_red/views.py" />
+        <option value="$PROJECT_DIR$/NMS/heartBeatServer.py" />
+        <option value="$PROJECT_DIR$/NMS/utils/dictionary.py" />
+        <option value="$PROJECT_DIR$/NMS/utils/snmp_requests.py" />
+        <option value="$PROJECT_DIR$/sgim/apps/gestion_red/urls.py" />
+        <option value="$PROJECT_DIR$/sgim/apps/gestion_red/admin.py" />
+        <option value="$PROJECT_DIR$/NMS/utils/helpers.py" />
+        <option value="$PROJECT_DIR$/sgim/apps/gestion_red/migrations/0001_initial.py" />
+        <option value="$PROJECT_DIR$/NMS/utils/system.py" />
         <option value="$PROJECT_DIR$/NMS/update_sys_info.py" />
+        <option value="$PROJECT_DIR$/sgim/apps/gestion_red/models.py" />
+        <option value="$PROJECT_DIR$/sgim/sgim/api_urls.py" />
+        <option value="$PROJECT_DIR$/sgim/apps/gestion_red/view_sets.py" />
+        <option value="$PROJECT_DIR$/sgim/apps/gestion_red/serializers.py" />
+        <option value="$PROJECT_DIR$/sgim/apps/gestion_red/views.py" />
       </list>
     </option>
   </component>
@@ -236,6 +217,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -257,7 +239,6 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ColorIdeProjectViewPane">
         <subPane>
           <PATH>
@@ -876,7 +857,25 @@
       <option name="project" value="LOCAL" />
       <updated>1432440235833</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Socket IO">
+      <created>1432924495627</created>
+      <option name="number" value="00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1432924495627</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Socket IO">
+      <created>1432924530827</created>
+      <option name="number" value="00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1432924530827</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Socket IO">
+      <created>1432924555972</created>
+      <option name="number" value="00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1432924555972</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TodoView" selected-index="5">
@@ -903,7 +902,7 @@
     <frame x="49" y="24" width="1317" height="744" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972136" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3374613" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924962" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -915,14 +914,14 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24148607" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32817337" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924962" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -950,13 +949,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/sgim/apps/catalogo/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.684">
-          <caret line="30" column="50" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sgim/apps/mantenimiento/reports.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.9">
@@ -1034,13 +1026,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sgim/sgim/api_urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0292683">
-          <caret line="39" column="62" selection-start-line="39" selection-start-column="62" selection-end-line="39" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/help">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4097561">
@@ -1069,13 +1054,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sgim/apps/gestion_red/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4032258">
-          <caret line="13" column="77" selection-start-line="13" selection-start-column="77" selection-end-line="13" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sgim/templates/includes/nav_bar.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.232">
@@ -1101,9 +1079,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.5322581">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#36#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1125,7 +1100,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5322581">
           <caret line="24" column="34" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1157,13 +1131,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sgim/apps/gestion_red/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30099502">
-          <caret line="8" column="88" selection-start-line="8" selection-start-column="88" selection-end-line="8" selection-end-column="88" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sgim/sgim/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.41791046">
@@ -1171,61 +1138,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/NMS/trapReceiver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9414634">
-          <caret line="99" column="65" selection-start-line="99" selection-start-column="65" selection-end-line="99" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sgim/apps/gestion_red/view_sets.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12682927">
-          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sgim/apps/inicio/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="117" column="25" selection-start-line="117" selection-start-column="4" selection-end-line="117" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sgim/apps/gestion_red/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6865672">
-          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sgim/apps/mantenimiento/view_sets.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6195122">
-          <caret line="70" column="8" selection-start-line="70" selection-start-column="8" selection-end-line="73" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NMS/utils/helpers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3512195">
-          <caret line="12" column="14" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NMS/utils/snmp_requests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9402985">
-          <caret line="21" column="48" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NMS/utils/dictionary.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="46" column="50" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1244,19 +1160,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sgim/apps/gestion_red/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="18" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/NMS/heartBeatClient.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.17910448">
           <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1268,64 +1175,163 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/NMS/heartBeatServer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="66" column="11" selection-start-line="65" selection-start-column="1" selection-end-line="66" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMS/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sgim/apps/mantenimiento/view_sets.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6214689">
+          <caret line="70" column="31" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMS/utils/dictionary.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMS/utils/snmp_requests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.68261963">
+          <caret line="50" column="25" selection-start-line="50" selection-start-column="25" selection-end-line="50" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sgim/apps/gestion_red/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="28" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMS/utils/helpers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#11#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sgim/apps/gestion_red/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="37" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="37" />
+          <folding>
+            <element signature="e#20#62#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMS/trapReceiver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="99" column="65" selection-start-line="99" selection-start-column="65" selection-end-line="99" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sgim/apps/gestion_red/migrations/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sgimBackup">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.0377834">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sgim/apps/gestion_red/migrations/0001_initial.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1813602">
+          <caret line="75" column="30" selection-start-line="75" selection-start-column="19" selection-end-line="75" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMS/update_sys_info.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="29" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
+          <folding>
+            <element signature="e#19#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/NMS/utils/system.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="47" column="46" selection-start-line="47" selection-start-column="46" selection-end-line="47" selection-end-column="46" />
+          <caret line="59" column="26" selection-start-line="59" selection-start-column="26" selection-end-line="59" selection-end-column="26" />
           <folding>
             <element signature="e#19#74#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Escritorio/hear_beatClient.sh">
+    <entry file="file://$PROJECT_DIR$/sgim/sgim/api_urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14516129">
-          <caret line="3" column="10" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
+        <state vertical-scroll-proportion="0.77329975">
+          <caret line="47" column="44" selection-start-line="47" selection-start-column="44" selection-end-line="47" selection-end-column="44" />
+          <folding>
+            <element signature="e#20#54#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sgim/apps/gestion_red/serializers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.77078086">
+          <caret line="69" column="27" selection-start-line="69" selection-start-column="27" selection-end-line="69" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Escritorio/daemon.py">
+    <entry file="file://$PROJECT_DIR$/sgim/apps/gestion_red/view_sets.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.2">
-          <caret line="131" column="25" selection-start-line="131" selection-start-column="25" selection-end-line="131" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.047858942">
+          <caret line="55" column="28" selection-start-line="55" selection-start-column="28" selection-end-line="55" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Escritorio/daemon-example.py">
+    <entry file="file://$PROJECT_DIR$/sgim/apps/gestion_red/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24193548">
-          <caret line="9" column="25" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="80" column="16" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sgim/apps/gestion_red/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NMS/heartBeatServer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="99" column="28" selection-start-line="99" selection-start-column="28" selection-end-line="99" selection-end-column="49" />
+        <state vertical-scroll-proportion="0.49874055">
+          <caret line="56" column="50" selection-start-line="56" selection-start-column="50" selection-end-line="56" selection-end-column="50" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NMS/update_sys_info.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7902439">
-          <caret line="27" column="9" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
-          <folding>
-            <element signature="e#19#50#0" expanded="true" />
+            <element signature="e#0#30#0" expanded="true" />
           </folding>
         </state>
       </provider>

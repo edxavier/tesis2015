@@ -31,3 +31,40 @@ class GeneralEventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GeneralEvent
+
+
+class StorageSerializer(serializers.ModelSerializer):
+    direccion = serializers.ReadOnlyField(source='host.direccion')
+
+    class Meta:
+        model = Storage
+
+class DeviceSerializer(serializers.ModelSerializer):
+    direccion = serializers.ReadOnlyField(source='host.direccion')
+
+    class Meta:
+        model = Device
+
+class ProcessSerializer(serializers.ModelSerializer):
+    direccion = serializers.ReadOnlyField(source='host.direccion')
+
+    class Meta:
+        model = Process
+
+class MemorySerializer(serializers.ModelSerializer):
+    direccion = serializers.ReadOnlyField(source='host.direccion')
+
+    class Meta:
+        model = MemoryHistory
+
+class LoadSerializer(serializers.ModelSerializer):
+    direccion = serializers.ReadOnlyField(source='host.direccion')
+
+    class Meta:
+        model = LoadAvgHistory
+
+class DiscSerializer(serializers.ModelSerializer):
+    direccion = serializers.ReadOnlyField(source='host.direccion')
+
+    class Meta:
+        model = DiskHistory

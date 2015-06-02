@@ -1,4 +1,5 @@
 from datetime import timedelta
+from django.db.models import Count
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
@@ -48,6 +49,13 @@ class HostsDetailView(View):
         dias_120 = (120*24*3600)
         dias_90 = (90*24*3600)
         dias_60 = (60*24*3600)
+        storages = Storage.objects.filter(host=host)
+        #DiskHistory.objects.values('path').annotate(total=Count('systems')).filter(systems__gt=inc).order_by('-total')
+        res = DiskHistory.objects.values('path').distinct('path').filter(host=host)
+        disks = []
+        for r in res:
+            disk = DiskHistory.objects.filter(host=host, path=r['path']).earliest('-created')
+            disks.append(disk)
         return render_to_response('gestion/host_details.html',
             locals(), context_instance=RequestContext(request))
 
@@ -95,7 +103,7 @@ class InterfaceEventView(View):
         if form.is_valid():
             event = form.save(commit=False)
             event.host = host
-            event.save()
+            #event.save()
             serial = InterfaceEventSerializer(instance=event)
             broadcast_event(serial.data, "/interface_event/")
             return HttpResponse("success")
@@ -151,3 +159,153 @@ class GeneralEventView(View):
             return HttpResponse("fail")
 
 
+class StoragesView(View):
+    @csrf_exempt
+    def dispatch(self, *args, **kwargs):
+        return super(StoragesView, self).dispatch(*args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        try:
+            host, created = Host.objects.get_or_create(direccion=request.POST['direccion'])
+            obj, created = Storage.objects.get_or_create(host=host, index=request.POST['index'])
+            obj.description = request.POST['description']
+            obj.type = request.POST['type']
+            obj.size = request.POST['size']
+            obj.used = request.POST['used']
+            obj.allocation_failures = request.POST['allocation_failures']
+            obj.percent_used = (int(obj.used) * 100) / int(obj.size)
+            obj.save()
+            return HttpResponse("success")
+        except Exception, e:
+            print(e.message)
+            return HttpResponse("fail")
+
+
+
+class DeviceView(View):
+    @csrf_exempt
+    def dispatch(self, *args, **kwargs):
+        return super(DeviceView, self).dispatch(*args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        try:
+            host, created = Host.objects.get_or_create(direccion=request.POST['direccion'])
+            obj, created = Device.objects.get_or_create(host=host, index=request.POST['index'])
+            obj.description = request.POST['description']
+            obj.type = request.POST['type']
+            obj.status = request.POST['status']
+            obj.errors = request.POST['errors']
+            obj.save()
+            return HttpResponse("success")
+        except Exception, e:
+            print(e.message)
+            return HttpResponse("fail")
+
+class LoadAvgView(View):
+    @csrf_exempt
+    def dispatch(self, *args, **kwargs):
+        return super(LoadAvgView, self).dispatch(*args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        try:
+            host, created = Host.objects.get_or_create(direccion=request.POST['direccion'])
+            obj = LoadAvgHistory()
+            obj.host = host
+            obj.load1, obj.load5, obj.load15 = request.POST['load1'], request.POST['load5'], request.POST['load15']
+            obj.threshold1, obj.threshold5, obj.threshold15 = request.POST['threshold1'], request.POST['threshold5'], request.POST['threshold15']
+            if request.POST['flag1'] == "1":
+                obj.flag1 = True
+            if request.POST['flag5'] == "1":
+                obj.flag1 = True
+            if request.POST['flag15'] == "1":
+                obj.flag1 = True
+            obj.msg1, obj.msg5, obj.msg15 = request.POST['msg1'], request.POST['msg5'], request.POST['msg15']
+            if obj.flag1 or obj.flag5 or obj.flag15:
+                host.alarma_procesador = True
+            else:
+                host.alarma_procesador = False
+            host.save()
+            obj.save()
+            return HttpResponse("success")
+        except Exception, e:
+            print(e.message)
+            return HttpResponse("fail")
+
+
+class MemoryView(View):
+    @csrf_exempt
+    def dispatch(self, *args, **kwargs):
+        return super(MemoryView, self).dispatch(*args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        try:
+            host, created = Host.objects.get_or_create(direccion=request.POST['direccion'])
+            obj = MemoryHistory()
+            obj.host = host
+            obj.total_swap, obj.total_ram = request.POST['total_swap'], request.POST['total_ram']
+            obj.free_swap, obj.free_ram = request.POST['free_swap'], request.POST['free_ram']
+            obj.save()
+            if request.POST['mem_alarm'] == "True":
+                host.alarma_memoria = True
+            else:
+                host.alarma_memoria = False
+            host.save()
+
+            return HttpResponse("success")
+        except Exception, e:
+            print(e.message)
+            return HttpResponse("fail")
+
+
+
+class DiskView(View):
+    @csrf_exempt
+    def dispatch(self, *args, **kwargs):
+        return super(DiskView, self).dispatch(*args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        try:
+            host, created = Host.objects.get_or_create(direccion=request.POST['direccion'])
+            obj = DiskHistory()
+            obj.host = host
+            if request.POST['flag'] == '1':
+                obj.flag = True
+            obj.path, obj.device, obj.min_free = request.POST['path'], request.POST['device'], request.POST['min_free']
+            obj.size, obj.used = request.POST['size'], request.POST['used']
+            obj.percent_used, obj.msg = request.POST['percent_used'], request.POST['msg']
+            obj.save()
+            return HttpResponse("success")
+        except Exception, e:
+            print(e.message)
+            return HttpResponse("fail")
+
+class ProcessView(View):
+    @csrf_exempt
+    def dispatch(self, *args, **kwargs):
+        return super(ProcessView, self).dispatch(*args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        try:
+            host, created = Host.objects.get_or_create(direccion=request.POST['direccion'])
+            obj, created = Process.objects.get_or_create(host=host, index=request.POST['index'],
+                                                         name=request.POST['name'])
+            obj.min = request.POST['min']
+            obj.max = request.POST['max']
+            obj.count = request.POST['count']
+            if request.POST['flag'] == '1':
+                obj.flag = True
+            else:
+                obj.flag = False
+
+            count = Process.objects.filter(flag=True, host=host).count()
+            if count > 0:
+                host.alarma_procesos = True
+            else:
+                host.alarma_procesos = False
+            host.save()
+            obj.msg = request.POST['msg']
+            obj.save()
+            return HttpResponse("success")
+        except Exception, e:
+            print(e.message)
+            return HttpResponse("fail")

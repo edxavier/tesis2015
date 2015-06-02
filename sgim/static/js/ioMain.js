@@ -48,10 +48,22 @@ $(document).ready(function() {
         noti_general += 1
         var audio = new Audio('/static/snd/pop.mp3');
         audio.play();
-        if(data.warning === true || data.warning === "True")
-            $.snackbar({content: data.direccion+": "+data.item+" <i class='ion-ios-gear red	 icon'></i>",timeout: 10000});
-        else
-            $.snackbar({content: data.direccion+": "+data.item+" <i class='ion-ios-gear green icon'></i>",timeout: 10000});
+        if( data.tabla==="process table"){
+            if(data.warning === true || data.warning === "True")
+                $.snackbar({content: data.direccion+": "+data.item+" <i class='ion-ios-gear red	 icon'></i>",timeout: 10000});
+            else
+                $.snackbar({content: data.direccion+": "+data.item+" <i class='ion-ios-gear green icon'></i>",timeout: 10000});
+        }else if( data.tabla==="dskTable"){
+            if(data.warning === true || data.warning === "True")
+                $.snackbar({content: data.direccion+": "+data.item+" <i class='disk outline red  icon'></i>",timeout: 10000});
+            else
+                $.snackbar({content: data.direccion+": "+data.item+" <i class='disk outline green icon'></i>",timeout: 10000});
+        }else{
+            if(data.warning === true || data.warning === "True")
+                $.snackbar({content: data.direccion+": "+data.item+" <i class='tasks  red  icon'></i>",timeout: 10000});
+            else
+                $.snackbar({content: data.direccion+": "+data.item+" <i class='tasks  green icon'></i>",timeout: 10000});
+        }    
 
         $('.gestion_menu').html(notifications)
         $('.gestion_general').html(noti_general)

@@ -19,3 +19,34 @@ class GeneralEventAdmin(admin.ModelAdmin):
 
 
 # Register your models here.
+
+
+@admin.register(Storage)
+class StorageAdmin(admin.ModelAdmin):
+    list_display = ("host", 'type', 'description')
+
+
+@admin.register(Device)
+class StorageAdmin(admin.ModelAdmin):
+    list_display = ("host", )
+
+
+@admin.register(MemoryHistory)
+class StorageAdmin(admin.ModelAdmin):
+    list_display = ("host", )
+
+
+@admin.register(LoadAvgHistory)
+class StorageAdmin(admin.ModelAdmin):
+    list_display = ("host", )
+
+
+@admin.register(DiskHistory)
+class StorageAdmin(admin.ModelAdmin):
+    list_display = ("host", )
+
+
+
+@admin.register(Process)
+class StorageAdmin(admin.ModelAdmin):
+    list_display = ("host", )

@@ -71,3 +71,72 @@ class GeneralEvent(models.Model):
 
     def get_duration(self):
         return get_formated_duration(self.uptime)
+
+
+class Storage(models.Model):
+    host = host = models.ForeignKey(Host)
+    index = models.IntegerField(default=0)
+    type = models.CharField(max_length=30)
+    description = models.CharField(max_length=50)
+    size = models.IntegerField(default=0)
+    used = models.IntegerField(default=0)
+    percent_used = models.IntegerField(default=0)
+    allocation_failures = models.IntegerField(default=0)
+
+class Device(models.Model):
+    host = host = models.ForeignKey(Host)
+    index = models.IntegerField(default=0)
+    type = models.CharField(max_length=30)
+    description = models.CharField(max_length=300)
+    status = models.CharField(max_length=100)
+    errors = models.IntegerField(default=0)
+    created = models.DateTimeField(auto_now=True)
+
+class LoadAvgHistory(models.Model):
+    host = host = models.ForeignKey(Host)
+    load1 = models.FloatField(default=0)
+    load5 = models.FloatField(default=0)
+    load15 = models.FloatField(default=0)
+    threshold1 = models.FloatField(default=0)
+    threshold5 = models.FloatField(default=0)
+    threshold15 = models.FloatField(default=0)
+    flag1 = models.BooleanField(default=False)
+    flag5 = models.BooleanField(default=False)
+    flag15 = models.BooleanField(default=False)
+    msg1 = models.CharField(max_length=70)
+    msg5 = models.CharField(max_length=70)
+    msg15 = models.CharField(max_length=70)
+    created = models.DateTimeField(auto_now=True)
+
+class MemoryHistory(models.Model):
+    host = host = models.ForeignKey(Host)
+    total_swap = models.IntegerField(default=0)
+    total_ram = models.IntegerField(default=0)
+    free_swap = models.IntegerField(default=0)
+    free_ram = models.IntegerField(default=0)
+    created = models.DateTimeField(auto_now=True)
+
+class DiskHistory(models.Model):
+    host = host = models.ForeignKey(Host)
+    path = models.CharField(max_length=20)
+    device = models.CharField(max_length=300)
+    min_free = models.IntegerField(default=15)
+    size = models.IntegerField(default=0)
+    used = models.IntegerField(default=0)
+    percent_used = models.IntegerField(default=0)
+    flag = models.BooleanField(default=False)
+    msg = models.CharField(max_length=200)
+    created = models.DateTimeField(auto_now=True)
+
+class Process(models.Model):
+    host = host = models.ForeignKey(Host)
+    index = models.IntegerField(default=0)
+    name = models.CharField(max_length=300)
+    min = models.IntegerField(default=0)
+    max = models.IntegerField(default=0)
+    count = models.IntegerField(default=0)
+    flag = models.BooleanField(default=False)
+    msg = models.CharField(max_length=100)
+    created = models.DateTimeField(auto_now=True)
+
+

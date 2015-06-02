@@ -70,9 +70,11 @@
 			            <ul>
 			                <li style="margin-left: 5px;">Datos generales</li>
 			                <li>Eventos Inicio</li>
-			                <li>Eventos Interface</li>
 			                <li>Eventos Generales</li>
-			                <li>Estadisticas</li>
+			                <li>Dispositivos</li>
+			                <li>Almacenamiento</li>
+			                <li>Procesos en Monit.</li>
+			                <li>Dispositivos</li>
 			            </ul>
 			            <div class="container-fluid">
 			            	<div class="ui items" style="padding:10px">
@@ -105,12 +107,12 @@
 																</span>
 															{% elif host.uptime  > dias_60 and host.uptime < dias_90%}
 																<i class='yellow icon ion-alert-circled'></i>
-																<span style='color:yellow'>
+																<span style='color:#E65100'>
 																	{{host.get_duration}}
 																</span>
                                                             {% elif host.uptime  > dias_90 and host.uptime < dias_120 %}
 																<i class='yellow icon ion-alert-circled'></i>
-																<span style='color:orange'>
+																<span style='color:#E65100'>
 																	{{host.get_duration}}
 																</span>
 															{% elif  host.uptime  > dias_120 %}
@@ -171,11 +173,31 @@
 																<i class='green icon ion-checkmark-circled'></i>
 															{% endif %}
 														</td>
+													</tr>
+													<tr>
+														<td>Alarma de RAM</td>
+														<td> {{host.alarma_memoria| yesno:"SI,NO"}}
+															{% if  host.alarma_memoria %}
+																<i class='orange icon ion-alert-circled'></i>
+															{% else %}
+																<i class='green icon ion-checkmark-circled'></i>
+															{% endif %}
+														</td>
 													</tr>	
 												</tbody>
 											</table>
 							      		</div>
-							      	</div>						      
+							      	</div>
+							      	<div class="row">
+							      	  	<div class="col-md-12">
+							      	  		
+											{% for disc in disks  %}
+												{{disc.path}} <br>
+												{{disc.device}} <br>
+												{{disc.size}} <br>
+											{% endfor %}
+							      	  	</div>
+									</div>	      
 									
 
 							      <div class="extra">
@@ -205,7 +227,8 @@
 							    <div class="row">
 							        <br>
 							        <div class="col-md-12" >
-							            <div id="jqxgridInterfaces"></div>
+							            <div id="jqxgridGeneral"></div>
+							            
 							        </div>
 							    </div>
 							</div>
@@ -216,11 +239,47 @@
 							    <div class="row">
 							        <br>
 							        <div class="col-md-12" >
-							            <div id="jqxgridGeneral"></div>
+							            <div id="jqxgridInterfaces"></div>
 							        </div>
 							    </div>
 							</div>
 
+			            </div>
+			            <div class="container-fluid">
+			            	<br>
+			            	<table class="ui blue table">
+							  <thead>
+							    <tr>
+							      <th>Tipo</th>
+							      <th>Descripcion</th>
+							      <th>Capacidad MB</th>
+							      <th>Usado MB</th>
+							    </tr>
+							  </thead>
+							  <tbody>
+							  	{% for s in  storages %}
+									<tr>
+							      		<td>{{s.type}}</td>
+							      		<td>{{s.description}}</td>
+							      		<td>{{s.size}} MB</td>
+							      		<td>							      			
+							      			{{s.used}} MB ( {{s.percent_used}}%)
+											<div class="progress">
+											  <div class="progress-bar" style="width: {{s.percent_used}}%;">
+											  </div>
+											</div>
+
+							      		</td>
+							    	</tr>	
+								{% endfor %}
+							    						    
+							  </tbody>							  
+							</table>
+							<br>
+
+			            </div>
+			            <div class="container-fluid">
+							<div id="jqxgridProcesses"></div>
 			            </div>
 			            <div class="container-fluid">
 							gfdg
@@ -259,17 +318,17 @@
             span = "<span style='color:red'><i class='red icon ion-alert-circled'></i>"
         }
         span += data.format_uptime +"</span>"
-        $("#uptimeCol").html(span)    
+       // $("#uptimeCol").html(span)    
 	});
         
     io.on('boot_event', function(data){
-	   $('#jqxgridBoots').jqxGrid('addrow', null, data,"first");
+	   //$('#jqxgridBoots').jqxGrid('addrow', null, data,"first");
 	});
     io.on('interface_event', function(data){	
-         $('#jqxgridInterfaces').jqxGrid('addrow', null, data,"first");
+         //$('#jqxgridInterfaces').jqxGrid('addrow', null, data,"first");
 	});
     io.on('general_event', function(data){
-		$('#jqxgridGeneral').jqxGrid('addrow', null, data,"first");
+		//$('#jqxgridGeneral').jqxGrid('addrow', null, data,"first");
 	});
 
 	
@@ -286,16 +345,24 @@
 			                ]
 
 
-			                 InterfaceFields = [
+			                 DeviceFields = [
 			                    { name: 'id', type: 'int' },
-			                    { name: 'nombre', type: 'string' },
-			                    { name: 'uptime', type: 'string' },
-			                    { name: 'tipo', type: 'string' },
-                                { name: 'estado_operacional', type: 'string' },
-                                { name: 'estado_administrativo', type: 'string' },
-			                    { name: 'fecha',type: 'date'},
-			                    { name: 'format_uptime',type: 'string'},	
-                                 { name: 'leido', type: 'string' },
+			                    { name: 'type', type: 'string' },
+			                    { name: 'description', type: 'string' },
+			                    { name: 'status', type: 'string' },
+                                { name: 'errors', type: 'string' },
+                                { name: 'created', type: 'date' },
+			                ]
+
+			                 ProcessFields = [
+			                    { name: 'id', type: 'int' },
+			                    { name: 'name', type: 'string' },
+			                    { name: 'min', type: 'string' },
+			                    { name: 'max', type: 'string' },
+                                { name: 'count', type: 'string' },
+                                { name: 'flag', type: 'string' },
+                                { name: 'msg', type: 'string' },
+                                { name: 'created', type: 'date' },
 			                ]
 
 
@@ -318,15 +385,22 @@
                   { text: 'Fecha', datafield: 'fecha', cellsformat:'dd-MMM-yy hh:mm ' , filtertype:'date' , cellsrenderer: uptimeRender},
               ]
 
-             columnasInterfaces = [
-                  { text: 'ID', datafield: 'id', width:'60px', cellsrenderer: uptimeRender2},
-                  { text: 'Interface', datafield: 'nombre',  cellsrenderer: uptimeRender2},
-                  { text: 'Uptime', datafield: 'uptime' ,  cellsrenderer: uptimeRender2,width:'120px'},                
-                  { text: 'Tipo de Evento', datafield: 'tipo', cellsrenderer: uptimeRender2},
-                  { text: 'Estado Operacional', datafield: 'estado_operacional',  cellsrenderer: uptimeRender2},
-                  { text: 'Estado Administrativo', datafield: 'estado_administrativo',  cellsrenderer: uptimeRender2},
-                  { text: 'Fecha', datafield: 'fecha', cellsformat:'dd-MMM-yy hh:mm ' , filtertype:'date' , 
-                   width:'150px', cellsrenderer: uptimeRender2},
+             columnasDevices = [
+                  { text: 'Tipo', datafield: 'type', width:'220px'},
+                  { text: 'Descripcion', datafield: 'description' },                
+                  { text: 'Estado', datafield: 'status',},
+                  { text: 'Errores de asignacion', datafield: 'errors',width:'100px' },
+                  { text: 'Ult. Act.', datafield: 'created', cellsformat:'dd-MMM-yy hh:mm ' , filtertype:'date' ,width:'150px'},
+              ]
+
+              columnasProcesses = [
+                  { text: 'Proceso', datafield: 'name', width:'120px'},
+                  { text: 'Min.', datafield: 'min' ,width:'70px'},                
+                  { text: 'Max.', datafield: 'max',width:'70px'},
+                  { text: 'Num.', datafield: 'count',width:'70px' },
+                  { text: 'Warning', datafield: 'flag',width:'70px' },
+                  { text: 'Causa', datafield: 'msg' },
+                  { text: 'Ult. Act.', datafield: 'created', cellsformat:'dd-MMM-yy hh:mm ' , filtertype:'date' ,width:'150px'},
               ]
               
               columnasGeneral= [
@@ -403,7 +477,18 @@
         filterable: true,
         pageable: true,
         localization: getLocalization(),
-        columns: columnasInterfaces ,source: get_datos("/api/gestion/interface_events/", InterfaceFields)
+        columns: columnasDevices ,source: get_datos("/api/gestion/devices/", DeviceFields)
+
+    });
+       $("#jqxgridProcesses").jqxGrid({
+        theme:"metro",
+        width: '100%',
+        theme:'metro', 
+        showfilterrow: true,
+        filterable: true,
+        pageable: true,
+        localization: getLocalization(),
+        columns: columnasProcesses ,source: get_datos("/api/gestion/process/", ProcessFields)
 
     });
      $("#jqxgridGeneral").jqxGrid({

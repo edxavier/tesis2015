@@ -106,7 +106,8 @@ $(document).ready(function() {
 	io.on('host_update', function(data){
         $('#jqxgrid').jqxGrid('updaterow', data.id, data);
 	});
-    io.on('heart_beat', function(data){
+
+  io.on('heart_beat', function(data){
         $('#jqxgrid').jqxGrid('updaterow', data.id, data);
 	});
 
@@ -141,6 +142,7 @@ $(document).ready(function() {
                     { name: 'alarma_discos', type: 'string' },
                     { name: 'alarma_procesos', type: 'string' },
                     { name: 'alarma_procesador',},
+                    { name: 'alarma_memoria',},
                     { name: 'actualizado',type: 'date'},
                     { name: 'esta_conectado',type: 'string'},
                     { name: 'format_uptime',type: 'string'},
@@ -177,11 +179,11 @@ $(document).ready(function() {
           var data = $('#jqxgrid').jqxGrid('getrowdata', row);
 
           if(days > 120 ){
-            return "<div style='padding:5px;text-align:center'><i class='red icon ion-android-alert'></i>"+data.format_uptime+" dias</div>";}
+            return "<div style='padding:5px;text-align:center'><i class='red icon ion-android-alert'></i>"+data.format_uptime+"</div>";}
           else if(days < 120 && days > 90){
-            return "<div style='padding:5px;text-align:center'><i class='orange icon ion-android-alert'></i>"+data.format_uptime+" dias</div>";}
+            return "<div style='padding:5px;text-align:center'><i class='orange icon ion-android-alert'></i>"+data.format_uptime+" </div>";}
           else if(days < 90 && days > 60){
-            return "<div style='padding:5px;text-align:center'><i class='yellow icon ion-android-alert'></i>"+data.format_uptime+" dias</div>";}
+            return "<div style='padding:5px;text-align:center'><i class='yellow icon ion-android-alert'></i>"+data.format_uptime+" </div>";}
           else{
             return "<div style='padding:5px;text-align:center'><i class='green icon ion-checkmark-circled'></i>"+data.format_uptime+"</div>";
           }
@@ -220,14 +222,14 @@ $(document).ready(function() {
                 showfilterrow: true,
                 filterable: true,
                 height:"400px",
-                pageSize: 20,
+                pageSize: 40,
                 pageable: true,
                 autoshowfiltericon: true,
                 localization: getLocalization(),
                 columns: [
                   { text: 'ID', datafield: 'id', width:'60px'},
                   { text: 'Direccion', datafield: 'direccion', width:'100px'},
-                  { text: 'Nombre', datafield: 'nombre' , width:'100px'},
+                  { text: 'Nombre', datafield: 'nombre' , width:'80px'},
                   { text: 'Uptime', datafield: 'uptime', width:'160px', cellsrenderer: uptimeRender},
                   { text: 'Servicios', datafield: 'servicios', width:'60px'},
                   { text: 'Procesos', datafield: 'procesos', width:'60px'},
@@ -235,7 +237,8 @@ $(document).ready(function() {
                   { text: 'Espacio Discos', datafield: 'alarma_discos', cellsrenderer: alarmRender,  },
                   { text: 'Monit. Procesos', datafield: 'alarma_procesos', cellsrenderer: alarmRender },
                   { text: 'Carga Procesador', datafield: 'alarma_procesador', cellsrenderer: alarmRender },
-                  { text: 'Conexion', datafield: 'esta_conectado', cellsrenderer: conectionRender,  width:'100px' },
+                  { text: 'RAM', datafield: 'alarma_memoria', cellsrenderer: alarmRender,width:'100px'},
+                  { text: 'Conexion', datafield: 'esta_conectado', cellsrenderer: conectionRender,  width:'90px' },
                   { text: 'Ultima Act.', datafield: 'actualizado', cellsformat:'dd-MMM-yy hh:mm ' , cellsrenderer: dateRender,
                    filtertype:'date' , width:'180px'},
 

@@ -7,14 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('gestion_red', '0002_auto_20150524_1845'),
+        ('gestion_red', '0001_initial'),
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='host',
-            name='uptime',
-            field=models.IntegerField(default=0, help_text=b'minutos', blank=True),
+        migrations.AddField(
+            model_name='storage',
+            name='percent_used',
+            field=models.IntegerField(default=0),
             preserve_default=True,
         ),
     ]

@@ -1,5 +1,14 @@
 __author__ = 'edx'
 
+DEVICE_STATUS = {
+    0: 'unspecified',
+    1: 'unknown',
+    2: 'running',
+    3: 'warning',
+    4: 'testing',
+    5: 'down',
+}
+
 OIDS = {
     '1.3.6.1.2.1.1.3.0': 'sysUpTime',
     '1.3.6.1.6.3.1.1.4.1.0': 'snmpTrapOID',
