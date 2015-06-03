@@ -2,6 +2,7 @@ __author__ = 'edx'
 from rest_framework import serializers
 from .models import *
 
+
 class HostSerializer(serializers.ModelSerializer):
     format_uptime = serializers.ReadOnlyField(source='get_duration')
 

@@ -226,6 +226,8 @@ class LoadAvgView(View):
                 host.alarma_procesador = False
             host.save()
             obj.save()
+            serial = LoadSerializer(instance=obj)
+            broadcast_event(serial.data, "/load_avg/")
             return HttpResponse("success")
         except Exception, e:
             print(e.message)
@@ -245,6 +247,8 @@ class MemoryView(View):
             obj.total_swap, obj.total_ram = request.POST['total_swap'], request.POST['total_ram']
             obj.free_swap, obj.free_ram = request.POST['free_swap'], request.POST['free_ram']
             obj.save()
+            serial = MemorySerializer(instance=obj)
+            broadcast_event(serial.data, "/mem_usage/")
             if request.POST['mem_alarm'] == "True":
                 host.alarma_memoria = True
             else:

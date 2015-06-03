@@ -69,3 +69,29 @@ class DiskViewSet(viewsets.ModelViewSet):
     queryset = DiskHistory.objects.all().order_by('-id')
     serializer_class = DiscSerializer
     filter_fields = ('host',)
+
+class MemoryEntryViewSet(viewsets.ViewSet):
+    queryset = MemoryHistory.objects.all()
+
+    def list(self, request):
+        host = request.query_params.get('host', None)
+        if host:
+            queryset = MemoryHistory.objects.filter(host_id=host).order_by('-id')[:1]
+            serializer = MemorySerializer(queryset, many=True)
+        else:
+            queryset = MemoryHistory.objects.all().order_by('-id')[:10]
+            serializer = MemorySerializer(queryset, many=True)
+        return Response(serializer.data)
+
+class LoadEntryViewSet(viewsets.ViewSet):
+    queryset = LoadAvgHistory.objects.all()
+
+    def list(self, request):
+        host = request.query_params.get('host', None)
+        if host:
+            queryset = LoadAvgHistory.objects.filter(host_id=host).order_by('-id')[:1]
+            serializer = LoadSerializer(queryset, many=True)
+        else:
+            queryset = LoadAvgHistory.objects.all().order_by('-id')[:10]
+            serializer = LoadSerializer(queryset, many=True)
+        return Response(serializer.data)
