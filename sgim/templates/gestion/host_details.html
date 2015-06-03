@@ -31,18 +31,18 @@
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.pager.js"></script>
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.selection.js"></script> 
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.filter.js"></script> 
-       <script type="text/javascript" src="{{BOWER_URL}}moment/min/moment.min.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}moment/min/moment.min.js"></script> 
 
-  <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtooltip.js"></script>
-  <script type="text/javascript" src="{{BOWER_URL}}moment/min/moment.min.js"></script>
+ 
   <script type="text/javascript" src="{{BOWER_URL}}moment/locale/es.js"></script>
 
-    
-<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
 <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtabs.js"></script>
 
-<link href="{{BOWER_URL}}circliful/css/jquery.circliful.css" rel="stylesheet" type="text/css" />
-<script src="{{BOWER_URL}}circliful/js/jquery.circliful.min.js"></script>
+
+<script type="text/javascript" src="{{BOWER_URL}}highcharts/highcharts.js"></script>
+<script type="text/javascript" src="{{BOWER_URL}}highcharts/highcharts-more.js"></script>
+<script type="text/javascript" src="{{BOWER_URL}}highcharts/modules/solid-gauge.js"></script>
+
 
 {% endblock include_statics %}
 
@@ -74,7 +74,7 @@
 			                <li>Dispositivos</li>
 			                <li>Almacenamiento</li>
 			                <li>Procesos en Monit.</li>
-			                <li>Dispositivos</li>
+			                <li>Otros</li>
 			            </ul>
 			            <div class="container-fluid">
 			            	<div class="ui items" style="padding:10px">
@@ -87,8 +87,18 @@
 									    <div class="sub header">{{host.descripcion}}</div>
 									  </div>
 									</h3>
-									<br>								
-
+									
+									<div class="row">
+							      	  	<div class="col-md-6">							      	  		
+							      	  		<div id="container-ram" style="width: 300px; height: 200px; float: right">
+											</div>
+							      	  	</div>
+							      	  	<div class="col-md-6">							      	  		
+							      	  		<div id="container-load" style="width: 300px; height: 200px; float: left"></div>
+							      	  	</div>
+									</div>		
+									
+									
 							      	<div class="row">
 							      		<div class="col-md-6">
 											<table class="ui definition green table">
@@ -190,15 +200,43 @@
 							      	</div>
 							      	<div class="row">
 							      	  	<div class="col-md-12">
-							      	  		
-											{% for disc in disks  %}
-												{{disc.path}} <br>
-												{{disc.device}} <br>
-												{{disc.size}} <br>
-											{% endfor %}
+							      	  		<table class="ui blue table" style='margin-top:8px'>
+											  <thead>
+											    <tr>
+											      <th>Ruta</th>
+											      <th>Dispositivo</th>
+											      <th>Capacidad</th>
+											      <th>% Min. Libre</th>
+											      <th>% Usado</th>
+											    </tr>
+											  </thead>
+											  <tbody>											    
+											   {% for disc in disks  %}
+												<tr>
+											      <td>{{disc.path}}</td>
+											      <td>{{disc.device}}</td>
+											      <td>{{disc.size}} MB</td>
+											      <td>{{disc.min_free}} %</td>
+											      <td>
+											      	{{disc.percent_used}} %
+											      	<div class="progress">
+											      		{% if  disc.flag == True %}
+											      			<div class="progress-bar  progress-bar-warning" style="width:{{disc.percent_used}}%;">
+													  		</div>
+													  	{% else %}
+													  		<div class="progress-bar  progress-bar-info" style="width:{{disc.percent_used}}%;">
+													  		</div>
+											      		{% endif %}
+													  
+													</div>
+											      </td>
+											    </tr>
+												{% endfor %}
+											  </tbody>											 
+											</table>
 							      	  	</div>
 									</div>	      
-									
+
 
 							      <div class="extra">
 									<!-- Single button -->
@@ -304,34 +342,38 @@
         
 	
     
-    io.on('host_update', function(data){        
-        dias = ( data.uptime / 60  ) / 1440
-        if(dias < 60){
-            span = "<span style='color:green'><i class='green icon ion-checkmark-circled'></i>"
-        }else if(dias < 90 && dias > 60){
-            span = "<span style='color:yellow'><i class='yellow icon ion-alert-circled'></i>"
-        }
-        else if(dias < 120 && dias > 90){
-            span = "<span style='color:orange'><i class='orange icon ion-alert-circled'></i>"
-        }
-        else{
-            span = "<span style='color:red'><i class='red icon ion-alert-circled'></i>"
-        }
-        span += data.format_uptime +"</span>"
-       // $("#uptimeCol").html(span)    
+    io.on('host_update', function(data){ 
+    	if(data.host === "{{host.id}}"){         
+	        dias = ( data.uptime / 60  ) / 1440
+	        if(dias < 60){
+	            span = "<span style='color:green'><i class='green icon ion-checkmark-circled'></i>"
+	        }else if(dias < 90 && dias > 60){
+	            span = "<span style='color:yellow'><i class='yellow icon ion-alert-circled'></i>"
+	        }
+	        else if(dias < 120 && dias > 90){
+	            span = "<span style='color:orange'><i class='orange icon ion-alert-circled'></i>"
+	        }
+	        else{
+	            span = "<span style='color:red'><i class='red icon ion-alert-circled'></i>"
+	        }
+	        span += data.format_uptime +"</span>"
+	       // $("#uptimeCol").html(span)    
+	    }
 	});
         
     io.on('boot_event', function(data){
-	   //$('#jqxgridBoots').jqxGrid('addrow', null, data,"first");
+    	if(data.host === "{{host.id}}"){  
+	   		//$('#jqxgridBoots').jqxGrid('addrow', null, data,"first");
+	   	}
 	});
     io.on('interface_event', function(data){	
          //$('#jqxgridInterfaces').jqxGrid('addrow', null, data,"first");
 	});
     io.on('general_event', function(data){
-		//$('#jqxgridGeneral').jqxGrid('addrow', null, data,"first");
-	});
-
-	
+    	if(data.host === "{{host.id}}"){  
+			//$('#jqxgridGeneral').jqxGrid('addrow', null, data,"first");
+		}
+	});	
         
 		 $('#jqxTabs').jqxTabs({ width: '90%', position: 'top', animationType: 'fade', theme:"energyblue" });
 		      
@@ -389,7 +431,7 @@
                   { text: 'Tipo', datafield: 'type', width:'220px'},
                   { text: 'Descripcion', datafield: 'description' },                
                   { text: 'Estado', datafield: 'status',},
-                  { text: 'Errores de asignacion', datafield: 'errors',width:'100px' },
+                  //{ text: 'Errores de asignacion', datafield: 'errors',width:'100px' },
                   { text: 'Ult. Act.', datafield: 'created', cellsformat:'dd-MMM-yy hh:mm ' , filtertype:'date' ,width:'150px'},
               ]
 
@@ -503,7 +545,162 @@
 
     });
 		     //$("#jqxgridBoots").jqxGrid({  });
-		    
+		
+	   var gaugeOptions = {
+	        chart: {
+	            type: 'solidgauge'
+	        },
+	        title: null,
+	        pane: {
+	            center: ['50%', '85%'],
+	            size: '140%',
+	            startAngle: -90,
+	            endAngle: 90,
+	            background: {
+	                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+	                innerRadius: '60%',
+	                outerRadius: '100%',
+	                shape: 'arc'
+	            }
+	        },
+	        tooltip: {
+	            enabled: false
+	        },
+	        // the value axis
+	        yAxis: {
+	            stops: [
+	                [0.1, '#55BF3B'], // green
+	                [0.5, '#DDDF0D'], // yellow
+	                [0.9, '#DF5353'] // red
+	            ],
+	            lineWidth: 0,
+	            minorTickInterval: null,
+	            tickPixelInterval: 400,
+	            tickWidth: 0,
+	            title: {
+	                y: -70
+	            },
+	            labels: {
+	                y: 16
+	            }
+	        },
+	        plotOptions: {
+	            solidgauge: {
+	                dataLabels: {
+	                    y: 5,
+	                    borderWidth: 0,
+	                    useHTML: true
+	                }
+	            }
+	        }
+    	};
+    
+		      $.ajax({
+                          url: '/api/gestion/mem_entry/?host={{host.id}}',
+                          type: 'GET',
+                          dataType: 'json',                          
+                        })
+                        .done(function(data) {
+                          	mem = data[0]
+                          	total = mem.total_ram
+                          	used = total - mem.free_ram
+                          	// The speed gauge
+							    $('#container-ram').highcharts(Highcharts.merge(gaugeOptions, {
+							        yAxis: {
+							            min: 0,
+							            max: total,
+							            title: {
+							                text: 'RAM'
+							            }
+							        },
+							        credits: {
+							            enabled: false
+							        },
+							        series: [{
+							            name: 'RAM',
+							            data: [used],
+							            dataLabels: {
+							                format: '<div style="text-align:center"><span style="font-size:15px;color:' +
+							                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || '#616161') + '">{y} de '+total+'</span><br/>' +
+							                       '<span style="font-size:12px;color:silver">MB usados</span></div>'
+							            },
+							            tooltip: {
+							                valueSuffix: 'MB'
+							            }
+							        }]
+
+							    }));                       
+
+                        })
+                        .fail(function(err) {
+                         
+                        })
+
+                        $.ajax({
+                          url: '/api/gestion/load_entry/?host={{host.id}}',
+                          type: 'GET',
+                          dataType: 'json',                          
+                        })
+                        .done(function(data) {
+                          	load = data[0]
+                          	// The RPM gauge
+						    $('#container-load').highcharts(Highcharts.merge(gaugeOptions, {
+						        yAxis: {
+						            min: 0,
+						            max: 100,
+						            title: {
+						                text: 'Carga %'
+						            }
+						        },
+						        series: [{
+						            name: 'carga',
+						            data: [load.load1],
+						            dataLabels: {
+						                format: '<div style="text-align:center"><span style="font-size:20px;color:' +
+						                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || '#616161') + '">{y:.1f}</span><br/>' +
+						                       '<span style="font-size:12px;color:silver">% usado</span></div>'
+						            },
+						            tooltip: {
+						                valueSuffix: ' % usado'
+						            }
+						        }]
+
+						    }));
+
+                        })
+                        .fail(function(err) {
+                         
+                        })
+
+	io.on('mem_usage', function(data){
+		if(data.host === "{{host.id}}"){
+            total = data.total_ram
+            used = total - data.free_ram
+			var chart = $('#container-ram').highcharts(),
+            point,  newVal,inc;
+	        if (chart) {	
+	        	point = chart.series[0].points[0];            
+	            point.update(used);
+	        }
+				
+		}
+	});
+
+	io.on('load_avg', function(data){
+		if(data.host === "{{host.id}}"){  
+			console.log(data)          
+			var chart = $('#container-ram').highcharts(),
+            point,  newVal,inc;
+	        if (chart) {	
+	        	point = chart.series[0].points[0];            
+	            point.update(data.load1);
+	        }
+				
+		}
+	});
+
+		
+
 
 	
 	});
