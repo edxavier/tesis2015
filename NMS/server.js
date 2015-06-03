@@ -54,5 +54,16 @@ server.post('/heart_beat/', function (req, res) {
     res.send("success");
 });
 
+server.post('/mem_usage/', function (req, res) {
+    server.io.broadcast("mem_usage", req.body)
+    res.send("success");
+});
+
+server.post('/load_avg/', function (req, res) {
+    server.io.broadcast("load_avg", req.body)
+    res.send("success");
+});
+
+
 server.listen(8500);
 console.log("el servidor esta corriendo http://localhost:8500");
