@@ -10,7 +10,7 @@ from apps.mantenimiento.view_sets import TareaViewSet, RutinaViewSet, PlanViewSe
 from apps.incidencias.view_sets import IncidenciaViewSet, CambioViewSet
 from apps.gestion_red.view_sets import (HostViewSet, BootViewSet,
     GeneralEventViewSet, StorageViewSet, DevicesViewSet, ProcessViewSet,
-    MemoryViewSet,LoadViewSet,DiskViewSet)
+    MemoryViewSet,LoadViewSet,DiskViewSet, MemoryEntryViewSet, LoadEntryViewSet)
 
 router = routers.DefaultRouter()
 router.register(r'catalogo/tipo_disp', TipoDispoViewSet, base_name="TipoDispoViewSet")
@@ -46,4 +46,6 @@ router.register(r'gestion/process', ProcessViewSet)
 router.register(r'gestion/memory', MemoryViewSet)
 router.register(r'gestion/load', LoadViewSet)
 router.register(r'gestion/disk', DiskViewSet)
+router.register(r'gestion/mem_entry', MemoryEntryViewSet)
+router.register(r'gestion/load_entry', LoadEntryViewSet)
 
