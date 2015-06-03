@@ -28,6 +28,7 @@
     "ckeditor": "~4.4.7",
     "moment": "~2.10.2",
     "circliful": "~0.1.5",
-    "kc_fab": "*"
+    "kc_fab": "*",
+    "highcharts": "~4.1.5"
   }
 }
