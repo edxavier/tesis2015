@@ -54,6 +54,8 @@ class ProcessSerializer(serializers.ModelSerializer):
 
 class MemorySerializer(serializers.ModelSerializer):
     direccion = serializers.ReadOnlyField(source='host.direccion')
+    percent_ram_used = serializers.ReadOnlyField(source='percent_used')
+    humanise_date = serializers.ReadOnlyField(source='get_formated_date')
 
     class Meta:
         model = MemoryHistory

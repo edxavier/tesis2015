@@ -116,6 +116,13 @@ class MemoryHistory(models.Model):
     free_ram = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now=True)
 
+    def percent_used(self):
+        used = self.total_ram - self.free_ram
+        return (used * 100) / self.total_ram
+
+    def get_formated_date(self):
+            return self.created.strftime('%Y-%m-%d %H:%M:%S')
+
 class DiskHistory(models.Model):
     host = host = models.ForeignKey(Host)
     path = models.CharField(max_length=20)

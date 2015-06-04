@@ -43,7 +43,7 @@ router.register(r'gestion/general_events', GeneralEventViewSet)
 
 router.register(r'gestion/storages', StorageViewSet)
 router.register(r'gestion/process', ProcessViewSet)
-router.register(r'gestion/memory', MemoryViewSet)
+router.register(r'gestion/hist_memory', MemoryViewSet, base_name="historial_memoria")
 router.register(r'gestion/load', LoadViewSet)
 router.register(r'gestion/disk', DiskViewSet)
 router.register(r'gestion/mem_entry', MemoryEntryViewSet)

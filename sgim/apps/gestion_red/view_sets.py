@@ -11,6 +11,15 @@ from rest_framework import viewsets
 from .serializers import *
 from .models import *
 from rest_framework import permissions
+import django_filters
+
+class MemoryFilter(django_filters.FilterSet):
+    min_date = django_filters.DateFilter(name="created", lookup_type='gte')
+    max_date = django_filters.DateFilter(name="created", lookup_type='lte')
+
+    class Meta:
+        model = MemoryHistory
+        fields = ['host', 'min_date', 'max_date']
 
 class HostViewSet(viewsets.ModelViewSet):
     #permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -53,9 +62,10 @@ class ProcessViewSet(viewsets.ModelViewSet):
 
 class MemoryViewSet(viewsets.ModelViewSet):
 
-    queryset = MemoryHistory.objects.all().order_by('-id')
+    queryset = MemoryHistory.objects.all().order_by('-created')
     serializer_class = MemorySerializer
-    filter_fields = ('host',)
+    filter_class = MemoryFilter
+
 
 class LoadViewSet(viewsets.ModelViewSet):
 
@@ -75,6 +85,7 @@ class MemoryEntryViewSet(viewsets.ViewSet):
 
     def list(self, request):
         host = request.query_params.get('host', None)
+        limit = request.query_params.get('limit', None)
         if host:
             queryset = MemoryHistory.objects.filter(host_id=host).order_by('-id')[:1]
             serializer = MemorySerializer(queryset, many=True)
