@@ -63,6 +63,7 @@ class MemorySerializer(serializers.ModelSerializer):
 class LoadSerializer(serializers.ModelSerializer):
     direccion = serializers.ReadOnlyField(source='host.direccion')
     humanise_date = serializers.ReadOnlyField(source='get_formated_date')
+    procesors = serializers.ReadOnlyField(source='get_num_processors')
 
     class Meta:
         model = LoadAvgHistory

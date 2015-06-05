@@ -248,12 +248,12 @@ $(document).ready(function() {
                     // appends buttons to the status bar.
                     var container = $("<div style='margin:5px;'></div>");
                     var viewButton = $("<div class='ui  tiny blue button'> Ver detalles</div>");
-                    var filterButton = $("<div class='ui  tiny purple button'>Filtrar Fechas</div>");
+                    var reportButton = $("<div class='ui  tiny purple button'>Reporte PDF</div>");
                     var reloadbtn = $("<div class='tiny green ui icon button'><i class='icon refresh'></i></div>");
                    
                     container.append(reloadbtn);
                     container.append(viewButton);
-                    container.append(filterButton);
+                    container.append(reportButton);
                     statusbar.append(container);
 
 
@@ -275,8 +275,15 @@ $(document).ready(function() {
                        
                     });
                     // filter from server.
-                    filterButton.click(function (event) {
-                       $('.filtrar').modal('show') 
+                    reportButton.click(function (event) {
+                      var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+                      var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
+                      if(id!=null){
+                        var win = window.open('/gestion/hosts/report/'+id, '_blank');
+                          win.focus(); 
+                      }else{
+                        $.snackbar({content: "<i class='ion-happy yellow icon'></i> Seleccione una fila por favor! ",timeout: 4000});
+                      }
                     });
                     reloadbtn.click(function (event) {
                       $("#jqxgrid").jqxGrid({source: get_datos(),})

@@ -1,0 +1,221 @@
+{% extends "report_base.html" %}
+
+{% block contenido %}
+<style>
+	.titulo_inc{
+		background-color:#009688;
+		border: none;
+		color: white
+	}
+	.titulo_mtto{
+		background-color:#607D8B;
+		border: none;
+		color: white
+	}
+	.sub_titulo_mtto{
+		background-color:#90A4AE;
+		border: none;
+		color: white
+	}
+	
+	.sub_titulo_inc{
+		background-color:#26A69A;
+		border: none;
+		color: white
+	}
+	.sub_titulo_inc2{
+		background-color:#FFF9C4;
+		border: none;
+	}
+	.sub_titulo_mtto2{
+		background-color:#CFD8DC;
+		border: none;
+		color: #424242
+	}
+</style>
+    
+<table style="font-family: roboto; border-bottom: 1px solid #004D40; color:#004D40">
+	<tr style='font-size:21px'>
+		<th style="width:65% ; text-align:left">
+			<h1>{{host.direccion}}</h1>
+		</th>
+		<th style="width:35%; text-align:right">
+			<h1>{{host.nombre}}</h1>
+		</th>
+	</tr>
+</table>
+
+    <h1 style="color:#00796B;">{{host.descripcion}}</h1>
+    <h3 style="color:#00796B;">{{host.get_duration}}</h3>
+
+    <table style="width:100%;">
+			<tr>
+				<td colspan="4" class="titulo_inc"> Carga promedio 1, 5, 15 minutos:  {{load_avg.load1}} - {{load_avg.load5}} - {{load_avg.load15}}</td>
+				<td colspan="3" class="titulo_inc">RAM: {{ram.free_ram}} MB libres de {{ram.total_ram}} MB</td>
+			</tr>		
+			<tr>
+			    <th class="sub_titulo_inc">Ultima Actualiz.</th>
+			    <th class="sub_titulo_inc">Servicios</th>
+			    <th class="sub_titulo_inc">Procesos</th>
+			    <th class="sub_titulo_inc">Usuarios</th>	
+			    <th class="sub_titulo_inc">Discos</th>
+			    <th class="sub_titulo_inc">Memoria</th>	
+			    <th class="sub_titulo_inc">Procesador</th>	
+			</tr>
+			<tr>
+			    <td style='background-color:#F5F5F5'> {{host.actualizado}} </td>
+			    <td style='background-color:#F5F5F5'>{{host.servicios}}</td>
+			    <td style='background-color:#F5F5F5'>{{host.procesos}}</td>
+			    <td style='background-color:#F5F5F5'>{{host.usuarios}}</td>	
+			    <td style='background-color:#F5F5F5'>{{host.alarma_discos|yesno:"Warning,OK"}}</td>
+			    <td style='background-color:#F5F5F5'>{{host.alarma_memoria|yesno:"Warning,OK"}}</td>	
+			    <td style='background-color:#F5F5F5'>{{host.alarma_procesador|yesno:"Warning,OK"}}</td>	
+			</tr>
+
+			<tr style="border-top:1px solid #BDBDBD">
+				<td  colspan="7"></td>
+			</tr>	
+		</table>
+
+		<table style="width:100%;">
+			<tr>
+			    <th class="sub_titulo_mtto2" colspan="3" style="text-align:left; padding-left:10px">
+			    	Eventos de arranque y apagado
+			    </th>			    	
+			</tr>
+			<tr >				
+			    <th style="background-color:#EEEEEE;text-align:left"  >
+			    	Tipo
+			    </th>
+			    <th style="background-color:#EEEEEE" >
+			    	Tiempo de actividad
+			    </th>
+			    <th style="background-color:#EEEEEE">
+			    	Fecha del evento
+			    </th>				   				   
+			</tr>
+	    {% for event in host.bootevent_set.all %}
+			<tr>				
+			    <td  style="text-align:left">
+			    	 {{event.tipo}}
+			    </td>
+			    <td>
+			    	 {{event.get_duration}}
+			    </td>	
+			    <td>
+			    	 {{event.fecha}}
+			    </td>
+ 				
+			   
+			</tr>
+		{% empty %}
+			<tr>
+				<td  colspan="3">Ningun registro encontrado</td>
+			</tr>		
+ 		{% endfor %}
+			<tr style="border-top:1px solid #BDBDBD">
+				<td  colspan="3"></td>
+			</tr>		
+		</table>
+
+		<table style="width:100%;">
+			<tr>
+			    <th class="sub_titulo_mtto2" colspan="4" style="text-align:left; padding-left:10px">
+			    	Dispostivos de Almacenamiento
+			    </th>			    	
+			</tr>
+			<tr >				
+			    <th style="background-color:#EEEEEE;text-align:left"  >
+			    	Tipo
+			    </th>
+			    <th style="background-color:#EEEEEE" >
+			    	Descripcion
+			    </th>
+			    <th style="background-color:#EEEEEE">
+			    	Capacidad
+			    </th>				   				   
+			    <th style="background-color:#EEEEEE">
+			    	Usado
+			    </th>
+			</tr>
+	    {% for storage in host.storage_set.all %}
+			<tr>				
+			    <td  style="text-align:left">
+			    	 {{storage.type}}
+			    </td>
+			    <td>
+			    	 {{storage.description}}
+			    </td>	
+			    <td>
+			    	 {{storage.size}} MB
+			    </td>
+ 				<td >
+			    	 {{storage.used}} MB ({{storage.percent_used}}%)
+			    </td>
+			   
+			</tr>
+		{% empty %}
+			<tr>
+				<td  colspan="4">Ningun registro encontrado</td>
+			</tr>
+ 		{% endfor %}
+			<tr style="border-top:1px solid #BDBDBD">
+				<td  colspan="3"></td>
+			</tr>	
+		</table>
+
+
+		<table style="width:100%;">
+			<tr>
+			    <th class="sub_titulo_mtto2" colspan="4" style="text-align:left; padding-left:10px">
+			    	Discos Duros (Particiones Monitirizadas)
+			    </th>			    	
+			</tr>
+			<tr >				
+			    <th style="background-color:#EEEEEE;text-align:left"  >
+			    	Dispostivo
+			    </th>
+			    <th style="background-color:#EEEEEE" >
+			    	Punto de Montaje
+			    </th>
+			    <th style="background-color:#EEEEEE">
+			    	Capacidad
+			    </th>				   				   
+			    <th style="background-color:#EEEEEE">
+			    	Usado
+			    </th>
+			</tr>
+	    {% for disk in disks %}
+			<tr>				
+			    <td  style="text-align:left">
+			    	 {{disk.device}}
+			    </td>
+			    <td>
+			    	 {{disk.path}}
+			    </td>	
+			    <td>
+			    	 {{disk.size}} MB
+			    </td>
+ 				<td >
+			    	 {{disk.used}} MB ({{disk.percent_used}}%)
+			    </td>
+			   
+			</tr>
+		{% empty %}
+			<tr>
+				<td  colspan="4">Ningun registro encontrado</td>
+			</tr>
+ 		{% endfor %}
+			<tr style="border-top:1px solid #BDBDBD">
+				<td  colspan="3"></td>
+			</tr>	
+		</table>
+		
+		<h6>Numero de Dispositivos asociados</h6>
+		<ul>
+			{% for d in  devices %}
+				<li> {{d.total}} - {{d.type}}</li>
+			{% endfor %}
+		</ul>
+
+{% endblock contenido %}

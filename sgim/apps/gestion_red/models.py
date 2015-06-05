@@ -111,6 +111,10 @@ class LoadAvgHistory(models.Model):
     def get_formated_date(self):
             return self.created.strftime('%Y-%m-%d %H:%M:%S')
 
+    def get_num_processors(self):
+        count = Device.objects.filter(host=self.host, type='Procesador', status='running').count()
+        return count
+
 class MemoryHistory(models.Model):
     host = host = models.ForeignKey(Host)
     total_swap = models.IntegerField(default=0)

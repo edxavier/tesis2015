@@ -320,7 +320,7 @@
 							<div id="jqxgridProcesses"></div>
 			            </div>
 			            <div class="container-fluid">
-							<div id="ram_hist" style="width: 85%;margin-top:8px"></div>
+							<div id="ram_hist" style="width: 65%;margin-top:8px"></div>
 							<div id="load_hist" style="width: 65%;margin-top:8px"></div>
 							<div id="disk_hist" style="width: 65%;margin-top:8px"></div>
 			            </div>
@@ -641,25 +641,29 @@
                         })
                         .done(function(data) {
                           	load = data[0]
+                          	procesadores = 2
+                          	if(load.procesors > 2)
+                          		procesadores =  parseInt(load.procesors)
+                          	perc = load.load5 / procesadores
                           	// The RPM gauge
 						    $('#container-load').highcharts(Highcharts.merge(gaugeOptions, {
 						        yAxis: {
 						            min: 0,
-						            max: 100,
+						            max: procesadores,
 						            title: {
-						                text: 'Carga %'
+						                text: 'Carga promedio ultimos 5 min'
 						            }
 						        },
 						        series: [{
 						            name: 'carga',
-						            data: [load.load1],
+						            data: [load.load5],
 						            dataLabels: {
 						                format: '<div style="text-align:center"><span style="font-size:20px;color:' +
 						                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || '#616161') + '">{y:.1f}</span><br/>' +
-						                       '<span style="font-size:12px;color:silver">% usado</span></div>'
+						                       '<span style="font-size:12px;color:silver">Procesos</span></div>'
 						            },
 						            tooltip: {
-						                valueSuffix: ' % usado'
+						                valueSuffix: 'Carga'
 						            }
 						        }]
 
@@ -863,13 +867,13 @@ Highcharts.setOptions({
 	        },
 	        yAxis: {
 	            title: {
-	                text: '% de uso'
+	                text: 'Carga de CPU'
 	            }           
 	        },
 	        tooltip: {
 	            xDateFormat: '%A, %d %B %Y, %H:%M:%S',
 	            shared: true,
-	            valueSuffix: ' %'
+	            valueSuffix: ''
 	        },
 	        legend: {
 	            enabled: true

@@ -102,6 +102,7 @@ class System:
                  'flag15': result[14], 'msg1': result[15], 'msg5': result[16], 'msg15': result[17],
                  'direccion': self.address}
         session.http_post("/gestion/load_avg/", loads)
+        #print(loads)
 
     def get_disk(self, session):
         result = get_bulk_request(max_result=60, address=self.address, start_oid="1.3.6.1.4.1.2021.9.1.1")

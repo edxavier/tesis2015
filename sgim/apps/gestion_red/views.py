@@ -14,6 +14,8 @@ from apps.inicio.utils import broadcast_event
 
 
 # Create your views here.
+from apps.inicio.utils import html_to_pdf
+
 
 class HostsView(View):
     @csrf_exempt
@@ -58,6 +60,29 @@ class HostsDetailView(View):
             disks.append(disk)
         return render_to_response('gestion/host_details.html',
             locals(), context_instance=RequestContext(request))
+
+class HostsReportView(View):
+
+    def get(self, request,id_disp, *args, **kwargs):
+        host = Host.objects.get(id=id_disp)
+        dias_120 = (120*24*3600)
+        dias_90 = (90*24*3600)
+        dias_60 = (60*24*3600)
+        storages = Storage.objects.filter(host=host)
+        #DiskHistory.objects.values('path').annotate(total=Count('systems')).filter(systems__gt=inc).order_by('-total')
+        res = DiskHistory.objects.values('path').distinct('path').filter(host=host)
+        disks = []
+        for r in res:
+            disk = DiskHistory.objects.filter(host=host, path=r['path']).earliest('-created')
+            disks.append(disk)
+        devices = Device.objects.values('type').annotate(total=Count('type')).filter(host=host)
+        load_avg = LoadAvgHistory.objects.filter(host=host).earliest('-created')
+        ram = MemoryHistory.objects.filter(host=host).earliest('-created')
+
+
+        return html_to_pdf("gestion/host_report.html", locals())
+
+
 
 class DiskHistView(View):
 
