@@ -108,6 +108,9 @@ class LoadAvgHistory(models.Model):
     msg15 = models.CharField(max_length=70)
     created = models.DateTimeField(auto_now=True)
 
+    def get_formated_date(self):
+            return self.created.strftime('%Y-%m-%d %H:%M:%S')
+
 class MemoryHistory(models.Model):
     host = host = models.ForeignKey(Host)
     total_swap = models.IntegerField(default=0)
@@ -116,12 +119,14 @@ class MemoryHistory(models.Model):
     free_ram = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now=True)
 
+
     def percent_used(self):
         used = self.total_ram - self.free_ram
         return (used * 100) / self.total_ram
 
     def get_formated_date(self):
             return self.created.strftime('%Y-%m-%d %H:%M:%S')
+
 
 class DiskHistory(models.Model):
     host = host = models.ForeignKey(Host)
@@ -134,6 +139,13 @@ class DiskHistory(models.Model):
     flag = models.BooleanField(default=False)
     msg = models.CharField(max_length=200)
     created = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.path
+
+    def get_formated_date(self):
+            return self.created.strftime('%Y-%m-%d %H:%M:%S')
+
 
 class Process(models.Model):
     host = host = models.ForeignKey(Host)

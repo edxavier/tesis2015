@@ -22,4 +22,5 @@ urlpatterns = patterns('',
                        url(r'^memory/$', MemoryView.as_view(),),
                        url(r'^disk/$', DiskView.as_view(),),
                        url(r'^process/$', ProcessView.as_view(),),
+                        url(r'^disk_hist/(\d+)/$', DiskHistView.as_view(),),
                        )

@@ -62,12 +62,14 @@ class MemorySerializer(serializers.ModelSerializer):
 
 class LoadSerializer(serializers.ModelSerializer):
     direccion = serializers.ReadOnlyField(source='host.direccion')
+    humanise_date = serializers.ReadOnlyField(source='get_formated_date')
 
     class Meta:
         model = LoadAvgHistory
 
 class DiscSerializer(serializers.ModelSerializer):
     direccion = serializers.ReadOnlyField(source='host.direccion')
+    humanise_date = serializers.ReadOnlyField(source='get_formated_date')
 
     class Meta:
         model = DiskHistory

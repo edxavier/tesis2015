@@ -11,8 +11,8 @@ DATABASES = {
         'NAME': 'sgimdb',
         'USER': 'sgimuser',
         'PASSWORD': 'stecnica',
-        'HOST': 'localhost',
-        #'HOST': '104.236.23.248',
+        #'HOST': 'localhost',
+        'HOST': '104.236.23.248',
         'PORT': '5432',
     }
 }
@@ -24,6 +24,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 BOWER_URL = STATIC_URL+'bower/bower_components/'
 MEDIA_ROOT = RUTA_PROYECTO.child('media')
+STATIC_ROOT = RUTA_PROYECTO
 
 LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/"

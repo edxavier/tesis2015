@@ -59,6 +59,24 @@ class HostsDetailView(View):
         return render_to_response('gestion/host_details.html',
             locals(), context_instance=RequestContext(request))
 
+class DiskHistView(View):
+
+    def get(self, request,id_disp, *args, **kwargs):
+        host = Host.objects.get(id=id_disp)
+        #DiskHistory.objects.values('path').annotate(total=Count('systems')).filter(systems__gt=inc).order_by('-total')
+        #Obtener el listado de discos que tiene el host
+        res = DiskHistory.objects.values('path').distinct('path').filter(host=host)
+        disks = []
+        for r in res:
+            disk_hist = DiskHistory.objects.filter(host=host, path=r['path']).order_by('-created')
+            det = []
+            for d in disk_hist:
+                det.append({'path': d.path, 'percent_used': d.percent_used, 'fecha': d.get_formated_date(), 'size': d.size})
+            disks.append(det)
+        return JsonResponse({'success': True, 'result': disks})
+        #return HttpResponse("fgdgdfgdf")
+
+
 
 
 class BootEventView(View):

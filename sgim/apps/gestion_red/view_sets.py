@@ -21,6 +21,14 @@ class MemoryFilter(django_filters.FilterSet):
         model = MemoryHistory
         fields = ['host', 'min_date', 'max_date']
 
+class LoadFilter(django_filters.FilterSet):
+    min_date = django_filters.DateFilter(name="created", lookup_type='gte')
+    max_date = django_filters.DateFilter(name="created", lookup_type='lte')
+
+    class Meta:
+        model = LoadAvgHistory
+        fields = ['host', 'min_date', 'max_date']
+
 class HostViewSet(viewsets.ModelViewSet):
     #permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Host.objects.all().order_by('direccion')
@@ -69,9 +77,9 @@ class MemoryViewSet(viewsets.ModelViewSet):
 
 class LoadViewSet(viewsets.ModelViewSet):
 
-    queryset = LoadAvgHistory.objects.all().order_by('-id')
+    queryset = LoadAvgHistory.objects.all().order_by('-created')
     serializer_class = LoadSerializer
-    filter_fields = ('host',)
+    filter_class = LoadFilter
 
 
 class DiskViewSet(viewsets.ModelViewSet):
