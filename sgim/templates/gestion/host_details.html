@@ -42,7 +42,7 @@
 <script type="text/javascript" src="{{BOWER_URL}}highcharts/highcharts.js"></script>
 <script type="text/javascript" src="{{BOWER_URL}}highcharts/highcharts-more.js"></script>
 <script type="text/javascript" src="{{BOWER_URL}}highcharts/modules/solid-gauge.js"></script>
- <script type="text/javascript" src="{{BOWER_URL}}moment/min/moment.min.js"></script>
+
 
 {% endblock include_statics %}
 
@@ -320,7 +320,7 @@
 							<div id="jqxgridProcesses"></div>
 			            </div>
 			            <div class="container-fluid">
-							<div id="ram_hist" style="width: 65%;margin-top:8px"></div>
+							<div id="ram_hist" style="width: 85%;margin-top:8px"></div>
 							<div id="load_hist" style="width: 65%;margin-top:8px"></div>
 							<div id="disk_hist" style="width: 65%;margin-top:8px"></div>
 			            </div>
@@ -342,8 +342,6 @@
 <script>
 	$(document).ready(function() {
         
-	
-    
     io.on('host_update', function(data){ 
     	if(data.host === "{{host.id}}"){         
 	        dias = ( data.uptime / 60  ) / 1440
@@ -546,8 +544,8 @@
         columns: columnasGeneral,source: get_datos("/api/gestion/general_events/", GeneralFields)
 
     });
-		     //$("#jqxgridBoots").jqxGrid({  });
-		
+
+	//$("#jqxgridBoots").jqxGrid({  });
 	   var gaugeOptions = {
 	        chart: {
 	            type: 'solidgauge'
@@ -597,12 +595,12 @@
 	        }
     	};
     
-		      $.ajax({
+		    $.ajax({
                           url: '/api/gestion/mem_entry/?host={{host.id}}',
                           type: 'GET',
                           dataType: 'json',                          
-                        })
-                        .done(function(data) {
+            })
+            .done(function(data) {
                           	mem = data[0]
                           	total = mem.total_ram
                           	used = total - mem.free_ram
@@ -633,10 +631,8 @@
 
 							    }));                       
 
-                        })
-                        .fail(function(err) {
-                         
-                        })
+            })
+            .fail(function(err) {})
 
                         $.ajax({
                           url: '/api/gestion/load_entry/?host={{host.id}}',
@@ -729,6 +725,7 @@ Highcharts.setOptions({
         var day = moment(start_date);
         mydate = Date.UTC(day.year(), day.month(),day.date(), day.hours(),day.minutes());
         arrayData = []
+        data.reverse();
         for(i=0; i<total_items;i++){
             var day = moment(data[i].humanise_date);
             date = Date.UTC(day.year(), day.month(),day.date(), day.hours(),day.minutes());
@@ -790,12 +787,26 @@ Highcharts.setOptions({
 	        },
 
 	        series: [{
-	            type: 'area',
+	            type: 'line',
 	            name: 'Uso de RAM',
 	            pointInterval:  60*1000,
 	            //pointStart: Date.UTC(2006, 0, 1),
 	            pointStart: mydate,
-	            data: arrayData
+	            data: arrayData,
+	            zones: [{
+					value: 30,
+					color: '#03A9F4'
+				}, {
+					value: 60,
+					color: '#4CAF50'
+				},
+				{
+					value: 90,
+					color: '#FFC107'
+				},{
+					color: '#C51162'
+				},
+            ]
 	        }]
     });
 
@@ -808,7 +819,7 @@ Highcharts.setOptions({
   
   	//**************************
     $.ajax({
-    	url: '/api/gestion/hist_memory/?host={{host.id}}&min_date=03/06/2015',
+    	url: '/api/gestion/hist_load/?host={{host.id}}&min_date=03/06/2015',
     	type: 'GET',
          dataType: 'json',
     })
@@ -817,14 +828,21 @@ Highcharts.setOptions({
         start_date = data[total_items-1].humanise_date
         var day = moment(start_date);
         mydate = Date.UTC(day.year(), day.month(),day.date(), day.hours(),day.minutes());
-        arrayData = []
+        load1Array = []
+        load5Array = []
+        //revertir el orden de los datos para pasarselo al grafico de antiguo a actual
+        data.reverse();
         for(i=0; i<total_items;i++){
             var day = moment(data[i].humanise_date);
             date = Date.UTC(day.year(), day.month(),day.date(), day.hours(),day.minutes());
-            arrayData.push( [ 
+            load1Array.push( [ 
                 date, 
-                parseFloat(data[i].percent_ram_used) ]);
-        }        
+                parseFloat(data[i].load1) ]);
+            load5Array.push( [ 
+                date, 
+                parseFloat(data[i].load5) ]);
+        }      
+
        
                
 	    $('#load_hist').highcharts({
@@ -866,7 +884,7 @@ Highcharts.setOptions({
 	                    ]
 	                },
 	                marker: {
-	                    radius: 2
+	                    radius: 1
 	                },
 	                lineWidth: 1,
 	                states: {
@@ -879,12 +897,24 @@ Highcharts.setOptions({
 	        },
 
 	        series: [{
-	            type: 'area',
-	            name: 'Uso de Procesador',
+	            type: 'line',
+	            dashStyle: 'ShortDash',
+	            name: 'Carga promedio ultimo min',
 	            pointInterval:  60*1000,
 	            //pointStart: Date.UTC(2006, 0, 1),
 	            pointStart: mydate,
-	            data: arrayData
+	            data: load1Array,
+	            color: "#9C27B0"
+	        },
+	        {
+	            type: 'line',
+	            name: 'Carga promedio ultimo 5 mins.',
+	            pointInterval:  60*1000,
+	            //pointStart: Date.UTC(2006, 0, 1),
+	            pointStart: mydate,
+	            data: load5Array,
+	            lineWidth: 1,
+	            color: "#FF9800"
 	        }]
     });
 
@@ -896,28 +926,33 @@ Highcharts.setOptions({
     
     	//**************************
     $.ajax({
-    	url: '/api/gestion/hist_memory/?host={{host.id}}&min_date=03/06/2015',
+    	url: '/gestion/disk_hist/{{host.id}}/',
     	type: 'GET',
          dataType: 'json',
     })
     .done(function(data) {
-    	total_items = data.length;
-        start_date = data[total_items-1].humanise_date
-        var day = moment(start_date);
+    	partitions = data.result.length
+    	total_entries = data.result[0].length;
+    	//tomemos la fecha mas antigua del primer ARRAY
+    	start_date = data.result[0][total_entries-1].fecha
+    	var day = moment(start_date);
         mydate = Date.UTC(day.year(), day.month(),day.date(), day.hours(),day.minutes());
-        arrayData = []
-        for(i=0; i<total_items;i++){
-            var day = moment(data[i].humanise_date);
-            date = Date.UTC(day.year(), day.month(),day.date(), day.hours(),day.minutes());
-            arrayData.push( [ 
-                date, 
-                parseFloat(data[i].percent_ram_used) ]);
-        }        
-       
-               
-	    $('#disk_hist').highcharts({
+
+
+    	$('#disk_hist').highcharts({
 	        chart: {
-	            zoomType: 'x'
+	            zoomType: 'x',
+	            events : {
+	                load : function () {
+	                    // set up the updating of the chart each second
+	                    var series = this.series[0];
+	                    setInterval(function () {
+	                        var x = (new Date()).getTime(), // current time
+	                            y = Math.round(Math.random() * 100);
+	                        //series.addPoint([x, y], true, true);
+	                    }, 1000);
+	                }
+	            }
 	        },
 	        title: {
 	            text: 'Historial de uso de disco duro en los ultimos 15 dias'
@@ -965,31 +1000,43 @@ Highcharts.setOptions({
 	                threshold: null
 	            }
 	        },
+	        series: []
+    	});
 
-	        series: [{
-	            type: 'area',
-	            name: 'Uso de Disco',
-	            pointInterval:  60*1000,
-	            //pointStart: Date.UTC(2006, 0, 1),
-	            pointStart: mydate,
-	            data: arrayData
-	        },
-            {
-	            type: 'area',
-	            name: 'Uso de Disco 2',
-	            pointInterval:  60*1000,
-	            //pointStart: Date.UTC(2006, 0, 1),
-	            pointStart: mydate,
-                data: [22,44, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-                }
-            ]
-    });
+    	console.log('partitions '+ partitions + ' total_entries: '+ total_entries)
 
+    	var chart = $('#disk_hist').highcharts();
+
+    	for(p=0; p < partitions; p++){
+    		console.log(data.result[p][0].path) 
+        	//series = chart.series[p];
+    		data.result[p].reverse()
+    		arrayData = []
+    		for(h=0; h< total_entries; h++){
+    			//console.log(data.result[p][h].fecha)
+    			var day = moment(data.result[p][h].fecha);
+	            date = Date.UTC(day.year(), day.month(),day.date(), day.hours(),day.minutes());
+	            arrayData.push( [ 
+	                date, 
+	                parseFloat(data.result[p][h].percent_used) ]);
+	          //  series.addPoint([date, parseFloat(data.result[p][h].percent_used) ], true, true);
+	          //  console.log(series)
+    		}
+    		chart.addSeries({
+            	name: data.result[p][0].path + ' ('+data.result[p][0].size+' MB)',
+            	data: arrayData
+        	});
+    		//chart.redraw();
+    		//console.log(series[p].data)
+
+    	}   
 
     })
     .fail(function() {
     	console.log("error");
     })
+
+	
 
 	
 });
