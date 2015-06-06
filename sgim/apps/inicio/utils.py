@@ -77,17 +77,18 @@ def link_callback(uri, rel):
     sUrl = settings.STATIC_URL      # Typically /static/
     sRoot = settings.RUTA_PROYECTO.child('static')# Typically /home/userX/project_static/
     mUrl = settings.MEDIA_URL       # Typically /static/media/
-    mRoot = settings.MEDIA_ROOT     # Typically /home/userX/project_static/media/
+    mRoot = settings.RUTA_PROYECTO.child('media')     # Typically /home/userX/project_static/media/
 
     # convert URIs to absolute system paths
     if uri.startswith(mUrl):
        # path = os.path.join(mRoot, uri.replace(mUrl, ""))
-        path=sRoot
-       # print "######################funciooooooooooooooooooooonaaaa es algo del mierda packete MEDIA"
+        path = os.path.join(mRoot, uri.replace(mUrl, ""))
+        print "######################funciooooooooooooooooooooonaaaa es algo del mierda packete MEDIA:"+path
+        print(path)
     elif uri.startswith(sUrl):
         path = os.path.join(sRoot, uri.replace(sUrl, ""))
-        #print "######################funciooooooooooooooooooooonaaaa es algo del mierda packete STATIC :"+path
-
+        print "######################funciooooooooooooooooooooonaaaa es algo del mierda packete STATIC :"+path
+        print(path)
     # make sure that file exists
     if not os.path.isfile(path):
             raise Exception(

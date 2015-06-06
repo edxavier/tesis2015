@@ -1,0 +1,112 @@
+{% extends "report_format.html" %}
+
+{% block contenido %}
+<style>
+	.head {
+		background: #009688;
+		color: white;
+	}
+
+</style>
+
+<table style="font-family: roboto; border-bottom: 1px solid #004D40; color:#004D40">
+	<tr>
+		<th style="width:65% ; text-align:left">
+			<h1>LISTADO DE HOST</h1>
+		</th>
+		<th style="width:35%; text-align:right">
+			<h1>{% now "l, d F Y" %}</h1>
+		</th>
+	</tr>
+</table>
+
+<table style="font-family: roboto; color:#757575;text-align:left">
+	<tr>
+		<td colspan='2' style="text-align:left">
+			<h3>Referencia</h3>
+		</td>
+	</tr>
+	<tr>
+		<td style="text-align:left">
+			<li>Umbral de uso de discos >= 90% </li>
+		</td>
+		<td style="text-align:left">
+			<li>Umbral de uso de Memoria RAM >= 90%</li>
+		</td>
+		<td style="text-align:left">
+			<li>Umbral de carga de procesador >= 4</li>
+		</td>
+		<td style="text-align:left">
+			<li>Umbral de tiempo de operacion >= 120 dias</li>
+		</td>
+		
+	</tr>
+</table>
+<br>
+<table style='padding-top: 20px'>
+	<thead>
+		<tr style='border: 1px solid #009688'>
+			<th class='head' style='width:100px'>Poscicion</th>
+			<th class='head'>Hostname</th>
+			<th class='head'>Direccion</th>
+			<th class='head'>Uptime</th>
+			<th class='head' style='width:100px'>Servicios</th>
+			<th class='head' style='width:100px'>Procesos</th>
+			<th class='head' style='width:100px'>Usuarios</th>
+			<th class='head' style=''>Alarma Disco</th>
+			<th class='head' style=''>Alarma RAM</th>
+			<th class='head' style=''>Alarma Procesador</th>
+			<th class='head' style='width:200px'>Ultima Actualiz.</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for host in hosts %}
+			<tr >
+				<td style='border-bottom: 1px solid #BDBDBD'></td>
+				<td style='border-bottom: 1px solid #BDBDBD'>{{host.nombre}}</td>
+				<td style='border-bottom: 1px solid #BDBDBD'>{{host.direccion}}</td>
+				<td style='border-bottom: 1px solid #BDBDBD'>{{host.get_duration}}</td>
+				<td style='border-bottom: 1px solid #BDBDBD'>{{host.servicios}}</td>
+				<td style='border-bottom: 1px solid #BDBDBD'>{{host.procesos}}</td>
+				<td style='border-bottom: 1px solid #BDBDBD'>{{host.usuarios}}</td>
+				<td style='border-bottom: 1px solid #BDBDBD'>
+					{% if host.alarma_discos %}
+						<img src="/static/images/warn_sign.png" style='width:15px'>&nbsp;
+						<strong style="color:#880E4F;"> {{host.alarma_discos| yesno:"SI,NO"}} </strong>	
+					{% else %}
+						<img src="/static/images/ok.png" style='width:10px;'> &nbsp;
+						<strong style=""> {{host.alarma_discos| yesno:"SI,NO"}} </strong>	
+					{% endif %}
+					
+				</td>
+				<td style='border-bottom: 1px solid #BDBDBD'>
+					
+					{% if host.alarma_memoria %}
+						<img src="/static/images/warn_sign.png" style='width:15px'>&nbsp;
+						<strong style="color:#880E4F;"> {{host.alarma_memoria| yesno:"SI,NO"}} </strong>	
+					{% else %}
+						<img src="/static/images/ok.png" style='width:10px;'> &nbsp;
+						<strong style=""> {{host.alarma_memoria| yesno:"SI,NO"}} </strong>	
+					{% endif %}
+					
+				</td>
+				<td style='border-bottom: 1px solid #BDBDBD'>
+					{% if host.alarma_procesador %}
+						<img src="/static/images/warn_sign.png" style='width:15px'>&nbsp;
+						<strong style="color:#880E4F;"> {{host.alarma_procesador| yesno:"SI,NO"}} </strong>	
+					{% else %}
+						<img src="/static/images/ok.png" style='width:10px;'> &nbsp;
+						<strong style=""> {{host.alarma_procesador| yesno:"SI,NO"}} </strong>	
+					{% endif %}
+					
+				</td>
+				<td style='border-bottom: 1px solid #BDBDBD'>{{host.actualizado}}</td>
+			</tr>
+		{% endfor %}
+		
+	</tbody>
+</table>
+<br>
+
+
+{% endblock contenido %}

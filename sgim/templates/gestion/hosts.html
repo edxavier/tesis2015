@@ -248,12 +248,14 @@ $(document).ready(function() {
                     // appends buttons to the status bar.
                     var container = $("<div style='margin:5px;'></div>");
                     var viewButton = $("<div class='ui  tiny blue button'> Ver detalles</div>");
-                    var reportButton = $("<div class='ui  tiny purple button'>Reporte PDF</div>");
+                    var reportButton = $("<div class='ui  tiny purple button'>Detalle PDF</div>");
+                    var reportListButton = $("<div class='ui  tiny purple button'>Listado PDF</div>");
                     var reloadbtn = $("<div class='tiny green ui icon button'><i class='icon refresh'></i></div>");
                    
                     container.append(reloadbtn);
                     container.append(viewButton);
                     container.append(reportButton);
+                    container.append(reportListButton);
                     statusbar.append(container);
 
 
@@ -285,6 +287,12 @@ $(document).ready(function() {
                         $.snackbar({content: "<i class='ion-happy yellow icon'></i> Seleccione una fila por favor! ",timeout: 4000});
                       }
                     });
+                    reportListButton.click(function (event) {                     
+                        var win = window.open('/gestion/hosts/report/listar/', '_blank');
+                        win.focus(); 
+                     
+                    });
+
                     reloadbtn.click(function (event) {
                       $("#jqxgrid").jqxGrid({source: get_datos(),})
                     });                 
