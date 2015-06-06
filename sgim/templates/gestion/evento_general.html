@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    Eventos Generales
+{% endblock titulo %}
+
+{% block include_statics %}
+
+
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
+ <script type="text/javascript" src="{{STATIC_URL}}js/asset/gridLocalization.js"></script>
+    
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcombobox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxpanel.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdata.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdatetimeinput.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcalendar.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxtooltip.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/globalization/globalize.js"></script>
+      <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxexpander.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxvalidator.js"></script>
+
+
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxmenu.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.pager.js"></script>
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.selection.js"></script> 
+    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxgrid.filter.js"></script> 
+   <script type="text/javascript" src="{{BOWER_URL}}moment/min/moment.min.js"></script> 
+ 
+
+{% endblock include_statics %}
+
+{% block contenido %}
+
+   <div class="ui purple menu">
+          <a class="item" href="/">
+            <i class="home icon"></i> Inicio
+          </a>
+          <a class=" item" href="{% url 'hosts_list' %}">
+            <i class=" cubes icon"></i> Hosts
+          </a>
+          <a class="item" href="{% url 'boot_list' %}">
+            <i class=" add icon"></i> Eventos de Arranque
+          </a>
+          <a class="active item" href="{% url 'general_list' %}">
+            <i class=" add icon"></i> Eventos Generales
+          </a>
+          
+    </div>
+        
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1" >
+            <div id="jqxgrid"></div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock contenido %}
+
+
+{% block scripts %}
+
+<script>
+
+$(document).ready(function() {
+    /*Inicializar Combos obteniendo los datos del api rest de catalogos*/
+ var source =
+            {
+                datatype: "json",
+                datafields: [
+                    { name: 'id', type: 'int' },
+                    { name: 'direccion', type: 'string' },
+                    { name: 'format_uptime', type: 'string' },
+                    { name: 'tabla', type: 'string' },
+                    { name: 'item', type: 'string' },
+                    { name: 'warning', type: 'string' },
+                    { name: 'mensaje', type: 'string' },
+                    { name: 'fecha', type: 'date' },
+                ],
+                id: 'id',
+                url: '/api/gestion/general_events/'
+            };
+            var dataAdapter = new $.jqx.dataAdapter(source);
+
+  function dateRender(row, columnfield, value, defaulthtml, columnproperties){
+        var data = $('#jqxgrid').jqxGrid('getrowdata', row);
+        if(value){
+          div = "<div style='padding:5px;'>"
+          return div + moment(value).format("DD-MM-YYYY HH:mm")+"</div>";
+        }
+  }
+  function alarmRender(row, columnfield, value, defaulthtml, columnproperties){        
+        if(value == true || value == "True"){
+          return "<div style='padding:5px; color:#E91E63;font-weight:bold;text-align:center'><i class='red icon ion-alert-circled'></i>SI</div>";
+        }else{
+          return "<div style='padding:5px; color:#1B5E20;font-weight:bold;text-align:center'><i class='green icon ion-checkmark-circled'></i>NO</div>";
+        }
+  }
+    
+
+    $("#jqxgrid").jqxGrid({
+
+                width: '100%',
+                theme:'metro', 
+                source: dataAdapter,
+                showfilterrow: true,
+                filterable: true,
+                pageable: true,
+                selectedrowindex: 0,
+                autoshowfiltericon: true,
+                localization: getLocalization(),
+                columns: [
+                  { text: 'Direccion', datafield: 'direccion', width:"15%" },
+                  { text: 'Tiempo Operacion', datafield: 'format_uptime',  width:"10%"},
+                  { text: 'Tabla', datafield: 'tabla', filtertype:'list' ,width:"110px"},
+                  { text: 'Item', datafield: 'item', filtertype:'list', width:"110px" },
+                  { text: 'Alarma', datafield: 'warning', filtertype:'list', width:"10%",cellsrenderer: alarmRender,  },
+                  { text: 'Causa', datafield: 'mensaje', filtertype:'list', width:"20%" },
+                  { text: 'Fecha', datafield: 'fecha', filtertype:'date', width:"16%",cellsformat:'dd-MM-yy H:mm', cellsrenderer: dateRender},
+              ],
+              
+            });
+
+    
+});
+
+</script>
+
+{% endblock scripts %}

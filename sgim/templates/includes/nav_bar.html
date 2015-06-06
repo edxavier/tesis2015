@@ -1,5 +1,5 @@
 <div class="navbar shadow-z-1 navbar-fixed-top ui top attached" >
-   
+    {% if user.is_authenticated %}  
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
             <i class="mdi-navigation-more-vert"></i>
@@ -7,7 +7,7 @@
 
         <a class="navbar-brand" href="#"><i class="icon ion-ios-people"></i> Sala Tecnica</a>
     </div>
-    {% if user.is_authenticated %}            
+             
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav">
                 <li class="dropdown" >
@@ -52,11 +52,10 @@
                     <ul class="dropdown-menu">
                         <li><a href="{% url 'hosts_list' %}">Hosts</a></li>
                         <li>
-                            <a href="{% url 'cambios_list' %}">Eventos de Arranque  <span class="ui red circular label gestion_boot">0</span>
+                            <a href="{% url 'boot_list' %}">Eventos de Arranque  <span class="ui red circular label gestion_boot">0</span>
                             </a>
                         </li>
-                        <li><a href="{% url 'cambios_follow' %}">Eventos de Interfaces <span class="ui orange circular label gestion_interface">0</span></a></li>
-                        <li><a href="{% url 'incidentes_follow' %}">Eventos Generales <span class="ui purple circular label gestion_general">0</span></a></li>
+                        <li><a href="{% url 'general_list' %}">Eventos Generales <span class="ui purple circular label gestion_general">0</span></a></li>
                     </ul>
                 </li>
                  

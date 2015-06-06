@@ -43,12 +43,19 @@ Gestion de Red
 {% endblock include_statics %}
 {% block contenido %}
 <div class="ui purple menu">
-	<a class="item" href="/">
-		<i class="home icon"></i> Inicio
-	</a>
-	<a class=" active item" href="{% url 'incidentes_list' %}">
-		<i class="icon ion-settings"></i> Hosts.
-	</a>
+          <a class="item" href="/">
+            <i class="home icon"></i> Inicio
+          </a>
+          <a class="active item" href="{% url 'hosts_list' %}">
+            <i class=" cubes icon"></i> Hosts
+          </a>
+          <a class="item" href="{% url 'boot_list' %}">
+            <i class=" add icon"></i> Eventos de Arranque
+          </a>
+          <a class=" item" href="{% url 'general_list' %}">
+            <i class=" add icon"></i> Eventos Generales
+          </a>
+          
 </div>
 
 <div class="container-fluid">

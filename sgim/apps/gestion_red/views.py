@@ -112,6 +112,10 @@ class BootEventView(View):
     def dispatch(self, *args, **kwargs):
         return super(BootEventView, self).dispatch(*args, **kwargs)
 
+    def get(self, request, *args, **kwargs):
+        return render_to_response('gestion/evento_arranque.html',
+            locals(), context_instance=RequestContext(request))
+
     def post(self, request, *args, **kwargs):
         res = Host.objects.filter(direccion=request.POST['direccion'])
         if len(res) > 0:
@@ -137,6 +141,7 @@ class InterfaceEventView(View):
     def dispatch(self, *args, **kwargs):
         return super(InterfaceEventView, self).dispatch(*args, **kwargs)
 
+
     def post(self, request, *args, **kwargs):
         res = Host.objects.filter(direccion=request.POST['direccion'])
         if len(res) > 0:
@@ -161,6 +166,11 @@ class GeneralEventView(View):
     @csrf_exempt
     def dispatch(self, *args, **kwargs):
         return super(GeneralEventView, self).dispatch(*args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+
+        return render_to_response('gestion/evento_general.html',
+            locals(), context_instance=RequestContext(request))
 
     def post(self, request, *args, **kwargs):
         res = Host.objects.filter(direccion=request.POST['direccion'])

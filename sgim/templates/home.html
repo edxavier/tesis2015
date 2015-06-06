@@ -8,58 +8,105 @@
 {% endblock header %}
 
 {% block include_statics %}
-    <script src="{{BOWER_URL}}w2ui/w2ui-1.4.2.min.js"></script>
-    <link rel="stylesheet" href="{{BOWER_URL}}w2ui/w2ui-1.4.2.min.css">
+    <script src="{{BOWER_URL}}jquery-knob/dist/jquery.knob.min.js"></script>
 {% endblock include_statics %}
 
 {% block contenido %}
-<ul class="breadcrumb" style="margin-bottom: 5px;">
-    <li class="active"><a href="/">Inicio</a></li>
-</ul>
 
-<div id="grid" style="width: 100%; height: 350px; "></div>
+<br>
+<div class="container-fluid">
+<div class="row">   
+    <div class="col-md-10 col-md-offset-1"> 
+        <div class="panel panel-default">
+            <div class="panel-body">                
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <div class="row" style='color:white'>
+                                    <div class="col-xs-3">
+                                        <i class="icon ion-flash" style='font-size:50px;margin-top:15px'></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div style='font-size:40px;'>{{inc_pendiente}}</div>
+                                        <div>Incidencias Pendientes</div>
+                                    </div>
+                                </div>
+                            </div>                       
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row" style='color:white'>
+                                    <div class="col-xs-3">
+                                        <i class="icon ion-ios-calendar-outline" style='font-size:50px;margin-top:15px'></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div style='font-size:40px;'>{{mantto_programado}}</div>
+                                        <div>Mantto. Programado</div>
+                                    </div>
+                                </div>
+                            </div>                       
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <div class="row" style='color:white'>
+                                    <div class="col-xs-3">
+                                        <i class="icon ion-settings" style='font-size:50px;margin-top:15px'></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div style='font-size:40px;'>{{mantto_progreso}}</div>
+                                        <div>Mantto. en Progreso</div>
+                                    </div>
+                                </div>
+                            </div>                       
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <div class="row" style='color:white'>
+                                    <div class="col-xs-3">
+                                        <i class="icon ion-ios-lightbulb" style='font-size:50px;margin-top:15px'></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div style='font-size:40px;'>{{camb_programado}}</div>
+                                        <div>Cambio Programado</div>
+                                    </div>
+                                </div>
+                            </div>                       
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel panel-default">
+            <div class="panel-body">
+                Basic panel
+            </div>
+        </div>
+        
+    </div>
+</div>
+</div>
 
 
-<script type="text/javascript">
-$(function () {
-
-   
-
-    $('#grid').w2grid({ 
-        name: 'grid', 
-        method: 'GET', // need this to avoid 412 error on Safari
-        show: { 
-            toolbar: true,
-            footer: true
-        },
-        multiSearch: true,
-        searches: [
-            { field: 'recid', caption: 'ID ', type: 'int' },
-            { field: 'lname', caption: 'Last Name', type: 'text' },
-            { field: 'fname', caption: 'First Name', type: 'text' },
-            { field: 'email', caption: 'Email', type: 'list', options: { items: ['peter@gmail.com', 'jim@gmail.com', 'jdoe@gmail.com']} },
-            { field: 'sdate', caption: 'Start Date', type: 'date' }
-        ],
-        columns: [                
-            { field: 'fname', caption: 'Nombre', size: '30%' },
-            { field: 'lname', caption: 'Apellido', size: '30%' },
-            { field: 'email', caption: 'Email', size: '40%' },
-            { field: 'sdate', caption: 'Start Date', size: '120px' }
-        ],
-        records: [
-        { "recid": 1, "fname": "John", "lname": "Doe", "email": "jdoe@gmail.com", "sdate": "4/3/2012" },
-        { "recid": 2, "fname": "Stuart", "lname": "Motzart", "email": "jdoe@gmail.com", "sdate": "4/3/2012" },
-        { "recid": 3, "fname": "Jin", "lname": "Franson", "email": "jdoe@gmail.com", "sdate": "4/3/2012" },
-        { "recid": 4, "fname": "Susan", "lname": "Ottie", "email": "jdoe@gmail.com", "sdate": "4/3/2012" },
-        { "recid": 5, "fname": "Kelly", "lname": "Silver", "email": "jdoe@gmail.com", "sdate": "4/3/2012" },
-        { "recid": 6, "fname": "Francis", "lname": "Gatos", "email": "jdoe@gmail.com", "sdate": "4/3/2012" },
-        { "recid": 7, "fname": "Mark", "lname": "Welldo", "email": "jdoe@gmail.com", "sdate": "4/3/2012" },
-        { "recid": 8, "fname": "Thomas", "lname": "Bahh", "email": "jdoe@gmail.com", "sdate": "4/3/2012" },
-        { "recid": 9, "fname": "Sergei", "lname": "Rachmaninov", "email": "jdoe@gmail.com", "sdate": "4/3/2012" }
-    ]
-    });    
-});
-</script>
 
 {% endblock contenido %}
+
+{% block scripts %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".dial").knob({
+            readOnly:true,            
+        });
+    });
+</script>
+{% endblock scripts %}
 

@@ -16,8 +16,10 @@ urlpatterns = patterns('',
                         url(r'^general_event/listar/$', GeneralEventView.as_view(),),
 
                         url(r'^boot_event/agregar/$', BootEventView.as_view(),),
+                        url(r'^boot_event/listar/$', BootEventView.as_view(), name='boot_list'),
                         url(r'^interface_event/agregar/$', InterfaceEventView.as_view(),),
                         url(r'^general_event/agregar/$', GeneralEventView.as_view(),),
+                        url(r'^general_event/listar/$', GeneralEventView.as_view(), name='general_list'),
                         url(r'^storages/$', StoragesView.as_view(),),
 
                        url(r'^devices/$', DeviceView.as_view(),),

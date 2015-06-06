@@ -75,10 +75,11 @@ def notificarUsuarioDeAlta(sender, instance, created, **kwargs):
     #si el objeto se acaba de crear, enviar correo
         mensaje = "Credenciales de acceso a SGIM =" \
                   " Usuario:" + instance.username + "-Clave:" + instance.TEMP_PASSWD + " "
-        instance.enviar_sms(mensaje)
-        msg2 =  "<strong>Usuario:</strong> " + instance.username + "<br><strong>Clave:</strong> " + instance.TEMP_PASSWD
-        toList = ["edxavier05@gmail.com"]
-        enviarEmail("Acceso a SGIM", toList, msg2, 'welcome2')
+        #instance.enviar_sms(mensaje)
+        if instance.email:
+            msg2 =  "<strong>Usuario:</strong> " + instance.username + "<br><strong>Clave:</strong> " + instance.TEMP_PASSWD
+            toList = [instance.email]
+            enviarEmail("Acceso a Sistema de Gestion de Incidencias y Mantenimientos", toList, msg2, 'welcome2')
 
 
 

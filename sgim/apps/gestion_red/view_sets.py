@@ -36,7 +36,7 @@ class HostViewSet(viewsets.ModelViewSet):
 
 class BootViewSet(viewsets.ModelViewSet):
 
-    queryset = BootEvent.objects.all().order_by('-id')
+    queryset = BootEvent.objects.all().order_by('-id')[:200]
     serializer_class = BootEventSerializer
     filter_fields = ('host',)
 
@@ -51,7 +51,7 @@ class DevicesViewSet(viewsets.ModelViewSet):
 
 class GeneralEventViewSet(viewsets.ModelViewSet):
 
-    queryset = GeneralEvent.objects.all().order_by('-id')
+    queryset = GeneralEvent.objects.all().order_by('-fecha')[:200]
     serializer_class = GeneralEventSerializer
     filter_fields = ('host',)
 

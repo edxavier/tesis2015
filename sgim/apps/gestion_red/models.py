@@ -3,7 +3,7 @@ from apps.inicio.utils import get_formated_duration
 # Create your models here.
 
 class Host(models.Model):
-    direccion = models.IPAddressField(unique=True)
+    direccion = models.IPAddressField(unique=True, db_index=True)
     nombre = models.CharField(max_length=30, blank=True)
     descripcion = models.CharField(max_length=150, blank=True)
     ubicacion = models.CharField(max_length=150, blank=True)
@@ -29,7 +29,7 @@ class BootEvent(models.Model):
     host = models.ForeignKey(Host)
     tipo = models.CharField(max_length=20, help_text="Tipo de evento; arranque, apagado")
     uptime = models.IntegerField(help_text="minutos", blank=True)
-    fecha = models.DateTimeField(auto_now_add=True)
+    fecha = models.DateTimeField(auto_now_add=True, db_index=True)
     leido = models.BooleanField(default=False)
 
     def __unicode__(self):
@@ -57,14 +57,14 @@ class InterfaceEvent(models.Model):
 
 
 class GeneralEvent(models.Model):
-    host = models.ForeignKey(Host)
+    host = models.ForeignKey(Host, db_index=True)
     tabla = models.CharField(max_length=20, help_text="Tipo de evento;")
     uptime = models.IntegerField(help_text="minutos", blank=True)
     item = models.CharField(max_length=30)
     warning = models.BooleanField(default=False)
     mensaje = models.CharField(max_length=120, blank=True)
     leido = models.BooleanField(default=False)
-    fecha = models.DateTimeField(auto_now_add=True)
+    fecha = models.DateTimeField(auto_now_add=True, db_index=True)
 
     def __unicode__(self):
         return self.item + " " + self.tabla
@@ -74,7 +74,7 @@ class GeneralEvent(models.Model):
 
 
 class Storage(models.Model):
-    host = host = models.ForeignKey(Host)
+    host = host = models.ForeignKey(Host, db_index=True)
     index = models.IntegerField(default=0)
     type = models.CharField(max_length=30)
     description = models.CharField(max_length=50)
@@ -84,7 +84,7 @@ class Storage(models.Model):
     allocation_failures = models.IntegerField(default=0)
 
 class Device(models.Model):
-    host = host = models.ForeignKey(Host)
+    host = host = models.ForeignKey(Host, db_index=True)
     index = models.IntegerField(default=0)
     type = models.CharField(max_length=30)
     description = models.CharField(max_length=300)
@@ -93,7 +93,7 @@ class Device(models.Model):
     created = models.DateTimeField(auto_now=True)
 
 class LoadAvgHistory(models.Model):
-    host = host = models.ForeignKey(Host)
+    host = host = models.ForeignKey(Host, db_index=True)
     load1 = models.FloatField(default=0)
     load5 = models.FloatField(default=0)
     load15 = models.FloatField(default=0)
@@ -116,7 +116,7 @@ class LoadAvgHistory(models.Model):
         return count
 
 class MemoryHistory(models.Model):
-    host = host = models.ForeignKey(Host)
+    host = host = models.ForeignKey(Host, db_index=True)
     total_swap = models.IntegerField(default=0)
     total_ram = models.IntegerField(default=0)
     free_swap = models.IntegerField(default=0)
@@ -133,7 +133,7 @@ class MemoryHistory(models.Model):
 
 
 class DiskHistory(models.Model):
-    host = host = models.ForeignKey(Host)
+    host = host = models.ForeignKey(Host, db_index=True)
     path = models.CharField(max_length=20)
     device = models.CharField(max_length=300)
     min_free = models.IntegerField(default=15)
@@ -152,7 +152,7 @@ class DiskHistory(models.Model):
 
 
 class Process(models.Model):
-    host = host = models.ForeignKey(Host)
+    host = host = models.ForeignKey(Host, db_index=True)
     index = models.IntegerField(default=0)
     name = models.CharField(max_length=300)
     min = models.IntegerField(default=0)
