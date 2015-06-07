@@ -8,7 +8,8 @@
 {% endblock header %}
 
 {% block include_statics %}
-    <script src="{{BOWER_URL}}jquery-knob/dist/jquery.knob.min.js"></script>
+    <link rel="stylesheet" href="{{BOWER_URL}}circliful/css/jquery.circliful.css">
+    <script type="text/javascript" src="{{BOWER_URL}}circliful/js/jquery.circliful.min.js"></script>
 {% endblock include_statics %}
 
 {% block contenido %}
@@ -18,18 +19,28 @@
 <div class="row">   
     <div class="col-md-10 col-md-offset-1"> 
         <div class="panel panel-default">
-            <div class="panel-body">                
+            <div class="panel-body"> 
+                <h2 class="ui header">
+                  <i class="bar chart icon"></i>
+                  <div class="content">
+                    Estadisticas Generales {{today|date:"F Y"}}
+                  </div>
+                </h2>             
                 <div class="row">
                     <div class="col-md-3">
                         <div class="panel panel-danger">
                             <div class="panel-heading">
                                 <div class="row" style='color:white'>
                                     <div class="col-xs-3">
-                                        <i class="icon ion-flash" style='font-size:50px;margin-top:15px'></i>
+                                        <i class="icon ion-flash" style='font-size:45px;margin-top:5px'></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div style='font-size:40px;'>{{inc_pendiente}}</div>
-                                        <div>Incidencias Pendientes</div>
+                                        <div style='font-size:40px;'>{{num_incidencias}}</div>
+                                    </div>
+                                </div>
+                                <div class="row" style='color:white'>                                    
+                                    <div class="col-xs-12 text-right">
+                                        <div>INCIDENTES </div>
                                     </div>
                                 </div>
                             </div>                       
@@ -42,11 +53,15 @@
                             <div class="panel-heading">
                                 <div class="row" style='color:white'>
                                     <div class="col-xs-3">
-                                        <i class="icon ion-ios-calendar-outline" style='font-size:50px;margin-top:15px'></i>
+                                        <i class="icon ion-calendar" style='font-size:45px;margin-top:5px'></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div style='font-size:40px;'>{{mantto_programado}}</div>
-                                        <div>Mantto. Programado</div>
+                                    </div>
+                                </div>
+                                <div class="row" style='color:white'>                                    
+                                    <div class="col-xs-12 text-right">
+                                        <div>MANTTOS. PROGRAMADOS </div>
                                     </div>
                                 </div>
                             </div>                       
@@ -57,11 +72,15 @@
                             <div class="panel-heading">
                                 <div class="row" style='color:white'>
                                     <div class="col-xs-3">
-                                        <i class="icon ion-settings" style='font-size:50px;margin-top:15px'></i>
+                                        <i class="icon ion-ios-briefcase-outline" style='font-size:45px;margin-top:5px'></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div style='font-size:40px;'>{{mantto_progreso}}</div>
-                                        <div>Mantto. en Progreso</div>
+                                        <div style='font-size:40px;'>{{mantto_terminado}}</div>
+                                    </div>
+                                </div>
+                                <div class="row" style='color:white'>                                    
+                                    <div class="col-xs-12 text-right">
+                                        <div>MANTTOS. TERMINADOS</div>
                                     </div>
                                 </div>
                             </div>                       
@@ -72,23 +91,153 @@
                             <div class="panel-heading">
                                 <div class="row" style='color:white'>
                                     <div class="col-xs-3">
-                                        <i class="icon ion-ios-lightbulb" style='font-size:50px;margin-top:15px'></i>
+                                        <i class="icon ion-settings" style='font-size:45px;margin-top:5px'></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div style='font-size:40px;'>{{camb_programado}}</div>
-                                        <div>Cambio Programado</div>
+                                        <div style='font-size:40px;'>{{mantto_progreso}}</div>
+                                    </div>
+                                </div>
+                                <div class="row" style='color:white'>                                    
+                                    <div class="col-xs-12 text-right">
+                                        <div>MANTTOS. EN PROGRESO</div>
                                     </div>
                                 </div>
                             </div>                       
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class='center-block' style='width:190px;text-align:center'>
+                            <h6>Tasa de resolucion de Incidentes</h6>
+                        </div>
+                        <div class='center-block' id="myStat" data-dimension="190" data-text="{{tasa_resolucion}}%" data-info="Resolucion" data-width="15" data-fontsize="15" data-percent="{{tasa_resolucion}}" data-fgcolor="#F44336" data-bgcolor="#eee" data-fill="#ddd" data-total="100" data-part="35" data-icon="long-arrow-up" data-icon-size="28" data-icon-color="#fff"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class='center-block' style='width:300px;text-align:center'>
+                            <h6>Tasa de cumplimiento de Mantenimientos.</h6>
+                        </div>
+                        <div class='center-block' id="myStat2" data-dimension="190" data-text="{{tasa_cumplimiento}}%" data-info="Cumplimiento" data-width="15" data-fontsize="15" data-percent="{{tasa_cumplimiento}}" data-fgcolor="#4CAF50" data-bgcolor="#eee" data-fill="#ddd" data-total="100" data-part="35" data-icon="long-arrow-up" data-icon-size="28" data-icon-color="#fff"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class='center-block' style='width:300px;text-align:center'>
+                            <h6>Tasa de Mantenimientos en progreso.</h6>
+                        </div>
+                        <div class='center-block' id="myStat2" data-dimension="190" data-text="{{tasa_progreso}}%" data-info="En progreso" data-width="15" data-fontsize="15" data-percent="{{tasa_progreso}}" data-fgcolor="#2196F3" data-bgcolor="#eee" data-fill="#ddd" data-total="100" data-part="35" data-icon="long-arrow-up" data-icon-size="28" data-icon-color="#fff"></div>
+                    </div>
+                </div>
+                
             </div>
         </div>
         
         <div class="panel panel-default">
             <div class="panel-body">
-                Basic panel
+             <div class="row">
+                   <div class="col-md-12">
+                       <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <div class="row" style='color:white'>                                   
+                                    <i class="icon ion-ios-bell" style='font-size:20px;margin-top:1px'></i>
+                                    Incidencidentes sin resolver     
+                                </div>
+                            </div> 
+                            <div class="panel-body">
+                                <div class="ui  list" >
+                                    {% for inc in incidentes %}
+                                        <div class="item" >
+                                            <img class="ui avatar image" src="{{MEDIA_URL}}{{inc.creador.imagen}}">
+                                            <div class="content" >
+                                                <span class="header">
+                                                    ({{inc.creador}}) {{inc.creador.firstname}} {{inc.creador.lastname}}
+                                                </span>
+                                                <div class="description" >                              
+                                                            <a href="/incidencias/incidentes/reporte/detalle/{{inc.id}}" style='text-decoration:none'>
+                                                            {{inc.dispositivo}} - {{inc.tipo}} 
+                                                            </a> 
+                                                            <br> <small> el {{inc.creado}}</small>  
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    {% empty %}       
+                                        <h5>No hay Incidentes sin resolver</h5>
+                                    {% endfor %}
+                                </div>
+                            </div>                      
+                        </div>
+                   </div>
+            </div>
+
+            <div class="row">
+                   <div class="col-md-6">
+                       <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <div class="row" style='color:white'>                                   
+                                    <i class="icon ion-ios-bell" style='font-size:20px;margin-top:1px'></i>
+                                   Cambios Programados    
+                                </div>
+                            </div> 
+                            <div class="panel-body">
+                                <div class="ui  list">
+                                    {% for cambio in cambios %}
+                                        <div class="item">
+                                            <img class="ui avatar image" src="{{MEDIA_URL}}{{cambio.creador.imagen}}">
+                                            <div class="content">
+                                                <span class="header">
+                                                    {{cambio.titulo}}
+                                                </span>
+                                                <div class="description">
+                                                        Solicita: {{cambio.solicitante}} <br>
+                                                        Responsable: {{cambio.responsable}} 
+                                                    <br> <small> el {{cambio.creado}}</small>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    {% empty %}       
+                                        <h5>No hay Cambios pendientes</h5>
+                                    {% endfor %}
+                                </div>
+
+
+                            </div>                      
+                        </div>
+                   </div>
+                   <div class="col-md-6">
+                       <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row" style='color:white'>                                   
+                                    <i class="icon ion-ios-bell" style='font-size:20px;margin-top:1px'></i>
+                                    Mantenimientos Programados
+                                </div>
+                            </div> 
+                            <div class="panel-body">
+                                <div class="ui list">
+                                  {% for mantto in manttos %}
+                                        <div class="item">
+                                            <img class="ui avatar image" src="{{MEDIA_URL}}{{mantto.creador.imagen}}">
+                                            <div class="content">
+                                                <span class="header">
+                                                    <a href="/incidencias/incidentes/reporte/detalle/{{mantto.id}}" style='text-decoration:none'>
+                                                        {{mantto.rutina}} 
+                                                    </a> 
+                                                </span>
+                                                <div class="description">
+                                                    <span style='font-size:13px'>
+                                                     Responsable: {{mantto.responsable}} 
+                                                    </span>
+                                                    <br> <small> Para el {{mantto.fecha_inicio_prevista |date:"l, d F Y"}}</small>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    {% empty %}       
+                                        <h5>No hay Incidentes sin resolver</h5>
+                                    {% endfor %}
+                                </div>
+                            </div>                      
+                        </div>
+                   </div>
+            </div>
+
             </div>
         </div>
         
@@ -103,9 +252,7 @@
 {% block scripts %}
 <script type="text/javascript">
     $(document).ready(function() {
-        $(".dial").knob({
-            readOnly:true,            
-        });
+         $('#myStat, #myStat2').circliful();
     });
 </script>
 {% endblock scripts %}
