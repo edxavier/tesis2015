@@ -9,9 +9,9 @@ class HostAdmin(admin.ModelAdmin):
 class BootEventAdmin(admin.ModelAdmin):
     list_display = ("host", "tipo", "uptime", "fecha")
 
-@admin.register(InterfaceEvent)
-class InterfaceEventAdmin(admin.ModelAdmin):
-    list_display = ("host", "tipo", "uptime", "nombre", "estado_operacional","estado_administrativo", "fecha")
+@admin.register(NotificationEvent)
+class NotificationEventAdmin(admin.ModelAdmin):
+    list_display = ("host", "description", "fecha")
 
 @admin.register(GeneralEvent)
 class GeneralEventAdmin(admin.ModelAdmin):

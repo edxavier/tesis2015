@@ -46,7 +46,7 @@ class Tarea(MarcaDeTiempo, models.Model):
 class Programacion(MarcaDeTiempo, models.Model):
     rutina = models.ForeignKey(Rutina)
     fecha_inicio_prevista = models.DateTimeField()
-    fecha_fin_prevista = models.DateTimeField(blank=True, null=True, )
+    fecha_fin_prevista = models.DateTimeField(blank=False)
     inicio = models.DateTimeField(blank=True, null=True, )
     fin = models.DateTimeField(blank=True, null=True, )
     personal = models.ManyToManyField(AUTH_USER_MODEL, related_name="personal_set1")

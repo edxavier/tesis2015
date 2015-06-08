@@ -29,7 +29,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
 
     queryset = Usuario.objects.filter(is_active=True)
     serializer_class = UsuarioSerializer
-    filter_fields = ('cargo',)
+    filter_fields = ('funcion',)
 
 
 class TareaViewSet(viewsets.ModelViewSet):
@@ -77,12 +77,16 @@ class PlanViewSet(DjangoModelPermissions, UpdateModelMixin, RetrieveModelMixin, 
         """Obtener el bjeto por el id en la url con el metodo get_object o enviar
          el id en los datos con reques.DATA"""
         obj = self.get_object()
+        if request.DATA['estado'] == "4":
+            obj.finalizado_por = request.user
+        elif request.DATA['estado'] == "2":
+            obj.iniciado_por = request.user
         serializer = PlanSerializer(obj, data=request.DATA, partial=True)
         if serializer.is_valid():
             serializer.save()
             if request.DATA['estado'] == "4":
-                author = request.user.firstname + " " + request.user.lastname + " (" + request.user.username+ ")"
-                toList = ["edxavier05@gmail.com"]
+                author = request.user.get_full_name() + " (" + request.user.username + ")"
+                toList = [obj.creador.email]
                 msg = "<h2>"+obj.rutina.titulo+"</h2>"
                 msg = msg + "<p>Por este medio se le notifica que se da por finalizado la rutina: [" + obj.rutina.titulo
                 msg = msg + "], iniciado el "+obj.inicio.strftime('%d-%m-%Y')+\

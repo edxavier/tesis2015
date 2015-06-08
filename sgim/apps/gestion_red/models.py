@@ -38,6 +38,18 @@ class BootEvent(models.Model):
     def get_duration(self):
         return get_formated_duration(self.uptime)
 
+class NotificationEvent(models.Model):
+    host = models.ForeignKey(Host)
+    description = models.CharField(max_length=200)
+    fecha = models.DateTimeField(auto_now_add=True, db_index=True)
+    leido = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.tipo
+
+    def get_duration(self):
+        return get_formated_duration(self.uptime)
+
 
 class InterfaceEvent(models.Model):
     host = models.ForeignKey(Host)
@@ -48,6 +60,9 @@ class InterfaceEvent(models.Model):
     estado_administrativo = models.CharField(max_length=30)
     leido = models.BooleanField(default=False)
     fecha = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        abstract = True
 
     def __unicode__(self):
         return self.tipo
@@ -122,7 +137,6 @@ class MemoryHistory(models.Model):
     free_swap = models.IntegerField(default=0)
     free_ram = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now=True)
-
 
     def percent_used(self):
         used = self.total_ram - self.free_ram

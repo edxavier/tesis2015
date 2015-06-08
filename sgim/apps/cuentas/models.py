@@ -34,7 +34,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     firstname = models.CharField(max_length=50, verbose_name='Nombres', blank=True)
     lastname = models.CharField(max_length=50, verbose_name='Apellidos', blank=True)
     email = models.EmailField(blank=True)
-    imagen = models.ImageField(upload_to='cuentas/img', blank=True, default="cuentas/img/default.png")
+    imagen = models.ImageField(upload_to='cuentas/img', blank=True, default="cuentas/img/default.jpg")
     is_active = models.BooleanField(default=True, verbose_name='Esta Activo')
     is_staff = models.BooleanField(default=False, verbose_name='Es Administrador',
                                    help_text='Indica si el usuario puede acceder al panel de administracion')
@@ -58,7 +58,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         return self.username
 
     def get_full_name(self):
-        return self.first_name + ' ' + self.last_name
+        return self.firstname + ' ' + self.lastname
 
     def enviar_sms(self, mensaje):
         if self.telefono:

@@ -1,12 +1,12 @@
 $(document).ready(function() {
-    //io = io.connect('http://192.168.137.85:8500');
-    io = io.connect('http://127.0.0.1:8500');
+    io = io.connect('http://104.236.23.248:8500');
+    //io = io.connect('http://127.0.0.1:8500');
     io.on('connect', function(){
                     console.log('Connected to server');
                 });
     var notifications = 0
 	var noti_boot = 0
-	var noti_interface = 0
+	//var noti_interface = 0
 	var noti_general = 0
     
     io.on('boot_event', function(data){
@@ -30,18 +30,19 @@ $(document).ready(function() {
     
     
     io.on('interface_event', function(data){
-		notifications += 1
-        noti_interface += 1
-           var audio = new Audio('/static/snd/pop.mp3');
+		//notifications += 1
+        //noti_interface += 1
+        var audio = new Audio('/static/snd/pop.mp3');
         audio.play();
-        $('.gestion_menu').html(notifications)
-        $('.gestion_interface').html(noti_interface)
+        //$('.gestion_menu').html(notifications)
+        //$('.gestion_interface').html(noti_interface)
         if(data.tipo==="linkUp")
             $.snackbar({content: data.direccion+": "+data.nombre+" <i class='ion-arrow-up-a green icon'></i>",timeout: 10000});
         else
             $.snackbar({content:data.direccion+": "+data.nombre+ " <i class='ion-arrow-down-a orange icon'></i>",timeout: 10000});
 
 	});
+    
     io.on('general_event', function(data){
 		console.log(data);
 		notifications += 1

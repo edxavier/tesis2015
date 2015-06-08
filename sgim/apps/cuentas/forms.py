@@ -16,9 +16,9 @@ class UserCreationForm(forms.ModelForm):
         super(UserCreationForm, self).__init__(*args, **kargs)
 
 
-    telefono = forms.RegexField(regex='^[5-9]\d{3}-\d{4}',
+    """telefono = forms.RegexField(regex='^[5-9]\d{3}-\d{4}',
                                 error_message='Introduzca un numero de telefono valido con el formato requerido ',
-                                help_text='Formato: ####-####, No se aceptan numeros convencionales.')
+                                help_text='Formato: ####-####, No se aceptan numeros convencionales.')"""
     password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirma tu contraseña', widget=forms.PasswordInput)
     #password3 = forms.CharField(label='Confirma tu contraseña', widget=forms.PasswordInput)
@@ -53,10 +53,6 @@ class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField( help_text=("Las claves no se almacenan en texto plano, asi que no hay manera"
                     "de ver la clave del usuario, pero se puede modificard "
                     "usando <a href=\"password/\">este formulario</a>."))
-
-    telefono = forms.RegexField(regex='^[5-9]\d{3}-\d{4}',
-                                error_message='Introduzca un numero de telefono valido con el formato requerido ',
-                                help_text='Formato: ####-####, No se aceptan numeros convencionales.')
 
     class Meta:
         model = Usuario

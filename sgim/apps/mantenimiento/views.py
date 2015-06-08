@@ -11,6 +11,8 @@ from apps.inicio.utils import enviarSMS, enviarEmail
 from braces.views import PermissionRequiredMixin
 
 # Create your views here.
+from apps.cuentas.models import Usuario
+
 
 class Tareas(View):
     def get(self, request, *args, **kwargs):
@@ -106,30 +108,29 @@ class NuevoPlan(PermissionRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         form = ProgramacionForm(request.POST)
+        print(request.POST['fecha_inicio_prevista'])
         if form.is_valid():
             plan = form.save(commit=False)
             plan.creador = request.user
             plan.activo = True
-            plan.estado = EstadoMantenimiento.objects.get(pk=1)
-            plan.fecha_fin_prevista = plan.fecha_inicio_prevista + timedelta\
-                    (hours=plan.rutina.duracion_estimada)
+            plan.estado_id = 1
             plan.save()
             items = request.POST.getlist('personal[]')
             pers_lis = []
             for it in items:
-                pers = get_object_or_404(Personal, pk=it)
+                pers = get_object_or_404(Usuario, pk=it)
                 plan.personal.add(pers)
                 pers_lis.append(pers)
             plan.save()
-            if plan.responsable.correo:
-                toList = [plan.responsable.correo]
+            if plan.responsable.email:
+                toList = [plan.responsable.email]
                 msg = "<h2>"+plan.rutina.titulo+"</h2>"
                 msg = msg + "<p>Por este medio se le notifica que estara a cargo de la rutina: [" + plan.rutina.titulo
                 msg = msg + "], a iniciarce el "+plan.fecha_inicio_prevista.strftime('%d-%m-%Y')+"</p><p>Sala Tecnica</p>"
-                """msg = msg + "<h4>Contara usted con el apoyo de:</h4><ol>"
+                msg = msg + "<h4>Contara usted con el apoyo de:</h4><ol>"
                 for per in pers_lis:
-                    msg = msg + "<li>"+per.nombre_completo+"</li>"
-                msg = msg + "</ol>"""""
+                    msg = msg + "<li>"+per.get_full_name()+" ("+per.username+")</li>"
+                msg = msg + "</ol>"
                 enviarEmail(plan.rutina.titulo, toList, msg, 'mantto')
             return JsonResponse({'success': form.is_valid(), 'errores': [(k, v[0]) for k, v in form.errors.items()]})
         else:

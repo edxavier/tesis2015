@@ -17,8 +17,8 @@ class Home(TemplateView):
         mantto_terminado = Programacion.objects.filter(creado__month=today.month, creado__year=today.year, estado_id=4).count()
 
         incidentes = Incidencia.objects.all().exclude(estado_id=1)[:15]
-        manttos = Programacion.objects.filter(estado_id=1)[:15]
-        cambios = Cambio.objects.filter(estado_id=1)[:15]
+        manttos = Programacion.objects.filter(estado_id=1).exclude(responsable=request.user)[:25]
+        mis_manntos = Programacion.objects.filter(estado_id=1, responsable=request.user)
         inc_cerradas = Incidencia.objects.filter(creado__month=today.month, creado__year=today.year, estado_id=1).count()
         tasa_cumplimiento, tasa_resolucion, tasa_progreso = 0, 0, 0
 

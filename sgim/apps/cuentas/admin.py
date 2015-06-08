@@ -15,15 +15,15 @@ class UsuarioAdmin(UserAdmin):
 
     fieldsets = (
         ('Informacion de Acceso', {'fields': ('username', 'password')}),
-        ('Informacion Personal', {'fields': ('firstname','lastname','email','telefono','imagen')}),
+        ('Informacion Personal', {'fields': ('firstname','lastname', 'funcion', 'email', 'telefono', 'imagen')}),
         ('Permisos', {'fields': (('is_staff','is_superuser','is_active'),'groups','user_permissions')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
         ("Informacion de la cuenta", {'fields': ('username','password1', 'password2')}),
-        ("Informacion de contacto. Se enviara la informacion de acceso al correo y/o numero de telefono "
-         "mediante un SMS", {'fields': ('email', 'telefono')}),
+        ("Informacion de contacto. Se enviara la informacion de acceso al correo si se especificare",
+         {'fields': ('email', 'telefono')}),
     )
 
     search_fields = ('email',)

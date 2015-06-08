@@ -11,9 +11,18 @@ class TareaSerializer(serializers.ModelSerializer):
         model = Tarea
 
 class UsuarioSerializer(serializers.ModelSerializer):
+    nombre_completo = serializers.SerializerMethodField('get_full_name')
+
     class Meta:
         model = Usuario
-        fields = ('id', 'username', 'firstname', 'lastname', 'funcion')
+        fields = ('id', 'username', 'firstname', 'lastname', 'funcion', 'nombre_completo')
+
+    def get_full_name(self, obj):
+        if obj.firstname and obj.lastname:
+            fullname = obj.firstname +" "+ obj.lastname
+        else:
+            fullname = obj.username
+        return fullname
 
 class RutinaSerializer(serializers.ModelSerializer):
     frec_titulo = serializers.ReadOnlyField(source='frecuencia.nombre')

@@ -29,6 +29,7 @@
     "moment": "~2.10.2",
     "circliful": "~0.1.5",
     "kc_fab": "*",
-    "highcharts": "~4.1.5"
+    "highcharts": "~4.1.5",
+    "jquery-knob": "~1.2.11"
   }
 }

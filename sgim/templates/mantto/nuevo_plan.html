@@ -22,7 +22,7 @@ Nuevo Plan de Mannto.
 
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxdatetimeinput.js"></script>
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcalendar.js"></script>
-  
+         <script type="text/javascript" src="{{BOWER_URL}}moment/min/moment.min.js"></script> 
 
 {% endblock include_statics %}
 {% block contenido %}
@@ -68,7 +68,7 @@ Nuevo Plan de Mannto.
                                 </div>
                             </div>
                               <div class="form-group">
-                              	<label class="col-lg-3 control-label">Fecha Inicio</label>
+                              	<label class="col-lg-3 control-label">Periodo</label>
                                 <div class="col-lg-9 input-group">
                                     <span class="input-group-addon">
                                         <i class="ion-android-calendar icon"></i>
@@ -155,7 +155,7 @@ $(document).ready(function() {
                 { name: 'id'},
                 { name: 'nombre_completo'}
             ],
-            url: '/api/catalogo/personal/?cargo=1'
+            url: '/api/cuentas/usuarios/?funcion=1'
         };
         var personalAdapter = new $.jqx.dataAdapter(personalSource);
 
@@ -198,8 +198,8 @@ $(document).ready(function() {
 
 
     $("#fecha_inicio").jqxDateTimeInput({
-        theme:'metro', formatString: "dd/MM/yyyy hh:mm",
-        min: new Date(), firstDayOfWeek: 1
+        theme:'metro', formatString: "dd/MM/yyyy HH:mm", width:'90%',
+        min: new Date(), firstDayOfWeek: 1, selectionMode: 'range'
     });
     
     
@@ -228,7 +228,14 @@ $(document).ready(function() {
             data: {                
                 rutina: $("#rutina").val(),
                 responsable: $("#responsable").val(),
-                fecha_inicio_prevista: $("#fecha_inicio").val(),
+                fecha_inicio_prevista: function(){
+                  var range = $("#fecha_inicio").jqxDateTimeInput('getRange');
+                  return  moment(range.from).format("DD/MM/YYYY HH:mm");
+                },
+                fecha_fin_prevista: function(){
+                  var range = $("#fecha_inicio").jqxDateTimeInput('getRange');
+                  return moment(range.to).format("DD/MM/YYYY HH:mm");
+                },
                 'personal[]': get_selected_items()
             },
         })
