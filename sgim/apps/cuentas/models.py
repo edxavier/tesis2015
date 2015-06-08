@@ -78,7 +78,7 @@ def notificarUsuarioDeAlta(sender, instance, created, **kwargs):
                   " Usuario:" + instance.username + "-Clave:" + instance.TEMP_PASSWD + " "
         #instance.enviar_sms(mensaje)
         if instance.email:
-            msg2 =  "<strong>Usuario:</strong> " + instance.username + "<br><strong>Clave:</strong> " + instance.TEMP_PASSWD
+            msg2 = "<strong>Usuario:</strong> " + instance.username + "<br><strong>Clave:</strong> " + instance.TEMP_PASSWD
             toList = [instance.email]
             enviarEmail("Acceso a Sistema de Gestion de Incidencias y Mantenimientos", toList, msg2, 'welcome2')
 
