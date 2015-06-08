@@ -83,12 +83,12 @@ def link_callback(uri, rel):
     if uri.startswith(mUrl):
        # path = os.path.join(mRoot, uri.replace(mUrl, ""))
         path = os.path.join(mRoot, uri.replace(mUrl, ""))
-        print "######################funciooooooooooooooooooooonaaaa es algo del mierda packete MEDIA:"+path
-        print(path)
+        #print "######################funciooooooooooooooooooooonaaaa es algo del mierda packete MEDIA:"+path
+        #print(path)
     elif uri.startswith(sUrl):
         path = os.path.join(sRoot, uri.replace(sUrl, ""))
-        print "######################funciooooooooooooooooooooonaaaa es algo del mierda packete STATIC :"+path
-        print(path)
+        #print "######################funciooooooooooooooooooooonaaaa es algo del mierda packete STATIC :"+path
+        #print(path)
     # make sure that file exists
     if not os.path.isfile(path):
             raise Exception(
@@ -110,7 +110,8 @@ def enviarEmail(subject, to_list, message, template_name):
 def broadcast_event(data_obj, url=""):
     try:
         data = urllib.urlencode(data_obj)
-        u2 = urllib.urlopen("http://104.236.23.248:8500"+url, data)
+        #u2 = urllib.urlopen("http://104.236.23.248:8500"+url, data)
+        u2 = urllib.urlopen("http://127.0.0.1:8500"+url, data)
         print("Result2 %s: %s" % (u2.getcode(), u2.read()))
     except Exception, e:
         print(e.message)

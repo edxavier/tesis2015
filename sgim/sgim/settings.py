@@ -11,8 +11,8 @@ DATABASES = {
         'NAME': 'sgimdb',
         'USER': 'sgimuser',
         'PASSWORD': 'stecnica',
-        #'HOST': 'localhost',
-        'HOST': '104.236.23.248',
+        'HOST': 'localhost',
+        #'HOST': '104.236.23.248',
         'PORT': '5432',
     }
 }

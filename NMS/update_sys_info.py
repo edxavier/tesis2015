@@ -28,9 +28,10 @@ if res:
                 cli.http_post("/gestion/hosts/listar/", h)
 
             print(h['direccion'])
-            sys.get_memory(cli)
-            sys.get_load(cli)
+            #sys.get_memory(cli)
+            #sys.get_load(cli)
 
         except Exception, e:
+            print(h['direccion'])
             print("Exception: > "+str(e.message))
 

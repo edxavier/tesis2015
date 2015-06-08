@@ -6,7 +6,7 @@ from apps.catalogo.views import (TipoDispoViewSet, EdificioViewSet, OficinaViewS
                                  TipoComponenteViewSet, PersonalViewSet, CargoViewSet,
                                  TipoIncidenteViewSet, EstadoManttoViewSet)
 from apps.inventario.view_sets import DispositivoViewSet, ComponenteViewSet, ServicioViewSet
-from apps.mantenimiento.view_sets import TareaViewSet, RutinaViewSet, PlanViewSet, BoletaViewSet
+from apps.mantenimiento.view_sets import TareaViewSet, RutinaViewSet, PlanViewSet, BoletaViewSet, UsuarioViewSet
 from apps.incidencias.view_sets import IncidenciaViewSet, CambioViewSet
 from apps.gestion_red.view_sets import (HostViewSet, BootViewSet,
     GeneralEventViewSet, StorageViewSet, DevicesViewSet, ProcessViewSet,
@@ -32,6 +32,7 @@ router.register(r'mantto/tareas', TareaViewSet)
 router.register(r'mantto/rutinas', RutinaViewSet)
 router.register(r'mantto/planes', PlanViewSet)
 router.register(r'mantto/trabajos', BoletaViewSet)
+router.register(r'cuentas/usuarios', UsuarioViewSet)
 
 router.register(r'incidencias/incidentes', IncidenciaViewSet)
 router.register(r'incidencias/cambios', CambioViewSet)

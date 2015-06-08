@@ -6,9 +6,9 @@ from django.contrib.auth.models import (
 )
 from django.dispatch import receiver
 from apps.inicio.utils import enviarSMS, enviarEmail
+from apps.catalogo.models import Cargo
 
 
-# Create your models here.
 class UserManager(BaseUserManager, models.Manager):
 
     def _create_user(self, username, password, is_staff, is_superuser, **extra_fields):
@@ -40,6 +40,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
                                    help_text='Indica si el usuario puede acceder al panel de administracion')
 
     telefono = models.CharField(max_length=15, blank=True)
+    funcion = models.ForeignKey(Cargo, null=True, blank=True)
 
     objects = UserManager()
 

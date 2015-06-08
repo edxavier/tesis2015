@@ -9,6 +9,7 @@ from apps.inventario.models import Dispositivo
 from django.dispatch import receiver
 from datetime import datetime, timedelta
 from apps.catalogo.models import EstadoOperacional,FrecuenciaMantto
+from sgim.base import AUTH_USER_MODEL
 
 
 class Rutina(MarcaDeTiempo, models.Model):
@@ -48,8 +49,10 @@ class Programacion(MarcaDeTiempo, models.Model):
     fecha_fin_prevista = models.DateTimeField(blank=True, null=True, )
     inicio = models.DateTimeField(blank=True, null=True, )
     fin = models.DateTimeField(blank=True, null=True, )
-    personal = models.ManyToManyField(Personal, related_name="personal_set")
-    responsable = models.ForeignKey(Personal, related_name="personal_set2")
+    personal = models.ManyToManyField(AUTH_USER_MODEL, related_name="personal_set1")
+    responsable = models.ForeignKey(AUTH_USER_MODEL, related_name="personal_set2")
+    iniciado_por = models.ForeignKey(AUTH_USER_MODEL, related_name="personal_set3", null=True, blank=True)
+    finalizado_por = models.ForeignKey(AUTH_USER_MODEL, related_name="personal_set4", null=True, blank=True)
     estado = models.ForeignKey(EstadoMantenimiento)
 
     class Meta:

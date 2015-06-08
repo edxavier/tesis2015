@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('inventario', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('catalogo', '0002_auto_20150524_1734'),
+        ('catalogo', '0002_auto_20150607_1455'),
     ]
 
     operations = [
@@ -85,6 +85,7 @@ class Migration(migrations.Migration):
                 ('solucion', models.TextField(default=b'', help_text=b'Indique la posible solucion del incidente')),
                 ('paro_equipo', models.BooleanField(default=False)),
                 ('duracion_paro', models.IntegerField(default=0, help_text=b'Indique cuanto duro el paro en minutos')),
+                ('cerrado_por', models.ForeignKey(related_name='cerrado_por', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
                 ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
                 ('dispositivo', models.ForeignKey(to='inventario.Dispositivo')),
                 ('estado', models.ForeignKey(to='catalogo.EstadoIncidente')),

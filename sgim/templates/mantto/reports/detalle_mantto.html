@@ -44,7 +44,13 @@
 </table>
 
     <h1 style="color:#00796B;">{{mantto.dispositivo.tipo}}</h1>
-    <h3 style="color:#00796B;">{{mantto.tipo}}</h3>
+    <h3 style="color:#00796B;">
+    	{% if mantto.tipo = '1' %}
+    		Preventivo
+    	{% else %}
+			Correctivo
+    	{% endif %}
+    </h3>
 
 		<table style="width:100%;">
 		
@@ -58,7 +64,13 @@
 				</strong>
 				</td>
 				<td colspan="3" class="titulo_mtto">{{mantto.creado}}</td>
-				<td colspan="1" class="titulo_mtto">{{mantto.tipo}}</td>
+				<td colspan="1" class="titulo_mtto">    	
+					{% if mantto.tipo = '1' %}
+			    		Preventivo
+			    	{% else %}
+						Correctivo
+			    	{% endif %}
+    			</td>
 			</tr>		
 			<tr>
 			    <th class="sub_titulo_mtto" colspan="2">Paro de Equipo</th>	

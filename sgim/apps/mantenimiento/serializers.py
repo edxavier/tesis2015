@@ -1,4 +1,5 @@
 from datetime import datetime
+from apps.cuentas.models import Usuario
 
 __author__ = 'edx'
 from rest_framework import serializers
@@ -9,6 +10,10 @@ class TareaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tarea
 
+class UsuarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = ('id', 'username', 'firstname', 'lastname', 'funcion')
 
 class RutinaSerializer(serializers.ModelSerializer):
     frec_titulo = serializers.ReadOnlyField(source='frecuencia.nombre')

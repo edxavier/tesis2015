@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import DjangoModelPermissions, BasePermission
 from rest_framework.mixins import UpdateModelMixin, RetrieveModelMixin
 from apps.inicio.utils import enviarSMS, enviarEmail
+from apps.cuentas.models import Usuario
 
 __author__ = 'edx'
 
@@ -22,6 +23,13 @@ class PermsPlanMantto(BasePermission):
                 return request.user.has_perm('mantenimiento.cancelar_mantto')
             else:
                 return request.user.has_perm('mantenimiento.iniciar_finalizar_mantto')
+
+
+class UsuarioViewSet(viewsets.ModelViewSet):
+
+    queryset = Usuario.objects.filter(is_active=True)
+    serializer_class = UsuarioSerializer
+    filter_fields = ('cargo',)
 
 
 class TareaViewSet(viewsets.ModelViewSet):

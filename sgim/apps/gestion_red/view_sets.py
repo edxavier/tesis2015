@@ -31,7 +31,7 @@ class LoadFilter(django_filters.FilterSet):
 
 class HostViewSet(viewsets.ModelViewSet):
     #permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    queryset = Host.objects.all().order_by('direccion')
+    queryset = Host.objects.all().order_by('-direccion')
     serializer_class = HostSerializer
 
 class BootViewSet(viewsets.ModelViewSet):

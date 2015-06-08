@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('tipo', models.CharField(help_text=b'Tipo de evento; arranque, apagado', max_length=20)),
                 ('uptime', models.IntegerField(help_text=b'minutos', blank=True)),
-                ('fecha', models.DateTimeField(auto_now_add=True)),
+                ('fecha', models.DateTimeField(auto_now_add=True, db_index=True)),
                 ('leido', models.BooleanField(default=False)),
             ],
             options={
@@ -66,18 +66,17 @@ class Migration(migrations.Migration):
                 ('warning', models.BooleanField(default=False)),
                 ('mensaje', models.CharField(max_length=120, blank=True)),
                 ('leido', models.BooleanField(default=False)),
-                ('fecha', models.DateTimeField(auto_now_add=True)),
+                ('fecha', models.DateTimeField(auto_now_add=True, db_index=True)),
             ],
             options={
             },
             bases=(models.Model,),
         ),
-
         migrations.CreateModel(
             name='Host',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('direccion', models.IPAddressField(unique=True)),
+                ('direccion', models.IPAddressField(unique=True, db_index=True)),
                 ('nombre', models.CharField(max_length=30, blank=True)),
                 ('descripcion', models.CharField(max_length=150, blank=True)),
                 ('ubicacion', models.CharField(max_length=150, blank=True)),
@@ -97,7 +96,6 @@ class Migration(migrations.Migration):
             },
             bases=(models.Model,),
         ),
-
         migrations.CreateModel(
             name='InterfaceEvent',
             fields=[
@@ -180,6 +178,7 @@ class Migration(migrations.Migration):
                 ('description', models.CharField(max_length=50)),
                 ('size', models.IntegerField(default=0)),
                 ('used', models.IntegerField(default=0)),
+                ('percent_used', models.IntegerField(default=0)),
                 ('allocation_failures', models.IntegerField(default=0)),
                 ('host', models.ForeignKey(to='gestion_red.Host')),
             ],

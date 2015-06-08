@@ -7,7 +7,11 @@
 				<thead>
 					<tr>
 						<th colspan="">
-							{{mantto.tipo}}
+								{% if mantto.tipo = '1' %}
+						    		Preventivo
+						    	{% else %}
+									Correctivo
+						    	{% endif %}
 						</th>
 						<th colspan="2">
 							{{mantto.creado| date:"d /M /Y H:m"}}

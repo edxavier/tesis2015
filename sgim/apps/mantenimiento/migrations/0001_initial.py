@@ -47,8 +47,10 @@ class Migration(migrations.Migration):
                 ('fin', models.DateTimeField(null=True, blank=True)),
                 ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
                 ('estado', models.ForeignKey(to='catalogo.EstadoMantenimiento')),
-                ('personal', models.ManyToManyField(related_name='personal_set', to='catalogo.Personal')),
-                ('responsable', models.ForeignKey(related_name='personal_set2', to='catalogo.Personal')),
+                ('finalizado_por', models.ForeignKey(related_name='personal_set4', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('iniciado_por', models.ForeignKey(related_name='personal_set3', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('personal', models.ManyToManyField(related_name='personal_set1', to=settings.AUTH_USER_MODEL)),
+                ('responsable', models.ForeignKey(related_name='personal_set2', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'verbose_name_plural': 'Planes de Mantto.',

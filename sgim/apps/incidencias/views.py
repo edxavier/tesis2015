@@ -36,6 +36,8 @@ class NuevaIncidencia(PermissionRequiredMixin, View):
         if form.is_valid():
             incidente = form.save(commit=False)
             incidente.creador = request.user
+            if incidente.estado.id == 1:
+                incidente.cerrado_por = request.user
             incidente.activo = True
             incidente.save()
             items = request.POST.getlist('servicios[]')
@@ -120,6 +122,7 @@ class NuevaActividadIncidenteView(View):
             if request.POST['cerrar'] == "true":
                 inc = get_object_or_404(Incidencia, id=actividad.incidencia.id)
                 inc.estado = get_object_or_404(EstadoIncidente, id=1)
+                inc.cerrado_por = request.user
                 inc.save()
             return JsonResponse({'success': form.is_valid(),'errores': [(k, v[0]) for k, v in form.errors.items()]})
         else:

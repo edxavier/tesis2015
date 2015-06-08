@@ -48,6 +48,7 @@ class IncidenciaViewSet(DjangoModelPermissions, UpdateModelMixin, RetrieveModelM
         obj = self.get_object()
         obj.solucion = obj.solucion + "<p>"+request.DATA["desc"] +\
                        "<br>[<i>"+request.user.username+"-"+time.strftime("%d/%m/%Y")+"</i>]</p>"
+        obj.cerrado_por = request.user
         serializer = IncidenciaSerializer(obj, data=request.DATA, partial=True)
         if serializer.is_valid():
             serializer.save()

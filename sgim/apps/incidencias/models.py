@@ -4,6 +4,7 @@ from django.db import models
 from apps.inicio.models import MarcaDeTiempo
 from apps.catalogo.models import Personal, TipoIncidente, EstadoIncidente, EstadoCambio, SeveridadUrgencia, MedioNotificaion
 from apps.inventario.models import Dispositivo, Servicio
+from sgim.base import AUTH_USER_MODEL
 
 
 class Actividad(models.Model):
@@ -31,6 +32,7 @@ class Incidencia(MarcaDeTiempo, models.Model):
     relacion = models.ForeignKey('self', blank=True, null=True,
                                  help_text="Indica la relacion con la incidencia mas reciente que exista")
     estado = models.ForeignKey(EstadoIncidente)
+    cerrado_por = models.ForeignKey(AUTH_USER_MODEL, related_name='cerrado_por', null=True, blank=True)
     paro_equipo = models.BooleanField(default=False)
     duracion_paro = models.IntegerField(help_text="Indique cuanto duro el paro en minutos", default=0)
 

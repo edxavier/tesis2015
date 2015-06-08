@@ -9,6 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('auth', '0001_initial'),
+        ('catalogo', '0001_initial'),
     ]
 
     operations = [
@@ -27,6 +28,7 @@ class Migration(migrations.Migration):
                 ('is_active', models.BooleanField(default=True, verbose_name=b'Esta Activo')),
                 ('is_staff', models.BooleanField(default=False, help_text=b'Indica si el usuario puede acceder al panel de administracion', verbose_name=b'Es Administrador')),
                 ('telefono', models.CharField(max_length=15, blank=True)),
+                ('funcion', models.ForeignKey(blank=True, to='catalogo.Cargo', null=True)),
                 ('groups', models.ManyToManyField(related_query_name='user', related_name='user_set', to='auth.Group', blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of his/her group.', verbose_name='groups')),
                 ('user_permissions', models.ManyToManyField(related_query_name='user', related_name='user_set', to='auth.Permission', blank=True, help_text='Specific permissions for this user.', verbose_name='user permissions')),
             ],
