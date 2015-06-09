@@ -72,7 +72,7 @@ Ctrl. de Cambios
     </div>
     <div class="content">
         <div class="description">
-          <h5>Selecciona desde cuando y hasta cuando buscar incidentes</h5>
+          <h5>Selecciona desde cuando y hasta cuando buscar cambios</h5>
             
             <div id='filtroFecha'>
             </div>
@@ -91,7 +91,11 @@ Ctrl. de Cambios
     </div>
 </div>
 
-
+<div class="ui dimmer cargando">
+    <div class="ui large text loader">
+      Espere por favor...
+    </div>
+</div>
 {% endblock contenido %}
 
 {% block scripts %}
@@ -115,9 +119,6 @@ $(document).ready(function() {
                 $("#filtroFecha").jqxDateTimeInput('setRange', date1, date2);
 
 
-
-
-
     /*Inicializar Combos obteniendo los datos del api rest de catalogos*/
     function get_datos(parametros){
         if(!parametros)
@@ -135,6 +136,7 @@ $(document).ready(function() {
                     { name: 'nombre_resp', type: 'string' },
                     { name: 'reporta', type: 'string' },                  
                     { name: 'estado',},
+                    { name: 'estado_titulo',},
                     { name: 'inicio_previsto',},
 
                    
@@ -188,7 +190,7 @@ $(document).ready(function() {
                   { text: 'Solicita', datafield: 'nombre_solic', width:'130px'},
                   { text: 'Resposnable', datafield: 'nombre_resp', width:'120px'},
                   { text: 'Proposito', datafield: 'proposito' , },                  
-                  { text: 'Estado', datafield: 'estado', width:'120px'},
+                  { text: 'Estado', datafield: 'estado_titulo', width:'120px'},
                   { text: 'Inicio Previsto', datafield: 'inicio_previsto', cellsformat:'dd-MMM-yy' , filtertype:'date' , width:'110px'},
                   { text: 'Usuario', datafield: 'creador', width:'60px'},
                   { text: 'Fecha', datafield: 'creado', cellsformat:'dd-MMM-yy' , filtertype:'date' , width:'110px'},
@@ -198,19 +200,23 @@ $(document).ready(function() {
               rendertoolbar: function (statusbar) {
                     // appends buttons to the status bar.
                     var container = $("<div style='margin:5px;'></div>");
-                    var viewButton = $("<div class='ui  tiny blue button'> Ver detalles</div>");
+                    var viewButton = $("<div class='ui  tiny blue button'>Detalles</div>");
+                    var viewPdfButton = $("<div class='ui  tiny blue button'>Detalles PDF</div>");
                     var filterButton = $("<div class='ui  tiny purple button'>Filtrar Fechas</div>");
-                    var reloadbtn = $("<div class='tiny green ui icon button'><i class='icon refresh'></i></div>");
-                    var cerrarBtn = $("<div class='tiny orange ui icon button'><i class='icon ion-flash-off'></i>Cerrar Incidente</div>");
+                    var reloadbtn = $("<div class='tiny green ui icon button reload'><i class='icon refresh'></i></div>");
+                    var initButton = $("<div class='ui tiny green disabled button iniciar'>Iniciar Cambio(s)</div>");
+                    var finishButton = $("<div class='ui tiny orange disabled button terminar'>Finalizar Cambio(s)</div>");
 
                     container.append(reloadbtn);
                     container.append(viewButton);
+                    container.append(viewPdfButton);
                     container.append(filterButton);
-                    container.append(cerrarBtn);
+                    container.append(initButton);
+                    container.append(finishButton);
                     statusbar.append(container);
 
 
-                     $(".ui.green.button").jqxTooltip({
+                     $(".ui.green.button.reload").jqxTooltip({
                        content: 'Recargar datos', 
                        position: 'top-right',
                       });
@@ -234,12 +240,71 @@ $(document).ready(function() {
                     reloadbtn.click(function (event) {
                       $("#jqxgrid").jqxGrid({source: get_datos(),})
                     });
-                    cerrarBtn.click(function (event) {
-                      confirm("Seguro??")
+                    initButton.click(function (event) {
+                      var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+                      var row_id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
+                      $('.cargando').toggleClass('active');                      
+                      $.ajax({
+                          url: '/api/incidencias/cambios/'+row_id,
+                          type: 'PUT',
+                          dataType: 'json',
+                          data: { 
+                            estado:2,
+                          },
+                        })
+                        .done(function(data) {
+                          $('.cargando').toggleClass('active');
+                          $('.terminar').removeClass('disabled')
+                          $('.iniciar').addClass('disabled');
+                          $('#jqxgrid').jqxGrid('updaterow', row_id, data);
+                          $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> El perdiodo para el Cambio seleccionado fue iniciado!"});
+                          console.log(data)
+                        })
+                        .fail(function(err) {
+                          if(err.status=== 403){
+                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Aviso: "+ err.responseJSON.detail ,timeout: 8000});
+                          }else{
+                            $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ err.status + ": "+err.statusText});
+                          }
+                          console.log(err)
+                          $('.cargando').toggleClass('active');
+                        })
+                    });
+                    finishButton.click(function (event) {
+                      var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+                      var row_id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
+                      $('.cargando').addClass('active');
+                      $.ajax({
+                          url: '/api/incidencias/cambios/'+row_id,
+                          type: 'PUT',
+                          dataType: 'json',
+                          data: { 
+                            estado:3,
+                          },
+                      })
+                      .done(function(data) {
+                                      $('.cargando').removeClass('active');
+                                      $('.terminar').addClass('disabled')
+                                      $('.iniciar').addClass('disabled');
+                                      $('#jqxgrid').jqxGrid('updaterow', row_id, data);
+                                      $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> El periodo para el Cambio. seleccionado fue finalizado!"});
+                      })
+                      .fail(function(err) {
+                                      if(err.status=== 403){
+                                        $.snackbar({content: "<i class='lock red icon'></i> Aviso: "+ err.responseJSON.detail ,timeout: 6000});
+                                      }else if(err.status=== 400){
+                                          $.snackbar({content: "<i class='ion-android-warning yellow icon'></i> Error: "+ err.responseJSON.non_field_errors[0] ,timeout: 8000});
+                                      }else{
+                                        $.snackbar({content: "<i class='ion-android-warning red icon'></i> Error "+ err.status + ": "+err.statusText});
+                                      }
+                                      $('.cargando').removeClass('active');
+                                      console.log(err)
+                      })                 
                     });
 
                 },
             });
+
 
   $('#jqxgrid').on('rowselect', function (event) 
   {
@@ -247,11 +312,17 @@ $(document).ready(function() {
       var args = event.args;
       var rowBoundIndex = args.rowindex;
       var rowData = args.row;
-      $("#boleta").html(rowData.id)
-      $("#cabecera").html(rowData.dispositivo)
-      $("#descripcion").html(rowData.descripcion)
-
-      //console.log(rowData)
+      if(rowData.estado===2){
+        $('.iniciar').addClass('disabled')
+        $('.terminar').removeClass('disabled')
+      }
+      else if(rowData.estado===3 || rowData.estado===4){
+        $('.iniciar, .terminar').addClass('disabled')
+      }
+      else{
+        $('.iniciar').removeClass('disabled')
+        $('.terminar').addClass('disabled')
+      }
   });
  
 });

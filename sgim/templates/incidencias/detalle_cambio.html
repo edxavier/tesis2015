@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+	Detalles de cambio
+{% endblock titulo %}
+
+{% block contenido %}
+	<br>
+
+	<div class="container-fluid">
+		<div class="row"> 	    	
+	   	<div class="col-md-10 col-md-offset-1">				
+					<div class="ui comments" style="width:100%">
+						<div class="comment">
+							<a class="avatar">
+								<img src="{{MEDIA_URL}}{{cambio.creador.imagen}}">								 
+							</a>
+							<div class="content">
+								<a class="author">{{cambio.titulo}}</a>
+								<div class="metadata">
+									<span class="date">porgramado para el {{cambio.inicio_previsto}}</span>
+								</div>
+								<div class="text">
+									<small>
+										Creado por: 
+										{% if  cambio.creador.get_full_name %}
+											{{cambio.creador.get_full_name}}
+										{% else %}	
+											{{cambio.creador}}
+										{% endif %}
+									</small>
+									<div class="container-fluid">
+										<div class="row">
+											<div class="col-md-12">
+												<p>
+												 	<h6 class="ui header">Proposito</h6>
+													{% autoescape off %}{{cambio.proposito}}	{% endautoescape %}
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="actions">
+								</div>
+							</div>
+							<div class="comments">	
+								<h6>
+									<i class="ion-ios-paw icon"></i>
+									Seguimiento
+								</h6>
+								{% for activ in cambio.actividadcambio_set.all %}
+									<div class="comment" >
+										<a class="avatar">
+												<img src="{{MEDIA_URL}}{{activ.creador.imagen}}">
+										</a>
+										<div class="content">
+												<a class="author">{{activ.creador}}</a>
+												<div class="metadata">
+													<span class="date">{{activ.creado}}</span>
+												</div>
+												<div class="text">
+													{% autoescape off %}
+													<p>{{activ.descripcion}}</p>
+												{% endautoescape %}
+												</div>
+												<div class="actions">
+													<a class="reply"></a>
+												</div>
+										</div>
+									</div>
+								{%empty %}
+									No se registro seguimiento para este cambio
+								{% endfor %}
+							</div>
+			</div>
+		</div>
+	</div>
+{% endblock contenido %}

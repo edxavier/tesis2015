@@ -104,8 +104,6 @@ class DiskHistView(View):
         #return HttpResponse("fgdgdfgdf")
 
 
-
-
 class BootEventView(View):
 
     @csrf_exempt
@@ -140,7 +138,6 @@ class InterfaceEventView(View):
     @csrf_exempt
     def dispatch(self, *args, **kwargs):
         return super(InterfaceEventView, self).dispatch(*args, **kwargs)
-
 
     def post(self, request, *args, **kwargs):
         res = Host.objects.filter(direccion=request.POST['direccion'])
@@ -189,24 +186,27 @@ class GeneralEventView(View):
             event.host = host
             event.save()
             if event.tabla == "process table":
+                event.tabla = "Process"
                 if host.alarma_procesos != event.warning:
                     host.alarma_procesos = event.warning
                     host.save()
                     serialHost = HostSerializer(instance=host,  partial=True)
                     broadcast_event(serialHost.data, "/host_update/")
             elif event.tabla == "laTable":
+                event.tabla = "Load Avg"
                 if host.alarma_procesador != event.warning:
                     host.alarma_procesador = event.warning
                     host.save()
                     serialHost = HostSerializer(instance=host,  partial=True)
                     broadcast_event(serialHost.data, "/host_update/")
             elif event.tabla == "dskTable":
+                event.tabla = "Disk"
                 if host.alarma_discos != event.warning:
                     host.alarma_discos = event.warning
                     host.save()
                     serialHost = HostSerializer(instance=host,  partial=True)
                     broadcast_event(serialHost.data, "/host_update/")
-
+            event.save()
             serial = GeneralEventSerializer(instance=event)
             broadcast_event(serial.data, "/general_event/")
             return HttpResponse("success")

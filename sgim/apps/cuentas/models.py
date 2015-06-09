@@ -57,8 +57,17 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.username
 
+    def is_admin(self):
+        return self.is_staff
+
+    def is_super_user(self):
+        return self.is_superuser
+
     def get_full_name(self):
-        return self.firstname + ' ' + self.lastname
+        if self.firstname:
+            return self.firstname + ' ' + self.lastname
+        else:
+            return None
 
     def enviar_sms(self, mensaje):
         if self.telefono:

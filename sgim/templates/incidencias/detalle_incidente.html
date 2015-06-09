@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+	Detalles de cambio
+{% endblock titulo %}
+
+{% block contenido %}
+	<br>
+
+<div class="container-fluid">
+	<div class="row"> 	    	
+	   	<div class="col-md-10 col-md-offset-1">
+	   		<div class="panel panel-default">
+            	<div class="panel-body"> 
+					
+					<h4>Detalle de incidente N&deg; {{incidente.id}}</h4>
+					<div class="ui comments" style="width:100%">
+						<div class="comment">
+							<a class="avatar">
+								<img src="{{MEDIA_URL}}{{incidente.creador.imagen}}">
+							</a>
+							<div class="content">
+								<a class="author">{{incidente.creador}}</a>
+								<div class="metadata">
+									<span class="date">{{incidente.creado}}</span>
+								</div>
+								<div class="text">
+									<div class="container-fluid">
+										<div class="row">
+											<div class="col-md-6">
+												<p>
+													{% autoescape off %}
+														<h6 class="ui header">Problema</h6>
+														{{incidente.problema}}
+													{% endautoescape %}
+												</p>
+											</div>
+											<div class="col-md-6">
+												<p>
+													<h6 class="ui header">Causa</h6>
+													{% autoescape off %}{{incidente.causa}}	{% endautoescape %}
+												</p>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<p>
+													<h6 class="ui header">Solucion</h6>
+												{% autoescape off %}{{incidente.solucion}}	{% endautoescape %}
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="comments">				
+								<h6>
+									<i class="ion-ios-paw icon"></i>
+									Seguimiento
+								</h6>
+								{% for seg in incidente.actividadincidencia_set.all %}
+									<div class="comment" >
+										<a class="avatar">
+											<img src="{{MEDIA_URL}}{{seg.creador.imagen}}">
+										</a>
+										<div class="content">
+											<a class="author">{{seg.creador}}</a>
+											<div class="metadata">
+													<span class="date">{{seg.creado}}</span>
+											</div>
+											<div class="text">
+												{% autoescape off %}
+													<p>{{seg.descripcion}}</p>
+												{% endautoescape %}
+											</div>
+											<div class="actions">
+												<a class="reply"></a>
+											</div>
+										</div>
+									</div>	
+								{% empty %}
+									<h5>No hay seguimiento</h5>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+</div>
+{% endblock contenido %}

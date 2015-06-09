@@ -58,8 +58,27 @@ class IncidenciaViewSet(DjangoModelPermissions, UpdateModelMixin, RetrieveModelM
         pass
 
 
-class CambioViewSet(viewsets.ModelViewSet):
+class CambioViewSet(DjangoModelPermissions, UpdateModelMixin, RetrieveModelMixin, viewsets.GenericViewSet):
 
     queryset = Cambio.objects.filter(activo=True)
     serializer_class = CambioSerializer
+    filter_fields = ('estado_id',)
 
+    def list(self, request, *args, **kwargs):
+        #filtrar queryset con los campos especificados en filter_fields
+        cambios = self.filter_queryset(Cambio.objects.filter(activo=True).order_by('-creado'))
+        serializer = CambioSerializer(cambios, many=True)
+        return Response(serializer.data)
+
+    def update(self, request, *args, **kwargs):
+        """Obtener el bjeto por el id en la url con el metodo get_object o enviar
+         el id en los datos con reques.DATA"""
+        obj = self.get_object()
+        print(obj.estado)
+        print(request.DATA)
+        serializer = CambioSerializer(obj, data=request.DATA, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

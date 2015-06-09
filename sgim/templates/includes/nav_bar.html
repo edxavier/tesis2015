@@ -47,15 +47,15 @@
                 <li class="dropdown" >
                     <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">
                         Gestion Red <b class="caret"></b>
-                        <span class="gestion_menu ui red circular label">0</span>
+                        <span class="gestion_menu ui red circular label">{{total_count}}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="{% url 'hosts_list' %}">Hosts</a></li>
                         <li>
-                            <a href="{% url 'boot_list' %}">Eventos de Arranque  <span class="ui red circular label gestion_boot">0</span>
+                            <a href="{% url 'boot_list' %}">Eventos de Arranque  <span class="ui red circular label gestion_boot">{{boot_count}}</span>
                             </a>
                         </li>
-                        <li><a href="{% url 'general_list' %}">Eventos Generales <span class="ui purple circular label gestion_general">0</span></a></li>
+                        <li><a href="{% url 'general_list' %}">Eventos Generales <span class="ui purple circular label gestion_general">{{general_count}}</span></a></li>
                     </ul>
                 </li>
                  

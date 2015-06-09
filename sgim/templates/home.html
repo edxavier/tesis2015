@@ -107,23 +107,29 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class='center-block' style='width:190px;text-align:center'>
+                    <div class="col-md-3">
+                        <div class='center-block' style='width:100%;text-align:center'>
                             <h6>Tasa de resolucion de Incidentes</h6>
                         </div>
                         <div class='center-block' id="myStat" data-dimension="190" data-text="{{tasa_resolucion}}%" data-info="Resolucion" data-width="15" data-fontsize="15" data-percent="{{tasa_resolucion}}" data-fgcolor="#F44336" data-bgcolor="#eee" data-fill="#ddd" data-total="100" data-part="35" data-icon="long-arrow-up" data-icon-size="28" data-icon-color="#fff"></div>
                     </div>
-                    <div class="col-md-4">
-                        <div class='center-block' style='width:300px;text-align:center'>
+                    <div class="col-md-3">
+                        <div class='center-block' style='width:100%;text-align:center'>
                             <h6>Tasa de cumplimiento de Mantenimientos.</h6>
                         </div>
                         <div class='center-block' id="myStat2" data-dimension="190" data-text="{{tasa_cumplimiento}}%" data-info="Cumplimiento" data-width="15" data-fontsize="15" data-percent="{{tasa_cumplimiento}}" data-fgcolor="#4CAF50" data-bgcolor="#eee" data-fill="#ddd" data-total="100" data-part="35" data-icon="long-arrow-up" data-icon-size="28" data-icon-color="#fff"></div>
                     </div>
-                    <div class="col-md-4">
-                        <div class='center-block' style='width:300px;text-align:center'>
+                    <div class="col-md-3">
+                        <div class='center-block' style='width:100%;text-align:center'>
                             <h6>Tasa de Mantenimientos en progreso.</h6>
                         </div>
                         <div class='center-block' id="myStat2" data-dimension="190" data-text="{{tasa_progreso}}%" data-info="En progreso" data-width="15" data-fontsize="15" data-percent="{{tasa_progreso}}" data-fgcolor="#2196F3" data-bgcolor="#eee" data-fill="#ddd" data-total="100" data-part="35" data-icon="long-arrow-up" data-icon-size="28" data-icon-color="#fff"></div>
+                    </div>                    
+                    <div class="col-md-3">
+                        <div class='center-block' style='width:100%;text-align:center'>
+                            <h6>Tasa de Mantenimientos pendientes.</h6>
+                        </div>
+                        <div class='center-block' id="myStat2" data-dimension="190" data-text="{{tasa_pendiente}}%" data-info="Pendiente" data-width="15" data-fontsize="15" data-percent="{{tasa_pendiente}}" data-fgcolor="#795548" data-bgcolor="#eee" data-fill="#ddd" data-total="100" data-part="35" data-icon="long-arrow-up" data-icon-size="28" data-icon-color="#fff"></div>
                     </div>
                 </div>
                 
@@ -151,7 +157,7 @@
                                                     ({{inc.creador}}) {{inc.creador.firstname}} {{inc.creador.lastname}}
                                                 </span>
                                                 <div class="description" >                              
-                                                            <a href="/incidencias/incidentes/reporte/detalle/{{inc.id}}" style='text-decoration:none'>
+                                                            <a href="/incidencias/incidente/detalle/{{inc.id}}" style='text-decoration:none'>
                                                             {{inc.dispositivo}} - {{inc.tipo}} 
                                                             </a> 
                                                             <br> <small> el {{inc.creado}}</small>  
@@ -280,18 +286,18 @@
                             </div> 
                             <div class="panel-body">
                                 <div class="ui  list" >
-                                    {% for inc in incidentes %}
+                                    {% for cambio in cambios %}
                                         <div class="item" >
-                                            <img class="ui avatar image" src="{{MEDIA_URL}}{{inc.creador.imagen}}">
+                                            <img class="ui avatar image" src="{{MEDIA_URL}}{{cambio.creador.imagen}}">
                                             <div class="content" >
                                                 <span class="header">
-                                                    ({{inc.creador}}) {{inc.creador.firstname}} {{inc.creador.lastname}}
+                                                    <a href="/incidencias/cambios/detalle/{{cambio.id}}" style='text-decoration:none'>
+                                                        {{cambio.titulo}}
+                                                    </a> 
                                                 </span>
-                                                <div class="description" >                              
-                                                            <a href="/incidencias/incidentes/reporte/detalle/{{inc.id}}" style='text-decoration:none'>
-                                                            {{inc.dispositivo}} - {{inc.tipo}} 
-                                                            </a> 
-                                                            <br> <small> el {{inc.creado}}</small>  
+                                                <div class="description" > 
+                                                    Solicidado por: {{cambio.solicitante}}
+                                                    <br> <small> programado para el {{cambio.creado}}</small>  
                                                 </div>
                                             </div>
                                         </div>  
@@ -302,7 +308,7 @@
                                             </div>
                                             <div class="col-md-11">
                                                 <h5>
-                                                    No hay cambios lelvandose a cabo
+                                                    No hay cambios en progreso
                                                 </h5>
                                             </div>
                                         </div>
@@ -313,6 +319,49 @@
                    </div>
             </div>
 
+                <div class="row">
+                   <div class="col-md-12">
+                       <div class="panel panel-danger">
+                            <div class="panel-heading" style='background-color:#3F51B5'>
+                                <div class="row" style='color:white'>                                   
+                                    <i class="icon ion-ios-bell" style='font-size:20px;margin-top:1px'></i>
+                                    Cambios pendientes de iniciar    
+                                </div>
+                            </div> 
+                            <div class="panel-body">
+                                <div class="ui  list" >
+                                    {% for cambio in cambios_pend %}
+                                        <div class="item" >
+                                            <img class="ui avatar image" src="{{MEDIA_URL}}{{cambio.creador.imagen}}">
+                                            <div class="content" >
+                                                <span class="header">
+                                                    <a href="/incidencias/cambios/detalle/{{cambio.id}}" style='text-decoration:none'>
+                                                        {{cambio.titulo}}
+                                                    </a> 
+                                                </span>
+                                                <div class="description" > 
+                                                    Solicidado por: {{cambio.solicitante}}
+                                                    <br> <small> programado para el {{cambio.creado}}</small>  
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    {% empty %}       
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                              <h3 style='color:#2196F3'><i class='icon ion-wand'></i></h3>  
+                                            </div>
+                                            <div class="col-md-11">
+                                                <h5>
+                                                    No hay cambios pendientes de iniciar
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>                      
+                        </div>
+                   </div>
+            </div>
 
 
             </div>

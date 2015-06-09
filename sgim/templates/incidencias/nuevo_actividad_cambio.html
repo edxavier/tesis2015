@@ -85,6 +85,7 @@
                                 </div>
                             </div>
 
+                        <!-- 
                              <div class="form-group">
                                 <label class="col-lg-3 control-label">
                                 	{{form.paro_operacion.label}}
@@ -109,6 +110,7 @@
                                     <div id='tiempo' class="form-control"></div>
                                 </div>
                             </div>
+                        -->
 
                             <div class="form-group">
                             	<label class="col-lg-3 control-label"> {{form.inicio_actividad.label}}</label>
@@ -190,14 +192,14 @@ $(document).ready(function() {
                 tools:"bold italic underline  color background | left center right | outdent indent | ul ol | image | link | clean | html"
             });
 
-  	$("#tiempo").jqxNumberInput({ 
+  /*	$("#tiempo").jqxNumberInput({ 
   		spinButtons: true, min: 0,
   		theme:'metro',inputMode: 'simple',
   		 decimalDigits: 0, disabled: true 
   		 });
 
   	$("#id_paro_equipo").change(function(event) {
-  		/* Act on the event */
+  		/* Act on the event 
   		if($(this).is(":checked")) {
   			$("#tiempo").jqxNumberInput({disabled: false,min: 1 });
   			$('#tiempo').jqxNumberInput('val', 1);
@@ -206,6 +208,7 @@ $(document).ready(function() {
   			$('#tiempo').jqxNumberInput('clear');
   		}
   	});
+    */
   	var cambioSource =
         {
             dataType: "json",
@@ -213,7 +216,7 @@ $(document).ready(function() {
                 { name: 'id'},
                 { name: 'titulo'}
             ],
-            url: '/api/incidencias/cambios/'
+            url: '/api/incidencias/cambios/?estado_id=2'
         };
         var cambioAdapter = new $.jqx.dataAdapter(cambioSource);
 
@@ -263,7 +266,7 @@ function get_selected_items(id){
                 cambio: $("#id_cambio").val(),
                 descripcion: $("#id_descripcion").val(),
                 paro_equipo: $("#id_paro_equipo").is(':checked'),
-                duracion_paro: $("#tiempo").val(),
+                duracion_paro: 0,
                 inicio_actividad:$("#inicio").val(),
                 fin_actividad: $("#fin").val(),
 
@@ -272,7 +275,7 @@ function get_selected_items(id){
         .done(function(data) {
             
             if(data.success){
-                $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> El cambio fue alamcenado con exito!"});
+                $.snackbar({content: "<i class='ion-android-checkmark-circle green icon'></i> La actividad fue alamcenada con exito!"});
                 document.getElementById("form").reset();
                 $(".form-control").jqxComboBox('clearSelection');
                 $(".progress").toggleClass( "hidden" );

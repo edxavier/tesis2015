@@ -9,7 +9,7 @@ from braces.views import PermissionRequiredMixin
 from .forms import IncidenciaForm, CambioForm, ActividadCambioForm, ActivIncidenciaForm
 from apps.inventario.models import Servicio, Dispositivo
 from apps.catalogo.models import EstadoIncidente
-from .models import Incidencia
+from .models import Incidencia, Cambio
 
 class Incidencias(View):
     def get(self, request, *args, **kwargs):
@@ -21,6 +21,17 @@ class CambiosView(View):
         return render_to_response('incidencias/cambios.html',
             locals(), context_instance=RequestContext(request))
 
+class CambiosDetalleView(View):
+    def get(self, request,id_camb,  *args, **kwargs):
+        cambio = get_object_or_404(Cambio, id=id_camb)
+        return render_to_response('incidencias/detalle_cambio.html',
+            locals(), context_instance=RequestContext(request))
+
+class IncidenciaDetalleView(View):
+    def get(self, request,id_camb,  *args, **kwargs):
+        incidente = get_object_or_404(Incidencia, id=id_camb)
+        return render_to_response('incidencias/detalle_incidente.html',
+            locals(), context_instance=RequestContext(request))
 
 class NuevaIncidencia(PermissionRequiredMixin, View):
 
