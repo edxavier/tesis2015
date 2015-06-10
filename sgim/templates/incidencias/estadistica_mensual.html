@@ -1,0 +1,372 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Estadisticas mensuales 
+{% endblock titulo %}
+
+
+{% block include_statics %}
+
+<script type="text/javascript" src="{{BOWER_URL}}highcharts/highcharts.js"></script>
+<script type="text/javascript" src="{{BOWER_URL}}highcharts/highcharts-3d.js"></script>
+<script type="text/javascript" src="{{BOWER_URL}}highcharts/modules/no-data-to-display.js"></script>
+{% endblock include_statics %}
+
+{% block contenido %}
+
+<div class="ui purple menu">
+	<a class="item" href="/">
+		<i class="home icon"></i> Inicio
+	</a>
+    <a class="active item" href="{% url 'mensual_stats' %}">
+    	<i class="ion-stats-bars icon"></i> Estadisticas Mensuales
+    </a>
+    <a class=" item" href="{% url 'anual_stats' %}">
+        <i class="ion-stats-bars icon"></i> Estadisticas Anuales
+    </a>
+</div>
+
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12 " >
+  	<div class="panel panel-default">
+        <div class="panel-body"> 
+        	<div class="row">
+        		<div class="col-md-12">
+        			<div class='center-block' style='width:50%;text-align:center'>
+        				<h2 class="ui header blue">
+						  <i class="ion-stats-bars icon"></i>
+						  <div class="content">
+						    Estadisticas para incidentes resgistrados en el mes de {{today|date:"F Y"}}
+						  </div>
+						</h2>
+        			</div>
+        		</div>
+        	</div>
+        	<br>
+        	<div class="row">
+				<div class="col-md-4" >
+					<div id="container" style="min-width: 310px; max-width: 600px; margin: 0 auto"></div>
+				</div>
+				<div class="col-md-4" >
+					<div id="container2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+				</div>
+				<div class="col-md-4">
+        			<div id="container3" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        		</div>
+			</div>
+			<div class="row">
+        		<div class="col-md-6">
+        			<div id="container4" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        		</div>
+        		<div class="col-md-6">
+        			<div id="container5" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        		</div>
+        	</div>
+        </div>
+        <!--End Panel Body-->
+	</div>
+</div>
+</div>
+<!--End row-->
+</div>
+
+
+{% endblock contenido %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+	Highcharts.setOptions({
+            global: {
+                useUTC: false
+            },
+            lang: {
+                months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                shortMonths: [ "Ene" , "Feb" , "Mar" , "Abr" , "May" , "Jun" , "Jul" , "Ago" , "Sep" , "Oct" , "Nov" , "Dic"],
+                //weekdays: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+                downloadJPEG: "Descargar como JPG",
+                printChart:"Imprimir Grafico",
+                weekdays: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
+                resetZoom:"Resetear zoom",
+                noData: "No hay datos que mostrar",
+                loading: "Cargando..."
+            }
+        });
+
+
+	$.ajax({
+		url: '/incidencias/estadistica/mensual/json/',
+		
+	})
+	.done(function(data) {
+		console.log(data.devices);
+		devs = []
+		for(i=0;i<data.devices.length;i++){
+			devs.push([data.devices[i].campo1, data.devices[i].total])
+		}
+		tipos = []
+		for(i=0;i<data.tipos.length;i++){
+			tipos.push([data.tipos[i].campo1, data.tipos[i].total])
+		}
+		pers = []
+		for(i=0;i<data.personas.length;i++){
+			pers.push([data.personas[i].campo1, data.personas[i].total])
+		}
+	    // Build the chart
+		var chart = $('#container').highcharts()
+		chart.addSeries({
+            name: 'Incidencias',
+            data: devs
+        });
+        var chart2 = $('#container2').highcharts()
+		chart2.addSeries({
+            name: 'Incidencias',
+            data: tipos
+        });
+         var chart3 = $('#container3').highcharts()
+		chart3.addSeries({
+            name: 'Incidencias',
+            data: pers
+        });
+      
+	})
+	.fail(function() {
+		console.log("error");
+	})
+
+	  $('#container').highcharts({
+	        chart: {
+	            type: 'pie',
+	            options3d: {
+	                enabled: true,
+	                alpha: 45,
+	                beta: 0
+	            }
+	        },
+	      	legend: {
+				  borderWidth: 1,
+		            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+		            shadow: true
+			},
+	        title: {
+	            text: 'Incidencias por Dispositivo'
+	        },
+	        tooltip: {
+	            pointFormat: '{series.name}: <b>{point.y}  ({point.percentage:.1f}%)</b> '
+	        },
+	        plotOptions: {
+	            pie: {
+	                allowPointSelect: true,
+	                cursor: 'pointer',
+	                depth: 35,
+	                  dataLabels: {
+	                    enabled: false,
+	                    format: '{point.name}'
+	                },
+	                showInLegend: true
+	            }
+	        },
+	        series: []
+	    });
+
+	    // Build the chart
+	  $('#container2').highcharts({
+	        chart: {
+	            type: 'pie',
+	            options3d: {
+	                enabled: true,
+	                alpha: 45,
+	                beta: 0
+	            }
+	        },	    
+	        title: {
+	            text: 'Incidencias por tipo de incidente'
+	        },
+	        tooltip: {
+	            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+	        },
+	        legend: {	          
+		            borderWidth: 1,
+		            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+		            shadow: true
+				},
+	        plotOptions: {
+	            pie: {
+	                allowPointSelect: true,
+	                cursor: 'pointer',
+	                depth: 35,
+	                dataLabels: {
+	                    enabled: false,
+	                    format: '{point.name}'
+	                },
+	                showInLegend: true
+	            }
+	        },
+	        series: []
+	    });
+
+	  $('#container3').highcharts({
+	        chart: {
+	            type: 'pie',
+	            options3d: {
+	                enabled: true,
+	                alpha: 45,
+	                beta: 0
+	            }
+	        },
+	        legend: {
+				  borderWidth: 1,
+		            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+		            shadow: true
+			},
+	        title: {
+	            text: 'Incidencias por persona que reporta'
+	        },
+	        tooltip: {
+	            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+	        },
+	        plotOptions: {
+	            pie: {
+	                allowPointSelect: true,
+	                cursor: 'pointer',
+	                depth: 35,
+	                dataLabels: {
+	                    enabled: false,
+	                    format: '{point.name}'
+	                },
+	                 showInLegend: true
+	            }
+	        },
+	        series: []
+	    });
+
+		$('#container4').highcharts({
+	        chart: {
+	            type: 'bar'
+	        },
+	        title: {
+	            text: 'Incidencias por usuario'
+	        },
+	        subtitle: {
+	            text: 'Source: Wikipedia.org'
+	        },
+	        xAxis: {
+	            categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+	            title: {
+	                text: null
+	            }
+	        },
+	        yAxis: {
+	            min: 0,
+	            title: {
+	                text: 'Population (millions)',
+	                align: 'high'
+	            },
+	            labels: {
+	                overflow: 'justify'
+	            }
+	        },
+	        tooltip: {
+	            valueSuffix: ' millions'
+	        },
+	        plotOptions: {
+	            bar: {
+	                dataLabels: {
+	                    enabled: true
+	                },
+	                stacking: 'percent'
+	            }
+	        },
+	        legend: {
+	            layout: 'vertical',
+	            align: 'right',
+	            verticalAlign: 'top',
+	            x: -40,
+	            y: 100,
+	            floating: true,
+	            borderWidth: 1,
+	            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+	            shadow: true
+	        },
+	        credits: {
+	            enabled: false
+	        },
+	        series: [{
+	            name: 'Year 1800',
+	            data: [107, 31, 635, 203, 2]
+	        }, {
+	            name: 'Year 1900',
+	            data: [133, 156, 947, 408, 6]
+	        }, {
+	            name: 'Year 2008',
+	            data: [973, 914, 4054, 732, 34]
+	        }]
+	    });
+
+		$('#container5').highcharts({
+	        chart: {
+	            type: 'bar'
+	        },
+	        title: {
+	            text: 'Tasa de resolucion por usuario'
+	        },
+	        subtitle: {
+	            text: 'Source: Wikipedia.org'
+	        },
+	        xAxis: {
+	            categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+	            title: {
+	                text: null
+	            }
+	        },
+	        yAxis: {
+	            min: 0,
+	            title: {
+	                text: 'Population (millions)',
+	                align: 'high'
+	            },
+	            labels: {
+	                overflow: 'justify'
+	            }
+	        },
+	        tooltip: {
+	            valueSuffix: ' millions'
+	        },
+	        plotOptions: {
+	            bar: {
+	                dataLabels: {
+	                    enabled: true
+	                }
+	            }
+	        },
+	        legend: {
+	            layout: 'vertical',
+	            align: 'right',
+	            verticalAlign: 'top',
+	            x: -40,
+	            y: 100,
+	            floating: true,
+	            borderWidth: 1,
+	            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+	            shadow: true
+	        },
+	        credits: {
+	            enabled: false
+	        },
+	        series: [{
+	            name: 'Year 1800',
+	            data: [107, 31, 635, 203, 2]
+	        }, {
+	            name: 'Year 1900',
+	            data: [133, 156, 947, 408, 6]
+	        }, {
+	            name: 'Year 2008',
+	            data: [973, 914, 4054, 732, 34]
+	        }]
+	    });
+
+
+});
+</script>
+{% endblock scripts %}
