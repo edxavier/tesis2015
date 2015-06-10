@@ -147,6 +147,7 @@ class InterfaceEventView(View):
             host = Host.objects.create(direccion=request.POST['direccion'])
 
         form = InterfaceEventForm(request.POST)
+        print(host)
         if form.is_valid():
             event = form.save(commit=False)
             event.host = host

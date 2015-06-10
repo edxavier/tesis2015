@@ -61,8 +61,6 @@ class InterfaceEvent(models.Model):
     leido = models.BooleanField(default=False)
     fecha = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        abstract = True
 
     def __unicode__(self):
         return self.tipo

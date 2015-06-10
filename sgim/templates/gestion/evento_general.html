@@ -134,6 +134,14 @@ $(document).ready(function() {
               
             });
 
+
+  $('#jqxgrid').on('rowselect', function (event) 
+  {
+      var args = event.args;
+      var rowBoundIndex = args.rowindex;
+      var rowData = args.row;
+      console.log(rowData)
+  });
     
 });
 

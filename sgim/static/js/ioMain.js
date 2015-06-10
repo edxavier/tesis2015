@@ -1,10 +1,10 @@
 $(document).ready(function() {
-    io = io.connect('http://104.236.23.248:8500');
-    //io = io.connect('http://127.0.0.1:8500');
+    //io = io.connect('http://104.236.23.248:8500');
+    io = io.connect('http://127.0.0.1:8500');
     io.on('connect', function(){
                     console.log('Connected to server');
                 });
-    var notifications = 0
+    var notifications = parseInt($('.gestion_menu').html())
 	var noti_boot = 0
 	//var noti_interface = 0
 	var noti_general = 0

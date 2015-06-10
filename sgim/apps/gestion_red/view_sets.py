@@ -36,9 +36,23 @@ class HostViewSet(viewsets.ModelViewSet):
 
 class BootViewSet(viewsets.ModelViewSet):
 
-    queryset = BootEvent.objects.all().order_by('-id')[:200]
+    queryset = BootEvent.objects.all().order_by('-id')
     serializer_class = BootEventSerializer
     filter_fields = ('host',)
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(BootEvent.objects.all().order_by('-fecha'))[:200]
+        serializer = BootEventSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def update(self, request, *args, **kwargs):
+        obj = self.get_object()
+        serializer = BootEventSerializer(obj, data=request.DATA, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -49,11 +63,26 @@ class DevicesViewSet(viewsets.ModelViewSet):
     filter_fields = ('host',)
 
 
-class GeneralEventViewSet(viewsets.ModelViewSet):
+class GeneralEventViewSet(UpdateModelMixin, RetrieveModelMixin, viewsets.GenericViewSet):
 
-    queryset = GeneralEvent.objects.all().order_by('-fecha')[:200]
+    queryset = GeneralEvent.objects.all().order_by('-fecha')
     serializer_class = GeneralEventSerializer
     filter_fields = ('host',)
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(GeneralEvent.objects.all().order_by('-fecha'))[:200]
+        serializer = GeneralEventSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def update(self, request, *args, **kwargs):
+        obj = self.get_object()
+        serializer = GeneralEventSerializer(obj, data=request.DATA, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class StorageViewSet(viewsets.ModelViewSet):
