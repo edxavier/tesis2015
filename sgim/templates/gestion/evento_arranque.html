@@ -86,6 +86,7 @@ $(document).ready(function() {
                     { name: 'format_uptime', type: 'string' },
                     { name: 'tipo', type: 'string' },
                     { name: 'fecha', type: 'date' },
+                    { name: 'leido', type: 'string' },
                 ],
                 id: 'id',
                 url: '/api/gestion/boot_events/'
@@ -99,6 +100,7 @@ $(document).ready(function() {
           return div + moment(value).format("DD-MM-YYYY HH:mm")+"</div>";
         }
   }
+
   function alarmRender(row, columnfield, value, defaulthtml, columnproperties){        
         if(value == true || value == "True"){
           return "<div style='padding:5px; color:#E91E63;font-weight:bold;text-align:center'><i class='red icon ion-alert-circled'></i>SI</div>";
@@ -106,6 +108,18 @@ $(document).ready(function() {
           return "<div style='padding:5px; color:#1B5E20;font-weight:bold;text-align:center'><i class='green icon ion-checkmark-circled'></i>NO</div>";
         }
   }
+
+
+  function leidoRender(row, columnfield, value, defaulthtml, columnproperties){        
+        var data = $('#jqxgrid').jqxGrid('getrowdata', row); 
+        var element = $(defaulthtml); 
+        if(!data.leido){                
+                element.css('color', '#BF360C');    
+                element.css('font-weight', 'bold');
+        }
+         return element[0].outerHTML;
+  }
+
     
 
     $("#jqxgrid").jqxGrid({
@@ -120,13 +134,49 @@ $(document).ready(function() {
                 autoshowfiltericon: true,
                 localization: getLocalization(),
                 columns: [
-                  { text: 'Direccion', datafield: 'direccion' },
-                  { text: 'Tiempo Operacion', datafield: 'format_uptime', },
-                  { text: 'Tipo', datafield: 'tipo', filtertype:'list' ,  width:"26%",},
+                  { text: 'Direccion', datafield: 'direccion',cellsrenderer: leidoRender, },
+                  { text: 'Tiempo Operacion', datafield: 'format_uptime',cellsrenderer: leidoRender,},
+                  { text: 'Tipo', datafield: 'tipo', filtertype:'list' ,  width:"26%",cellsrenderer: leidoRender,},
                   { text: 'Fecha', datafield: 'fecha', filtertype:'date',cellsformat:'dd-MM-yy H:mm', cellsrenderer: dateRender,   width:"26%"},
               ],
               
             });
+
+
+  $('#jqxgrid').on('rowselect', function (event) 
+  {
+      var args = event.args;
+      var rowBoundIndex = args.rowindex;
+      var rowData = args.row;
+      if(!rowData.leido){
+        mark_as_readed('/api/gestion/boot_events/'+rowData.id,'#jqxgrid', rowData.id)
+        var notifications = parseInt($('.gestion_general').html())
+        $('.gestion_boot').html(notifications-1)
+      }
+  });
+    
+
+function mark_as_readed(url, grid_id, row_id){
+  $.ajax({
+    url: url,
+    type: 'PUT',
+    data: {
+      leido: true,
+      //host: host
+    },
+  })
+  .done(function(data) {
+    console.log("success");
+    $(grid_id).jqxGrid('updaterow', row_id, data);
+    var notifications = parseInt($('.gestion_menu').html())
+    $('.gestion_menu').html(notifications-1)
+  })
+  .fail(function(err) {
+    console.log(err);
+  })  
+}
+
+
 
     
 });

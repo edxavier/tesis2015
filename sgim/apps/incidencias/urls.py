@@ -4,6 +4,7 @@ from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 from .views import (Incidencias, NuevaIncidencia, CambiosView, NuevaCambioView,
                     NuevaActividadCambioView, NuevaActividadIncidenteView, CambiosDetalleView, IncidenciaDetalleView)
+from .statistic_view import *
 from reports import *
 
 urlpatterns = patterns('',
@@ -22,6 +23,12 @@ urlpatterns = patterns('',
                         url(r'^incidentes/seguimiento/$', login_required(NuevaActividadIncidenteView.as_view()), name='incidentes_follow'),
 
                         url(r'^incidentes/reporte/detalle/(\d+)/$', login_required(Incidente_Detalle.as_view()),name='report_inc_detalle'),
+
+                        url(r'^estadistica/mensual/$', login_required(MonthlyStatistic.as_view()), name='mensual_stats'),
+                        url(r'^estadistica/anual/$', login_required(YearlyStatistic.as_view()), name='anual_stats'),
+
+                        url(r'^estadistica/mensual/json/$', login_required(MonthlyStatisticJson.as_view()), name=''),
+                       url(r'^estadistica/anual/json/$', login_required(YearlyStatistic.as_view()), name=''),
 
 
                        )

@@ -7,6 +7,7 @@ from django.contrib.auth.models import (
 from django.dispatch import receiver
 from apps.inicio.utils import enviarSMS, enviarEmail
 from apps.catalogo.models import Cargo
+from apps.incidencias.models import Incidencia
 
 
 class UserManager(BaseUserManager, models.Manager):
@@ -72,6 +73,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     def enviar_sms(self, mensaje):
         if self.telefono:
             enviarSMS(self.telefono, mensaje)
+
 
 
 

@@ -46,3 +46,4 @@ class ActividadCambioSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ActividadCambio
+

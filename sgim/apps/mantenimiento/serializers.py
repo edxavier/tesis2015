@@ -61,5 +61,6 @@ class BoletaSerializer(serializers.ModelSerializer):
     serie = serializers.ReadOnlyField(source='dispositivo.serie')
     creador = serializers.ReadOnlyField(source='creador.username')
     estado_final = serializers.ReadOnlyField(source='estado_final.nombre')
+
     class Meta:
         model = BoletaTrabajo
