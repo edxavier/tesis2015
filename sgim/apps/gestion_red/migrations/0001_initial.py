@@ -97,23 +97,6 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='InterfaceEvent',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('uptime', models.IntegerField(default=0, help_text=b'minutos', blank=True)),
-                ('tipo', models.CharField(help_text=b'Tipo de evento; linkup, linkdown', max_length=20)),
-                ('nombre', models.CharField(max_length=30)),
-                ('estado_operacional', models.CharField(max_length=30)),
-                ('estado_administrativo', models.CharField(max_length=30)),
-                ('leido', models.BooleanField(default=False)),
-                ('fecha', models.DateTimeField(auto_now_add=True)),
-                ('host', models.ForeignKey(to='gestion_red.Host')),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
             name='LoadAvgHistory',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -145,6 +128,19 @@ class Migration(migrations.Migration):
                 ('free_swap', models.IntegerField(default=0)),
                 ('free_ram', models.IntegerField(default=0)),
                 ('created', models.DateTimeField(auto_now=True)),
+                ('host', models.ForeignKey(to='gestion_red.Host')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='NotificationEvent',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('description', models.CharField(max_length=200)),
+                ('fecha', models.DateTimeField(auto_now_add=True, db_index=True)),
+                ('leido', models.BooleanField(default=False)),
                 ('host', models.ForeignKey(to='gestion_red.Host')),
             ],
             options={

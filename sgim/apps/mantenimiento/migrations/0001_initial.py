@@ -8,9 +8,9 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('inventario', '0001_initial'),
+        ('catalogo', '0002_auto_20150607_2213'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('catalogo', '0001_initial'),
+        ('inventario', '0001_initial'),
     ]
 
     operations = [
@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
                 ('creado', models.DateTimeField(auto_now_add=True)),
                 ('modificado', models.DateTimeField(auto_now=True)),
                 ('fecha_inicio_prevista', models.DateTimeField()),
-                ('fecha_fin_prevista', models.DateTimeField(null=True, blank=True)),
+                ('fecha_fin_prevista', models.DateTimeField()),
                 ('inicio', models.DateTimeField(null=True, blank=True)),
                 ('fin', models.DateTimeField(null=True, blank=True)),
                 ('creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
