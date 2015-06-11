@@ -4,6 +4,7 @@ from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 from .views import Tareas, NuevaTarea, Rutinas, Planes, NuevaRutina, NuevoPlan, Boletas, NuevaBoleta
 from reports import *
+from statistic_view import *
 
 urlpatterns = patterns('',
                         #url(r'^login/$',Login.as_view(),name='login'),
@@ -26,5 +27,10 @@ urlpatterns = patterns('',
                         url(r'^rutinas/reportes/listado/$', login_required(Rutinas_Listado.as_view()), name='report_rutina_list'),
                         url(r'^rutinas/reportes/formato/(\d+)/$', login_required(Rutina_Formato.as_view()), name='report_rutina_format'),
 
+                        url(r'^estadistica/mensual/$', login_required(MonthlyStatistic.as_view()), name='mantto_mensual_stats'),
+                        url(r'^estadistica/anual/$', login_required(YearlyStatistic.as_view()), name='mantto_anual_stats'),
+
+                        url(r'^estadistica/mensual/json/$', login_required(MonthlyStatisticJson.as_view()), name=''),
+                       url(r'^estadistica/anual/json/$', login_required(YearlyStatistic.as_view()), name=''),
 
                        )

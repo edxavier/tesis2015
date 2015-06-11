@@ -74,8 +74,6 @@ class CambioViewSet(DjangoModelPermissions, UpdateModelMixin, RetrieveModelMixin
         """Obtener el bjeto por el id en la url con el metodo get_object o enviar
          el id en los datos con reques.DATA"""
         obj = self.get_object()
-        print(obj.estado)
-        print(request.DATA)
         serializer = CambioSerializer(obj, data=request.DATA, partial=True)
         if serializer.is_valid():
             serializer.save()

@@ -702,7 +702,7 @@
             point,  newVal,inc;
 	        if (chart) {	
 	        	point = chart.series[0].points[0];            
-	            point.update(data.load1);
+	            point.update(data.load5);
 	        }
 				
 		}
@@ -841,6 +841,7 @@ Highcharts.setOptions({
         mydate = Date.UTC(day.year(), day.month(),day.date(), day.hours(),day.minutes());
         load1Array = []
         load5Array = []
+        load15Array = []
         //revertir el orden de los datos para pasarselo al grafico de antiguo a actual
         data.reverse();
         for(i=0; i<total_items;i++){
@@ -852,6 +853,9 @@ Highcharts.setOptions({
             load5Array.push( [ 
                 date, 
                 parseFloat(data[i].load5) ]);
+            load15Array.push( [ 
+                date, 
+                parseFloat(data[i].load15) ]);
         }      
 
        
@@ -919,14 +923,25 @@ Highcharts.setOptions({
 	        },
 	        {
 	            type: 'line',
-	            name: 'Carga promedio ultimo 5 mins.',
+	            name: 'Carga promedio ultimos 5 mins.',
 	            pointInterval:  60*1000,
 	            //pointStart: Date.UTC(2006, 0, 1),
 	            pointStart: mydate,
 	            data: load5Array,
 	            lineWidth: 1,
 	            color: "#FF9800"
-	        }]
+	        },
+	        {
+	            type: 'line',
+	            name: 'Carga promedio ultimos 15 mins.',
+	            pointInterval:  60*1000,
+	            //pointStart: Date.UTC(2006, 0, 1),
+	            pointStart: mydate,
+	            data: load15Array,
+	            lineWidth: 1,
+	            color: "#004D40"
+	        }
+	        ]
     });
 
 

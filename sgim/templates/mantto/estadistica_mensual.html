@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Estadisticas mensuales 
+{% endblock titulo %}
+
+
+{% block include_statics %}
+
+<script type="text/javascript" src="{{BOWER_URL}}highcharts/highcharts.js"></script>
+<script type="text/javascript" src="{{BOWER_URL}}highcharts/highcharts-3d.js"></script>
+<script type="text/javascript" src="{{BOWER_URL}}highcharts/modules/no-data-to-display.js"></script>
+{% endblock include_statics %}
+
+{% block contenido %}
+
+<div class="ui purple menu">
+	<a class="item" href="/">
+		<i class="home icon"></i> Inicio
+	</a>
+    <a class="active item" href="{% url 'mensual_stats' %}">
+    	<i class="ion-stats-bars icon"></i> Estadisticas Mensuales
+    </a>
+    <a class=" item" href="{% url 'anual_stats' %}">
+        <i class="ion-stats-bars icon"></i> Estadisticas Anuales
+    </a>
+</div>
+
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12 " >
+  	<div class="panel panel-default">
+        <div class="panel-body"> 
+        	<div class="row">
+        		<div class="col-md-12">
+        			<div class='center-block' style='width:50%;text-align:center'>
+        				<h2 class="ui header blue">
+						  <i class="ion-stats-bars icon"></i>
+						  <div class="content">
+						    Estadisticas para manteniemientos resgistrados en el mes de {{today|date:"F Y"}}
+						  </div>
+						</h2>
+        			</div>
+        		</div>
+        	</div>
+        	<br>
+        	<div class="row">
+				<div class="col-md-6" >
+					<div id="container_asigs" style="min-width: 310px; max-width: 600px; margin: 0 auto"></div>
+				</div>
+				<div class="col-md-6" >
+					<div id="container2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+				</div>
+			</div>
+			<br>
+			<div class="ui divider"></div>
+			<br>
+			<div class="row">
+        		<div class="col-md-6">
+        			<div id="container3" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        		</div>
+        		<div class="col-md-6">
+        			<div id="container4" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        		</div>
+        	</div>
+        	<br>
+			<div class="ui divider"></div>
+			<br>
+			<div class="row">
+        		<div class="col-md-6">
+        			<div id="container6" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        		</div>
+        		<div class="col-md-6">
+        			<div id="container7" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        		</div>
+        	</div>
+        </div>
+        <!--End Panel Body-->
+	</div>
+</div>
+</div>
+<!--End row-->
+</div>
+
+
+{% endblock contenido %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+	Highcharts.setOptions({
+            global: {
+                useUTC: false
+            },
+            lang: {
+                months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                shortMonths: [ "Ene" , "Feb" , "Mar" , "Abr" , "May" , "Jun" , "Jul" , "Ago" , "Sep" , "Oct" , "Nov" , "Dic"],
+                //weekdays: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+                downloadJPEG: "Descargar como JPG",
+                printChart:"Imprimir Grafico",
+                weekdays: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
+                resetZoom:"Resetear zoom",
+                noData: "No hay datos que mostrar",
+                loading: "Cargando..."
+            }
+        });
+
+
+	$.ajax({
+		url: '/mantto/estadistica/mensual/json/',
+		
+	})
+	.done(function(data) {
+		console.log(data);
+		asigs = []
+		for(i=0;i<data.asignaciones.length;i++){
+			asigs.push([data.asignaciones[i].campo1, data.asignaciones[i].total])
+		}
+		avg_time = []
+		for(i=0;i<data.inactividad_avg.length;i++){
+			avg_time.push([data.inactividad_avg[i].campo1, data.inactividad_avg[i].total])
+		}
+		trabajos = []
+		for(i=0;i<data.trabajo_equipos.length;i++){
+			trabajos.push([data.trabajo_equipos[i].campo1, data.trabajo_equipos[i].total])
+		}
+		
+		
+        var chart6 = $('#container_asigs').highcharts()
+		chart6.addSeries({
+            name: 'Mantenimientos',
+            data: asigs,
+        });
+
+		var chart = $('#container2').highcharts()
+		chart.addSeries({
+            name: 'Tiempo promedio',
+            data: avg_time
+        });
+        var chart3 = $('#container3').highcharts()
+		chart3.addSeries({
+            name: 'Numero de trabajos	',
+            data: trabajos
+        });
+
+ 
+      
+	})
+	.fail(function(err) {
+		console.log("error");
+		console.log(err);
+	})
+
+		$('#container_asigs').highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        //colors: ['#009688'],
+	        title: {
+	            text: 'No. Mantenimientos asignados por usuario'
+	        },
+	       	xAxis: {
+                    type: 'category'
+            },
+	        yAxis: {
+	            title: {
+	                text: 'Numero de mantenimientos',
+	                align: 'high'
+	            },
+
+	        },
+	        tooltip: {
+	            pointFormat: '{series.name}: <b>{point.y:.1f}</b> '
+	        },
+	        plotOptions: {
+	             series: {
+	                colorByPoint: true
+	            }
+	        },
+	        legend: {
+	            borderWidth: 1,
+	            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+	            shadow: true
+	        },
+	        credits: {
+	            enabled: false
+	        },
+	        series: []
+	    });
+
+		$('#container2').highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        //colors: ['#009688'],
+	        title: {
+	            text: 'Tiempo de inactividad promedio por trabajos de mantenimientos'
+	        },
+	       	xAxis: {
+                    type: 'category'
+            },
+	        yAxis: {
+	            title: {
+	                text: 'Tiempo de inactividad',
+	                align: 'high'
+	            },
+
+	        },
+	        tooltip: {
+	            pointFormat: '{series.name}: <b>{point.y:.1f} min</b> '
+	        },
+	        plotOptions: {
+	             series: {
+	                colorByPoint: true
+	            }
+	        },
+	        legend: {
+	            borderWidth: 1,
+	            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+	            shadow: true
+	        },
+	        credits: {
+	            enabled: false
+	        },
+	        series: []
+	    });
+		$('#container3').highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        //colors: ['#009688'],
+	        title: {
+	            text: 'Numero de trabajo registrados por equipo'
+	        },
+	       	xAxis: {
+                    type: 'category'
+            },
+	        yAxis: {
+	            title: {
+	                text: 'Numero de trabajos',
+	                align: 'high'
+	            },
+
+	        },
+	        tooltip: {
+	            pointFormat: '{series.name}: <b>{point.y:.1f}</b> '
+	        },
+	        plotOptions: {
+	             series: {
+	                colorByPoint: true
+	            }
+	        },
+	        legend: {
+	            borderWidth: 1,
+	            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+	            shadow: true
+	        },
+	        credits: {
+	            enabled: false
+	        },
+	        series: []
+	    });
+
+
+
+
+
+
+
+
+});
+</script>
+{% endblock scripts %}

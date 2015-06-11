@@ -66,6 +66,17 @@ Estadisticas mensuales
         			<div id="container5" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
         		</div>
         	</div>
+        	<br>
+			<div class="ui divider"></div>
+			<br>
+			<div class="row">
+        		<div class="col-md-6">
+        			<div id="container6" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        		</div>
+        		<div class="col-md-6">
+        			<div id="container7" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        		</div>
+        	</div>
         </div>
         <!--End Panel Body-->
 	</div>
@@ -125,6 +136,11 @@ $(document).ready(function() {
 			users2.push(data.usuarios[i].total)
 			
 		}
+		servs = []
+		for(i=0;i<data.servicios.length;i++){
+			servs.push([data.servicios[i].campo1,data.servicios[i].total])			
+		}
+
 		chart4.xAxis[0].setCategories(users)
 		chart4.addSeries({
 	            name: 'Incidencias',
@@ -136,6 +152,12 @@ $(document).ready(function() {
             name: 'Incidencias',
             data: devs
         });
+        var chart6 = $('#container6').highcharts()
+		chart6.addSeries({
+            name: 'Incidentes',
+            data: servs,
+        });
+
         var chart2 = $('#container2').highcharts()
 		chart2.addSeries({
             name: 'Incidencias',
@@ -378,6 +400,44 @@ $(document).ready(function() {
 	        },
 	        series: []
 	    });
+
+		$('#container6').highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        //colors: ['#009688'],
+	        title: {
+	            text: 'Servicios afectados por incidentes'
+	        },
+	       	xAxis: {
+                    type: 'category'
+            },
+	        yAxis: {
+	            title: {
+	                text: 'Numero de incidentes',
+	                align: 'high'
+	            },
+
+	        },
+	        tooltip: {
+	            pointFormat: '{series.name}: <b>{point.y:.1f}</b> '
+	        },
+	        plotOptions: {
+	             series: {
+	                colorByPoint: true
+	            }
+	        },
+	        legend: {
+	            borderWidth: 1,
+	            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+	            shadow: true
+	        },
+	        credits: {
+	            enabled: false
+	        },
+	        series: []
+	    });
+
 
 
 });

@@ -85,14 +85,18 @@ class PlanViewSet(DjangoModelPermissions, UpdateModelMixin, RetrieveModelMixin, 
         if serializer.is_valid():
             serializer.save()
             if request.DATA['estado'] == "4":
-                author = request.user.get_full_name() + " (" + request.user.username + ")"
-                toList = [obj.creador.email]
-                msg = "<h2>"+obj.rutina.titulo+"</h2>"
-                msg = msg + "<p>Por este medio se le notifica que se da por finalizado la rutina: [" + obj.rutina.titulo
-                msg = msg + "], iniciado el "+obj.inicio.strftime('%d-%m-%Y')+\
-                " finalizando el dia de hoy </p><p>Responsable: "+obj.responsable.nombre_completo+"</p>" \
-                "<p>Att: "+author+"</p>"
-                enviarEmail(obj.rutina.titulo, toList, msg, 'mantto')
+                try:
+                    author = request.user.get_full_name() + " (" + request.user.username + ")"
+                    toList = [obj.creador.email]
+                    msg = "<h2>"+obj.rutina.titulo+"</h2>"
+                    msg = msg + "<p>Por este medio se le notifica que se da por finalizado la rutina: [" + obj.rutina.titulo
+                    msg = msg + "], iniciado el "+obj.inicio.strftime('%d-%m-%Y')+\
+                    " finalizando el dia de hoy </p><p>Responsable: "+obj.responsable.get_full_name()+\
+                          " (" + request.user.username+")</p>" \
+                    "<p>Att: "+author+"</p>"
+                    enviarEmail(obj.rutina.titulo, toList, msg, 'mantto')
+                except:
+                    pass
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

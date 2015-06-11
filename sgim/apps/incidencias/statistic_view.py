@@ -53,7 +53,13 @@ class MonthlyStatisticJson(View):
                     .filter(creado__month=today.month, creado__year=today.year)
                     )
 
+        serv_afec = (Incidencia.objects.values('servicios__nombre',)
+                    .annotate(total=Count('servicios__nombre'))
+                    .filter(creado__month=today.month, creado__year=today.year)
+                    )
+
         devices = []
+        servicios_afec = []
         types = []
         persons = []
         users = []
@@ -67,6 +73,9 @@ class MonthlyStatisticJson(View):
             persons.append((Statistics(pos=d['reporta__nombre_completo'], total=d['total'])))
         for d in inc_user:
             users.append((Statistics(pos=d['creador__username'], total=d['total'])))
+        for d in serv_afec:
+            if d['servicios__nombre']:
+                servicios_afec.append((Statistics(pos=d['servicios__nombre'], total=d['total'])))
         for d in user_resol:
             resolution.append((Statistics(pos=d['creador__username'], total=d['creadas'], pos2=d['cerradas'])))
 
@@ -75,10 +84,12 @@ class MonthlyStatisticJson(View):
         serial_personas = StatisticSerializer(persons, many=True)
         serial_users = StatisticSerializer(users, many=True)
         serial_resolution = StatisticSerializer(resolution, many=True)
+        serial_serv = StatisticSerializer(servicios_afec, many=True)
 
         return JsonResponse({'success': True, 'devices': serial_devices.data,
                              'tipos': serial_tipos.data, 'personas': serial_personas.data,
-                             'usuarios': serial_users.data, 'resolucion': serial_resolution.data
+                             'usuarios': serial_users.data, 'resolucion': serial_resolution.data,
+                             'servicios': serial_serv.data
                              })
 
 class YearlyStatisticJson(View):
@@ -106,12 +117,20 @@ class YearlyStatisticJson(View):
                     .filter(creado__year=today.year)
                     )
 
+        serv_afec = (Incidencia.objects.values('servicios__nombre',)
+                    .annotate(total=Count('servicios__nombre'))
+                    .filter(creado__month=today.month, creado__year=today.year)
+                    )
+        servicios_afec = []
         devices = []
         types = []
         persons = []
         users = []
         resolution = []
 
+        for d in serv_afec:
+            if d['servicios__nombre']:
+                servicios_afec.append((Statistics(pos=d['servicios__nombre'], total=d['total'])))
         for d in inc_disp:
             devices.append((Statistics(pos=d['dispositivo__posicion_logica'], total=d['total'])))
         for d in inc_tipo:
@@ -123,6 +142,7 @@ class YearlyStatisticJson(View):
         for d in user_resol:
             resolution.append((Statistics(pos=d['creador__username'], total=d['creadas'], pos2=d['cerradas'])))
 
+        serial_serv = StatisticSerializer(servicios_afec, many=True)
         serial_devices = StatisticSerializer(devices, many=True)
         serial_tipos = StatisticSerializer(types, many=True)
         serial_personas = StatisticSerializer(persons, many=True)
@@ -131,5 +151,6 @@ class YearlyStatisticJson(View):
 
         return JsonResponse({'success': True, 'devices': serial_devices.data,
                              'tipos': serial_tipos.data, 'personas': serial_personas.data,
-                             'usuarios': serial_users.data, 'resolucion': serial_resolution.data
+                             'usuarios': serial_users.data, 'resolucion': serial_resolution.data,
+                             'servicios': serial_serv.data
                              })
