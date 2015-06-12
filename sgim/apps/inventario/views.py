@@ -8,12 +8,13 @@ from django.utils.formats import number_format
 from django.views.generic import View
 from django.template.context import RequestContext
 from .forms import DispositivoForm, ServicioForm, ComponenteForm
-from .models import Dispositivo
+from .models import *
 # Create your views here.
 from apps.incidencias.models import Incidencia, ActividadIncidencia
 from apps.mantenimiento.models import BoletaTrabajo
 from django.db.models import Sum
 from braces.views import PermissionRequiredMixin
+
 
 class Dispositivos(View):
     def get(self, request, *args, **kwargs):
@@ -76,6 +77,7 @@ class DispositivoDetalle(View):
 # Create your views here.
 class Servicios(View):
     def get(self, request, *args, **kwargs):
+        servicios = Servicio.objects.all()
         return render_to_response('inventario/servicios.html',
             locals(), context_instance=RequestContext(request))
 
