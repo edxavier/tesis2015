@@ -3,7 +3,7 @@ __author__ = 'edx'
 """ Send UDP packet periodically """
 import socket, time
 
-SERVER_IP = "10.160.80.126"
+SERVER_IP = "10.160.80.125"
 SERVER_PORT = 9000
 BEAT_PERIOD = 5
 

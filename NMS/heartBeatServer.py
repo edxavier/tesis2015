@@ -7,9 +7,18 @@ from utils.web_methods import HttpHelper
 __author__ = 'edx'
 """ Threaded heartbeat server """
 import socket, threading, time
-#import logging
-#logging.basicConfig(level=logging.INFO)
-#logger = logging.getLogger(__name__)
+import logging
+logging.basicConfig(level=logging.ERROR)
+logger = logging.getLogger(__name__)
+# create a file handler
+handler = logging.FileHandler('hb_error.log')
+handler.setLevel(logging.WARNING)
+# create a logging format
+
+formatter = logging.Formatter('************ %(asctime)s - %(name)s - %(levelname)s - %(message)s **********')
+handler.setFormatter(formatter)
+
+
 UDP_PORT = 9000
 CHECK_PERIOD = 5
 CHECK_TIMEOUT = 10
@@ -62,13 +71,14 @@ class Receiver(threading.Thread):
 
 
 def main(num_receivers=3):
+
     receiverEvent = threading.Event()
     receiverEvent.set()
     heartbeats = Heartbeats()
     #iniciar Sesio en el servidor web
     cli = HttpHelper(server_addr=CONFIG['webServer'], server_port=int(CONFIG['webServerPort']))
-    res = cli.http_login(user=CONFIG['webUser'], password=CONFIG['webPassword'])
-    if res:
+    login = cli.http_login(user=CONFIG['webUser'], password=CONFIG['webPassword'])
+    if login:
         #obtener el listado de host a monitorizar
         res = cli.http_get(url="/api/gestion/hosts/?format=json")
         hosts = res.json()
@@ -77,66 +87,67 @@ def main(num_receivers=3):
             heartbeats[h["direccion"]] = time.time()
             host_list.append(h["direccion"])
 
-    receivers = []
-    for i in range(num_receivers):
-        receiver = Receiver(goOnEvent=receiverEvent, heartbeats=heartbeats)
-        receiver.start()
-        receivers.append(receiver)
-        print 'Threaded heartbeat server listening on port %d' % UDP_PORT
-        print 'press Ctrl-C to stop'
-        try:
-            while True:
-                #obtener los ip que no han notificado su presencia
-                silent = heartbeats.getSilent()
-                print 'Silent clients: %s' % silent
-                #Verificar si se recibio msg de un ip no registrada y registrarla
-                for hitem in heartbeats:
-                    if hitem not in host_list:
-                        print(hitem+" NO ESTA EN LA BD")
-                        nh = {}
-                        h['heartbeat'] = True
-                        nh['direccion'] = hitem
-                        nh['esta_conectado'] = True
-                        cli.http_post("/gestion/hosts/listar/", nh)
-                        #obtener el listado de host a monitorizar
-                        res = cli.http_get(url="/api/gestion/hosts/?format=json")
-                        hosts = res.json()
-                        host_list.append(hitem)
-
-                for h in hosts:
-                    ip = h['direccion']
-                    #verificar si la ip actual se encuantra entre las ip inactivas
-                    if ip in silent:
-                        temp = h['esta_conectado']
-                        h['esta_conectado'] = False
-                        #si su estado es diferente al de la ultima vez
-                        if temp != h['esta_conectado']:
-                            print("Actualiza el Servidor con Down")
+        receivers = []
+        for i in range(num_receivers):
+            receiver = Receiver(goOnEvent=receiverEvent, heartbeats=heartbeats)
+            receiver.start()
+            receivers.append(receiver)
+            print 'Threaded heartbeat server listening on port %d' % UDP_PORT
+            print 'press Ctrl-C to stop'
+            try:
+                while True:
+                    #obtener los ip que no han notificado su presencia
+                    silent = heartbeats.getSilent()
+                    print 'Silent clients: %s' % silent
+                    #Verificar si se recibio msg de un ip no registrada y registrarla
+                    for hitem in heartbeats:
+                        if hitem not in host_list:
+                            print(hitem+" NO ESTA EN LA BD")
                             nh = {}
-                            nh['heartbeat'] = True
-                            nh['direccion'] = h['direccion']
-                            nh['esta_conectado'] = False
-                            cli.http_post("/gestion/hosts/listar/", nh)
-                            #cli.http_post("/gestion/hosts/listar/", h)
-                    else:
-                        temp = h['esta_conectado']
-                        h['esta_conectado'] = True
-                        if temp != h['esta_conectado']:
-                            print("Actualiza el Servidor con Up")
-                            nh = {}
-                            nh['heartbeat'] = True
-                            nh['direccion'] = h['direccion']
+                            h['heartbeat'] = True
+                            nh['direccion'] = hitem
                             nh['esta_conectado'] = True
                             cli.http_post("/gestion/hosts/listar/", nh)
-                            #cli.http_post("/gestion/hosts/listar/", h)
+                            #obtener el listado de host a monitorizar
+                            res = cli.http_get(url="/api/gestion/hosts/?format=json")
+                            hosts = res.json()
+                            host_list.append(hitem)
 
-                time.sleep(CHECK_PERIOD)
-        except KeyboardInterrupt:
-            print 'Exiting, please wait...'
-            receiverEvent.clear( )
-            for receiver in receivers:
-                receiver.join( )
-            print 'Finished.'
+                    for h in hosts:
+                        ip = h['direccion']
+                        #verificar si la ip actual se encuantra entre las ip inactivas
+                        if ip in silent:
+                            temp = h['esta_conectado']
+                            h['esta_conectado'] = False
+                            #si su estado es diferente al de la ultima vez
+                            if temp != h['esta_conectado']:
+                                print("Actualiza el Servidor con Down")
+                                nh = {}
+                                nh['heartbeat'] = True
+                                nh['direccion'] = h['direccion']
+                                nh['esta_conectado'] = False
+                                cli.http_post("/gestion/hosts/listar/", nh)
+                                #cli.http_post("/gestion/hosts/listar/", h)
+                        else:
+                            temp = h['esta_conectado']
+                            h['esta_conectado'] = True
+                            if temp != h['esta_conectado']:
+                                print("Actualiza el Servidor con Up")
+                                nh = {}
+                                nh['heartbeat'] = True
+                                nh['direccion'] = h['direccion']
+                                nh['esta_conectado'] = True
+                                cli.http_post("/gestion/hosts/listar/", nh)
+                                #cli.http_post("/gestion/hosts/listar/", h)
+
+                    time.sleep(CHECK_PERIOD)
+            except KeyboardInterrupt:
+                print 'Exiting, please wait...'
+                receiverEvent.clear( )
+                for receiver in receivers:
+                    receiver.join( )
+                logger.error('Servidor terminado', exc_info=True)
+                print 'Finished.'
 
 if __name__ == '__main__':
         main()
