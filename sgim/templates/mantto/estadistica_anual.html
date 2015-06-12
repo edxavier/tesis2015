@@ -18,10 +18,10 @@ Estadisticas mensuales
 	<a class="item" href="/">
 		<i class="home icon"></i> Inicio
 	</a>
-    <a class=" item" href="{% url 'mensual_stats' %}">
+    <a class=" item" href="{% url 'mantto_mensual_stats' %}">
     	<i class="ion-stats-bars icon"></i> Estadisticas Mensuales
     </a>
-    <a class="active item" href="{% url 'anual_stats' %}">
+    <a class="active item" href="{% url 'mantto_anual_stats' %}">
         <i class="ion-stats-bars icon"></i> Estadisticas Anuales
     </a>
 </div>
@@ -37,7 +37,7 @@ Estadisticas mensuales
         				<h2 class="ui header blue">
 						  <i class="ion-stats-bars icon"></i>
 						  <div class="content">
-						    Estadisticas para incidentes resgistrados en {{today|date:"Y"}}
+						    Estadisticas para manteniemientos resgistrados en {{today|date:"Y"}}
 						  </div>
 						</h2>
         			</div>
@@ -45,25 +45,22 @@ Estadisticas mensuales
         	</div>
         	<br>
         	<div class="row">
-				<div class="col-md-4" >
-					<div id="container" style="min-width: 310px; max-width: 600px; margin: 0 auto"></div>
+				<div class="col-md-6" >
+					<div id="container_asigs" style="min-width: 310px; max-width: 600px; margin: 0 auto"></div>
 				</div>
-				<div class="col-md-4" >
+				<div class="col-md-6" >
 					<div id="container2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
 				</div>
-				<div class="col-md-4">
-        			<div id="container3" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-        		</div>
 			</div>
 			<br>
 			<div class="ui divider"></div>
 			<br>
 			<div class="row">
         		<div class="col-md-6">
-        			<div id="container4" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        			<div id="container3" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
         		</div>
         		<div class="col-md-6">
-        			<div id="container5" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        			<div id="container4" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
         		</div>
         	</div>
         	<br>
@@ -106,313 +103,68 @@ $(document).ready(function() {
                 noData: "No hay datos que mostrar",
                 loading: "Cargando..."
             }
-     });
+        });
 
 
 	$.ajax({
-		url: '/incidencias/estadistica/mensual/json/',
+		url: '/mantto/estadistica/anual/json/',
 		
 	})
 	.done(function(data) {
 		console.log(data);
-		devs = []
-		for(i=0;i<data.devices.length;i++){
-			devs.push([data.devices[i].campo1, data.devices[i].total])
+		asigs = []
+		for(i=0;i<data.asignaciones.length;i++){
+			asigs.push([data.asignaciones[i].campo1, data.asignaciones[i].total])
 		}
-		tipos = []
-		for(i=0;i<data.tipos.length;i++){
-			tipos.push([data.tipos[i].campo1, data.tipos[i].total])
+		avg_time = []
+		for(i=0;i<data.inactividad_avg.length;i++){
+			avg_time.push([data.inactividad_avg[i].campo1, data.inactividad_avg[i].total])
 		}
-		pers = []
-		for(i=0;i<data.personas.length;i++){
-			pers.push([data.personas[i].campo1, data.personas[i].total])
+		trabajos = []
+		for(i=0;i<data.trabajo_equipos.length;i++){
+			trabajos.push([data.trabajo_equipos[i].campo1, data.trabajo_equipos[i].total])
 		}
-		servs = []
-		for(i=0;i<data.servicios.length;i++){
-			servs.push([data.servicios[i].campo1,data.servicios[i].total])			
-		}
-		  var chart6 = $('#container6').highcharts()
+		
+		
+        var chart6 = $('#container_asigs').highcharts()
 		chart6.addSeries({
-            name: 'Incidentes',
-            data: servs,
+            name: 'Mantenimientos',
+            data: asigs,
         });
 
-		var chart4 = $('#container4').highcharts()
-		users = []
-		users2 = []
-		for(i=0;i<data.usuarios.length;i++){
-			users.push(data.usuarios[i].campo1)
-			users2.push(data.usuarios[i].total)
-			
-		}
-		chart4.xAxis[0].setCategories(users)
-		chart4.addSeries({
-	            name: 'Incidencias',
-	            data: users2
-	        });
-	    // Build the chart
-		var chart = $('#container').highcharts()
+		var chart = $('#container2').highcharts()
 		chart.addSeries({
-            name: 'Incidencias',
-            data: devs
+            name: 'Tiempo promedio',
+            data: avg_time
         });
-        var chart2 = $('#container2').highcharts()
-		chart2.addSeries({
-            name: 'Incidencias',
-            data: tipos
-        });
-         var chart3 = $('#container3').highcharts()
+        var chart3 = $('#container3').highcharts()
 		chart3.addSeries({
-            name: 'Incidencias',
-            data: pers
+            name: 'Numero de trabajos	',
+            data: trabajos
         });
-        var chart5 = $('#container5').highcharts()
-        categories_user = []
-        total = []
-        resueltas = []
-        tasa = []
-		for(i=0;i<data.resolucion.length;i++){
-			categories_user.push(data.resolucion[i].campo1)
-	        total.push(data.resolucion[i].total)
-	        resueltas.push(data.resolucion[i].total2)
-	        tasa.push((data.resolucion[i].total2/data.resolucion[i].total)*100)
-		}
-		chart5.xAxis[0].setCategories(categories_user)		
-	        chart5.addSeries({
-	            name: 'Tasa de resolucion',
-	            data: tasa
-	        });
 
+ 
       
 	})
-	.fail(function() {
+	.fail(function(err) {
 		console.log("error");
+		console.log(err);
 	})
 
-	  $('#container').highcharts({
-	        chart: {
-	            type: 'pie',
-	            options3d: {
-	                enabled: true,
-	                alpha: 45,
-	                beta: 0
-	            }
-	        },
-	        credits: {
-	            enabled: false
-	        },
-	      	legend: {
-				  borderWidth: 1,
-				  itemMarginBottom: 7,
-		            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-		            shadow: true
-			},
-	        title: {
-	            text: 'Incidencias por Dispositivo'
-	        },
-	        tooltip: {
-	            pointFormat: '{series.name}: <b>{point.y}  ({point.percentage:.1f}%)</b> '
-	        },
-	        plotOptions: {
-	            pie: {
-	                allowPointSelect: true,
-	                cursor: 'pointer',
-	                depth: 35,
-	                  dataLabels: {
-	                    enabled: false,
-	                    format: '{point.name}'
-	                },
-	                showInLegend: true
-	            }
-	        },
-	        series: []
-	    });
-
-	    // Build the chart
-	  $('#container2').highcharts({
-	        chart: {
-	            type: 'pie',
-	            options3d: {
-	                enabled: true,
-	                alpha: 45,
-	                beta: 0
-	            }
-	        },
-
-	        credits: {
-	            enabled: false
-	        },	    
-	        title: {
-	            text: 'Incidencias por tipo de incidente'
-	        },
-	        tooltip: {
-	            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-	        },
-	        legend: {	          
-	        		itemMarginBottom: 7,
-		            borderWidth: 1,
-		            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-		            shadow: true
-				},
-	        plotOptions: {
-	            pie: {
-	                allowPointSelect: true,
-	                cursor: 'pointer',
-	                depth: 35,
-	                dataLabels: {
-	                    enabled: false,
-	                    format: '{point.name}'
-	                },
-	                showInLegend: true
-	            }
-	        },
-	        series: []
-	    });
-
-	  $('#container3').highcharts({
-	        chart: {
-	            type: 'pie',
-	            options3d: {
-	                enabled: true,
-	                alpha: 45,
-	                beta: 0
-	            }
-	        },
-	        credits: {
-	            enabled: false
-	        },
-	        legend: {
-				  borderWidth: 1,
-				  itemMarginBottom: 7,
-		            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-		            shadow: true
-			},
-	        title: {
-	            text: 'Incidencias por persona que reporta'
-	        },
-	        tooltip: {
-	            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-	        },
-	        plotOptions: {
-	            pie: {
-	                allowPointSelect: true,
-	                cursor: 'pointer',
-	                depth: 35,
-	                dataLabels: {
-	                    enabled: false,
-	                    format: '{point.name}'
-	                },
-	                 showInLegend: true
-	            }
-	        },
-	        series: []
-	    });
-
-		$('#container4').highcharts({
-	        chart: {
-	            type: 'bar'
-	        },
-	        colors: ['#FF9800'],
-	        title: {
-	            text: 'Incidencias por usuario'
-	        },
-	        xAxis: {
-	            title: {
-	                text: null 
-	            }
-	        },
-	        yAxis: {
-	            min: 0,
-	            title: {
-	                text: 'Incidentes registrados',
-	                align: 'high'
-	            },
-	            labels: {
-	                overflow: 'justify'
-	            }
-	        },
-	        plotOptions: {
-	            bar: {
-	                dataLabels: {
-	                    enabled: true
-	                },
-	                //stacking: 'percent'
-	            }
-	        },
-	        legend: {
-	            layout: 'vertical',
-	            itemMarginBottom: 7,
-	            borderWidth: 1,
-	            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-	            shadow: true
-	        },
-	        credits: {
-	            enabled: false
-	        },
-	        series: []
-	    });
-
-		$('#container5').highcharts({
-	        chart: {
-	            type: 'column'
-	        },
-	        colors: ['#009688'],
-	        title: {
-	            text: 'Tasa de resolucion por usuario'
-	        },
-	        subtitle: {
-	            text: 'Incidencias resueltas del total registradas'
-	        },
-	        xAxis: {
-	           // categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
-	            title: {
-	                text: null
-	            }
-	        },
-	        yAxis: {
-	            min: 0,
-	            max: 100,
-	            title: {
-	                text: 'Resolucion %',
-	                align: 'high'
-	            },
-
-	        },
-	        tooltip: {
-	            pointFormat: '{series.name}: <b>{point.y:.1f}</b> '
-	        },
-	        plotOptions: {
-	            bar: {
-	                dataLabels: {
-	                    enabled: true
-	                }
-	            }
-	        },
-	        legend: {
-	            borderWidth: 1,
-	            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-	            shadow: true
-	        },
-	        credits: {
-	            enabled: false
-	        },
-	        series: []
-	    });
-
-		$('#container6').highcharts({
+		$('#container_asigs').highcharts({
 	        chart: {
 	            type: 'column'
 	        },
 	        //colors: ['#009688'],
 	        title: {
-	            text: 'Servicios afectados por incidentes'
+	            text: 'No. Mantenimientos asignados por usuario'
 	        },
 	       	xAxis: {
                     type: 'category'
             },
 	        yAxis: {
 	            title: {
-	                text: 'Numero de incidentes',
+	                text: 'Numero de mantenimientos',
 	                align: 'high'
 	            },
 
@@ -435,6 +187,86 @@ $(document).ready(function() {
 	        },
 	        series: []
 	    });
+
+		$('#container2').highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        //colors: ['#009688'],
+	        title: {
+	            text: 'Tiempo de inactividad promedio por trabajos de mantenimientos'
+	        },
+	       	xAxis: {
+                    type: 'category'
+            },
+	        yAxis: {
+	            title: {
+	                text: 'Tiempo de inactividad',
+	                align: 'high'
+	            },
+
+	        },
+	        tooltip: {
+	            pointFormat: '{series.name}: <b>{point.y:.1f} min</b> '
+	        },
+	        plotOptions: {
+	             series: {
+	                colorByPoint: true
+	            }
+	        },
+	        legend: {
+	            borderWidth: 1,
+	            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+	            shadow: true
+	        },
+	        credits: {
+	            enabled: false
+	        },
+	        series: []
+	    });
+		$('#container3').highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        //colors: ['#009688'],
+	        title: {
+	            text: 'Numero de trabajo registrados por equipo'
+	        },
+	       	xAxis: {
+                    type: 'category'
+            },
+	        yAxis: {
+	            title: {
+	                text: 'Numero de trabajos',
+	                align: 'high'
+	            },
+
+	        },
+	        tooltip: {
+	            pointFormat: '{series.name}: <b>{point.y:.1f}</b> '
+	        },
+	        plotOptions: {
+	             series: {
+	                colorByPoint: true
+	            }
+	        },
+	        legend: {
+	            borderWidth: 1,
+	            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+	            shadow: true
+	        },
+	        credits: {
+	            enabled: false
+	        },
+	        series: []
+	    });
+
+
+
+
+
+
+
 
 });
 </script>
