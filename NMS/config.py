@@ -1,7 +1,7 @@
 __author__ = 'edx'
 CONFIG = {
-    'webServer': '10.160.80.126',
-    'webServerPort': 8000,
+    'webServer': '104.236.23.248',
+    'webServerPort': 80,
     'webUser': 'snmp',
     'webPassword': 'snmp'
 }

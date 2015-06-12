@@ -98,7 +98,7 @@ def main(num_receivers=3):
                 while True:
                     #obtener los ip que no han notificado su presencia
                     silent = heartbeats.getSilent()
-                    print 'Silent clients: %s' % silent
+                    #print 'Silent clients: %s' % silent
                     #Verificar si se recibio msg de un ip no registrada y registrarla
                     for hitem in heartbeats:
                         if hitem not in host_list:
@@ -121,7 +121,7 @@ def main(num_receivers=3):
                             h['esta_conectado'] = False
                             #si su estado es diferente al de la ultima vez
                             if temp != h['esta_conectado']:
-                                print("Actualiza el Servidor con Down")
+                                #print("Actualiza el Servidor con Down")
                                 nh = {}
                                 nh['heartbeat'] = True
                                 nh['direccion'] = h['direccion']
@@ -132,7 +132,7 @@ def main(num_receivers=3):
                             temp = h['esta_conectado']
                             h['esta_conectado'] = True
                             if temp != h['esta_conectado']:
-                                print("Actualiza el Servidor con Up")
+                                #print("Actualiza el Servidor con Up")
                                 nh = {}
                                 nh['heartbeat'] = True
                                 nh['direccion'] = h['direccion']
