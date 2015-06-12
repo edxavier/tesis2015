@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 __author__ = 'edx'
 from pysnmp.carrier.asynsock.dispatch import AsynsockDispatcher
 from pysnmp.carrier.asynsock.dgram import udp, udp6
@@ -6,6 +8,7 @@ from pysnmp.proto import api
 from utils.trap_snmp_utils import get_OID_Name, OPER_STATUS, http_post
 from utils.snmp_requests import get_request
 from utils.web_methods import HttpHelper
+from config import CONFIG
 
 def cbFun(transportDispatcher, transportDomain, transportAddress, wholeMsg):
     while wholeMsg:
@@ -46,7 +49,7 @@ def cbFun(transportDispatcher, transportDomain, transportAddress, wholeMsg):
                 varBinds = pMod.apiPDU.getVarBindList(reqPDU)
             notify_msg = {}
             #los varbinds vienen el tuplas de tuplas ((val1, val2),(val1, val2))
-            cli = HttpHelper(server_addr='127.0.0.1', server_port=8000)
+            cli = HttpHelper(server_addr=CONFIG['webServer'], server_port=int(CONFIG['webServerPort']))
             uptime = int(varBinds[0][1].getComponent(True).prettyPrint()) / 100
             notify_type = get_OID_Name(varBinds[1][1].getComponent(True).prettyPrint())
             notify_msg['direccion'] = transportAddress[0]

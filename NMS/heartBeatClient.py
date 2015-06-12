@@ -1,3 +1,4 @@
+#!/usr/bin/python
 __author__ = 'edx'
 """ Send UDP packet periodically """
 import socket, time

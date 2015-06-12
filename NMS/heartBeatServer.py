@@ -1,14 +1,18 @@
+#!/usr/bin/python
+
 import json
+from config import CONFIG
 from utils.web_methods import HttpHelper
 
 __author__ = 'edx'
 """ Threaded heartbeat server """
 import socket, threading, time
+#import logging
+#logging.basicConfig(level=logging.INFO)
+#logger = logging.getLogger(__name__)
 UDP_PORT = 9000
 CHECK_PERIOD = 5
 CHECK_TIMEOUT = 10
-
-
 
 #heredar de dictionary
 class Heartbeats(dict):
@@ -62,8 +66,8 @@ def main(num_receivers=3):
     receiverEvent.set()
     heartbeats = Heartbeats()
     #iniciar Sesio en el servidor web
-    cli = HttpHelper(server_addr='127.0.0.1', server_port=8000)
-    res = cli.http_login(user="snmp", password="snmp")
+    cli = HttpHelper(server_addr=CONFIG['webServer'], server_port=int(CONFIG['webServerPort']))
+    res = cli.http_login(user=CONFIG['webUser'], password=CONFIG['webPassword'])
     if res:
         #obtener el listado de host a monitorizar
         res = cli.http_get(url="/api/gestion/hosts/?format=json")
