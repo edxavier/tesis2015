@@ -62,8 +62,10 @@
      <script type="text/javascript" src="{{BOWER_URL}}materialize/dist/js/materialize.min.js"></script>  
  {% endcomment %}
  {% if user.is_authenticated %}
-    <div class="kc_fab_wrapper" >
-    </div>
+    {% if perms.incidencias.add_incidencia %}
+        <div class="kc_fab_wrapper" >
+        </div>
+    {% endif %}
  {% endif %}
 
     <script src="{{BOWER_URL}}bootstrap/dist/js/bootstrap.min.js"></script>
