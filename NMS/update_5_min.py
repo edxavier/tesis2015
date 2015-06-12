@@ -25,7 +25,7 @@ if res:
                 h['usuarios'] = sys.users
                 h['heartbeat'] = False
                 cli.http_post("/gestion/hosts/listar/", h)
-            print(h['direccion'])
+            #print(h['direccion'])
             sys.get_memory(cli)
             sys.get_load(cli)
 

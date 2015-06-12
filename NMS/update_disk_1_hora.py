@@ -16,7 +16,7 @@ if res:
     for h in hosts:
         try:
             sys = System(address=h['direccion'], initialize=False)
-            print(h['direccion'])
+            #print(h['direccion'])
             sys.get_disk(cli)
         except Exception, e:
             print(h['direccion'])
