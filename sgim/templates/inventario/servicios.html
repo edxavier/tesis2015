@@ -44,6 +44,8 @@
                       <td>{{serv.tipo.nombre}}</td>
                       <td>{{serv.descripcion}}</td>
                     </tr>
+                  {% empty %}  
+                    <h4>No hay registros que mostrar</h4>
                   {% endfor %}
                 </tbody>
               </table>
