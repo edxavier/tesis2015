@@ -45,7 +45,11 @@
                       <td>{{serv.descripcion}}</td>
                     </tr>
                   {% empty %}  
-                    <h4>No hay registros que mostrar</h4>
+                  <tr>
+                    <td colspan='3'>
+                      <h4>No hay registros que mostrar</h4>
+                    </td>
+                  </tr>
                   {% endfor %}
                 </tbody>
               </table>
