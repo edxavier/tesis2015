@@ -111,11 +111,11 @@ def broadcast_event(data_obj, url=""):
     try:
         data = urllib.urlencode(data_obj)
         #u2 = urllib.urlopen("http://104.236.23.248:8500"+url, data)
-        u2 = urllib.urlopen("http://127.0.0.1:8500"+url, data)
-        print("Result2 %s: %s" % (u2.getcode(), u2.read()))
+        u2 = urllib.urlopen("http://104.236.23.248:8500"+url, data)
+        #print("Result2 %s: %s" % (u2.getcode(), u2.read()))
     except Exception, e:
         print(e.message)
-        print("Error enviando datos al servidor")
+        print("Error enviando datos al servidor express")
 
 def get_formated_duration(seconds=0):
     d = datetime.today() - timedelta(seconds=seconds, microseconds=0, milliseconds=0)

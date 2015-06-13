@@ -304,17 +304,18 @@ class MemoryView(View):
             obj.free_swap, obj.free_ram = request.POST['free_swap'], request.POST['free_ram']
             obj.save()
             serial = MemorySerializer(instance=obj)
-            broadcast_event(serial.data, "/mem_usage/")
             if request.POST['mem_alarm'] == "True":
                 host.alarma_memoria = True
+                host.save()
+                print("Alarma Memoria" + host.direccion)
             else:
                 host.alarma_memoria = False
             host.save()
-
+            broadcast_event(serial.data, "/mem_usage/")
             return HttpResponse("success")
         except Exception, e:
             print(e.message)
-            return HttpResponse("fail")
+            return HttpResponse("fail Memory View")
 
 
 
