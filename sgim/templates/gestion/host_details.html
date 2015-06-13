@@ -724,9 +724,12 @@ Highcharts.setOptions({
             }
         });
 
+var daysback = moment().subtract(15, 'days')
+//console.log(daysback.format("DD/MM/YYYY"))
+
 	//**************************
     $.ajax({
-    	url: '/api/gestion/hist_memory/?host={{host.id}}&min_date=03/06/2015',
+    	url: '/api/gestion/hist_memory/?host={{host.id}}&min_date='+daysback.format("DD/MM/YYYY"),
     	type: 'GET',
          dataType: 'json',
     })
@@ -830,7 +833,7 @@ Highcharts.setOptions({
   
   	//**************************
     $.ajax({
-    	url: '/api/gestion/hist_load/?host={{host.id}}&min_date=03/06/2015',
+    	url: '/api/gestion/hist_load/?host={{host.id}}&min_date='+daysback.format("DD/MM/YYYY"),
     	type: 'GET',
          dataType: 'json',
     })
