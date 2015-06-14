@@ -11,4 +11,5 @@ class LoginRedirectMiddleware(object):
             elif request.path == "/admin/" and not request.user.is_admin():
                 return HttpResponseRedirect("/")
         else:
-            return HttpResponseRedirect("/")
+            if request.path == "/admin/":
+                return HttpResponseRedirect("/")
