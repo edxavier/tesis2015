@@ -73,7 +73,9 @@
                         <li><a href="{% url 'perfil' user %}">Mi cuenta</a></li>
                         <li><a href="{% url 'actualizar_clave' %}">Cambiar contraseña</a></li>
                         <li class="divider"></li>
-                        <li><a href="/admin">Administracion</a></li>
+                        {% if user.is_staff %}
+                            <li><a href="/admin">Administracion</a></li>
+                        {% endif %}
                         <li><a href="{% url 'logout' %}">Salir</a></li>
                     </ul>
                 </li>
