@@ -192,7 +192,7 @@ var tipoSource =
         var isntaladoAdap = new $.jqx.dataAdapter(isntalado);
 
      $("#instalado_en").jqxComboBox({ theme:'metro', promptText: "Instalado en...",  source: isntaladoAdap, 
-        displayMember: 'display', valueMember: 'id', autoComplete:true, searchMode: 'contains' });
+        displayMember: 'display', valueMember: 'id', autoComplete:true, searchMode: 'containsignorecase' });
       
       /*$('#instalado_en').jqxComboBox({renderer: function (index, label, value) {
         var datarecord = isntaladoAdap.records[index];

@@ -204,7 +204,7 @@ $(document).ready(function() {
         };
         var dispositivoAdap = new $.jqx.dataAdapter(dispositivoSource);
 
-     $("#dispositivo").jqxComboBox({ theme:'metro', promptText: "Selecciona el dispositivo...",  source: dispositivoAdap, displayMember: 'display', valueMember: 'id',autoComplete:true,  searchMode: 'contains'});
+     $("#dispositivo").jqxComboBox({ theme:'metro', promptText: "Selecciona el dispositivo...",  source: dispositivoAdap, displayMember: 'display', valueMember: 'id',autoComplete:true,  searchMode: 'containsignorecase'});
 	
 
     $('#dispositivo').on('select', function (event) 
