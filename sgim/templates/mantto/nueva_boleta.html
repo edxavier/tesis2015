@@ -196,6 +196,7 @@ $(document).ready(function() {
             dataFields: [
                 { name: 'id'},
                 { name:'posicion_logica'},
+                { name:'display'},
                 { name:'serie'},
                 { name:'sistema_id'}
             ],
@@ -203,7 +204,7 @@ $(document).ready(function() {
         };
         var dispositivoAdap = new $.jqx.dataAdapter(dispositivoSource);
 
-     $("#dispositivo").jqxComboBox({ theme:'metro', promptText: "Selecciona el dispositivo...",  source: dispositivoAdap, displayMember: 'posicion_logica', valueMember: 'id'});
+     $("#dispositivo").jqxComboBox({ theme:'metro', promptText: "Selecciona el dispositivo...",  source: dispositivoAdap, displayMember: 'display', valueMember: 'id',autoComplete:true,  searchMode: 'contains'});
 	
 
     $('#dispositivo').on('select', function (event) 

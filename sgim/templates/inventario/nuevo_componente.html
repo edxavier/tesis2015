@@ -183,23 +183,25 @@ var tipoSource =
             dataType: "json",
             dataFields: [
                 { name: 'id'},
-                { name:'posicion_logica'},
+                //{ name:'posicion_logica'},
+                { name:'display'},
                 { name:'serie'}
             ],
             url: '/api/inventario/dispositivos/'
         };
         var isntaladoAdap = new $.jqx.dataAdapter(isntalado);
 
-     $("#instalado_en").jqxComboBox({ theme:'metro', promptText: "Instalado en...",  source: isntaladoAdap, displayMember: 'posicion_logica', valueMember: 'id'});
+     $("#instalado_en").jqxComboBox({ theme:'metro', promptText: "Instalado en...",  source: isntaladoAdap, 
+        displayMember: 'display', valueMember: 'id', autoComplete:true, searchMode: 'contains' });
       
-      $('#instalado_en').jqxComboBox({renderer: function (index, label, value) {
+      /*$('#instalado_en').jqxComboBox({renderer: function (index, label, value) {
         var datarecord = isntaladoAdap.records[index];
         table2 = '<table>'
         table2 +=  '<tbody><tr><td style="width:55px;text-align: left;">'+datarecord.posicion_logica+'</td><td  style="padding:5px">'+datarecord.serie+'</td></tr><tbody></table>'
         return table2
         }
       });
-        
+        */
 
 
  $('#form').jqxValidator({

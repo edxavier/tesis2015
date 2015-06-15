@@ -42,6 +42,9 @@ class Dispositivo(EspecificacionGeneral, MarcaDeTiempo, models.Model):
     sistema = models.ForeignKey(Sistema)
     tipo = models.ForeignKey(TipoDispositivo)
 
+    def display_me(self):
+        return self.posicion_logica + " / " + self.tipo.nombre + " / " + self.serie
+
     def __unicode__(self):
         return self.posicion_logica
 

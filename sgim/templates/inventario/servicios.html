@@ -8,7 +8,7 @@
           <a class="active item" href="{% url 'servicios_list' %}">
             <i class=" cubes icon"></i> Servicios
           </a>
-           {% if perms.mantenimiento.add_servicio %}   
+           {% if perms.inventario.add_servicio %}   
           <a class=" blue item" href="{% url 'servicio_add' %}">
             <i class=" add icon"></i> Agregar Servicio
           </a>

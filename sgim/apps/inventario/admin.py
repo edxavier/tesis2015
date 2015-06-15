@@ -7,8 +7,22 @@ from .models import Dispositivo, SubSistema, Componente, Servicio
 
 @admin.register(Dispositivo)
 class DispositivoAdmin(admin.ModelAdmin):
-    list_display = ("posicion_logica", "serie", "inventario", "creador",)
+    list_display = ("posicion_logica", "tipo", "serie", "inventario", 'activo', "creador",)
     exclude = ('creador',)
+    list_filter=('creador', 'tipo', 'posicion_logica','activo')
+    search_fields=('creador','tipo','posicion_logica')
+    list_per_page = 10
+    ordering = ['-creado']
+    date_hierarchy = 'creado'
+    actions = ['activar','desactivar']
+
+    def activar(self, request, queryset):
+        return queryset.update(activo=True)
+    activar.short_description = 'Activar registro/s'
+
+    def desactivar(self, request, queryset):
+        return queryset.update(activo=False)
+    desactivar.short_description = 'Desactivar registro/s'
 
     def save_model(self, request, obj, form, change):
         return agregarCreador(request, form)

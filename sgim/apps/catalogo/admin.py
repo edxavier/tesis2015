@@ -100,8 +100,25 @@ class CargoAdmin(admin.ModelAdmin):
 
 @admin.register(Personal)
 class PersonalAdmin(admin.ModelAdmin):
-    list_display = ("nombre_completo", "cargo",)
+    list_display = ("nombre_completo", "cargo", 'activo')
     exclude = ("creador",)
+    list_filter = ('creador', 'cargo', 'activo')
+    list_per_page = 10
+    ordering = ['-creado']
+    date_hierarchy = 'creado'
+    actions = ['activar', 'desactivar', 'change_cargo']
+
+    def activar(self, request, queryset):
+        return queryset.update(activo=True)
+    activar.short_description = 'Activar registro/s'
+
+    def desactivar(self, request, queryset):
+        return queryset.update(activo=False)
+    desactivar.short_description = 'Desactivar registro/s'
+
+    def change_cargo(self, request, queryset):
+        return queryset.update(cargo_id=2)
+    change_cargo.short_description = 'Cambiar Cargo a Controlador Aereo'
 
     def save_model(self, request, obj, form, change):
         return agregarCreador(request, form)
@@ -113,7 +130,6 @@ class PersonalAdmin(admin.ModelAdmin):
 class EstadoIncidenteAdmin(admin.ModelAdmin):
     list_display = ("nombre", "creador",)
     fields = ("nombre",)
-
     def save_model(self, request, obj, form, change):
         return agregarCreador(request, form)
 
