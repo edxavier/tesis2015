@@ -11,8 +11,8 @@ DATABASES = {
         'NAME': 'sgimdb',
         'USER': 'sgimuser',
         'PASSWORD': 'stecnica',
-        'HOST': 'localhost',
-        #'HOST': '104.236.23.248',
+        #'HOST': 'localhost',
+        'HOST': '104.236.23.248',
         'PORT': '5432',
     }
 }
@@ -41,3 +41,43 @@ REST_FRAMEWORK = {
 
 EMAIL_BACKEND ='djrill.mail.backends.djrill.DjrillBackend'
 MANDRILL_API_KEY = 'qk18KxRN5MpaJDB7zwAp_Q'
+
+# Django Suit configuration example
+SUIT_CONFIG = {
+    # header
+    'ADMIN_NAME': 'Administracion del sistema ',
+    'HEADER_DATE_FORMAT': 'l, d F Y',
+    'HEADER_TIME_FORMAT': 'h:i a',
+
+    # forms
+    'SHOW_REQUIRED_ASTERISK': True,  # Default True
+    'CONFIRM_UNSAVED_CHANGES': True, # Default True
+
+    # menu
+    # 'SEARCH_URL': '/admin/auth/user/',
+    'MENU_ICONS': {
+       'sites': 'icon-leaf',
+       'auth': 'icon-lock',
+       #'bitacora': 'icon-book',
+       #'sistemas': 'icon-cog',
+     },
+    # 'MENU_OPEN_FIRST_CHILD': True, # Default True
+    # 'MENU_EXCLUDE': ('auth.group',),
+    'MENU': (
+    #     'sites',
+        {'label': 'Pagina Principal', 'url': '/', 'icon':'icon-hand-left'},
+        {'app': 'auth', 'icon':'icon-lock', 'models': ('group',),'label': 'Gestion de Grupos'},
+        {'app': 'cuentas', 'label': 'Gestion de Usuarios'},
+        {'app': 'gestion_red', 'label': 'Gestion de Red'},
+        {'app': 'catalogo', 'label': 'Gestion de Catalogos'},
+        {'app': 'inventario', 'label': 'Gestion de Inventario'},
+        {'app': 'incidencias', 'label': 'Gestion de Incidencias'},
+        {'app': 'mantenimiento', 'label': 'Gestion de Mantenimientos'},
+    #     {'label': 'Settings', 'icon':'icon-cog', 'models': ('auth.user', 'auth.group')},
+#        {'label': 'Support', 'models':[{'label':'dsdsd','icon':'icon-lock'}]},
+
+    ),
+
+    # misc
+    'LIST_PER_PAGE': 10
+}
