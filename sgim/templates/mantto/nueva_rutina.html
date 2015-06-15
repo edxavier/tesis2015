@@ -239,6 +239,7 @@ function get_selected_items(){
   $("#limpiar").on('click',  function(event) {
         event.preventDefault();
         document.getElementById("form").reset();
+        $(".form-control").jqxComboBox('clearSelection'); 
     });
 
   $('#form').on('validationSuccess', function (event) { 

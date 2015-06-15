@@ -446,6 +446,8 @@ $("#enviar").on('click',  function(event) {
   $("#limpiar").on('click',  function(event) {
         event.preventDefault();
         document.getElementById("form").reset();
+        $(".form-control").jqxComboBox('clearSelection');
+        $( 'textarea').val("") 
     });
 
   $('#form').jqxValidator({
