@@ -347,7 +347,8 @@ var estadoSource =
         var estadoAdapter = new $.jqx.dataAdapter(estadoSource);
 
      $("#estado_disp").jqxComboBox({ theme:'metro', promptText: "Estado operacional al finalizar...", source: estadoAdapter,displayMember: 'text', valueMember: 'id', width:'90%'});
-var relacionSource =
+    
+    var relacionSource =
         {
             dataType: "json",
             dataFields: [
@@ -356,9 +357,10 @@ var relacionSource =
             ],
             url: '/api/incidencias/incidentes/'
         };
-        var relacionAdapter = new $.jqx.dataAdapter(relacionSource);
+    
+    var relacionAdapter = new $.jqx.dataAdapter(relacionSource);
 
-     $("#relacion").jqxComboBox({ theme:'metro', promptText: "Relacion con otro incidente reciente...", source: relacionAdapter,displayMember: 'id', valueMember: 'id', width:'90%'});
+    $("#relacion").jqxComboBox({ theme:'metro', promptText: "Relacion con otro incidente reciente...", source: relacionAdapter,displayMember: 'id', valueMember: 'id', width:'350px'});
 
 	var personalSource =
         {
@@ -370,7 +372,7 @@ var relacionSource =
             url: '/api/catalogo/personal/?cargo=2'
         };
         var personalAdapter = new $.jqx.dataAdapter(personalSource);
-    $("#notifica").jqxComboBox({ theme:'metro', promptText: "Quien notifica...",source:personalAdapter, displayMember: 'nombre_completo', valueMember: 'id',  searchMode: 'containsignorecase'});
+    $("#notifica").jqxComboBox({ theme:'metro', promptText: "Quien notifica...",source:personalAdapter, displayMember: 'nombre_completo', valueMember: 'id',  searchMode: 'containsignorecase', autoComplete:true,});
 
     var dispositivoSource =
         {
