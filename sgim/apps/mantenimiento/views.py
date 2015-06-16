@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import timedelta, datetime
 from django.http import JsonResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.views.generic import View
@@ -107,8 +107,10 @@ class NuevoPlan(PermissionRequiredMixin, View):
             locals(), context_instance=RequestContext(request))
 
     def post(self, request, *args, **kwargs):
-        form = ProgramacionForm(request.POST)
-        print(request.POST['fecha_inicio_prevista'])
+        data = request.POST.copy()
+        data['fecha_inicio_prevista'] = datetime.strptime(data['fecha_inicio_prevista'], '%d/%m/%Y %H:%M')
+        data['fecha_fin_prevista'] = datetime.strptime(data['fecha_fin_prevista'], '%d/%m/%Y %H:%M')
+        form = ProgramacionForm(data)
         if form.is_valid():
             plan = form.save(commit=False)
             plan.creador = request.user

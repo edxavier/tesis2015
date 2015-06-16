@@ -14,7 +14,6 @@ class TareaForm(forms.ModelForm):
 class RutinaForm(forms.ModelForm):
     titulo = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Titulo de la rutina',
                                                            'class': 'form-control ', 'required': True}))
-    #date_of_birth = forms.DateField(label=u'date of birth', input_formats=['%d/%m/%Y', '%m/%d/%Y',], required=False, widget=forms.DateInput(format = '%d/%m/%Y'))
     recomendacion = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Recomendacion a tener en cuenta',
                                                            'class': 'form-control ', 'required': True}))
 
