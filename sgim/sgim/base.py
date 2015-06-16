@@ -89,6 +89,7 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+SESSION_ENGINES = 'django.contrib.sessions.backends.cached_db'
 
 ROOT_URLCONF = 'sgim.urls'
 WSGI_APPLICATION = 'sgim.wsgi.application'
