@@ -10,7 +10,7 @@ var express = require('express.io');
 app.https(options).io()
 
 //agregar post, cookie y sesiones
-serappver.configure(function () {
+app.configure(function () {
     app.use(express.bodyParser());
     app.use(express.methodOverride());
 });
