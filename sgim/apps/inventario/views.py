@@ -40,6 +40,7 @@ class DispositivoDetalle(View):
         dif = datetime.now() - dispositivo.creado.replace(tzinfo=None)
         #calcular las horas
         operation_time = (dif.total_seconds()/3600)
+
         """
         if dif.days > 0:
             operation_time = dif.days*24 #Dias de operacion
@@ -62,9 +63,9 @@ class DispositivoDetalle(View):
             Confiabilidad = Confiabilidad - TF
             Confiabilidad = str(Confiabilidad)
 
-        """if num_manttos > 0:
+        if num_manttos > 0:
             tiempo_manttos = float(tmanttos['tm'] / 60)
-            MTTR = tiempo_manttos / num_manttos"""
+            MTTR = tiempo_manttos / num_manttos
         try:
             Disponibilidad = ((operation_time - (tiempo_fallos + tiempo_manttos)) / operation_time) * 100
         except:
