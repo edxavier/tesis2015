@@ -12,16 +12,16 @@ class HttpHelper(object):
         super(HttpHelper, self).__init__()
 
     def http_login(self, user="", password=""):
-        self.cli.get('https://'+self.addr+':'+str(self.port)+'/login/')
+        self.cli.get('https://'+self.addr+':'+str(self.port)+'/login/',  verify=False)
         login_data = dict(username=user, password=password, csrfmiddlewaretoken= self.cli.cookies['csrftoken'])
-        r = self.cli.post('https://'+self.addr+':'+str(self.port)+'/login/', data=login_data)
+        r = self.cli.post('https://'+self.addr+':'+str(self.port)+'/login/', data=login_data,  verify=False)
         if r.status_code == 200:
             return True
         else:
             return False
 
     def http_logout(self,):
-        r = self.cli.get('https://'+self.addr+':'+str(self.port)+'/logout/')
+        r = self.cli.get('https://'+self.addr+':'+str(self.port)+'/logout/',  verify=False)
         if r.status_code == 200:
             return True
         else:
@@ -29,12 +29,12 @@ class HttpHelper(object):
 
     def http_get(self, url="/"):
         self.url = url
-        res = self.cli.get('https://'+self.addr+':'+str(self.port)+self.url)
+        res = self.cli.get('https://'+self.addr+':'+str(self.port)+self.url,  verify=False)
         return res
 
     def http_post(self, url="/", data = None):
         self.url = url
-        res = self.cli.post('https://'+self.addr+':'+str(self.port)+self.url, data)
+        res = self.cli.post('https://'+self.addr+':'+str(self.port)+self.url, data,  verify=False)
         return res
 
 """
