@@ -1,7 +1,19 @@
 var server = require('express.io')();
 var express = require('express.io');
+fs = require('fs')
+options = {
+    key: fs.readFileSync('/etc/nginx/ssl/server.key'),
+    cert: fs.readFileSync('/etc/nginx/ssl/server.crt')
+}
 
-server.http().io();
+//app = require('express.io')()
+server.https(options).io()
+
+// build realtime-web app
+
+//app.listen(7076)
+
+//server.http().io();
 
 //agregar post, cookie y sesiones
 server.configure(function () {
