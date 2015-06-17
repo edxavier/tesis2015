@@ -111,7 +111,7 @@ def broadcast_event(data_obj, url=""):
     try:
         data = urllib.urlencode(data_obj)
         #u2 = urllib.urlopen("http://104.236.23.248:8500"+url, data)
-        u2 = urllib.urlopen("http://104.236.23.248:8500"+url, data)
+        u2 = urllib.urlopen("https://104.236.23.248:7076"+url, data)
         #print("Result2 %s: %s" % (u2.getcode(), u2.read()))
     except Exception, e:
         print(e.message)
