@@ -235,7 +235,7 @@ $('#Menu').removeClass('hidden')
                       var hoy = moment().format("YYYY-MM-DD HH:mm");
                       $('.cargando').toggleClass('active');                      
                       $.ajax({
-                          url: '/api/mantto/planes/'+row_id,
+                          url: '/api/mantto/planes/'+row_id+'/',
                           type: 'PUT',
                           dataType: 'json',
                           data: { 
@@ -276,7 +276,7 @@ $('.ui.modal.finalizar').modal({
           var hoy = moment().format("YYYY-MM-DD HH:mm");
           $('.cargando').addClass('active');
           $.ajax({
-              url: '/api/mantto/planes/'+row_id,
+              url: '/api/mantto/planes/'+row_id+'/',
               type: 'PUT',
               dataType: 'json',
               data: { 
@@ -341,7 +341,7 @@ try{
               $('.cargando').toggleClass('active');
                       
               $.ajax({
-                          url: '/api/mantto/planes/'+row_id,
+                          url: '/api/mantto/planes/'+row_id+'/',
                           type: 'PUT',
                           dataType: 'json',
                           data: { 

@@ -164,7 +164,7 @@ $(document).ready(function() {
 
 function mark_as_readed(url, grid_id, row_id){
   $.ajax({
-    url: url,
+    url: url+'/',
     type: 'PUT',
     data: {
       leido: true,

@@ -358,7 +358,7 @@ $(document).ready(function() {
       var row_id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
        $('.cargando').toggleClass('active');                      
           $.ajax({
-                url: '/api/incidencias/incidentes/'+row_id,
+                url: '/api/incidencias/incidentes/'+row_id+'/',
                 type: 'PUT',
                 dataType: 'json',
                 data: { 

@@ -245,7 +245,7 @@ $(document).ready(function() {
                       var row_id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
                       $('.cargando').toggleClass('active');                      
                       $.ajax({
-                          url: '/api/incidencias/cambios/'+row_id,
+                          url: '/api/incidencias/cambios/'+row_id+'/',
                           type: 'PUT',
                           dataType: 'json',
                           data: { 
@@ -275,7 +275,7 @@ $(document).ready(function() {
                       var row_id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
                       $('.cargando').addClass('active');
                       $.ajax({
-                          url: '/api/incidencias/cambios/'+row_id,
+                          url: '/api/incidencias/cambios/'+row_id+'/',
                           type: 'PUT',
                           dataType: 'json',
                           data: { 
