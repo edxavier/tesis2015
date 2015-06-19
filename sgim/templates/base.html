@@ -7,15 +7,14 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
     <link rel="shortcut icon" href="{{STATIC_URL}}images/favicon.ico" type="image/x-icon">
+    <link href="{{STATIC_URL}}css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{BOWER_URL}}semantic-ui/dist/semantic.css">
+    <link rel="stylesheet" href="{{BOWER_URL}}snackbarjs/dist/snackbar.min.css">
  
     <script src="{{BOWER_URL}}jquery/dist/jquery.min.js"></script>
     <script src="{{BOWER_URL}}jquery-cookie/jquery.cookie.js"></script>
     <script src="{{STATIC_URL}}js/dist/1.js"></script>
-    <link href="{{STATIC_URL}}css/ionicons.min.css" rel="stylesheet" type="text/css" />
-
-    <script src="{{BOWER_URL}}semantic-ui/dist/semantic.min.js"></script>
-    <link rel="stylesheet" href="{{BOWER_URL}}semantic-ui/dist/semantic.css">
-    <link rel="stylesheet" href="{{BOWER_URL}}snackbarjs/dist/snackbar.min.css">
+    <script src="{{BOWER_URL}}semantic-ui/dist/semantic.min.js"></script>    
     <script src="{{BOWER_URL}}snackbarjs/dist/snackbar.min.js"></script>
 
     <link rel="stylesheet" href="{{STATIC_URL}}css/estilos.css">
@@ -57,11 +56,6 @@
 
     {% endblock contenido %}
 
-        
-            
- {% comment %}
-     <script type="text/javascript" src="{{BOWER_URL}}materialize/dist/js/materialize.min.js"></script>  
- {% endcomment %}
  {% if user.is_authenticated %}
     {% if perms.incidencias.add_incidencia %}
         <div class="kc_fab_wrapper" >
