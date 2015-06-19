@@ -1,6 +1,6 @@
 $(document).ready(function() {
     //io = io.connect('https://104.236.23.248:7076');
-    io = io.connect('http://127.0.0.1:8500');
+    io = io.connect('http://104.236.23.248:8500');
     io.on('connect', function(){
                     console.log('Connected to server');
                 });
