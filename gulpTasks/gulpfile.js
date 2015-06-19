@@ -13,7 +13,7 @@ var gulp = require('gulp'),
  */
 gulp.task('js', function() {
 	gulp.src('../sgim/static/js/*.js')
-		//.pipe(concat('todo.min.js'))
+		.pipe(concat('todo.min.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('../sgim/static/js/dist/'))
 		//.pipe(livereload());
