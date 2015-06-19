@@ -1,3 +1,23 @@
+// contenido del archivo 1.js
+
+var csrftoken = $.cookie('csrftoken');
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+$.ajax
+
+
 $(document).ready(function() {
     //io = io.connect('https://104.236.23.248:7076');
     io = io.connect('http://104.236.23.248:8500');
