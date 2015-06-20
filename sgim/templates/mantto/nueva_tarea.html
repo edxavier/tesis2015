@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block titulo %}
-Mannto. | Nuevo Tarea de Mannto.
+Nuevo Tarea de Mantenimiento.
 {% endblock titulo %}
 
 {% block include_statics %}
     <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
-<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
  <script type="text/javascript" src="{{STATIC_URL}}js/asset/gridLocalization.js"></script>
     
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
@@ -132,7 +132,7 @@ Mannto. | Nuevo Tarea de Mannto.
         };
         var rutinaAdap = new $.jqx.dataAdapter(rutinasSource);
 
-     $("#rutina").jqxComboBox({ theme:'metro', promptText: "Seleccione un rutina", 
+     $("#rutina").jqxComboBox({ theme:'energyblue', promptText: "Seleccione un rutina", 
         source: rutinaAdap, displayMember: 'titulo', valueMember: 'id', width: '300px' });
 
 

@@ -4,7 +4,7 @@
 {% endblock titulo %}
 {% block include_statics %}
 <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
-<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
 
     
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
@@ -204,7 +204,7 @@ $(document).ready(function() {
         };
         var dispositivoAdap = new $.jqx.dataAdapter(dispositivoSource);
 
-     $("#dispositivo").jqxComboBox({ theme:'metro', promptText: "Selecciona el dispositivo...",  source: dispositivoAdap, displayMember: 'display', valueMember: 'id',autoComplete:true,  searchMode: 'containsignorecase'});
+     $("#dispositivo").jqxComboBox({ theme:'energyblue', promptText: "Selecciona el dispositivo...",  source: dispositivoAdap, displayMember: 'display', valueMember: 'id',autoComplete:true,  searchMode: 'containsignorecase'});
 	
 
     $('#dispositivo').on('select', function (event) 
@@ -233,7 +233,7 @@ $(document).ready(function() {
         }); 
 
 
-     $("#plan").jqxComboBox({ theme:'metro', promptText: "Selecciona plan de mantto correspondiente...(opcional)",  displayMember: 'plan_programado', disabled: true,
+     $("#plan").jqxComboBox({ theme:'energyblue', promptText: "Selecciona plan de mantto correspondiente...(opcional)",  displayMember: 'plan_programado', disabled: true,
      	valueMember: 'id', width:"100%"});
 	
 	var estadoSource =
@@ -247,7 +247,7 @@ $(document).ready(function() {
         };
         var estadoAdapter = new $.jqx.dataAdapter(estadoSource);
 
-     $("#estado").jqxComboBox({ theme:'metro', promptText: "Estado operacional al finalizar...", 
+     $("#estado").jqxComboBox({ theme:'energyblue', promptText: "Estado operacional al finalizar...", 
         source: estadoAdapter,displayMember: 'text', valueMember: 'id', width:'100%'});
 
 
@@ -285,7 +285,7 @@ $(document).ready(function() {
 
   	$("#tiempo").jqxNumberInput({ 
   		spinButtons: true, min: 0,
-  		theme:'metro',inputMode: 'simple',
+  		theme:'energyblue',inputMode: 'simple',
   		 decimalDigits: 0, disabled: true 
   		 });
 
@@ -301,7 +301,7 @@ $(document).ready(function() {
   	});
 
     $('#id_descripcion').jqxEditor({
-                width: '100%', theme:'metro',lineBreak:"br",
+                width: '100%', theme:'energyblue',lineBreak:"br",
                 tools:"bold italic underline  color background | left center right | outdent indent | ul ol | image | link | clean | html"
             });
 

@@ -1,7 +1,11 @@
 {% extends "base.html" %}
+{% block titulo %}
+  Agregar seguimiento de Incidente
+{% endblock titulo %}
+
 {% block include_statics %}
 <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
-<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
 
     
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
@@ -216,11 +220,11 @@ $(document).ready(function() {
 });
 
 	    $("#inicio").jqxDateTimeInput({
-	        theme:'metro',min: yesterday, firstDayOfWeek: 1,formatString: "dd/MM/yyyy HH:mm ",
+	        theme:'energyblue',min: yesterday, firstDayOfWeek: 1,formatString: "dd/MM/yyyy HH:mm ",
 	    });
  
 	    $("#fin").jqxDateTimeInput({
-	        theme:'metro',min: yesterday2, firstDayOfWeek: 1,formatString: "dd/MM/yyyy HH:mm ",
+	        theme:'energyblue',min: yesterday2, firstDayOfWeek: 1,formatString: "dd/MM/yyyy HH:mm ",
 	    });
 
       $('#inicio ').jqxDateTimeInput('setDate', yesterday);
@@ -238,7 +242,7 @@ $(document).ready(function() {
 
   	$("#tiempo").jqxNumberInput({ 
   		spinButtons: true, min: 0,
-  		theme:'metro',inputMode: 'simple',
+  		theme:'energyblue',inputMode: 'simple',
   		 decimalDigits: 0, disabled: true 
   		 });
 
@@ -262,7 +266,7 @@ $(document).ready(function() {
         };
         var incidenteAdapter = new $.jqx.dataAdapter(incidenteSource);
 
-    $("#incidencia").jqxComboBox({ theme:'metro', promptText: "A que incidente se relaciona la actividad...", source:incidenteAdapter, displayMember: 'id', valueMember: 'id', width:'90%'});
+    $("#incidencia").jqxComboBox({ theme:'energyblue', promptText: "A que incidente se relaciona la actividad...", source:incidenteAdapter, displayMember: 'id', valueMember: 'id', width:'90%'});
 
 
 $('#form').jqxValidator({

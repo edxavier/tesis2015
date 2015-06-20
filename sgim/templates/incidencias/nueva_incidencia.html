@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% block titulo %}
+    Nueva Incidencia
+{% endblock titulo %}
 {% block include_statics %}
-<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
-<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
 
-    
-    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
+
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxscrollbar.js"></script>
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
@@ -346,7 +347,7 @@ var estadoSource =
         };
         var estadoAdapter = new $.jqx.dataAdapter(estadoSource);
 
-     $("#estado_disp").jqxComboBox({ theme:'metro', promptText: "Estado operacional al finalizar...", source: estadoAdapter,displayMember: 'text', valueMember: 'id', width:'90%'});
+     $("#estado_disp").jqxComboBox({ theme:'energyblue', promptText: "Estado operacional al finalizar...", source: estadoAdapter,displayMember: 'text', valueMember: 'id', width:'90%'});
     
     var relacionSource =
         {
@@ -360,7 +361,7 @@ var estadoSource =
     
     var relacionAdapter = new $.jqx.dataAdapter(relacionSource);
 
-    $("#relacion").jqxComboBox({ theme:'metro', promptText: "Relacion con otro incidente reciente...", source: relacionAdapter,displayMember: 'id', valueMember: 'id',});
+    $("#relacion").jqxComboBox({ theme:'energyblue', promptText: "Relacion con otro incidente reciente...", source: relacionAdapter,displayMember: 'id', valueMember: 'id',});
 
 	var personalSource =
         {
@@ -372,7 +373,7 @@ var estadoSource =
             url: '/api/catalogo/personal/?cargo=2'
         };
         var personalAdapter = new $.jqx.dataAdapter(personalSource);
-    $("#notifica").jqxComboBox({ theme:'metro', promptText: "Quien notifica...",source:personalAdapter, displayMember: 'nombre_completo', valueMember: 'id',  searchMode: 'containsignorecase', autoComplete:true,});
+    $("#notifica").jqxComboBox({ theme:'energyblue', promptText: "Quien notifica...",source:personalAdapter, displayMember: 'nombre_completo', valueMember: 'id',  searchMode: 'containsignorecase', autoComplete:true,});
 
     var dispositivoSource =
         {
@@ -387,7 +388,7 @@ var estadoSource =
         };
         var dispositivoAdap = new $.jqx.dataAdapter(dispositivoSource);
 
-     $("#dispositivo").jqxComboBox({ theme:'metro', promptText: "Selecciona el dispositivo...",  source: dispositivoAdap, displayMember: 'display', valueMember: 'id',autoComplete:true,  searchMode: 'containsignorecase'});
+     $("#dispositivo").jqxComboBox({ theme:'energyblue', promptText: "Selecciona el dispositivo...",  source: dispositivoAdap, displayMember: 'display', valueMember: 'id',autoComplete:true,  searchMode: 'containsignorecase'});
      var tipoIncSource =
         {
             dataType: "json",
@@ -399,7 +400,7 @@ var estadoSource =
         };
         var tipoIncAdap = new $.jqx.dataAdapter(tipoIncSource);
 
-     $("#tipo").jqxComboBox({ theme:'metro', promptText: "Que tipo de incidente es...",  source: tipoIncAdap, displayMember: 'nombre', valueMember: 'id',  searchMode: 'contains' });
+     $("#tipo").jqxComboBox({ theme:'energyblue', promptText: "Que tipo de incidente es...",  source: tipoIncAdap, displayMember: 'nombre', valueMember: 'id',  searchMode: 'contains' });
       
       var servicioSource =
         {
@@ -412,18 +413,18 @@ var estadoSource =
         };
         var servicioAdap = new $.jqx.dataAdapter(servicioSource);
 
-     $("#servicios").jqxComboBox({ theme:'metro', promptText: "Que servicios fueron afectados...",  source: servicioAdap, displayMember: 'nombre', valueMember: 'id', multiSelect:true});
+     $("#servicios").jqxComboBox({ theme:'energyblue', promptText: "Que servicios fueron afectados...",  source: servicioAdap, displayMember: 'nombre', valueMember: 'id', multiSelect:true});
    
    /*  
  $('#id_problema, #id_causa, #id_solucion').jqxEditor({
-                width: '100%', theme:'metro', lineBreak:"div",
+                width: '100%', theme:'energyblue', lineBreak:"div",
                 tools:"bold italic underline  color background | left center right | outdent indent | ul ol | image | link | clean | html"
             });
 
 */
    	$("#tiempo").jqxNumberInput({ 
   		spinButtons: true, min: 0,
-  		theme:'metro',inputMode: 'simple',
+  		theme:'energyblue',inputMode: 'simple',
   		 decimalDigits: 0, disabled: true 
   		 });
 

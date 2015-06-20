@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 
+{% block titulo %}
+    Detalles de host
+{% endblock titulo %}
 {% block include_statics %}
 
-<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
+
 <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
-<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
 <link href="{{BOWER_URL}}ckeditor/plugins/codesnippet/lib/highlight/styles/monokai_sublime.css" rel="stylesheet">
 <script type="text/javascript" src="{{STATIC_URL}}js/asset/gridLocalization.js"></script>
     
-    <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxscrollbar.js"></script>
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxlistbox.js"></script>
@@ -502,9 +503,9 @@
         }
 
     $("#jqxgridBoots").jqxGrid({
-        theme:"metro",
+        theme:"energyblue",
         width: '100%',
-        theme:'metro', 
+        theme:'energyblue', 
         showfilterrow: true,
         filterable: true,
         pageable: true,
@@ -513,9 +514,9 @@
 
     });
      $("#jqxgridInterfaces").jqxGrid({
-        theme:"metro",
+        theme:"energyblue",
         width: '100%',
-        theme:'metro', 
+        theme:'energyblue', 
         showfilterrow: true,
         filterable: true,
         pageable: true,
@@ -524,9 +525,9 @@
 
     });
        $("#jqxgridProcesses").jqxGrid({
-        theme:"metro",
+        theme:"energyblue",
         width: '100%',
-        theme:'metro', 
+        theme:'energyblue', 
         showfilterrow: true,
         filterable: true,
         pageable: true,
@@ -535,9 +536,9 @@
 
     });
      $("#jqxgridGeneral").jqxGrid({
-        theme:"metro",
+        theme:"energyblue",
         width: '100%',
-        theme:'metro', 
+        theme:'energyblue', 
         showfilterrow: true,
         filterable: true,
         pageable: true,

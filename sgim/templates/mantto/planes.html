@@ -1,9 +1,12 @@
 {% extends "base.html" %}
+{% block titulo %}
+Planes de Mantenimiento.
+{% endblock titulo %}
 {% block include_statics %}
 
 
 <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
-<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
  <script type="text/javascript" src="{{STATIC_URL}}js/asset/gridLocalization.js"></script>
     
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
@@ -180,7 +183,7 @@ $('#Menu').removeClass('hidden')
   $("#jqxgrid").jqxGrid({
 
                 width: '100%',
-                theme:'metro', 
+                theme:'energyblue', 
                 source: dataAdapter,
                 showfilterrow: true,
                 altrows: true,
