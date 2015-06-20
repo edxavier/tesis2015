@@ -315,8 +315,8 @@ var tipoSource =
      $("#tipo").jqxComboBox({ theme:'energyblue', promptText: "Tipo de Dispositivo...",  source: tipoAdapter, displayMember: 'text', valueMember: 'id'});
 
     $("#instalacion").jqxDateTimeInput({theme:'energyblue', culture: 'es-MX'});
-    $.getScript('{{BOWER_URL}}jqwidgets/jqwidgets/globalization/globalize.culture.es-MX.js', function () {
-        $("#instalacion").jqxDateTimeInput({ culture: 'es-MX' });
+    $.getScript('{{STATIC_URL}}js/asset/globalize.culture.es-NI.js', function () {
+        $("#instalacion").jqxDateTimeInput({ culture: 'es-NI' });
     });
 
     $('#formDisp').jqxValidator({
