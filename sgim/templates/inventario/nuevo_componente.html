@@ -4,7 +4,7 @@
 {% endblock titulo %}
 
 {% block include_statics %}
-<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
 
     
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
@@ -157,7 +157,7 @@
         };
         var estadoAdapter = new $.jqx.dataAdapter(estadoSource);
 
-     $("#estado").jqxComboBox({ theme:'energyblue', promptText: "Estado Operacional...", 
+     $("#estado").jqxComboBox({ theme:'metro', promptText: "Estado Operacional...", 
         source: estadoAdapter,displayMember: 'text', valueMember: 'id'});
 
 var tipoSource =
@@ -171,7 +171,7 @@ var tipoSource =
         };
         var tipoAdapter = new $.jqx.dataAdapter(tipoSource);
 
-     $("#tipo").jqxComboBox({ theme:'energyblue', promptText: "Tipo de componente...",  source: tipoAdapter, displayMember: 'nombre', valueMember: 'id'});
+     $("#tipo").jqxComboBox({ theme:'metro', promptText: "Tipo de componente...",  source: tipoAdapter, displayMember: 'nombre', valueMember: 'id'});
 
      var isntalado =
         {
@@ -186,7 +186,7 @@ var tipoSource =
         };
         var isntaladoAdap = new $.jqx.dataAdapter(isntalado);
 
-     $("#instalado_en").jqxComboBox({ theme:'energyblue', promptText: "Instalado en...",  source: isntaladoAdap, 
+     $("#instalado_en").jqxComboBox({ theme:'metro', promptText: "Instalado en...",  source: isntaladoAdap, 
         displayMember: 'display', valueMember: 'id', autoComplete:true, searchMode: 'containsignorecase',
         width:'300px' });
       

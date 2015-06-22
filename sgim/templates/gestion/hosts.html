@@ -6,7 +6,7 @@ Gestion de Red
 
 {% block include_statics %}
 
-<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
  <script type="text/javascript" src="{{STATIC_URL}}js/asset/gridLocalization.js"></script>
     
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
@@ -129,9 +129,9 @@ $(document).ready(function() {
 
 
     /*Inicializar Combos obteniendo los datos del api rest de catalogos*/
-    function get_datos(paraenergyblues){
-    	if(!paraenergyblues)
-    		paraenergyblues = ""
+    function get_datos(parametros){
+    	if(!parametros)
+    		parametros = ""
     	 var source =
             {
                 datatype: "json",
@@ -153,7 +153,7 @@ $(document).ready(function() {
                    
                 ],
                 id: 'id',
-                url: '/api/gestion/hosts/'+paraenergyblues
+                url: '/api/gestion/hosts/'+parametros
             };
 	  var dataAdapter = new $.jqx.dataAdapter(source);
 	  return dataAdapter
@@ -221,7 +221,7 @@ $(document).ready(function() {
     $("#jqxgrid").jqxGrid({
 
                 width: '100%',
-                theme:'energyblue', 
+                theme:'metro', 
                 source: get_datos(),
                 showfilterrow: true,
                 filterable: true,

@@ -4,7 +4,7 @@
 {% endblock titulo %}
 {% block include_statics %}
 
-<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
 
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxscrollbar.js"></script>
@@ -243,7 +243,7 @@ $(document).ready(function() {
         var EdificiosAdapter = new $.jqx.dataAdapter(EdificiosSource);
 
      
-     $("#edificio").jqxComboBox({ source:EdificiosAdapter, theme:'energyblue'
+     $("#edificio").jqxComboBox({ source:EdificiosAdapter, theme:'metro'
         ,promptText: "Seleccione el edificio...", displayMember: 'text',
             valueMember: 'id'});
 
@@ -269,7 +269,7 @@ $(document).ready(function() {
             }
         }); 
 
-     $("#oficina").jqxComboBox({ theme:'energyblue', promptText: "Seleccione la oficina...", displayMember: 'text', valueMember: 'id',disabled: true});
+     $("#oficina").jqxComboBox({ theme:'metro', promptText: "Seleccione la oficina...", displayMember: 'text', valueMember: 'id',disabled: true});
 
 var sistemaSource =
         {
@@ -282,7 +282,7 @@ var sistemaSource =
         };
         var sistemaAdapter = new $.jqx.dataAdapter(sistemaSource);
 
-     $("#sistema").jqxComboBox({ theme:'energyblue', promptText: "Sistema al que pertenece...", source:sistemaAdapter, displayMember: 'text', valueMember: 'id'});
+     $("#sistema").jqxComboBox({ theme:'metro', promptText: "Sistema al que pertenece...", source:sistemaAdapter, displayMember: 'text', valueMember: 'id'});
 var estadoSource =
         {
             dataType: "json",
@@ -294,7 +294,7 @@ var estadoSource =
         };
         var estadoAdapter = new $.jqx.dataAdapter(estadoSource);
 
-     $("#estado").jqxComboBox({ theme:'energyblue', promptText: "Estado Operacional...", 
+     $("#estado").jqxComboBox({ theme:'metro', promptText: "Estado Operacional...", 
         source: estadoAdapter,displayMember: 'text', valueMember: 'id'});
 
 var tipoSource =
@@ -308,9 +308,9 @@ var tipoSource =
         };
         var tipoAdapter = new $.jqx.dataAdapter(tipoSource);
 
-     $("#tipo").jqxComboBox({ theme:'energyblue', promptText: "Tipo de Dispositivo...",  source: tipoAdapter, displayMember: 'text', valueMember: 'id'});
+     $("#tipo").jqxComboBox({ theme:'metro', promptText: "Tipo de Dispositivo...",  source: tipoAdapter, displayMember: 'text', valueMember: 'id'});
 
-    $("#instalacion").jqxDateTimeInput({theme:'energyblue', culture: 'es-MX'});
+    $("#instalacion").jqxDateTimeInput({theme:'metro', culture: 'es-MX'});
     $.getScript('{{STATIC_URL}}js/asset/globalize.culture.es-NI.js', function () {
         $("#instalacion").jqxDateTimeInput({ culture: 'es-NI' });
     });

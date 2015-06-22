@@ -5,7 +5,7 @@
 {% block include_statics %}
 
 
-<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
 
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxbuttons.js"></script>
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxscrollbar.js"></script>
@@ -171,11 +171,11 @@ $(document).ready(function() {
     yesterday2.setTime(yesterday2.getTime() + 60000);
 
       $("#inicio").jqxDateTimeInput({
-          theme:'energyblue',min: yesterday, firstDayOfWeek: 1,formatString: "dd/MM/yyyy HH:mm ",
+          theme:'metro',min: yesterday, firstDayOfWeek: 1,formatString: "dd/MM/yyyy HH:mm ",
       });
  
       $("#fin").jqxDateTimeInput({
-          theme:'energyblue',min: yesterday2, firstDayOfWeek: 1,formatString: "dd/MM/yyyy HH:mm ",
+          theme:'metro',min: yesterday2, firstDayOfWeek: 1,formatString: "dd/MM/yyyy HH:mm ",
       });
 
       $('#inicio ').jqxDateTimeInput('setDate', yesterday);
@@ -190,13 +190,13 @@ $(document).ready(function() {
       });
 
 		$('#id_descripcion').jqxEditor({
-                width: '100%', theme:'energyblue',lineBreak:"br",
+                width: '100%', theme:'metro',lineBreak:"br",
                 tools:"bold italic underline  color background | left center right | outdent indent | ul ol | image | link | clean | html"
             });
 
   /*	$("#tiempo").jqxNumberInput({ 
   		spinButtons: true, min: 0,
-  		theme:'energyblue',inputMode: 'simple',
+  		theme:'metro',inputMode: 'simple',
   		 decimalDigits: 0, disabled: true 
   		 });
 
@@ -222,7 +222,7 @@ $(document).ready(function() {
         };
         var cambioAdapter = new $.jqx.dataAdapter(cambioSource);
 
-    $("#id_cambio").jqxComboBox({ theme:'energyblue', promptText: "A que cambio se relaciona la actividad...", source:cambioAdapter, displayMember: 'titulo', valueMember: 'id', width:'90%'});
+    $("#id_cambio").jqxComboBox({ theme:'metro', promptText: "A que cambio se relaciona la actividad...", source:cambioAdapter, displayMember: 'titulo', valueMember: 'id', width:'90%'});
 
 
 $('#form').jqxValidator({

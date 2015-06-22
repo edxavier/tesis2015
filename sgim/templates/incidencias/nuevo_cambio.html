@@ -4,7 +4,7 @@
 {% endblock titulo %}
 {% block include_statics %}
 <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
-<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
 
     
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
@@ -202,7 +202,7 @@ $(document).ready(function() {
 	$("#id_titulo, #id_solicitante, #id_estado, #id_inicio_previsto, #id_responsable").addClass('form-control')
 
 	$('#id_proposito').jqxEditor({
-                width: '100%', theme:'energyblue',lineBreak:"br",
+                width: '100%', theme:'metro',lineBreak:"br",
                 tools:"bold italic underline  color background | left center right | outdent indent | ul ol | image | link | clean | html"
             });
 var today = new Date();
@@ -210,7 +210,7 @@ var yesterday = new Date(today);
 yesterday.setDate(today.getDate()-1);
 
     $("#inicio").jqxDateTimeInput({
-        theme:'energyblue',min: yesterday, firstDayOfWeek: 1
+        theme:'metro',min: yesterday, firstDayOfWeek: 1
     });
     
     
@@ -224,10 +224,10 @@ yesterday.setDate(today.getDate()-1);
             url: '/api/catalogo/personal/'
         };
         var personalAdapter = new $.jqx.dataAdapter(personalSource);
-    $("#id_responsable").jqxComboBox({ theme:'energyblue', promptText: "Quien efectuara el cambio...",source:personalAdapter, displayMember: 'nombre_completo',
+    $("#id_responsable").jqxComboBox({ theme:'metro', promptText: "Quien efectuara el cambio...",source:personalAdapter, displayMember: 'nombre_completo',
     	 valueMember: 'id'});
 
-    $("#id_solicitante").jqxComboBox({ theme:'energyblue', promptText: "Quien solicita el cambio...",source:personalAdapter, displayMember: 'nombre_completo',
+    $("#id_solicitante").jqxComboBox({ theme:'metro', promptText: "Quien solicita el cambio...",source:personalAdapter, displayMember: 'nombre_completo',
     	 valueMember: 'id'});
 
     var dispositivoSource =
@@ -242,7 +242,7 @@ yesterday.setDate(today.getDate()-1);
         };
         var dispositivoAdap = new $.jqx.dataAdapter(dispositivoSource);
 
-     $("#dispositivos").jqxComboBox({ theme:'energyblue', promptText: "Dispositivos que podrian ser afectados...",  source: dispositivoAdap, displayMember: 'posicion_logica', valueMember: 'id', multiSelect:true, width:'100%'});
+     $("#dispositivos").jqxComboBox({ theme:'metro', promptText: "Dispositivos que podrian ser afectados...",  source: dispositivoAdap, displayMember: 'posicion_logica', valueMember: 'id', multiSelect:true, width:'100%'});
      var servicioSource =
         {
             dataType: "json",
@@ -254,7 +254,7 @@ yesterday.setDate(today.getDate()-1);
         };
         var servicioAdap = new $.jqx.dataAdapter(servicioSource);
 
-     $("#servicios").jqxComboBox({ theme:'energyblue', width:'100%',
+     $("#servicios").jqxComboBox({ theme:'metro', width:'100%',
      	promptText: "Que servicios podrian ser afectados...",  source: servicioAdap, displayMember: 'nombre', valueMember: 'id', multiSelect:true});
 
     $("#enviar").on('click',  function(event) {

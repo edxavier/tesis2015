@@ -5,7 +5,7 @@ Nuevo plan de Mantenimiento.
 {% endblock titulo %}
 {% block include_statics %}
 <link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
-<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
+<link rel="stylesheet" href="{{BOWER_URL}}jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
 
     
     <script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxcore.js"></script>
@@ -146,7 +146,7 @@ $(document).ready(function() {
         };
         var rutinaAdapter = new $.jqx.dataAdapter(rutinaSource);
 
-    $("#rutina").jqxComboBox({ theme:'energyblue', promptText: "Rutina a planificar...", source:rutinaAdapter, displayMember: 'titulo', valueMember: 'id', width:'90%'});
+    $("#rutina").jqxComboBox({ theme:'metro', promptText: "Rutina a planificar...", source:rutinaAdapter, displayMember: 'titulo', valueMember: 'id', width:'90%'});
 
     var personalSource =
         {
@@ -159,9 +159,9 @@ $(document).ready(function() {
         };
         var personalAdapter = new $.jqx.dataAdapter(personalSource);
 
-    $("#personal").jqxComboBox({ theme:'energyblue', promptText: "Personal involucrado...", source:personalAdapter, displayMember: 'nombre_completo', valueMember: 'id', multiSelect:true, width:'90%'});
+    $("#personal").jqxComboBox({ theme:'metro', promptText: "Personal involucrado...", source:personalAdapter, displayMember: 'nombre_completo', valueMember: 'id', multiSelect:true, width:'90%'});
 
-    $("#responsable").jqxComboBox({ theme:'energyblue', promptText: "Responsable...", source:personalAdapter, displayMember: 'nombre_completo', valueMember: 'id', width:'90%'});
+    $("#responsable").jqxComboBox({ theme:'metro', promptText: "Responsable...", source:personalAdapter, displayMember: 'nombre_completo', valueMember: 'id', width:'90%'});
 
      $('#form').jqxValidator({
                 rules: [
@@ -198,7 +198,7 @@ $(document).ready(function() {
 
 
     $("#fecha_inicio").jqxDateTimeInput({
-        theme:'energyblue', formatString: "dd/MM/yyyy HH:mm", width:'90%',
+        theme:'metro', formatString: "dd/MM/yyyy HH:mm", width:'90%',
         min: new Date(), firstDayOfWeek: 1, selectionMode: 'range'
     });
     
