@@ -7,11 +7,12 @@ from .base import *
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'sgimdb',
         'USER': 'sgimuser',
         'PASSWORD': 'stecnica',
-        #'HOST': 'localhost',
+        #'HOST': '192.168.137.200',
         'HOST': '104.236.23.248',
         'PORT': '5432',
     }
@@ -41,6 +42,8 @@ REST_FRAMEWORK = {
 
 EMAIL_BACKEND ='djrill.mail.backends.djrill.DjrillBackend'
 MANDRILL_API_KEY = 'qk18KxRN5MpaJDB7zwAp_Q'
+DEFAULT_FROM_EMAIL = "stecnica@eaai.com.ni"
+SERVER_EMAIL = 'stecnica@eaai.com.ni'
 
 # Django Suit configuration example
 SUIT_CONFIG = {

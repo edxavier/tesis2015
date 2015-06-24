@@ -54,6 +54,8 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
             ("ver_usuarios", "Puede ver la lista de usuarios"),
             ("change_task_status", "Can change the status of tasks"),
         )'''
+    def __unicode__(self):
+        return self.username
 
     def get_short_name(self):
         return self.username
