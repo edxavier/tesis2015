@@ -42,7 +42,9 @@ def html_to_pdf(template_src, context_dict):
         else:
             return HttpResponse("Hemos tenido algunos errores <pre>%s</pre>", escape(html))
     except Exception, e:
-        return HttpResponse("<h1> 505 INTERNAL SERVER ERROR</h1> <p> No fue posible generar el reporte. Hemos tenido un error inesperado...  :(</p>")
+        print(e.message)
+        print(e)
+        return HttpResponse("<h1> 505 INTERNAL SERVER ERROR</h1> <p> No fue posible generar el reporte. Hemos tenido un error inesperado...  :(</p> ")
 
 def enviarSMS(destino, mensaje):
     try:
