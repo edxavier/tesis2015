@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block titulo %}
-Estadisticas mensuales 
+Estadisticas anuales de incidentes 
 {% endblock titulo %}
 
 
@@ -110,7 +110,7 @@ $(document).ready(function() {
 
 
 	$.ajax({
-		url: '/incidencias/estadistica/mensual/json/',
+		url: '/incidencias/estadistica/anual/json/',
 		
 	})
 	.done(function(data) {
