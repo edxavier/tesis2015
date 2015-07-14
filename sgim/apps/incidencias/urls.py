@@ -28,7 +28,7 @@ urlpatterns = patterns('',
                         url(r'^estadistica/anual/$', login_required(YearlyStatistic.as_view()), name='anual_stats'),
 
                         url(r'^estadistica/mensual/json/$', login_required(MonthlyStatisticJson.as_view()), name=''),
-                       url(r'^estadistica/anual/json/$', login_required(YearlyStatistic.as_view()), name=''),
+                       url(r'^estadistica/anual/json/$', login_required(YearlyStatisticJson.as_view()), name=''),
 
 
                        )
