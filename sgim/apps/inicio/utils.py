@@ -27,19 +27,22 @@ def html_to_pdf(template_src, context_dict):
     else:
         return HttpResponse("Hemos tenido algunos errores <pre>%s</pre>", escape(html))
     """
-    # Write PDF to file
-    #file = open(os.path.join(settings.MEDIA_ROOT, 'matriz.pdf'), "w+b")
-    pisaStatus = pisa.CreatePDF(StringIO.StringIO(html.encode("UTF-8")), dest=result,
-                   link_callback=link_callback)
+    try:
+        # Write PDF to file
+        #file = open(os.path.join(settings.MEDIA_ROOT, 'matriz.pdf'), "w+b")
+        pisaStatus = pisa.CreatePDF(StringIO.StringIO(html.encode("UTF-8")), dest=result,
+                       link_callback=link_callback)
 
-    # Return PDF document through a Django HTTP response
-    #file.seek(0)
-    #pdf = file.read()
-    #file.close()            # Don't forget to close the file handle
-    if not pisaStatus.err:
-        return HttpResponse(result.getvalue(), content_type='application/pdf')
-    else:
-        return HttpResponse("Hemos tenido algunos errores <pre>%s</pre>", escape(html))
+        # Return PDF document through a Django HTTP response
+        #file.seek(0)
+        #pdf = file.read()
+        #file.close()            # Don't forget to close the file handle
+        if not pisaStatus.err:
+            return HttpResponse(result.getvalue(), content_type='application/pdf')
+        else:
+            return HttpResponse("Hemos tenido algunos errores <pre>%s</pre>", escape(html))
+    except Exception, e:
+        return HttpResponse("Hemos tenido algunos errores <pre>%s</pre> "+e.message, escape(html))
 
 
 def enviarSMS(destino, mensaje):
