@@ -42,7 +42,7 @@ def html_to_pdf(template_src, context_dict):
         else:
             return HttpResponse("Hemos tenido algunos errores <pre>%s</pre>", escape(html))
     except Exception, e:
-        return HttpResponse("Hemos tenido algunos errores <pre>%s</pre> "+e.message, escape(html))
+        return HttpResponse("Ha ocurrido un error inesperado, esperamos sepas disculparnos", content_type='application/pdf')
 
 
 def enviarSMS(destino, mensaje):
