@@ -90,7 +90,7 @@ class NuevaRutina(PermissionRequiredMixin, View):
             minutos = 0
             for t in tareas:
                 minutos += t.minutos
-            rutina.duracion_estimada = (minutos / 60) * Ndisp
+            #rutina.duracion_estimada = (minutos / 60) * Ndisp
             rutina.save()
             return JsonResponse({'success': form.is_valid(),'errores': [(k, v[0]) for k, v in form.errors.items()]})
             #tarea.save()
