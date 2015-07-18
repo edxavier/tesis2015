@@ -77,7 +77,7 @@ class NuevaRutina(PermissionRequiredMixin, View):
         if form.is_valid():
             rutina = form.save(commit=False)
             rutina.creador = request.user
-            rutina.duracion_estimada = 0
+            #rutina.duracion_estimada = 0
             rutina.activo = True
             rutina.save()
             items = request.POST.getlist('tareas[]')
