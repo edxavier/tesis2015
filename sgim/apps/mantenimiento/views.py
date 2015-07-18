@@ -131,7 +131,10 @@ class NuevoPlan(PermissionRequiredMixin, View):
                 msg = msg + "], a iniciarce el "+plan.fecha_inicio_prevista.strftime('%d-%m-%Y')+"</p><p>Sala Tecnica</p>"
                 msg = msg + "<h4>Contara usted con el apoyo de:</h4><ol>"
                 for per in pers_lis:
-                    msg = msg + "<li>"+per.get_full_name()+" ("+per.username+")</li>"
+                    fn = ""
+                    if per.get_full_name():
+                        fn = per.get_full_name()
+                    msg = msg + "<li>"+fn+" ("+per.username+")</li>"
                 msg = msg + "</ol>"
                 enviarEmail(plan.rutina.titulo, toList, msg, 'mantto')
             return JsonResponse({'success': form.is_valid(), 'errores': [(k, v[0]) for k, v in form.errors.items()]})
