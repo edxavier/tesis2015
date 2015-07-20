@@ -32,10 +32,10 @@
       <link type="text/css" rel="stylesheet" href="{{BOWER_URL}}materialize/dist/css/materialize.css"  media="screen,projection"/>
       <script type="text/javascript" src="http://127.0.0.1:8500/socket.io/socket.io.js"></script>
 <
+<script type="text/javascript" src="http://104.236.23.248:8500/socket.io/socket.io.js"></script>
+-->
      <script type="text/javascript" src="https://104.236.23.248:7076/socket.io/socket.io.js"></script>
 
--->
-<script type="text/javascript" src="http://104.236.23.248:8500/socket.io/socket.io.js"></script>
 
     {% block include_statics %}
         
@@ -107,12 +107,16 @@
                         "icon":"<i class='icon ion-flash'></i>"
                     }
                 ]
+            try {
                 $('.kc_fab_wrapper').kc_fab(links);
 
-                 $("#fb_device").jqxTooltip({ content: 'Nuevo Dispositivo', position: 'left',});
-                 $("#fb_plan").jqxTooltip({ content: 'Nuevo Plan de Mantto', position: 'left',});
-                 $("#fb_mantto").jqxTooltip({ content: 'Nueva Boleta de Trabajo', position: 'left',});
-                 $("#fb_incident").jqxTooltip({ content: 'Nuevo Incidente', position: 'left',});
+                $("#fb_device").jqxTooltip({content: 'Nuevo Dispositivo', position: 'left',});
+                $("#fb_plan").jqxTooltip({content: 'Nuevo Plan de Mantto', position: 'left',});
+                $("#fb_mantto").jqxTooltip({content: 'Nueva Boleta de Trabajo', position: 'left',});
+                $("#fb_incident").jqxTooltip({content: 'Nuevo Incidente', position: 'left',});
+            }catch(err){
+                console.log(err)
+            }
                  //$(".button-collapse").sideNav();
         });
     </script>
