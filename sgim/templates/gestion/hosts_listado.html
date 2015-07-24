@@ -46,7 +46,7 @@
 <table style='padding-top: 20px'>
 	<thead>
 		<tr style='border: 1px solid #009688'>
-			<th class='head' style='width:100px'>Poscicion</th>
+			<!-- <th class='head' style='width:100px'>Poscicion</th> -->
 			<th class='head'>Hostname</th>
 			<th class='head'>Direccion</th>
 			<th class='head'>Uptime</th>
@@ -62,7 +62,7 @@
 	<tbody>
 		{% for host in hosts %}
 			<tr >
-				<td style='border-bottom: 1px solid #BDBDBD'></td>
+				<!--<td style='border-bottom: 1px solid #BDBDBD'></td> -->
 				<td style='border-bottom: 1px solid #BDBDBD'>{{host.nombre}}</td>
 				<td style='border-bottom: 1px solid #BDBDBD'>{{host.direccion}}</td>
 				<td style='border-bottom: 1px solid #BDBDBD'>{{host.get_duration}}</td>
