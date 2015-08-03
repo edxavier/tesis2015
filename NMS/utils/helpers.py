@@ -1,5 +1,6 @@
 import time
 from .web_methods import HttpHelper
+import paramiko
 
 __author__ = 'edx'
 
@@ -35,3 +36,27 @@ def get_data_reordered(table):
                 maped.append(0)
         data_array.append(maped)
     return data_array
+
+def clear_multiple_spaces(text=""):
+    return ' '.join(text.split())
+
+def get_pos(host='127.0.0.1'):
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh.connect(host)
+    # Send the command (non-blocking)
+    stdin, stdout, stderr = ssh.exec_command("cat /root/pos")
+
+    # Wait for the command to terminate
+    values = []
+    for i, line in enumerate(stdout):
+        if i <= 3:
+            line = line.rstrip()
+            line = line.rstrip('\n').rstrip('\r').strip()
+            line = clear_multiple_spaces(line)
+            values.append(line)
+    if len(values) > 0:
+        return values[0]
+    else:
+        return "----"
+

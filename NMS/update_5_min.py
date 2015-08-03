@@ -4,6 +4,7 @@ from config import CONFIG
 __author__ = 'edx'
 from utils.system import System
 from utils.web_methods import HttpHelper
+from utils.helpers import get_pos
 
 
 cli = HttpHelper(server_addr=CONFIG['webServer'], server_port=int(CONFIG['webServerPort']))
@@ -24,6 +25,7 @@ if res:
                 h['procesos'] = sys.processes
                 h['usuarios'] = sys.users
                 h['heartbeat'] = False
+                h['position'] = get_pos(h['direccion'])
                 cli.http_post("/gestion/hosts/listar/", h)
             #print(h['direccion'])
             sys.get_memory(cli)

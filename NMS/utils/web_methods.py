@@ -3,7 +3,7 @@ import requests
 
 
 class HttpHelper(object):
-    def __init__(self, server_addr="127.0.0.1", server_port=80, url="/"):
+    def __init__(self, server_addr="127.0.0.1", server_port=443, url="/"):
         self.addr = server_addr
         self.port = server_port
         self.url = url
@@ -14,11 +14,16 @@ class HttpHelper(object):
     def http_login(self, user="", password=""):
         self.cli.get('https://'+self.addr+':'+str(self.port)+'/login/',  verify=False)
         login_data = dict(username=user, password=password, csrfmiddlewaretoken= self.cli.cookies['csrftoken'])
-        r = self.cli.post('https://'+self.addr+':'+str(self.port)+'/login/', data=login_data,  verify=False)
-        if r.status_code == 200:
-            return True
-        else:
-            return False
+        try:
+            r = self.cli.post('https://'+self.addr+':'+str(self.port)+'/login/', data=login_data,  verify=False)
+            if r.status_code == 200:
+                return True
+            else:
+                return False
+        except Exception, e:
+            print(e.message)
+            print("ERROR")
+
 
     def http_logout(self,):
         r = self.cli.get('https://'+self.addr+':'+str(self.port)+'/logout/',  verify=False)

@@ -5,6 +5,7 @@ from apps.inicio.utils import get_formated_duration
 class Host(models.Model):
     direccion = models.IPAddressField(unique=True, db_index=True)
     nombre = models.CharField(max_length=30, blank=True)
+    position = models.CharField(max_length=30, blank=True, default="---")
     descripcion = models.CharField(max_length=150, blank=True)
     ubicacion = models.CharField(max_length=150, blank=True)
     uptime = models.IntegerField(help_text="minutos", blank=True, default=0)
