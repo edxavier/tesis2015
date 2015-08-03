@@ -4,13 +4,17 @@ __author__ = 'edx'
 from apps.inicio.utils import html_to_pdf, link_callback
 from django.shortcuts import get_object_or_404
 from django.views.generic import View
-from .models import Incidencia
+from .models import Incidencia, Cambio
 
 class Incidente_Detalle(View):
     def get(self, request, inc_pk, *args, **kwargs):
         incidencia = get_object_or_404(Incidencia, pk=inc_pk)
         return html_to_pdf("incidencias/reports/detalle_incidente.html", locals())
 
+class Cambios_Detalle(View):
+    def get(self, request, inc_pk, *args, **kwargs):
+        cambio = get_object_or_404(Cambio, pk=inc_pk)
+        return html_to_pdf("incidencias/reports/detalle_cambio.html", locals())
 
 class Incidentes_Info(View):
     def get(self, request, disp_pk, *args, **kwargs):

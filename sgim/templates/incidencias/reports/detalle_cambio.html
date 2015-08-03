@@ -1,0 +1,96 @@
+{% extends "report_base.html" %}
+
+{% block contenido %}
+<style>
+	.titulo_inc{
+		background-color:#00BCD4;
+		border: none;
+	}
+	.titulo_mtto{
+		background-color:#607D8B;
+		border: none;
+		color: white
+	}
+	.sub_titulo_mtto{
+		background-color:#90A4AE;
+		border: none;
+		color: white
+	}
+	
+	.sub_titulo_inc{
+		background-color:#4DD0E1;
+		border: none;
+	}
+	.sub_titulo_inc2{
+		background-color:#FFF9C4;
+		border: none;
+	}
+	.sub_titulo_mtto2{
+		background-color:#CFD8DC;
+		border: none;
+		color: #424242
+	}
+</style>
+    
+<table style="font-family: roboto; border-bottom: 1px solid #004D40; color:#004D40">
+	<tr style='font-size:21px'>
+		<th style="width:65% ; text-align:left">
+			<h1>CAMBIO  N&deg;{{cambio.id}}</h1>
+		</th>
+		<th style="width:35%; text-align:right">
+			<h1>{% now "jS F Y H:i" %}</h1>
+		</th>
+	</tr>
+</table>
+
+    <h1 style="color:#00796B;">{{cambio.titulo}}</h1>
+
+    <table style="width:100%;">
+			<tr>
+				<td colspan="4" class="titulo_inc">Programado para {{cambio.inicio_previsto}}</td>
+				<td colspan="3" class="titulo_inc">Solicitado por {{cambio.solicitante}}</td>
+			</tr>		
+			<tr>
+			    <th class="sub_titulo_inc">Proposito</th>
+			</tr>
+			<tr>
+			    <td style='background-color:#F5F5F5'> {{cambio.proposito}} </td>
+			</tr>
+
+			<tr style="border-top:1px solid #BDBDBD">
+				<td  colspan="7"></td>
+			</tr>	
+		</table>
+
+
+
+{% if cambio.actividadicambio_set.all %}
+	
+
+<h2 style="border-top: 1px solid #E0E0E0;color:#2196F3;padding:17px 0px 0px 7px">Seguimiento dado al trabajo</h2>
+
+<div style="margin-left:30px">
+	{% for seg in cambio.actividadincidencia_set.all %}
+		<h5>Descripcion</h5>
+		{% autoescape off %}
+			{{seg.descripcion}}
+		{% endautoescape %} 
+
+		<i>Esta actividad tuvo lugar entre {{seg.inicio_actividad}} - {{seg.fin_actividad}}</i> 
+
+		<p style="text-align:right;color:#2196F3">
+				{% if  incidencia.creador.firstname %}
+					<strong>
+						<i>	<< {{seg.creador.firstname}} {{seg.creador.lastname}} >> </i>  
+					</strong>
+				{% else %}
+					<strong>{{seg.creador}}</strong>
+				{% endif %}
+		</p>
+		<p style='border-top:1px solid #E0E0E0'>&nbsp;</p>
+	{% endfor %}
+</div>
+
+{% endif %}
+
+{% endblock contenido %}

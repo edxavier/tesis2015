@@ -225,7 +225,19 @@ $(document).ready(function() {
                       var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
                       var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
                       if(id!=null){
-                        var win = window.open('/incidencias/incidentes/reporte/detalle/'+id, '_blank');
+                        var win = window.open('/incidencias/cambios/detalle/'+id, '_blank');
+                            win.focus(); 
+                      }else{
+                        $.snackbar({content: "<i class='ion-happy yellow icon'></i> Seleccione una fila por favor! ",timeout: 4000});
+                      }
+                       
+                    });
+
+                     viewPdfButton.click(function (event) {
+                      var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+                      var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
+                      if(id!=null){
+                        var win = window.open('/incidencias/cambios/reporte/detalle/'+id, '_blank');
                             win.focus(); 
                       }else{
                         $.snackbar({content: "<i class='ion-happy yellow icon'></i> Seleccione una fila por favor! ",timeout: 4000});
