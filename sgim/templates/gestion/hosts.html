@@ -137,6 +137,7 @@ $(document).ready(function() {
                 datatype: "json",
                 datafields: [
                     { name: 'id', type: 'int' },
+                    { name: 'direccion', type: 'string' },
                     { name: 'position', type: 'string' },
                     { name: 'nombre', type: 'string' },
                     { name: 'uptime', type: 'string' },
@@ -231,7 +232,7 @@ $(document).ready(function() {
                 autoshowfiltericon: true,
                 localization: getLocalization(),
                 columns: [
-                  { text: 'ID', datafield: 'id', width:'60px'},
+                  { text: 'Pos.', datafield: 'position', width:'80px'},
                   { text: 'Direccion', datafield: 'direccion', width:'100px'},
                   { text: 'Nombre', datafield: 'nombre' , width:'80px'},
                   { text: 'Uptime', datafield: 'uptime', width:'160px', cellsrenderer: uptimeRender},
