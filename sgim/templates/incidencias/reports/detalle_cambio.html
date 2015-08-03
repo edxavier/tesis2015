@@ -4,6 +4,7 @@
 <style>
 	.titulo_inc{
 		background-color:#00BCD4;
+		color: white;
 		border: none;
 	}
 	.titulo_mtto{
@@ -19,6 +20,7 @@
 	
 	.sub_titulo_inc{
 		background-color:#4DD0E1;
+		color: white;
 		border: none;
 	}
 	.sub_titulo_inc2{
@@ -33,7 +35,7 @@
 </style>
     
 <table style="font-family: roboto; border-bottom: 1px solid #004D40; color:#004D40">
-	<tr style='font-size:21px'>
+	<tr style='font-size:18px'>
 		<th style="width:65% ; text-align:left">
 			<h1>CAMBIO  N&deg;{{cambio.id}}</h1>
 		</th>
@@ -51,10 +53,10 @@
 				<td colspan="3" class="titulo_inc">Solicitado por {{cambio.solicitante}}</td>
 			</tr>		
 			<tr>
-			    <th class="sub_titulo_inc">Proposito</th>
+			    <th class="sub_titulo_inc" colspan="7">Proposito</th>
 			</tr>
 			<tr>
-			    <td style='background-color:#F5F5F5'> {{cambio.proposito}} </td>
+			    <td style='background-color:#F5F5F5' colspan="7"> {{cambio.proposito}} </td>
 			</tr>
 
 			<tr style="border-top:1px solid #BDBDBD">
@@ -64,13 +66,12 @@
 
 
 
-{% if cambio.actividadicambio_set.all %}
 	
 
 <h2 style="border-top: 1px solid #E0E0E0;color:#2196F3;padding:17px 0px 0px 7px">Seguimiento dado al trabajo</h2>
 
 <div style="margin-left:30px">
-	{% for seg in cambio.actividadincidencia_set.all %}
+	{% for seg in cambio.actividadcambio_set.all %}
 		<h5>Descripcion</h5>
 		{% autoescape off %}
 			{{seg.descripcion}}
@@ -90,7 +91,5 @@
 		<p style='border-top:1px solid #E0E0E0'>&nbsp;</p>
 	{% endfor %}
 </div>
-
-{% endif %}
 
 {% endblock contenido %}
