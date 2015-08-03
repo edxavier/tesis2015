@@ -5,6 +5,7 @@
 	.titulo_inc{
 		background-color:#00BCD4;
 		color: white;
+		font-size: 14px;
 		border: none;
 	}
 	.titulo_mtto{
@@ -22,6 +23,7 @@
 		background-color:#4DD0E1;
 		color: white;
 		border: none;
+		font-size: 13px;
 	}
 	.sub_titulo_inc2{
 		background-color:#FFF9C4;
@@ -76,8 +78,8 @@
 		{% autoescape off %}
 			{{seg.descripcion}}
 		{% endautoescape %} 
-
-		<i>Esta actividad tuvo lugar entre {{seg.inicio_actividad}} - {{seg.fin_actividad}}</i> 
+		<br>
+		<i>Esta actividad tuvo lugar del {{seg.inicio_actividad}} al {{seg.fin_actividad}}</i> 
 
 		<p style="text-align:right;color:#2196F3">
 				{% if  incidencia.creador.firstname %}
