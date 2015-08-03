@@ -81,6 +81,7 @@ $(document).ready(function() {
                 datafields: [
                     { name: 'id', type: 'int' },
                     { name: 'direccion', type: 'string' },
+                    { name: 'position', type: 'string' },
                     { name: 'format_uptime', type: 'string' },
                     { name: 'tipo', type: 'string' },
                     { name: 'fecha', type: 'date' },
@@ -133,6 +134,7 @@ $(document).ready(function() {
                 localization: getLocalization(),
                 columns: [
                   { text: 'Direccion', datafield: 'direccion',cellsrenderer: leidoRender, },
+                  { text: 'Posicion', datafield: 'position',cellsrenderer: leidoRender, },
                   { text: 'Tiempo Operacion', datafield: 'format_uptime',cellsrenderer: leidoRender,},
                   { text: 'Tipo', datafield: 'tipo', filtertype:'list' ,  width:"26%",cellsrenderer: leidoRender,},
                   { text: 'Fecha', datafield: 'fecha', filtertype:'date',cellsformat:'dd-MM-yy H:mm', cellsrenderer: dateRender,   width:"26%"},
