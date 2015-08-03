@@ -12,6 +12,7 @@ class HostSerializer(serializers.ModelSerializer):
 
 class BootEventSerializer(serializers.ModelSerializer):
     direccion = serializers.ReadOnlyField(source='host.direccion')
+    position = serializers.ReadOnlyField(source='host.position')
     format_uptime = serializers.ReadOnlyField(source='get_duration')
 
     class Meta:
@@ -28,6 +29,7 @@ class InterfaceEventSerializer(serializers.ModelSerializer):
 
 class GeneralEventSerializer(serializers.ModelSerializer):
     direccion = serializers.ReadOnlyField(source='host.direccion')
+    position = serializers.ReadOnlyField(source='host.position')
     format_uptime = serializers.ReadOnlyField(source='get_duration')
 
     class Meta:
