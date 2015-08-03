@@ -70,7 +70,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         if self.firstname:
             return self.firstname + ' ' + self.lastname
         else:
-            return None
+            return ""
 
     def enviar_sms(self, mensaje):
         if self.telefono:
