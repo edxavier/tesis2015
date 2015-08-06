@@ -16,5 +16,5 @@ class Todo_Info(View):
 
 class Listado_disp(View):
     def get(self, request, *args, **kwargs):
-        dispositivos = Dispositivo.objects.all().order_by('sistema.nombre')
+        dispositivos = Dispositivo.objects.all().order_by('sistema__nombre')
         return html_to_pdf("inventario/reportes/listado.html", locals())
