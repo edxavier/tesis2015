@@ -181,6 +181,25 @@
 <script>
 $(document).ready(function() {
 	$("#id_tipo").addClass('form-control')
+  $( 'textarea' ).ckeditor({
+    uiColor :'#B2DFDB',
+    
+    extraPlugins: 'codesnippet',
+    codeSnippet_theme: 'monokai_sublime',
+       toolbar :[
+    { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [  'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 'CodeSnippet', ] },
+    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Scayt' ] },
+    { name: 'links', items: [ 'Link', 'Unlink'] },
+    { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule', 'SpecialChar', ] },
+    { name: 'tools', items: [ 'Maximize', ] },
+    { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source' ] },
+    '/',
+    { name: 'colors' },
+    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
+    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
+    { name: 'styles', items: [ 'Styles', 'Format' ] }
+]
+});
 
 	function get_selected_items(){
     items = $("#personal").jqxComboBox('getSelectedItems'); 
@@ -307,24 +326,7 @@ $(document).ready(function() {
                 tools:"bold italic underline  color background | left center right | outdent indent | ul ol | image | link | clean | html"
             });
       */
-$( 'textarea' ).ckeditor({
-      
-    extraPlugins: 'codesnippet',
-    codeSnippet_theme: 'monokai_sublime',
-       toolbar :[
-    { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [  'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 'CodeSnippet', ] },
-    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Scayt' ] },
-    { name: 'links', items: [ 'Link', 'Unlink'] },
-    { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule', 'SpecialChar', ] },
-    { name: 'tools', items: [ 'Maximize', ] },
-    { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source' ] },
-    '/',
-    { name: 'colors' },
-    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
-    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
-    { name: 'styles', items: [ 'Styles', 'Format' ] }
-]
-});
+
 
     $("#enviar").on('click',  function(event) {
         event.preventDefault();
