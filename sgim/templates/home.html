@@ -253,10 +253,8 @@
                                                      Responsable: {{mantto.responsable}} 
                                                     </span>
                                                     <br> <small> Para el {{mantto.fecha_inicio_prevista |date:"l, d F Y"}}</small>
-                                                    {% if mantto.fecha_inicio_prevista <= now %}
-                                                         Retrazado!
-                                                    {% else %}
-                                                        sdfsdifsduf
+                                                    {% if mantto.fecha_inicio_prevista >= now %}
+                                                         <p style="font-weight: bold; color: darkred"> Retrazado! </p>
                                                     {% endif %}
                                                 </div>
                                             </div>
