@@ -57,7 +57,7 @@ class RutinaViewSet(viewsets.ModelViewSet):
 
 class BoletaViewSet(viewsets.ModelViewSet):
 
-    queryset = BoletaTrabajo.objects.filter(activo=True)
+    queryset = BoletaTrabajo.objects.filter(activo=True).order_by('-creado')
     serializer_class = BoletaSerializer
 
 class PlanViewSet(DjangoModelPermissions, UpdateModelMixin, RetrieveModelMixin, viewsets.GenericViewSet):
