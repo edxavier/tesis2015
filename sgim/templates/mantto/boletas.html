@@ -143,7 +143,7 @@ $(document).ready(function() {
               rendertoolbar: function (statusbar) {
                     // appends buttons to the status bar.
                     var container = $("<div style='margin:5px;'></div>");
-                    var viewButton = $("<div class='ui  tiny blue button'> Ver detalles</div>");
+                    var viewButton = $("<div class='ui  tiny blue button'> Ver detalles PDF</div>");
                    
                     container.append(viewButton);
                     statusbar.append(container);
@@ -152,7 +152,7 @@ $(document).ready(function() {
                     viewButton.click(function (event) {
                       var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
                       var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
-                      var win = window.open('/inventario/dispositivos/detalle/'+id, '_blank');
+                      var win = window.open('/mantto/boletas/reportes/detalle/'+id, '_blank');
                       win.focus(); 
                         //$("#jqxgrid").jqxGrid('addrow', null, datarow[0]);
                     });
