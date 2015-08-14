@@ -87,22 +87,16 @@
 			    	Trabajo Realizado
 			    </th>			    	
 			</tr>
-			<tr>
-				
-			    <td colspan="7" style="text-align:left">
-			    {% autoescape off %}
-			    	{{mantto.descripcion}}
-				{% endautoescape %}
-			    </td>
-			       	
-			</tr>
-
 			<tr style="border-top:1px solid #BDBDBD">
 				<td  colspan="7"></td>
 			</tr>
-
-		
 		</table>
+
+		<p>
+		    {% autoescape off %}
+		    	{{mantto.descripcion}}
+			{% endautoescape %}
+		</p>
 
 		<p style="text-align:right;color:#2196F3">
 			El {{mantto.creado}} por: 
