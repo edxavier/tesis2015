@@ -30,6 +30,7 @@
 
 
 	<script type="text/javascript" src="{{BOWER_URL}}jqwidgets/jqwidgets/jqxeditor.js"></script>
+  <script src="{{BOWER_URL}}ckeditor/ckeditor.js"></script>
 
 {% endblock include_statics %}
 
@@ -300,10 +301,30 @@ $(document).ready(function() {
   		}
   	});
 
+    /*
     $('#id_descripcion').jqxEditor({
                 width: '100%', theme:'metro',lineBreak:"br",
                 tools:"bold italic underline  color background | left center right | outdent indent | ul ol | image | link | clean | html"
             });
+      */
+$( '#id_descripcion' ).ckeditor({
+      
+    extraPlugins: 'codesnippet',
+    codeSnippet_theme: 'monokai_sublime',
+       toolbar :[
+    { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [  'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 'CodeSnippet', ] },
+    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Scayt' ] },
+    { name: 'links', items: [ 'Link', 'Unlink'] },
+    { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule', 'SpecialChar', ] },
+    { name: 'tools', items: [ 'Maximize', ] },
+    { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source' ] },
+    '/',
+    { name: 'colors' },
+    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
+    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
+    { name: 'styles', items: [ 'Styles', 'Format' ] }
+]
+});
 
     $("#enviar").on('click',  function(event) {
         event.preventDefault();
