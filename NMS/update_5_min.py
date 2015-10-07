@@ -25,7 +25,10 @@ if res:
                 h['procesos'] = sys.processes
                 h['usuarios'] = sys.users
                 h['heartbeat'] = False
-                h['position'] = get_pos(h['direccion'])
+                try:
+                    h['position'] = get_pos(h['direccion'])
+                except Exception:
+                    pass
                 cli.http_post("/gestion/hosts/listar/", h)
             #print(h['direccion'])
 
