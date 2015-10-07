@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99403a9c-6127-4614-ae33-971f75d650a9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/static/js/ioMain.js" afterPath="$PROJECT_DIR$/sgim/static/js/ioMain.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/templates/gestion/host_details.html" afterPath="$PROJECT_DIR$/sgim/templates/gestion/host_details.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/templates/gestion/hosts.html" afterPath="$PROJECT_DIR$/sgim/templates/gestion/hosts.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="tesis2015.iws" />
@@ -41,11 +42,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ioMain.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/sgim/static/js/ioMain.js">
+      <file leaf-file-name="host_details.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sgim/templates/gestion/host_details.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33730835" vertical-offset="216" max-vertical-offset="2088">
-              <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
+            <state vertical-scroll-proportion="-16.74074" vertical-offset="19906" max-vertical-offset="20466">
+              <caret line="1131" column="22" selection-start-line="1131" selection-start-column="22" selection-end-line="1131" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="hosts.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sgim/templates/gestion/hosts.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.45" vertical-offset="1854" max-vertical-offset="6840">
+              <caret line="117" column="8" selection-start-line="117" selection-start-column="8" selection-end-line="117" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -66,8 +77,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/sgim/apps/gestion_red/forms.py" />
-        <option value="$PROJECT_DIR$/sgim/templates/includes/nav_bar.html" />
         <option value="$PROJECT_DIR$/NMS/utils/trap_snmp_utils.py" />
         <option value="$PROJECT_DIR$/NMS/gestor.py" />
         <option value="$PROJECT_DIR$/NMS/utils/oid_dictionary.py" />
@@ -117,6 +126,8 @@
         <option value="$PROJECT_DIR$/NMS/utils/system.py" />
         <option value="$PROJECT_DIR$/NMS/update_5_min.py" />
         <option value="$PROJECT_DIR$/sgim/static/js/ioMain.js" />
+        <option value="$PROJECT_DIR$/sgim/templates/gestion/host_details.html" />
+        <option value="$PROJECT_DIR$/sgim/templates/gestion/hosts.html" />
       </list>
     </option>
   </component>
@@ -239,46 +250,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="gestion" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tesis2015" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tesis2015" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sgim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tesis2015" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tesis2015" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sgim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -732,12 +703,6 @@
       <option name="number" value="Default" />
       <updated>1427508856499</updated>
     </task>
-    <task id="LOCAL-00033" summary="Creando formulario para ingreso de datos usando ajax">
-      <created>1431840365587</created>
-      <option name="number" value="00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1431840365587</updated>
-    </task>
     <task id="LOCAL-00034" summary="Creando formulario para ingreso de datos usando ajax">
       <created>1432007405187</created>
       <option name="number" value="00034" />
@@ -1026,7 +991,13 @@
       <option name="project" value="LOCAL" />
       <updated>1444240929098</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="Socket IO">
+      <created>1444241289483</created>
+      <option name="number" value="00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1444241289484</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TodoView" selected-index="5">
@@ -1134,13 +1105,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/sgim/apps/inicio/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4390244" vertical-offset="0" max-vertical-offset="0">
-          <caret line="16" column="23" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sgim/apps/mantenimiento/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3804878" vertical-offset="0" max-vertical-offset="0">
@@ -1299,13 +1263,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.036885247" vertical-offset="0" max-vertical-offset="0">
           <caret line="71" column="31" selection-start-line="71" selection-start-column="31" selection-end-line="71" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sgim/templates/gestion/host_details.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.3969631" vertical-offset="0" max-vertical-offset="0">
-          <caret line="717" column="8" selection-start-line="717" selection-start-column="8" selection-end-line="717" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -1481,8 +1438,8 @@
           <caret line="325" column="0" selection-start-line="325" selection-start-column="0" selection-end-line="325" selection-end-column="0" />
           <folding>
             <element signature="e#8428#9294#0" expanded="false" />
-            <element signature="e#8604#9294#0" expanded="true" />
-            <element signature="e#11688#12588#0" expanded="true" />
+            <element signature="e#8604#9294#0" expanded="false" />
+            <element signature="e#11688#12588#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1503,18 +1460,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sgim/templates/gestion/hosts.html">
+    <entry file="file://$PROJECT_DIR$/sgim/templates/gestion/evento_arranque.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9357143" vertical-offset="2014" max-vertical-offset="6786">
-          <caret line="141" column="15" selection-start-line="141" selection-start-column="15" selection-end-line="141" selection-end-column="15" />
+        <state vertical-scroll-proportion="0.80714285" vertical-offset="2878" max-vertical-offset="3438">
+          <caret line="185" column="22" selection-start-line="185" selection-start-column="22" selection-end-line="185" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sgim/static/js/ioMain.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33730835" vertical-offset="216" max-vertical-offset="2088">
-          <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.6746167" vertical-offset="1368" max-vertical-offset="2088">
+          <caret line="98" column="0" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sgim/templates/gestion/host_details.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.74074" vertical-offset="19906" max-vertical-offset="20466">
+          <caret line="1131" column="22" selection-start-line="1131" selection-start-column="22" selection-end-line="1131" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sgim/templates/gestion/hosts.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45" vertical-offset="1854" max-vertical-offset="6840">
+          <caret line="117" column="8" selection-start-line="117" selection-start-column="8" selection-end-line="117" selection-end-column="8" />
           <folding />
         </state>
       </provider>

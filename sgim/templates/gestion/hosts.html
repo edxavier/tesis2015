@@ -106,7 +106,7 @@ Gestion de Red
 
 $(document).ready(function() {
     /*Inicializar el modal para filtrar*/
- 
+ try{
 	io.on('host_update', function(data){
         $('#jqxgrid').jqxGrid('updaterow', data.id, data);
 	});
@@ -114,6 +114,9 @@ $(document).ready(function() {
   io.on('heart_beat', function(data){
         $('#jqxgrid').jqxGrid('updaterow', data.id, data);
 	});
+	}catch(err){
+	    console.log(err)
+	}
 
     $.getScript('{{STATIC_URL}}js/asset/globalize.culture.es-NI.js', function () {
         

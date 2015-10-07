@@ -682,6 +682,7 @@
                          
                         })
 
+try{
 	io.on('mem_usage', function(data){
 		if(data.host === "{{host.id}}"){
             total = data.total_ram
@@ -708,6 +709,10 @@
 				
 		}
 	});
+
+	}catch(err){
+	    console.log(err)
+	}
 
 Highcharts.setOptions({
             global: {
