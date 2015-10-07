@@ -19,6 +19,8 @@ $.ajax
 
 
 $(document).ready(function() {
+
+try{
     io = io.connect('https://104.236.23.248:7076');
     //io = io.connect('http://104.236.23.248:8500');
     io.on('connect', function(){
@@ -102,6 +104,8 @@ $(document).ready(function() {
             audio.play();
         }
 	});
-
+}catch(err) {
+    console.log(err)
+}
     
 })
