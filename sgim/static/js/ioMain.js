@@ -23,14 +23,15 @@ $(document).ready(function() {
 
     io = io.connect('https://104.236.23.248:7076');
     //io = io.connect('http://104.236.23.248:8500');
-    io.on('connect', function(){
-                    console.log('Connected to server');
-                });
     var notifications = parseInt($('.gestion_menu').html())
 	var noti_boot = 0
 	//var noti_interface = 0
 	var noti_general = 0
 try{
+    io.on('connect', function(){
+                    console.log('Connected to server');
+                });
+
     io.on('boot_event', function(data){
 		if(data.tipo==="nsNotifyShutdown"){
         	$.snackbar({content: "<i class='ion-power red icon'></i> "+data.direccion+" se ha apagado",timeout: 10000});
