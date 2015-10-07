@@ -1,3 +1,5 @@
+import datetime
+
 __author__ = 'edx'
 from snmp_requests import get_request, get_bulk_request
 from helpers import get_num_entries, get_matrix_data, get_data_reordered
@@ -82,7 +84,7 @@ class System:
 
     def get_memory(self, session):
         result = get_bulk_request(max_result=4, address=self.address, start_oid="1.3.6.1.4.1.2021.4.3")
-        mems = {'total_swap':int(result[0]) /1024 , 'free_swap':int(result[1]) /1024}
+        mems = {'total_swap': int(result[0]) / 1024, 'free_swap': int(result[1]) / 1024}
         tr = int(result[2]) / 1024
         fr = int(result[3]) / 1024
         mems['total_ram'] = tr
@@ -91,6 +93,7 @@ class System:
         percent_free = (fr * 100) / tr
         if percent_free < 10:
             mems['mem_alarm'] = True
+            print(self.address + " RAM Alarm " + datetime.datetime.now().strftime("%d-%b-%y %H:%M"))
         else:
             mems['mem_alarm'] = False
         session.http_post("/gestion/memory/", mems)

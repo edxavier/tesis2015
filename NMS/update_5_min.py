@@ -28,10 +28,21 @@ if res:
                 h['position'] = get_pos(h['direccion'])
                 cli.http_post("/gestion/hosts/listar/", h)
             #print(h['direccion'])
-            sys.get_memory(cli)
-            sys.get_load(cli)
 
         except Exception, e:
             print(h['direccion'])
-            print("Exception: > "+str(e.message))
+            print("sysdata Exception: > "+str(e.message))
+
+        try:
+            sys.get_memory(cli)
+        except Exception, e:
+            print(h['direccion'])
+            print("memory update Exception: > "+str(e.message))
+
+
+        try:
+            sys.get_load(cli)
+        except Exception, e:
+            print(h['direccion'])
+            print("memory update Exception: > "+str(e.message))
 
