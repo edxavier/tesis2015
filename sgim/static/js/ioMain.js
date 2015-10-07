@@ -20,15 +20,15 @@ $.ajax
 
 $(document).ready(function() {
 
-
+//=========================================
+try{
     io = io.connect('https://104.236.23.248:7076');
     //io = io.connect('http://104.236.23.248:8500');
     var notifications = parseInt($('.gestion_menu').html())
 	var noti_boot = 0
 	//var noti_interface = 0
 	var noti_general = 0
-//=========================================
-try{
+
     io.on('connect', function(){
                     console.log('Connected to server');
                 });
