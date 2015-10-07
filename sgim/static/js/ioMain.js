@@ -27,6 +27,7 @@ $(document).ready(function() {
 	var noti_boot = 0
 	//var noti_interface = 0
 	var noti_general = 0
+//=========================================
 try{
     io.on('connect', function(){
                     console.log('Connected to server');
