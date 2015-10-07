@@ -48,9 +48,7 @@ try{
         $('.gestion_menu').html(notifications)
         $('.gestion_boot').html(noti_boot)
 	});
-    
-    
-    
+
     io.on('interface_event', function(data){
 		//notifications += 1
         //noti_interface += 1
