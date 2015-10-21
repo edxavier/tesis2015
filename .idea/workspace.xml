@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99403a9c-6127-4614-ae33-971f75d650a9" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/templates/cuentas/login2.html" afterPath="$PROJECT_DIR$/sgim/templates/cuentas/login2.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="tesis2015.iws" />
@@ -40,20 +41,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="login2.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="login2.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sgim/templates/cuentas/login2.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="34.592594" vertical-offset="934" max-vertical-offset="1764">
-              <caret line="0" column="21" selection-start-line="0" selection-start-column="21" selection-end-line="0" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1764">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base2.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="base2.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sgim/templates/base2.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.61071426" vertical-offset="54" max-vertical-offset="1080">
+            <state vertical-scroll-proportion="-14.666667" vertical-offset="0" max-vertical-offset="1080">
               <caret line="22" column="68" selection-start-line="22" selection-start-column="68" selection-end-line="22" selection-end-column="68" />
               <folding />
             </state>
@@ -136,8 +137,8 @@
         <option value="$PROJECT_DIR$/sgim/templates/gestion/host_details.html" />
         <option value="$PROJECT_DIR$/sgim/templates/gestion/hosts.html" />
         <option value="$PROJECT_DIR$/NMS/update_5_min.py" />
-        <option value="$PROJECT_DIR$/sgim/templates/cuentas/login2.html" />
         <option value="$PROJECT_DIR$/sgim/templates/base2.html" />
+        <option value="$PROJECT_DIR$/sgim/templates/cuentas/login2.html" />
       </list>
     </option>
   </component>
@@ -749,12 +750,6 @@
       <option name="number" value="Default" />
       <updated>1427508856499</updated>
     </task>
-    <task id="LOCAL-00040" summary="Socket IO">
-      <created>1432924495627</created>
-      <option name="number" value="00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1432924495627</updated>
-    </task>
     <task id="LOCAL-00041" summary="Socket IO">
       <created>1432924530827</created>
       <option name="number" value="00041" />
@@ -1043,7 +1038,13 @@
       <option name="project" value="LOCAL" />
       <updated>1445459336834</updated>
     </task>
-    <option name="localTasksCounter" value="89" />
+    <task id="LOCAL-00089" summary="Reparando error js en login">
+      <created>1445459358994</created>
+      <option name="number" value="00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1445459358994</updated>
+    </task>
+    <option name="localTasksCounter" value="90" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1495,14 +1496,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sgim/templates/cuentas/login2.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="34.592594" vertical-offset="934" max-vertical-offset="1764">
-          <caret line="0" column="21" selection-start-line="0" selection-start-column="21" selection-end-line="0" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sgim/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-16.0" vertical-offset="0" max-vertical-offset="1530">
@@ -1515,8 +1508,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sgim/templates/base2.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.61071426" vertical-offset="54" max-vertical-offset="1080">
+        <state vertical-scroll-proportion="-14.666667" vertical-offset="0" max-vertical-offset="1080">
           <caret line="22" column="68" selection-start-line="22" selection-start-column="68" selection-end-line="22" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sgim/templates/cuentas/login2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1764">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
