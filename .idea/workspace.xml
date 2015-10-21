@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99403a9c-6127-4614-ae33-971f75d650a9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sgim/templates/base2.html" afterPath="$PROJECT_DIR$/sgim/templates/base2.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="tesis2015.iws" />
@@ -54,8 +53,8 @@
       <file leaf-file-name="base2.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sgim/templates/base2.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.64285713" vertical-offset="0" max-vertical-offset="1080">
-              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.61071426" vertical-offset="54" max-vertical-offset="1080">
+              <caret line="22" column="68" selection-start-line="22" selection-start-column="68" selection-end-line="22" selection-end-column="68" />
               <folding />
             </state>
           </provider>
@@ -750,12 +749,6 @@
       <option name="number" value="Default" />
       <updated>1427508856499</updated>
     </task>
-    <task id="LOCAL-00039" summary="Socket IO">
-      <created>1432440235833</created>
-      <option name="number" value="00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1432440235833</updated>
-    </task>
     <task id="LOCAL-00040" summary="Socket IO">
       <created>1432924495627</created>
       <option name="number" value="00040" />
@@ -1044,7 +1037,13 @@
       <option name="project" value="LOCAL" />
       <updated>1445459272786</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <task id="LOCAL-00088" summary="Reparando error js en login">
+      <created>1445459336833</created>
+      <option name="number" value="00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1445459336834</updated>
+    </task>
+    <option name="localTasksCounter" value="89" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1516,8 +1515,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sgim/templates/base2.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.64285713" vertical-offset="0" max-vertical-offset="1080">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.61071426" vertical-offset="54" max-vertical-offset="1080">
+          <caret line="22" column="68" selection-start-line="22" selection-start-column="68" selection-end-line="22" selection-end-column="68" />
           <folding />
         </state>
       </provider>
