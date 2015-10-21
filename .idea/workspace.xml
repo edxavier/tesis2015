@@ -45,7 +45,7 @@
         <entry file="file://$PROJECT_DIR$/sgim/templates/cuentas/login2.html">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1764">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="0" column="16" selection-start-line="0" selection-start-column="16" selection-end-line="0" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -750,12 +750,6 @@
       <option name="number" value="Default" />
       <updated>1427508856499</updated>
     </task>
-    <task id="LOCAL-00041" summary="Socket IO">
-      <created>1432924530827</created>
-      <option name="number" value="00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1432924530827</updated>
-    </task>
     <task id="LOCAL-00042" summary="Socket IO">
       <created>1432924555972</created>
       <option name="number" value="00042" />
@@ -1044,7 +1038,13 @@
       <option name="project" value="LOCAL" />
       <updated>1445459358994</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="Reparando error js en login">
+      <created>1445459498336</created>
+      <option name="number" value="00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1445459498336</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1517,7 +1517,7 @@
     <entry file="file://$PROJECT_DIR$/sgim/templates/cuentas/login2.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1764">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="16" selection-start-line="0" selection-start-column="16" selection-end-line="0" selection-end-column="16" />
           <folding />
         </state>
       </provider>
